@@ -1,0 +1,16 @@
+@charset "utf-8";
+*{
+	background-color: whitesmoke;
+}
+html{
+	width:90%;
+}
+body{
+	width: 100%;
+	float: left;
+  background-color: whitesmoke;
+}
+
+#listItems{
+	margin: 0;
+}

@@ -1,0 +1,20 @@
+@charset "utf-8";
+*{
+  box-sizing: border-box;
+}
+.buttons{
+	align-items: center;
+}
+.Button{
+    float: left;
+	width: 100%;
+	background-color: #b7caca;
+	color: black;
+	margin-bottom: 5%;
+}
+.dropDownBar{
+	width: 100%;
+	margin-bottom: 5%;
+	text-align: center;
+	
+}

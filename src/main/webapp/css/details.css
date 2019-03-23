@@ -1,0 +1,27 @@
+@charset "utf-8";
+*{
+	background-color: whitesmoke;
+}
+html, body{
+	height: 100%;
+}
+body{
+	margin-right: 5%;
+	margin-left: 5%;
+	margin-top: 5%;
+	
+  display: inline-block;
+}
+#main{
+	float: left;
+	height: 100%;
+	width: 75%;
+}
+a:link{
+	text-decoration: inherit;
+	color: inherit;
+}
+a:visited{
+  text-decoration: inherit;
+  color: inherit;
+}
