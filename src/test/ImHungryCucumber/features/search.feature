@@ -45,5 +45,9 @@ Scenario: Check the background color
 Scenario: Check the title of search page
 	Then the title of search page is I'm Hungry
 
-Scenario: Requirements for quick Access dropdown and button
+Scenario: Requirements for quick Access dropdown
 	Then there is a quick access dropdown that is empty
+
+Scenario: Requirements for Logout Button 
+	Then there is a logout button
+	
