@@ -6,11 +6,11 @@ Background:
 
 Scenario: Requirements for search Term field
 
-	Then there is a searchTerm input field
+	Then there is a query input field
 
 Scenario: Requirements for search Number field
 
-	Then there is a searchNumber input field
+	Then there is a numResults input field
 	And there is a default value 5 
 
 Scenario: Requirements for Feed Me button
@@ -45,4 +45,5 @@ Scenario: Check the background color
 Scenario: Check the title of search page
 	Then the title of search page is I'm Hungry
 
-
+Scenario: Requirements for quick Access dropdown and button
+	Then there is a quick access dropdown that is empty

@@ -2,17 +2,17 @@ Given(/^I am on the ImHungry Search Page$/) do
   visit "http://localhost:8080/FeedMe/jsp/search.jsp"
 end
 
-Then(/^there is a searchTerm input field$/) do
-  page.should have_selector("input[type=text][id=userInput][placeholder='Enter Food']")
+Then(/^there is a query input field$/) do
+  page.should have_selector("input[type=text][id=queryInput][placeholder='Enter Food']")
 end
 
 
-Then(/^there is a searchNumber input field$/) do
-  page.should have_selector("input[type=text][id=searchTermTest]")
+Then(/^there is a numResults input field$/) do
+  page.should have_selector("input[type=text][id=numResultsInput]")
 end
 
 Then(/^there is a default value 5$/) do
-  expect(page.find_by_id("searchTermTest").value).to eq "5"
+  expect(page.find_by_id("numResultsInput").value).to eq "5"
 end
 
 Then(/^there is a Feed Me button$/) do
@@ -59,6 +59,10 @@ end
 
 Then(/^the title of search page is I'm Hungry$/) do
   page.should have_content("I'm Hungry")
+end
+
+Then(/^there is a quick access dropdown that is empty$/) do
+  expect(page.find_by_id("quickAccessDropdown").id).to eq "quickAccessDropdown"
 end
 
 

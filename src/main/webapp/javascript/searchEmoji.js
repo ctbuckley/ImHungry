@@ -6,8 +6,8 @@
 
 function changeEmoji(form){
 		var image = document.getElementById('emoji');
-		var userInput = document.getElementById('userInput').value;
-		var searchCount = document.getElementById('searchTermTest').value;
+		var userInput = document.getElementById('queryInput').value;
+		var searchCount = document.getElementById('numResultsInput').value;
 		console.log(userInput);
 		if (userInput == null || userInput.length == 0 || searchCount != parseInt(searchCount) || searchCount < 1){
 			return false;
