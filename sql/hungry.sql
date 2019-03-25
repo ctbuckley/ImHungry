@@ -42,7 +42,7 @@ CREATE TABLE Instructions(
     itemID INT(11) NOT NULL,
     insIndex INT(11) NOT NULL,
     instruc VARCHAR(500) NOT NULL,
-    FOREIGN KEY fk1(itemID) REFERENCES Item(itemID)
+    FOREIGN KEY fk2(itemID) REFERENCES Item(itemID)
 );
 
 CREATE TABLE Ingredients(
@@ -50,7 +50,7 @@ CREATE TABLE Ingredients(
     itemID INT(11) NOT NULL,
     ingIndex INT(11) NOT NULL,
     ingred VARCHAR(500) NOT NULL,
-    FOREIGN KEY fk1(itemID) REFERENCES Item(itemID)
+    FOREIGN KEY fk3(itemID) REFERENCES Item(itemID)
 );
 
 CREATE TABLE Lists(
@@ -59,7 +59,7 @@ CREATE TABLE Lists(
     itemID INT(11) NOT NULL, /* which item are you talking about? */
     listID INT(11) NOT NULL, /* 1=fav, 2=explore, 3=do not show */
     itemIndex INT(11) NOT NULL, /* where is this item located in the list? */
-	FOREIGN KEY fk1(userID) REFERENCES Users(userID),
-    FOREIGN KEY fk2(itemID) REFERENCES Item(itemID)
+	FOREIGN KEY fk4(userID) REFERENCES Users(userID),
+    FOREIGN KEY fk5(itemID) REFERENCES Item(itemID)
     
 );
