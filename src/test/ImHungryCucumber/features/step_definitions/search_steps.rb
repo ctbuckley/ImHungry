@@ -62,11 +62,11 @@ Then(/^the title of search page is I'm Hungry$/) do
 end
 
 Then(/^there is a quick access dropdown that is empty$/) do
-  expect(page.find_by_id("quickAccessDropdown").id).to eq "quickAccessDropdown"
-  expect(page.find_by_id("quickAccessResult1").id).not_to eq "quickAccessResult1"
+  expect(page.find_by_id("quickAccessDropdown"))
+  expect(!page.find_by_id("quickAccessResult1"))
 end
 
 Then(/^there is a logout button$/) do
-  expect(page.find_by_id("logoutButton").id).to eq "logoutButton"
+  expect(page.find_by_id("logoutButton"))
 end
 
