@@ -22,3 +22,30 @@ end
 Then(/^there should be an invisible error field$/) do
   expect(page.find("#errorField", visible: false).native.css_value('visibility')).to eq('hidden')
 end
+
+When(/^I enter in "halfond" in the username field$/) do
+	fill_in('usernameInput', with: "halfond")	
+end
+
+When(/^I enter in "documentation" in the password field$/) do
+	fill_in('passwordInput', with: "documentation")	
+end
+
+When(/^I click on the sign up button$/) do
+	find('#signUpButton').click
+end
+
+When(/^I return to the Log In Page$/) do
+	visit 'http://localhost:8080/FeedMe/jsp/login.jsp'
+end
+
+When(/^I click on the log in button$/) do
+	find('#userLogInButton').click
+end
+
+Then(/^I should be on the Search Page$/) do
+	expect(page).to have_current_path('http://localhost:8080/FeedMe/jsp/search.jsp')
+end
+
+
+	

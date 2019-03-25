@@ -19,3 +19,13 @@ Scenario: Check that the page has username and password fields as well as a logi
 Scenario: Check that the page has an invisible error field
 
 	Then there should be an invisible error field
+	
+Scenario: Check that a registered user can log in
+	When I enter in "halfond" in the username field
+	And I enter in "documentation" in the password field
+	And I click on the sign up button
+	And I return to the Log In Page
+	And I enter in "halfond" in the username field 
+	And I enter in "documentation" in the password field
+	And I click on the log in button
+	Then I should be on the Search Page
