@@ -36,7 +36,6 @@ Then(/^there is a happy Emoji Image$/) do
 
 end
 
-
 When(/^I enter "([^"]*)" in the search box$/) do |searchArg|
   fill_in('q', :with => searchArg)
 end

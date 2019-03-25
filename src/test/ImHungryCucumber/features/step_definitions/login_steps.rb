@@ -23,12 +23,12 @@ Then(/^there should be an invisible error field$/) do
   expect(page.find("#errorField", visible: false).native.css_value('visibility')).to eq('hidden')
 end
 
-When(/^I enter in "halfond" in the username field$/) do
-	fill_in('usernameInput', with: "halfond")	
+When(/^I enter in "([^"]*)" in the username field$/) do |username|
+	fill_in('usernameInput', with: username)	
 end
 
-When(/^I enter in "documentation" in the password field$/) do
-	fill_in('passwordInput', with: "documentation")	
+When(/^I enter in "([^"]*)" in the password field$/) do |password|
+	fill_in('passwordInput', with: password)	
 end
 
 When(/^I click on the sign up button$/) do
@@ -44,8 +44,19 @@ When(/^I click on the log in button$/) do
 end
 
 Then(/^I should be on the Search Page$/) do
-	expect(page).to have_current_path('http://localhost:8080/FeedMe/jsp/search.jsp')
+	expect(page.current_url).to include('http://localhost:8080/FeedMe/jsp/search.jsp')
+end
+
+Then(/^I should be on the Login Page and I should see an error message$/) do
+	expect(page.find("#errorField").native.css_value('visibility')).to eq('visible')
+	expect(page.current_url).to include('http://localhost:8080/FeedMe/jsp/login.jsp')
+end
+
+When(/^I click on the guest log in button$/) do
+  find('#guestLogInButton').click
 end
 
 
-	
+
+
+
