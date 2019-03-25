@@ -25,20 +25,23 @@ public class AccessYelpAPI {
 	static double ttLat = 34.020807;	//Latitude & Longitude of tommy trojan
 	static double ttLong = -118.284668;
 
+	public static Vector<Restaurant> YelpRestaurantSearch(String searchTerm, int resultCount) throws UnsupportedEncodingException, IOException {
+		return YelpRestaurantSearch(searchTerm, resultCount, 40000);
+	}
 	/*
 	 * Queries Yelp API using user-provided search term and number of results.
 	 * Returns a vector of Restaurant objects, each of which contains all the information needed to display in subsequent pages
 	 */
-	public static Vector<Restaurant> YelpRestaurantSearch(String searchTerm, int resultCount) throws UnsupportedEncodingException, IOException {
+	public static Vector<Restaurant> YelpRestaurantSearch(String searchTerm, int resultCount, int radius) throws UnsupportedEncodingException, IOException {
 		
 		searchTerm = URLEncoder.encode(searchTerm, "UTF-8");
 	
 		String GET_URL = "https://api.yelp.com/v3/businesses/search?"
-				+ "term=_____" // Search Term
+				+ "term=" + searchTerm // Search Term
 				+ "&latitude=34.020807&longitude=-118.284668" // Coordinates of Tommy Trojan
 				+ "&sort_by=distance" // Sort by distance
-				+ "&categories=restaurants";
-		GET_URL = GET_URL.replace("_____", searchTerm);
+				+ "&categories=restaurants"
+				+ "&radius=" + radius;
 		
 									
 		Vector<Restaurant> resultsVec = new Vector<Restaurant>();
@@ -53,6 +56,7 @@ public class AccessYelpAPI {
 		String phoneNumber = "NULL";
 		double rating = -1;
 		int drivingTime = -1;
+		double distance = 0.0;
 		
 		String address1 = "NULL";
 		String address2 = "NULL";
@@ -84,8 +88,13 @@ public class AccessYelpAPI {
 			httpCon.setRequestProperty("Content-Type", "application/json");
 			httpCon.setRequestProperty("Authorization", "Bearer" + " " +  API_KEY);	//request object, set authorization key to access yelp API
 			httpCon.connect();
-			
-		    BufferedReader br  = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
+			BufferedReader br = null;
+			try {
+				br  = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
+			} catch(IOException ioe) {
+				System.out.println("IOException in Yelp Restaurant Search: " + ioe.getMessage());
+				return resultsVec;
+			}
 		    
 		    // Parse JSON string
 		    JsonParser parser = new JsonParser(); 
@@ -147,6 +156,10 @@ public class AccessYelpAPI {
 		    			address4 = jsonobj_2.get("zip_code").toString();
 		    		}	
 		    	}
+		    	
+		    	if(jsonobj_1.get("distance") != null) {
+		    		distance = jsonobj_1.get("distance").getAsDouble();
+		    	}
 		    	// Construct full address string
 		    	String fullAddress = address1 + ", " + address2 + ", " + address3 + ", " + address4;
 		    	fullAddress = fullAddress.replace("\"", "");
@@ -165,7 +178,9 @@ public class AccessYelpAPI {
 		    	}
 		    	// Create new Restaurant object based on parsed information and add it to the results vector
 		    	Restaurant restaurantObj = new Restaurant(name, websiteUrl, price, fullAddress, phoneNumber, rating, drivingTime);
-		    	resultsVec.add(restaurantObj);
+		    	if(distance <= radius) {
+		    		resultsVec.add(restaurantObj);
+		    	}
 		    }
 		}
 		return resultsVec;		//returns Vector of restaurant objects
