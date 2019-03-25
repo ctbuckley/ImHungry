@@ -66,5 +66,14 @@ public class YelpTest {
 		Vector<Restaurant> arr = AccessYelpAPI.YelpRestaurantSearch("pizza", 5, 0);
 		assertEquals(0, arr.size());
 	}
+	
+	/*
+	 * Test to make sure that a large radius will correctly truncate the results of the search.
+	 */
+	@Test
+	public void testLargeRadius() throws IOException{
+		Vector<Restaurant> arr = AccessYelpAPI.YelpRestaurantSearch("pizza", 5, 50000);
+		assertEquals(0, arr.size());
+	}
 
 }
