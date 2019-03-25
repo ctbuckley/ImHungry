@@ -2,9 +2,9 @@ INSERT INTO HungryDatabase.Users (username, pass)
 	VALUES ('master', 'root'),
 		   ('temp', 'temp');
 
-INSERT INTO HungryDatabase.SearchHistory (userID, searchQuery) 
-	VALUES (1, 'sampleQuery'),
-		   (2, 'sampleQuery');
+INSERT INTO HungryDatabase.SearchHistory (userID, searchQuery, numResults) 
+	VALUES (1, 'sampleQuery', 5),
+		   (2, 'sampleQuery', 12);
 
 INSERT INTO HungryDatabase.Item 
 (itemType, itemName, rating, picURL, prepTime, cookTime, websiteURL, price, address, phone, driveTime) 
