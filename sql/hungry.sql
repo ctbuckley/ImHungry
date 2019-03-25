@@ -6,7 +6,7 @@ USE HungryDatabase;
 CREATE TABLE Users(
 	userID INT(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	username VARCHAR(50) NOT NULL,
-    pass VARCHAR(50) NOT NULL
+    pass VARCHAR(500) NOT NULL
 );
 
 CREATE TABLE SearchHistory(
