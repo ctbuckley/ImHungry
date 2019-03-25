@@ -2,8 +2,10 @@ package servlettests;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +17,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -59,16 +60,16 @@ public class ValidateLoginServletTest {
 
 		when(request.getParameter("username")).thenReturn("master");
 		when(request.getParameter("pass")).thenReturn("root");
+		StringWriter out = new StringWriter();
+		when(response.getWriter()).thenReturn(new PrintWriter(out));
 		
 		new ValidateLoginServlet().service(request, response);
 		
-		verify(rd).forward(request, response);
+		String r = out.toString();
 		
-		String r = response.toString();
 		JsonElement je = new JsonParser().parse(r);
 	    JsonObject  jo = je.getAsJsonObject();
-	    jo = jo.getAsJsonObject("success");
-	    String result = jo.getAsString();
+	    String result = jo.get("success").getAsString();
 	    
 	    assertEquals("true", result);
 	}
@@ -82,23 +83,21 @@ public class ValidateLoginServletTest {
 
 		when(request.getParameter("username")).thenReturn("master");
 		when(request.getParameter("pass")).thenReturn("incorrectpass");
+		StringWriter out = new StringWriter();
+		when(response.getWriter()).thenReturn(new PrintWriter(out));
 		
 		new ValidateLoginServlet().service(request, response);
 		
-		verify(rd).forward(request, response);
+		String r = out.toString();
 		
-		String r = response.toString();
 		JsonElement je = new JsonParser().parse(r);
 	    JsonObject  jo = je.getAsJsonObject();
-	    jo = jo.getAsJsonObject("success");
-	    String result = jo.getAsString();
+	    String result = jo.get("success").getAsString();
 	    
 	    assertEquals("false", result);
-	    
-	    JsonObject jo2 = je.getAsJsonObject();
-	    jo2 = jo2.getAsJsonObject("data");
-	    jo2 = jo2.getAsJsonObject("errorMsg");
-	    result = jo2.getAsString();
+	
+	    jo = jo.getAsJsonObject("data");
+	    result = jo.get("errorMsg").getAsString();
 	    
 	    assertEquals("The password is incorrect!", result);
 		
@@ -114,23 +113,21 @@ public class ValidateLoginServletTest {
 
 		when(request.getParameter("username")).thenReturn("");
 		when(request.getParameter("pass")).thenReturn("pass");
+		StringWriter out = new StringWriter();
+		when(response.getWriter()).thenReturn(new PrintWriter(out));
 		
 		new ValidateLoginServlet().service(request, response);
 		
-		verify(rd).forward(request, response);
+		String r = out.toString();
 		
-		String r = response.toString();
 		JsonElement je = new JsonParser().parse(r);
 	    JsonObject  jo = je.getAsJsonObject();
-	    jo = jo.getAsJsonObject("success");
-	    String result = jo.getAsString();
+	    String result = jo.get("success").getAsString();
 	    
 	    assertEquals("false", result);
 	    
-	    JsonObject jo2 = je.getAsJsonObject();
-	    jo2 = jo2.getAsJsonObject("data");
-	    jo2 = jo2.getAsJsonObject("errorMsg");
-	    result = jo2.getAsString();
+	    jo = jo.getAsJsonObject("data");
+	    result = jo.get("errorMsg").getAsString();
 	    
 	    assertEquals("The username is empty! ", result);
 	}
@@ -144,23 +141,21 @@ public class ValidateLoginServletTest {
 
 		when(request.getParameter("username")).thenReturn("master");
 		when(request.getParameter("pass")).thenReturn("");
+		StringWriter out = new StringWriter();
+		when(response.getWriter()).thenReturn(new PrintWriter(out));
 		
 		new ValidateLoginServlet().service(request, response);
 		
-		verify(rd).forward(request, response);
+		String r = out.toString();
 		
-		String r = response.toString();
 		JsonElement je = new JsonParser().parse(r);
 	    JsonObject  jo = je.getAsJsonObject();
-	    jo = jo.getAsJsonObject("success");
-	    String result = jo.getAsString();
+	    String result = jo.get("success").getAsString();
 	    
 	    assertEquals("false", result);
 	    
-	    JsonObject jo2 = je.getAsJsonObject();
-	    jo2 = jo2.getAsJsonObject("data");
-	    jo2 = jo2.getAsJsonObject("errorMsg");
-	    result = jo2.getAsString();
+	    jo = jo.getAsJsonObject("data");
+	    result = jo.get("errorMsg").getAsString();
 	    
 	    assertEquals("The password is empty! ", result);
 		
@@ -175,23 +170,21 @@ public class ValidateLoginServletTest {
 
 		when(request.getParameter("username")).thenReturn("usernamethatdoesntexist");
 		when(request.getParameter("pass")).thenReturn("pass");
+		StringWriter out = new StringWriter();
+		when(response.getWriter()).thenReturn(new PrintWriter(out));
 		
 		new ValidateLoginServlet().service(request, response);
 		
-		verify(rd).forward(request, response);
+		String r = out.toString();
 		
-		String r = response.toString();
 		JsonElement je = new JsonParser().parse(r);
 	    JsonObject  jo = je.getAsJsonObject();
-	    jo = jo.getAsJsonObject("success");
-	    String result = jo.getAsString();
+	    String result = jo.get("success").getAsString();
 	    
 	    assertEquals("false", result);
 	    
-	    JsonObject jo2 = je.getAsJsonObject();
-	    jo2 = jo2.getAsJsonObject("data");
-	    jo2 = jo2.getAsJsonObject("errorMsg");
-	    result = jo2.getAsString();
+	    jo = jo.getAsJsonObject("data");
+	    result = jo.get("errorMsg").getAsString();
 	    
 	    assertEquals("A user with that username does not exist!", result);
 		
