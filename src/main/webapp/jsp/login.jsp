@@ -8,15 +8,43 @@
 	<!-- Javascript -->
 	<script type="text/javascript" src="../javascript/searchEmoji.js"></script>
 	<!-- Title -->
-	<title id="searchTitle">Search Page</title>
+	<title>Log In</title>
 </head>
 
 <!-- Html body -->
 <body style="background-color:#ffffff;">
 	<div class="container">
-  		<div class="text-center hungry_cont">
-  			<h1>I'm Hungry</h1>
+  		<div class="text-center align-middle hungry_cont">
+  			<h1 id="hungryText">I'm Hungry</h1>
   		</div>
+	</div>
+	<div class="log_in_cont">
+		<div class="log_in_col_left">
+			<div class="no_sign_in_cont">
+				<button id="guestLogInButton">Continue without signing in</button>
+			</div>
+		</div>
+		<div class="log_in_col_right">
+			<div class="log_in_input_cont">
+				<div class="username_input_cont">
+					<input type="text" class="log_in_input" id="usernameInput" placeholder="Username">
+				</div>
+				<div class="password_input_cont">
+					<input type="text" class="log_in_input" id="passwordInput" placeholder="Password">
+				</div>
+			</div>
+			<div class="log_in_error_cont">
+				a;ofijrapaoijgm;rgijagj
+			</div>
+			<div class="right_btns_cont">
+				<div class="log_in_btn_cont">
+					<button id="userLogInButton">Log In</button>
+				</div>
+				<div class="sign_up_btn_cont">
+					<button id="signUpButton">Sign Up</button>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
