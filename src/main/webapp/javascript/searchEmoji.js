@@ -8,8 +8,10 @@ function changeEmoji(form){
 		var image = document.getElementById('emoji');
 		var userInput = document.getElementById('queryInput').value;
 		var searchCount = document.getElementById('numResultsInput').value;
+		var radius = document.getElementById('radiusInput').value;
 		console.log(userInput);
-		if (userInput == null || userInput.length == 0 || searchCount != parseInt(searchCount) || searchCount < 1){
+		console.log(radius);
+		if (userInput == null || userInput.length == 0 || searchCount != parseInt(searchCount) || searchCount < 1 || isNaN(radius) || radius == "" || parseInt(radius) <= 0){
 			return false;
 		}
 		else {

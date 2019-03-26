@@ -30,7 +30,7 @@
 					<input type="text" class="log_in_input" id="usernameInput" placeholder="Username">
 				</div>
 				<div class="password_input_cont">
-					<input type="text" class="log_in_input" id="passwordInput" placeholder="Password">
+					<input type="password" class="log_in_input" id="passwordInput" placeholder="Password">
 				</div>
 			</div>
 			<div class="log_in_error_cont" id="errorField">
