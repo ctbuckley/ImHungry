@@ -69,6 +69,17 @@ Scenario: Check that both the username and the password field need to be populat
 	When I click on the log in button
 	Then I should be on the Login Page and I should see an error message
 
+Scenario: Check that the username field needs to be populated for a user to login
+	
+	When I enter in "testPassword5" in the password field
+	And I click on the log in button
+	Then I should be on the Login Page and I should see an error message
+
+Scenario: Check that the password field needs to be populated for a user to login
+
+	When I enter in "testUsername5" in the username field
+	And I click on the log in button
+	Then I should be on the Login Page and I should see an error message
 
 
 

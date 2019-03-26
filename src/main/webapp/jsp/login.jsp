@@ -33,7 +33,7 @@
 					<input type="text" class="log_in_input" id="passwordInput" placeholder="Password">
 				</div>
 			</div>
-			<div class="log_in_error_cont" id="errorMessage">
+			<div class="log_in_error_cont" id="errorField">
 				a;ofijrapaoijgm;rgijagj
 			</div>
 			<div class="right_btns_cont">

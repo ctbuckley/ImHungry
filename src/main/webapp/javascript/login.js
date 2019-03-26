@@ -8,11 +8,13 @@ function noSignIn() {
 
 function validate() {
 	var username = document.getElementById("usernameInput").value;
+	console.log(username);
 	var password = document.getElementById("passwordInput").value;
-	if(username != "" || password !="") {
+	console.log(password);
+	if(username != "" && password != "") {
 		//servlet stuff
 	} else {
-		document.getElementById("errorMessage").innerHTML = "Username and Password Fields Cannot Be Empty";
-		document.getElementById("errorMessage").style.visibility = "visible";
+		document.getElementById("errorField").innerHTML = "Username and Password Fields Cannot Be Empty";
+		document.getElementById("errorField").style.visibility = "visible";
 	}
 }

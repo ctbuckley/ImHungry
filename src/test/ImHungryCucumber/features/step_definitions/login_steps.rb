@@ -44,12 +44,12 @@ When(/^I click on the log in button$/) do
 end
 
 Then(/^I should be on the Search Page$/) do
-	expect(page.current_url).to include('http://localhost:8080/FeedMe/jsp/search.jsp')
+	expect(page.current_url).to include('http://localhost:8080/FeedMe/jsp/search')
 end
 
 Then(/^I should be on the Login Page and I should see an error message$/) do
 	expect(page.find("#errorField").native.css_value('visibility')).to eq('visible')
-	expect(page.current_url).to include('http://localhost:8080/FeedMe/jsp/login.jsp')
+	expect(page.current_url).to include('http://localhost:8080/FeedMe/jsp/login')
 end
 
 When(/^I click on the guest log in button$/) do

@@ -37,11 +37,11 @@ Then(/^there is a happy Emoji Image$/) do
 end
 
 When(/^I enter "([^"]*)" in the search box$/) do |searchArg|
-  fill_in('q', :with => searchArg)
+  fill_in('queryInput', :with => searchArg)
 end
 
 When(/^I enter "([^"]*)" in the search number box$/) do |searchNumArg|
-  fill_in('n', :with => searchNumArg)
+  fill_in('numResultsInput', :with => searchNumArg)
 end
 
 When(/^press search$/) do
@@ -66,6 +66,17 @@ Then(/^there is a quick access dropdown that is empty$/) do
 end
 
 Then(/^there is a logout button$/) do
-  expect(page.find_by_id("logoutButton"))
+  expect(page.find_by_id("userButton"))
 end
 
+Then(/^there is a radius input field$/) do
+  expect(page.find_by_id("radiusInput"))
+end
+
+Then(/^I enter "([^"]*)" in the search box$/) do |radius|
+  fill_in('radiusInput', :with => radius)
+end
+
+Then(/^I should be on the Search Page$/) do
+	expect(page.current_url).to include('http://localhost:8080/FeedMe/jsp/search')
+end

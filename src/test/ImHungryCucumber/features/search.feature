@@ -36,7 +36,7 @@ Scenario: Check the Transition while input wrong search number
 	When I enter "burger" in the search box
 	And I enter "-1" in the search number box
 	And press search
-	Then I should see search page title
+	Then I should be on the Search Page
 
 Scenario: Check the background color
 	
@@ -50,4 +50,18 @@ Scenario: Check that a quick access dropdown exists and is empty by default
 
 Scenario: Requirements for Logout Button 
 	Then there is a logout button
-	
+
+Scenario: Requirements for radius input field
+	Then there is a radius input field
+
+Scenario: Check the transition with radius input 
+	When I enter "burger" in the search box
+	And I enter "10" in the search number box
+	And I enter "5000" in the radius input field
+	Then I should see results for "burger"
+
+Scenario: Check the transition with radius input 
+	When I enter "burger" in the search box
+	And I enter "10" in the search number box
+	And I enter "-1" in the radius input field
+	Then I should be on the Search Page
