@@ -21,7 +21,7 @@
 	<div class="log_in_cont">
 		<div class="log_in_col_left">
 			<div class="no_sign_in_cont">
-				<button id="guestLogInButton">Continue without signing in</button>
+				<button id="guestLogInButton" onclick="noSignIn()">Continue without signing in</button>
 			</div>
 		</div>
 		<div class="log_in_col_right">
@@ -33,18 +33,19 @@
 					<input type="text" class="log_in_input" id="passwordInput" placeholder="Password">
 				</div>
 			</div>
-			<div class="log_in_error_cont">
+			<div class="log_in_error_cont" id="errorMessage">
 				a;ofijrapaoijgm;rgijagj
 			</div>
 			<div class="right_btns_cont">
 				<div class="log_in_btn_cont">
-					<button id="userLogInButton">Log In</button>
+					<button id="userLogInButton" onclick="validate()">Log In</button>
 				</div>
 				<div class="sign_up_btn_cont">
-					<button id="signUpButton">Sign Up</button>
+					<button id="signUpButton" onclick="validate()">Sign Up</button>
 				</div>
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript" src="../javascript/login.js"></script>
 </body>
 </html>
