@@ -65,3 +65,22 @@ Scenario: Check the transition with radius input
 	And I enter "10" in the search number box
 	And I enter "-1" in the radius input field
 	Then I should be on the Search Page
+
+Scenario: Requirements for Quick Access List for Past Searches
+	Then there is a quick access list
+
+Scenario: Check that the past searches dropdown has one result
+	When I enter "burger" in the search box
+	And I enter "10" in the search number box
+	And I enter "5000" in the radius input field
+	Then I should see 1 history result
+
+Scenario: Check that the past searches dropdown has two result
+	When I enter "burger" in the search box
+	And I enter "10" in the search number box
+	And I enter "5000" in the radius input field
+	And I should visit the search page
+	And I enter "ramen" in the search box
+	And I enter "10" in the search number box
+	And I enter "5000" in the radius input field
+	Then I should see 2 history results

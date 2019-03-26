@@ -80,3 +80,20 @@ end
 Then(/^I should be on the Search Page$/) do
 	expect(page.current_url).to include('http://localhost:8080/FeedMe/jsp/search')
 end
+
+Then(/^there is a quick access list$/) do
+  expect(page.find_by_id("quickAccessDropdown"))
+end
+
+Then (/^I should visit the search page$/) do
+  visit "http://localhost:8080/FeedMe/jsp/search.jsp"
+end
+
+Then(/^I should see 1 history result$/) do
+  expect(page.find_by_id("quickAccessResult1"))
+end
+
+Then(/^I should see 2 history results$/) do
+  expect(page.find_by_id("quickAccessResult1"))
+  expect(page.find_by_id("quickAccessResult2"))
+end
