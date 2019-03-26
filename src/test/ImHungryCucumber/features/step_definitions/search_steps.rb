@@ -73,7 +73,7 @@ Then(/^there is a radius input field$/) do
   expect(page.find_by_id("radiusInput"))
 end
 
-Then(/^I enter "([^"]*)" in the search box$/) do |radius|
+Then(/^I enter "([^"]*)" in the radius input field$/) do |radius|
   fill_in('radiusInput', :with => radius)
 end
 
