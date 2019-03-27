@@ -1,5 +1,6 @@
 package apitests;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.io.IOException;
 import java.util.Vector;
@@ -73,7 +74,7 @@ public class YelpTest {
 	@Test
 	public void testLargeRadius() throws IOException{
 		Vector<Restaurant> arr = AccessYelpAPI.YelpRestaurantSearch("pizza", 5, 50000);
-		assertEquals(0, arr.size());
+		assertNotEquals(0, arr.size());
 	}
 
 }
