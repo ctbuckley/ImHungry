@@ -72,13 +72,6 @@
 		 	%>
 			<img style =" vertical-align: middle; transform: rotate(<%=angle%>deg);" src="<%=imageUrlVec[i] %>" height="100" width="100">
 		 	<% } %>
-		 	<%--
-
-					<% for (int i = 0; i < imageUrlVec.length; ++i) { %>
-					<img src="<%=imageUrlVec[i] %>" height="100" width="100">
-					<% } %>
-		 	--%>
-
 			</div>
 			<div class="col-sm-3 order-1"></div>
 		</div>
@@ -102,9 +95,9 @@
           			else{
           				colorStyle = "grey";
           			}
+       				if(restaurantArr[i] != null) { 
+       					System.out.println("Rest Arr: " + i + " " + (restaurantArr[i] == null));  
           		%>
-          			<% if(restaurantArr[i] != null){ %>
-          			<% System.out.println("Rest Arr: " + i + " " + (restaurantArr[i] == null));  %>
          			<!-- Restaurant item rendering -->
          			<div class="row no-gutters border rounded overflow-hidden flex-md-row md-4 shadow-md h-md-250 position-relative" id="Restaurant<%=i%>">
         			<div style="background-color:<%=colorStyle %>;"class="col p-4 d-flex flex-column position-static">
