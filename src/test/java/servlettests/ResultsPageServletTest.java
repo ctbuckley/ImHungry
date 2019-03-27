@@ -53,7 +53,7 @@ public class ResultsPageServletTest {
 		session = mock(HttpSession.class);
 		rd = mock(RequestDispatcher.class);
 		
-		
+		when(request.getParameter("radiusInput")).thenReturn("40000");
 		when(request.getSession()).thenReturn(session);
 		when(request.getRequestDispatcher("/jsp/results.jsp")).thenReturn(rd);
 		
@@ -78,6 +78,7 @@ public class ResultsPageServletTest {
 		for (int i = 0; i < 3; ++i) {
 			userLists[i] = new UserList();
 		}		
+		
 		
 	}
 
@@ -192,7 +193,10 @@ public class ResultsPageServletTest {
 	@Test
 	public void testSmallRadius() throws Exception {
 		
-		when(request.getParameter("radius")).thenReturn("0");
+		when(session.getAttribute("userLists")).thenReturn(userLists);
+		when(request.getParameter("q")).thenReturn("Chicken");
+		when(request.getParameter("n")).thenReturn("3");
+		when(request.getParameter("radiusInput")).thenReturn("0");
 		
 		new ResultsPageServlet().service(request, response);
 		
@@ -214,7 +218,10 @@ public class ResultsPageServletTest {
 	@Test
 	public void testBigRadius() throws Exception {
 		
-		when(request.getParameter("radius")).thenReturn("50000");
+		when(session.getAttribute("userLists")).thenReturn(userLists);
+		when(request.getParameter("q")).thenReturn("Chicken");
+		when(request.getParameter("n")).thenReturn("3");
+		when(request.getParameter("radiusInput")).thenReturn("50000");
 		
 		new ResultsPageServlet().service(request, response);
 		
@@ -229,5 +236,32 @@ public class ResultsPageServletTest {
 		verify(session).setAttribute(ArgumentMatchers.eq("restaurantResults"), ArgumentMatchers.any());
 		verify(session).setAttribute(ArgumentMatchers.eq("recipeResults"), ArgumentMatchers.any());		
 	}
+	
+	/*
+	 * Test that the radius changes the size of the output.
+	 */
+	@Test
+	public void testNoRadius() throws Exception {
+		
+		when(session.getAttribute("userLists")).thenReturn(userLists);
+		when(request.getParameter("q")).thenReturn("Chicken");
+		when(request.getParameter("n")).thenReturn("3");
+		when(request.getParameter("radiusInput")).thenReturn(null);
+		when(session.getAttribute("radiusInput")).thenReturn(40000);
+
+		new ResultsPageServlet().service(request, response);
+		
+		verify(rd).forward(request, response);
+		verify(session).setAttribute(ArgumentMatchers.eq("resultsOrList"), ArgumentMatchers.eq("results"));
+		verify(session).setAttribute(ArgumentMatchers.eq("resultsOrList"), ArgumentMatchers.eq("results"));
+		verify(request).setAttribute(ArgumentMatchers.eq("imageUrlVec"), ArgumentMatchers.any());
+		verify(request).setAttribute(ArgumentMatchers.eq("restaurantArr"), ArgumentMatchers.any());
+		verify(request).setAttribute(ArgumentMatchers.eq("recipeArr"), ArgumentMatchers.any());
+		verify(request).setAttribute(ArgumentMatchers.eq("searchTerm"), ArgumentMatchers.eq("Chicken"));
+		verify(request).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(3));
+		verify(session).setAttribute(ArgumentMatchers.eq("restaurantResults"), ArgumentMatchers.any());
+		verify(session).setAttribute(ArgumentMatchers.eq("recipeResults"), ArgumentMatchers.any());		
+	}
+	
 	
 }
