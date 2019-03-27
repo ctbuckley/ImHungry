@@ -18,11 +18,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import data.Database;
+
 @WebServlet("/ValidateLogin")
 public class ValidateLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//From previous page, extract parameters
+		
+		Database db; 
+		
 		String username = request.getParameter("username");
 		String pass = request.getParameter("pass");
 		String hashPass = "";
@@ -65,17 +70,11 @@ public class ValidateLoginServlet extends HttpServlet {
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
 		
-		
 		if (success) {
 			try {
 				success = false;
-				Class.forName("com.mysql.jdbc.Driver");
-				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hungrydatabase?user=root&password=password&useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=utf8");
-				
-				//Validate email and password with server
-				ps = conn.prepareStatement("SELECT * FROM Users WHERE username=?");
-				ps.setString(1, username);
-				rs = ps.executeQuery();
+				db = new Database();
+				rs = db.getUserfromUsers(username);
 				
 				if (rs.next()) {
 					//If a user with that email exists, check the password
