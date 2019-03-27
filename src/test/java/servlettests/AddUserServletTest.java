@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import data.Database;
 import servlets.AddUserServlet;
 
 /*
@@ -41,10 +43,14 @@ public class AddUserServletTest {
 
 	@Mock
 	RequestDispatcher rd;
+	
+	Database db;
 
 	@Before
-	public void setUp() {
+	public void setUp() throws ClassNotFoundException, SQLException {
 		MockitoAnnotations.initMocks(this);
+		
+		db = new Database();
 		
 		request = mock(HttpServletRequest.class);
 		response = mock(HttpServletResponse.class);
@@ -77,27 +83,11 @@ public class AddUserServletTest {
 	    assertEquals("true", result);
 	    
 	    //Remove the user so that this test works next time
-  		Connection conn = null;
-  		PreparedStatement ps = null;
-  		PreparedStatement ps2 = null;
   		ResultSet rs = null;
-		Class.forName("com.mysql.jdbc.Driver");
-		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hungrydatabase?user=root&password=password&useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=utf8");
-		ps2 = conn.prepareStatement("SELECT * FROM Users WHERE username=?");
-		ps2.setString(1, "testValidNewUser");
-		rs = ps2.executeQuery();
-		rs.next();
+  		rs = db.getUserfromUsers("testValidNewUser");
+  		rs.next();
 		int uID = rs.getInt("userID");
-		System.out.println(uID);
-		ps = conn.prepareStatement("DELETE FROM HungryDatabase.Users WHERE userID=?");
-		ps.setString(1, Integer.toString(uID));
-		ps.executeUpdate();
-		if(conn!=null) {
-			conn.close();
-		}
-		if(ps!=null) {
-			ps.close();
-		}
+		db.deleteUserfromUsers(uID);
 		if(rs!=null) {
 			rs.close();
 		}
@@ -203,26 +193,11 @@ public class AddUserServletTest {
 	    assertEquals("A user with that username already exists!", result);
 	    
 	    //Remove the user so that this test works next time
-  		Connection conn = null;
-  		PreparedStatement ps = null;
-  		PreparedStatement ps2 = null;
-  		ResultSet rs = null;
-		Class.forName("com.mysql.jdbc.Driver");
-		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hungrydatabase?user=root&password=password&useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=utf8");
-		ps2 = conn.prepareStatement("SELECT * FROM Users WHERE username=?");
-		ps2.setString(1, "testValidNewUser");
-		rs = ps2.executeQuery();
-		rs.next();
+	    ResultSet rs = null;
+  		rs = db.getUserfromUsers("testValidNewUser");
+  		rs.next();
 		int uID = rs.getInt("userID");
-		ps = conn.prepareStatement("DELETE FROM HungryDatabase.Users WHERE userID=?");
-		ps.setString(1, Integer.toString(uID));
-		ps.executeUpdate();
-		if(conn!=null) {
-			conn.close();
-		}
-		if(ps!=null) {
-			ps.close();
-		}
+		db.deleteUserfromUsers(uID);
 		if(rs!=null) {
 			rs.close();
 		}

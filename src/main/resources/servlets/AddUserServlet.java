@@ -10,7 +10,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Objects;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,23 +19,22 @@ import javax.servlet.http.HttpServletResponse;
 
 import data.Database;
 
-@WebServlet("/ValidateLogin")
-public class ValidateLoginServlet extends HttpServlet {
+@WebServlet("/AddUser")
+public class AddUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		Database db;
+		
 		//From previous page, extract parameters
-		
-		Database db; 
-		
 		String username = request.getParameter("username");
 		String pass = request.getParameter("pass");
-		String hashPass = "";
 		
-		//Set up variables to store return value
+		//Set up variables to hold response
 		boolean success = true;
 		String errorMsg = "";
-		String dbUsername = "";
 		
+		//Check for empty input
 		if (pass.length() == 0) {
 			success = false;
 			errorMsg += "The password is empty! ";
@@ -49,6 +47,7 @@ public class ValidateLoginServlet extends HttpServlet {
 			username = "";
 		}
 		
+		String hashPass = "";
 		//Hash using sha256
 		try {
 	        MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -62,32 +61,29 @@ public class ValidateLoginServlet extends HttpServlet {
 			e.printStackTrace(); 
 		}
 		
+		//Begin database access
 		ResultSet rs = null;
-		
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
 		
+		//If we didn't have null input, go into main database access
 		if (success) {
 			try {
 				success = false;
+				
 				db = new Database();
+				
 				rs = db.getUserfromUsers(username);
 				
 				if (rs.next()) {
-					//If a user with that email exists, check the password
-					if (Objects.equals(hashPass, rs.getString("pass"))) {
-						success = true;
-						dbUsername = rs.getString("username");
-					}
-					else {
-						success = false;
-						errorMsg = "The password is incorrect!";
-					}
+					//If a user with that username exists
+					success = false;
+					errorMsg = "A user with that username already exists!";
 				}
 				else {
-					//Check details of invalid login
-					success = false;
-					errorMsg = "A user with that username does not exist!";
+					//Insert the new user 
+					success = true;
+					db.insertUserintoUsers(username, hashPass);					
 				}
 				//Set up a JSON return
 				String objectToReturn =
@@ -95,11 +91,10 @@ public class ValidateLoginServlet extends HttpServlet {
 							+ "\"success\": \"" + success + "\",\n"
 							+ "\"data\": {\n"
 								+ "\"errorMsg\": \"" + errorMsg + "\",\n"
-								+ "\"username\": \"" + dbUsername + "\"\n"
+								+ "\"username\": \"" + username + "\"\n"
 							+ "}\n" 
 						+ "}";
 				out.print(objectToReturn);
-				
 			} catch(SQLException sqle) {
 				System.out.println("sqle: " + sqle.getMessage());
 			} catch(ClassNotFoundException cnfe) {
@@ -117,18 +112,17 @@ public class ValidateLoginServlet extends HttpServlet {
 		else {
 			String objectToReturn =
 					  "{\n"
-						+ "\"success\": \"" + success + "\",\n"
-						+ "\"data\": {\n"
-							+ "\"errorMsg\": \"" + errorMsg + "\",\n"
-							+ "\"name\": \"\",\n"
-							+ "\"email\": \"\"\n"
-						+ "}\n" 
-					+ "}";
+							+ "\"success\": \"" + success + "\",\n"
+							+ "\"data\": {\n"
+								+ "\"errorMsg\": \"" + errorMsg + "\",\n"
+								+ "\"username\": \"" + username + "\"\n"
+							+ "}\n" 
+						+ "}";
 			out.print(objectToReturn);
 		}
+		
 	}
 }
-
 
 
 
