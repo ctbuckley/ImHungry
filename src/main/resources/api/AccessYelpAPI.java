@@ -35,6 +35,9 @@ public class AccessYelpAPI {
 	public static Vector<Restaurant> YelpRestaurantSearch(String searchTerm, int resultCount, int radius) throws UnsupportedEncodingException, IOException {
 		
 		searchTerm = URLEncoder.encode(searchTerm, "UTF-8");
+		if(radius > 40000) {
+			radius = 40000;
+		}
 	
 		String GET_URL = "https://api.yelp.com/v3/businesses/search?"
 				+ "term=" + searchTerm // Search Term
@@ -88,13 +91,7 @@ public class AccessYelpAPI {
 			httpCon.setRequestProperty("Content-Type", "application/json");
 			httpCon.setRequestProperty("Authorization", "Bearer" + " " +  API_KEY);	//request object, set authorization key to access yelp API
 			httpCon.connect();
-			BufferedReader br = null;
-			try {
-				br  = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
-			} catch(IOException ioe) {
-				System.out.println("IOException in Yelp Restaurant Search: " + ioe.getMessage());
-				return resultsVec;
-			}
+			BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
 		    
 		    // Parse JSON string
 		    JsonParser parser = new JsonParser(); 
