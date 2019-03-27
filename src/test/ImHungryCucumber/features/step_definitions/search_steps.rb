@@ -49,7 +49,7 @@ When(/^press search$/) do
 end
 
 Then(/^I should see results for "([^"]*)"$/) do |arg1|
-  expect(page.find_by_id("titleHeader").native.text).to eq "Results For " + arg1
+  expect(page.find_by_id("resultsForText").native.text).to eq "Results For " + arg1
 end
 
 Then(/^there is a Feed Me! button$/) do

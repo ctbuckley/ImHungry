@@ -28,6 +28,7 @@ Scenario: Check the Transition to the results page
 
 	When I enter "burger" in the search box
 	And I enter "10" in the search number box
+	And I enter "5000" in the radius input field
 	And press search
 	Then I should see results for "burger"
 
@@ -35,6 +36,7 @@ Scenario: Check the Transition while input wrong search number
 
 	When I enter "burger" in the search box
 	And I enter "-1" in the search number box
+	And I enter "5000" in the radius input field
 	And press search
 	Then I should be on the Search Page
 
@@ -58,12 +60,14 @@ Scenario: Check the transition with radius input
 	When I enter "burger" in the search box
 	And I enter "10" in the search number box
 	And I enter "5000" in the radius input field
+	And press search
 	Then I should see results for "burger"
 
 Scenario: Check the transition with radius input 
 	When I enter "burger" in the search box
 	And I enter "10" in the search number box
 	And I enter "-1" in the radius input field
+	And press search
 	Then I should be on the Search Page
 
 Scenario: Requirements for Quick Access List for Past Searches
