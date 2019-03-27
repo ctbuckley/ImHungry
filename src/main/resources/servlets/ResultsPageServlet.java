@@ -53,7 +53,9 @@ public class ResultsPageServlet extends HttpServlet {
 		// input validation should be done on front end (empty string, non-integer for resultCount, etc.)
 		String searchTerm = request.getParameter("q");
 		String resultCountRaw = request.getParameter("n");
+		String radiusRaw = request.getParameter("radiusInput");
 		Integer resultCount = null;
+		Integer radius = null;
 		
 		/*
 		 *  If user clicked "return to search", get parameters from session.
@@ -67,12 +69,18 @@ public class ResultsPageServlet extends HttpServlet {
 		} else {
 			resultCount = Integer.parseInt(resultCountRaw);
 		}
+		
+		if (radiusRaw == null) {
+			radius = (Integer) session.getAttribute("radiusInput");
+		} else {
+			radius = Integer.parseInt(radiusRaw);
+		}
 	
 		/* 
 		 * Fetch a list of restaurant objects made from query results given by Yelp API
 		 * Get enough results to make up for restaurants/recipes in Do Not Show list, which will not be displayed
 		 */
-		Vector<Restaurant> restaurants = AccessYelpAPI.YelpRestaurantSearch(searchTerm, resultCount + doNotShowRestaurants.size());
+		Vector<Restaurant> restaurants = AccessYelpAPI.YelpRestaurantSearch(searchTerm, resultCount + doNotShowRestaurants.size(), radius);
 		/*
 		 * Sort restaurants in ascending order of drive time from Tommy Trojan,
 		 * using compareTo method overridden in Restaurant class
@@ -162,6 +170,7 @@ public class ResultsPageServlet extends HttpServlet {
 		// store searchTerm and resultCount -> used when user clicks "Return to Search"
 		session.setAttribute("searchTerm", searchTerm);
 		session.setAttribute("resultCount", resultCount);
+		session.setAttribute("radius", radius);
 		
 		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/results.jsp");
 		dispatch.forward(request,  response);			
