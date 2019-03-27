@@ -51,7 +51,7 @@ Then(/^there is the name of Restaurant list elements$/) do
 end
 
 Then(/^there is the Stars of Restaurant list elements$/) do
-  page.should have_content("Stars:")
+  expect(page.find_by_id("restaurantRating1"))
 end
 
 Then(/^there is the minutes of Restaurant list elements$/) do
@@ -71,7 +71,7 @@ Then(/^there is the name of Recipe list elements$/) do
 end
 
 Then(/^there is the Stars of Recipe list elements$/) do
-  page.should have_content("Stars:")
+  expect(page.find_by_id("recipeRating1"))
 end
 
 Then(/^there is the Cook Time of Recipe list elements$/) do

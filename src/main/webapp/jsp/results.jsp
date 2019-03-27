@@ -72,26 +72,19 @@
 		 	%>
 			<img style =" vertical-align: middle; transform: rotate(<%=angle%>deg);" src="<%=imageUrlVec[i] %>" height="100" width="100">
 		 	<% } %>
-		 	<%--
-
-					<% for (int i = 0; i < imageUrlVec.length; ++i) { %>
-					<img src="<%=imageUrlVec[i] %>" height="100" width="100">
-					<% } %>
-		 	--%>
-
 			</div>
 			<div class="col-sm-3 order-1"></div>
 		</div>
 
 		<!-- Search For xx  -->
 		<div class="py-5 text-center">
-   			<h2 id="titleHeader">Results For <%=searchTerm %></h2>
+   			<h2 id="resultsForText">Results For <%=searchTerm %></h2>
    		</div>
 
    		<!-- Restaurants lists rendering -->
    		<div class="row md-2">
    			<div class="col-md-6">
-      			<h2 id="restaurantTitle" class="text-center"> Restaurants</h2>
+      			<h2 id="restaurantsText" class="text-center"> Restaurants</h2>
           		<%
 				// rendering the list of restauratns while applying alternating grey color on each of the items
           		for(int i = 0; i < resultCount; i++){
@@ -102,20 +95,20 @@
           			else{
           				colorStyle = "grey";
           			}
+       				if(restaurantArr[i] != null) { 
+       					System.out.println("Rest Arr: " + i + " " + (restaurantArr[i] == null));  
           		%>
-          			<% if(restaurantArr[i] != null){ %>
-          			<% System.out.println("Rest Arr: " + i + " " + (restaurantArr[i] == null));  %>
          			<!-- Restaurant item rendering -->
          			<div class="row no-gutters border rounded overflow-hidden flex-md-row md-4 shadow-md h-md-250 position-relative" id="Restaurant<%=i%>">
         			<div style="background-color:<%=colorStyle %>;"class="col p-4 d-flex flex-column position-static">
           			<div class="container">
   						<div class="row">
     					<div class="col-sm">
-							<strong id="NameRestaurant">Name:</strong> <br><p><%=restaurantArr[i].getName() %> </p>
+							<strong id="restaurantName<%=i%>">Name:</strong> <br><p><%=restaurantArr[i].getName() %> </p>
    						</div>
 
     					<div class="col-sm">
-     	 						<strong id="starsRestaurant">Stars:</strong> <br> <p> <%=restaurantArr[i].getRating() %> </p>
+     	 						<strong id="restaurantRating<%=i%>">Stars:</strong> <br> <p> <%=restaurantArr[i].getRating() %> </p>
     					</div>
     					<div class="col-sm">
      	 						
@@ -132,11 +125,11 @@
   						</div>
   						<div class="row">
     						<div class="col-sm">
-      							<strong id="minutesRestaurant">Minutes:</strong> <br> <p><%=restaurantArr[i].getDrivingTime() %> </p>
+      							<strong id="restaurantDistance<%=i%>">Minutes:</strong> <br> <p><%=restaurantArr[i].getDrivingTime() %> </p>
    							</div>
 
     					<div class="col-sm">
-     	 						<strong id="addressRestaurant">Address: </strong><br> <p><%=restaurantArr[i].getAddress() %></p>
+     	 						<strong id="restaurantAddress<%=i%>">Address: </strong><br> <p><%=restaurantArr[i].getAddress() %></p>
     					</div>
     					<div class="col-sm text-right">
     							<%
@@ -153,7 +146,7 @@
         								restaurantPrice = "$$$";
         							}
         							%>
-     	 						<strong>Price: <%=restaurantPrice%></strong>
+     	 						<strong id="restaurantPrice<%=i%>">Price: <%=restaurantPrice%></strong>
     					</div>
   						</div>
 					</div>
@@ -172,7 +165,7 @@
 
     	<!-- Recipes lists rendering -->
     		<div class="col-md-6">
-      			<h2 id="recipeTitle" class= "text-center"> Recipes</h2>
+      			<h2 id="recipesText" class= "text-center"> Recipes</h2>
           		<% 
           		// rendering the list of recipes while applying alternating grey color on each of the items
           		for(int i = 0; i < resultCount; i++){ 
@@ -191,11 +184,11 @@
           			<div class="container">
   						<div class="row">
     						<div class="col-sm">
-      							<strong id="NameRecipe">Name:</strong> <br><p><%=recipeArr[i].getName() %></p>
+      							<strong id="recipeName<%=i%>">Name:</strong> <br><p><%=recipeArr[i].getName() %></p>
    							</div>
     					<div class="col-sm">
     						<% String recipeRating = String.format("%.1f",recipeArr[i].getRating()); %>
-     	 						<strong id="starsRecipe">Stars:</strong> <br> <p> <%=recipeRating %> </p>
+     	 						<strong id="recipeRating<%=i%>">Stars:</strong> <br> <p> <%=recipeRating %> </p>
     					</div>
   						</div>
   						<div class="row">
@@ -226,11 +219,11 @@
     									renderPrepTime = Double.toString(prepTime);
     								}			
     							%>
-      							<strong id="cooktimeRecipe">Cook Time:</strong> <br> <p><%=renderCookTime %></p>
+      							<strong id="recipeCookTime<%=i%>">Cook Time:</strong> <br> <p><%=renderCookTime %></p>
    							</div>
 
     					<div class="col-sm">
-     	 						<strong id="preptimeRecipe">Prep Time: </strong><br> <p><%=renderPrepTime%></p>
+     	 						<strong id="recipePrepTime<%=i%>">Prep Time: </strong><br> <p><%=renderPrepTime%></p>
     					</div>			
   						</div>
 					</div>

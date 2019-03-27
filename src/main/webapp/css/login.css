@@ -1,0 +1,43 @@
+body, html {
+	width: 100%;
+	height: 100%;
+	margin: 0;	
+}
+
+.hungry_cont {
+	height: 30%;
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+}
+.log_in_cont {
+	height: 70%;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: flex-start;
+}
+.log_in_col_right {
+	width: 50%;
+	height: 50%;
+	display: flex; 
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.log_in_col_left {
+	width: 50%;
+	height: 50%;
+	display: flex; 
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	
+}
+
+.log_in_error_cont {
+	visibility: hidden;	
+}
+
