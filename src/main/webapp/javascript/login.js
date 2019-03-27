@@ -7,14 +7,65 @@ function noSignIn() {
 }
 
 function validate() {
+	
 	var username = document.getElementById("usernameInput").value;
-	console.log(username);
 	var password = document.getElementById("passwordInput").value;
-	console.log(password);
-	if(username != "" && password != "") {
-		//servlet stuff
-	} else {
-		document.getElementById("errorField").innerHTML = "Username and Password Fields Cannot Be Empty";
-		document.getElementById("errorField").style.visibility = "visible";
-	}
+	
+	$.ajax({
+    	type: "POST",
+    	url: "../ValidateLogin",
+    	async: true,
+    	data: {
+			username: username,
+			pass: password
+    	},
+    	success: function(result) {
+    		if (result.success == "true") {
+    			onLogIn(result.data.username)
+    			window.location.href = "http://localhost:8080/FeedMe/search"
+    		}
+    		else {
+    			document.getElementById("errorField").style.visibility = "visible"
+    			document.getElementById("errorField").innerHTML = result.data.errorMsg
+    		}
+    	},
+    })
+	
+}
+
+function addUser() {
+	
+	var username = document.getElementById("usernameInput").value;
+	var password = document.getElementById("passwordInput").value;
+	
+	$.ajax({
+    	type: "POST",
+    	url: "../AddUser",
+    	async: true,
+    	data: {
+			username: username,
+			pass: password
+    	},
+    	success: function(result) {
+    		if (result.success == "true") {
+    			onLogIn(result.data.username)
+    			window.location.href = "http://localhost:8080/FeedMe/search"
+    		}
+    		else {
+    			document.getElementById("errorField").style.visibility = "visible"
+    			document.getElementById("errorField").innerHTML = result.data.errorMsg
+    		}
+    	},
+    })
+	
+}
+
+function onLogIn(username) {
+	//set up any javascript we need for loading the new user
+	
+	
+	//set up sessionStorage for the user?
+	
+	
+	//call servlets to load their lists and data?
 }

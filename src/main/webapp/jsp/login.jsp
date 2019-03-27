@@ -7,6 +7,8 @@
  	<link href="../css/login.css" rel="stylesheet" type="text/css">
 	<!-- Javascript -->
 	<script type="text/javascript" src="../javascript/searchEmoji.js"></script>
+	<!--  jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<!-- Title -->
 	<title>Log In</title>
 </head>
@@ -41,7 +43,7 @@
 					<button id="userLogInButton" onclick="validate()">Log In</button>
 				</div>
 				<div class="sign_up_btn_cont">
-					<button id="signUpButton" onclick="validate()">Sign Up</button>
+					<button id="signUpButton" onclick="addUser()">Sign Up</button>
 				</div>
 			</div>
 		</div>
