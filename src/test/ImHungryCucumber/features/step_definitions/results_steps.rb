@@ -1,5 +1,5 @@
 Given(/^I am on the ImHungry Results Page$/) do
-  visit "http://localhost:8080/FeedMe/results?q=burger&n=5&feedMeButton=Feed+Me"
+  visit "http://localhost:8080/FeedMe/results?q=burger&n=5&radiusInput=5000&feedMeButton=Feed+Me"
 end
 
 Then(/^there is a dropdown button$/) do
@@ -82,17 +82,14 @@ Then(/^there is the Prep Time of Recipe list elements$/) do
   page.should have_content("Prep Time:")
 end
 
-Then(/^the background color is smoke white$/) do
-  page.should have_selector("body[style='background-color:whitesmoke;']")
-end
-
 When(/^press manage list button$/) do
   page.find_by_id("addToList").click()
 end
 
+Then(/^there is a pagination div$/) do
+  expect(page.find_by_id("paginationNav"))
+end
 
-
-
-
-
-
+Then(/^there are "([^"]*)" pagination links$/) do |links|
+  expect(page.all("page-link").count).to eq links
+end
