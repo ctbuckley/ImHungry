@@ -23,20 +23,16 @@
 	  <!-- Bootstrap CSS  -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	  <!-- Homebrew CSS  -->
-    <link href="../css/buttons.css" rel="stylesheet" type="text/css">
-    <link href="../css/details.css" rel="stylesheet" type="text/css">
-    <link href="../css/list.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet"  href="/css/results.css"  type="text/css">
-    <style>
-    <%@ include file="/css/buttons.css"%>
-    </style>
+    <link href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+    <link href="/FeedMe/css/results.css" rel="stylesheet" type="text/css">
+    <link href="/FeedMe/css/buttons.css" rel="stylesheet" type="text/css">
 	  <!-- Javascript -->
-	<script type="text/javascript" src="../javascript/manageListButton.js"></script>
+	<script type="text/javascript" src="/FeedMe/javascript/manageListButton.js"></script>
 	 <title><%=searchTerm %></title>
 </head>
 
 <!-- Body Html --> 
-<body style="background-color:whitesmoke;">
+<body onload="setStars()">
 	<div class="container mt-5">
 		<!-- Row for collage and buttons -->
 		<div class = "row align-items-start">
@@ -108,7 +104,9 @@
    						</div>
 
     					<div class="col-sm">
-     	 						<strong id="restaurantRating<%=i%>">Stars:</strong> <br> <p> <%=restaurantArr[i].getRating() %> </p>
+     	 						<div id="restaurantRating<%=i%>" class="outer_stars" data-stars="<%=restaurantArr[i].getRating()%>">
+     	 							<div class="inner_stars" id="innerRestaurantRating<%=i%>"></div>
+     	 						</div>
     					</div>
     					<div class="col-sm">
      	 						
@@ -187,8 +185,9 @@
       							<strong id="recipeName<%=i%>">Name:</strong> <br><p><%=recipeArr[i].getName() %></p>
    							</div>
     					<div class="col-sm">
-    						<% String recipeRating = String.format("%.1f",recipeArr[i].getRating()); %>
-     	 						<strong id="recipeRating<%=i%>">Stars:</strong> <br> <p> <%=recipeRating %> </p>
+    						<div id="recipeRating<%=i%>" class="outer_stars" data-stars="<%=recipeArr[i].getRating()%>">
+     	 						<div class="inner_stars" id="innerRecipeRating<%=i%>"></div>
+     	 					</div>
     					</div>
   						</div>
   						<div class="row">
@@ -250,6 +249,23 @@ function manageList(form){
 		form.action = "/FeedMe/listManagement";
 		return true;
 	}
-} 
+}
+
+function setStars() {
+    const starTotal = 5;
+    allOuterRatings = document.getElementsByClassName("outer_stars");
+    for (var rating in allOuterRatings) {
+        console.log(rating);
+        var elementID = allOuterRatings.item(rating).id;
+        var val = document.getElementById(elementID).getAttribute("data-stars");
+        console.log(elementID);
+        console.log(val);
+        const starPercentage = val / starTotal * 100;
+        const starPercentageRounded = Math.round(starPercentage / 10) * 10;
+        console.log(starPercentageRounded);
+        document.getElementById(elementID).getElementsByClassName("inner_stars")[0].style.width = starPercentageRounded + "%";
+    };
+}
+
 </script>
 </body>

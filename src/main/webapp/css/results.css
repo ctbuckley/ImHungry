@@ -1,0 +1,35 @@
+.outer_stars {
+   display: inline-block;
+   position: relative;
+   font-family: FontAwesome;
+       font-size: 1.8vw;
+
+}
+
+.outer_stars::before {
+   content: "\f006 \f006 \f006 \f006 \f006";
+   color: #C0C0C0;
+   font-size: 1.8vw;
+
+}
+
+.inner_stars {
+   position: absolute;
+   top: 0;
+   left: 0;
+   white-space: nowrap;
+   overflow: hidden;
+   width: 0;
+   font-size: 1.8vw;
+}
+
+.inner_stars::before {
+   content: "\f005 \f005 \f005 \f005 \f005";
+   color: #f8ce0b;
+   font-size: 1.8vw;
+
+}
+
+.inner_star::before, .outer_stars::before {
+   font-size: 1.8vw;
+}
