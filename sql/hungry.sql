@@ -17,6 +17,8 @@ CREATE TABLE SearchHistory(
     FOREIGN KEY fk1(userID) REFERENCES Users(userID)
 );
 
+/* use this stuff only for lists */
+
 CREATE TABLE Item(
 	itemID INT(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
     itemType INT(11) NOT NULL, /* 0=recipe, 1=restaurant */
