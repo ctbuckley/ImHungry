@@ -14,6 +14,7 @@ CREATE TABLE SearchHistory(
     userID INT(11) NOT NULL,
     searchQuery VARCHAR(50) NOT NULL, 
 	numResults INT(11) NOT NULL,
+    radius INT(11) NOT NULL,
     FOREIGN KEY fk1(userID) REFERENCES Users(userID)
 );
 
