@@ -64,10 +64,8 @@ public class Database {
 		
 		ps = conn.prepareStatement("SELECT MAX(searchID) FROM SearchHistory");
 		ResultSet rs = ps.executeQuery();
-		if(rs.next()){
-			return rs.getInt("MAX(searchID)");
-		}		
-		return -1;
+		rs.next();
+		return rs.getInt("MAX(searchID)");
 	}
 	
 	public void deleteQueryfromSearchHistory(int searchID) throws SQLException {
