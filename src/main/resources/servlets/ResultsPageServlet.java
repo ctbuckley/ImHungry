@@ -168,7 +168,7 @@ public class ResultsPageServlet extends HttpServlet {
 		Restaurant[] restaurantArr = new Restaurant[resultCount];
 		restaurants.subList(startingIndex, endingIndex).toArray(restaurantArr);
 		Recipe[] recipeArr = new Recipe[resultCount];
-		recipes.toArray(recipeArr);
+		recipes.subList(startingIndex, endingIndex).toArray(recipeArr);
 
 		// Google Image Search to make collage of images
 		// array of image URLs passed to jsp as "imageUrlVec"
