@@ -51,7 +51,7 @@
 		 			<input id="numResultsInput" title="Number of items to show in results" type="text" name="n" value="5" >
 		 			<!-- input textbox for radius -->
 		 			<input id="radiusInput" type="text" name="radiusInput" placeholder="Radius (meters)">
-		 			<input type="text" name="resultPageCount" style="display: none" value="1">
+		 			<input type="text" name="pageNumber" style="display: none" value="1">
 					<br>
 					<!-- Feed Me button with the emoji image -->
 					<button class="text-center" type="submit" value="Feed Me" name ="feedMeButton"id="feedMeButton" style="color: red;"><p>Feed Me!</p><img src="https://images.emojiterra.com/twitter/v11/512px/1f620.png" id ="emoji" height = 20 width = 20><br></button>

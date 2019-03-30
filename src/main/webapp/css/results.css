@@ -126,3 +126,7 @@
 .navbar-brand:hover {
 	cursor: pointer;
 }
+
+.results-card:hover {
+	cursor: pointer;
+}

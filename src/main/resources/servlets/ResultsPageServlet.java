@@ -67,9 +67,10 @@ public class ResultsPageServlet extends HttpServlet {
 			searchTerm = (String) session.getAttribute("searchTerm");
 		}
 		if (resultCountRaw == null) {
-			resultCount = (Integer) session.getAttribute("resultCount");
+			resultCount = (Integer) session.getAttribute("n");
 		} else {
 			resultCount = Integer.parseInt(resultCountRaw);
+			session.setAttribute("n", resultCount);
 		}
 		
 		if (radiusRaw == null) {
@@ -80,7 +81,9 @@ public class ResultsPageServlet extends HttpServlet {
 		
 		if (pageNumberRaw == null) {
 			pageNumber = 1;
+			System.out.println("Couldn't find page number");
 		} else {
+			System.out.println("Found page number: " + pageNumberRaw);
 			pageNumber = Integer.parseInt(pageNumberRaw);
 		}
 	

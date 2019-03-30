@@ -69,3 +69,7 @@ Recipe0{
 	height: 100%;
 	text-align: center;
 }
+
+.results-card {
+	cursor: pointer;
+}

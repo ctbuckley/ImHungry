@@ -19,8 +19,11 @@
 	// get the array of recipes from the request
 	Recipe[] recipeArr = (Recipe[]) request.getAttribute("recipeArr");
 	// get the number of pages for pagination
-	Integer resultPageCount = (Integer) request.getAttribute("resultPageCount");
-	resultPageCount = 3;
+	Integer resultPageCount = (Integer) request.getSession().getAttribute("pageCount");
+	String pageNumberRaw = request.getParameter("pageNumber");
+	Integer currentPageNumber = 1;
+	if (pageNumberRaw != null) currentPageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+	
 %>
 <!-- Bootstrap CSS  -->
     	<!-- Bootstrap CSS file linkage -->
@@ -42,37 +45,37 @@
 </head>
 
 <!-- Body Html -->
-<body onload="setStars()">
+<body onload="init();">
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	 <a class="navbar-brand" onclick="goToSearchPage()">ImHungry</a>
-	 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-	   <span class="navbar-toggler-icon"></span>
-	 </button>
-	 <div class="collapse navbar-collapse ml-auto" id="navbarNavDropdown">
-	   <ul class="navbar-nav ml-auto">
-	   		<li class="nav-item dropdown ml-auto" id="listName">
-		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		          Manage Lists
-		        </a>
-		        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-			      	<a class="dropdown-item" id="fOptionButton" href="#">Favorites</a>
-			      	<a class="dropdown-item" id="tOptionButton" href="#">To Explore</a>
-			      	<a class="dropdown-item" id="dOptionButton" href="#">Do Not Show</a>     
-		        </div>
-		    </li>
-		   <li class="nav-item dropdown ml-auto" id="quickAccessDropdown">
-	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	          Past Searches
-	        </a>
-	        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+		<a class="navbar-brand" onclick="goToSearchPage()">ImHungry</a>
+	 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+	   		<span class="navbar-toggler-icon"></span>
+	 	</button>
+	 	<div class="collapse navbar-collapse ml-auto" id="navbarNavDropdown">
+	   		<ul class="navbar-nav ml-auto">
+	   			<li class="nav-item dropdown ml-auto" id="listName">
+		        	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		          		Manage Lists
+		        	</a>
+		        	<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+			      		<a class="dropdown-item" id="fOptionButton" href="/FeedMe/listManagement?listName=f">Favorites</a>
+			      		<a class="dropdown-item" id="tOptionButton" href="/FeedMe/listManagement?listName=t">To Explore</a>
+			      		<a class="dropdown-item" id="dOptionButton" href="/FeedMe/listManagement?listName=d">Do Not Show</a>     
+		        	</div>
+		    	</li>
+		   		<li class="nav-item dropdown ml-auto" id="quickAccessDropdown">
+	        		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	          			Past Searches
+	        		</a>
+	        		<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	  <!--    <a class="dropdown-item" id="quickAccessResult1" href="#">Past Search 1</a>   -->   
-	        </div>
-	      </li>
-	     <li class="nav-item active ml-auto">
-	       <a class="nav-link" id="userButton" href="#">Log In</a>
-	     </li>
-	   </ul>
-	 </div>
+	        		</div>
+	      		</li>
+	     		<li class="nav-item active ml-auto">
+	       			<a class="nav-link" id="userButton" href="#">Log In</a>
+	     		</li>
+	     	</ul>
+	 	</div>
 	</nav>
 	<div class="container mt-5">
 		<!-- Row for collage and buttons -->
@@ -151,8 +154,9 @@
 				%>
 				<!-- Restaurant item rendering -->
 				<div
-					class="row no-gutters border rounded overflow-hidden flex-md-row md-4 shadow-md h-md-250 position-relative"
-					id="Restaurant<%=i%>">
+					class="row no-gutters border rounded overflow-hidden flex-md-row md-4 shadow-md h-md-250 position-relative results-card"
+					id="Restaurant<%=i%>"
+					onclick="window.location='/FeedMe/restaurantDetails?arrNum=<%=i%>'">
 					<div style="background-color:<%=colorStyle%>;"
 						class="col p-4 d-flex flex-column position-static">
 						<div class="container">
@@ -202,8 +206,6 @@
 								</div>
 							</div>
 						</div>
-						<a href="/FeedMe/restaurantDetails?arrNum=<%=i%>"
-							class="stretched-link" title="restaurantDetailsLink<%=i%>"></a>
 					</div>
 					<div class="col-auto d-none d-lg-block"></div>
 				</div>
@@ -229,8 +231,9 @@
 							System.out.println("Rest Arr: " + i + " " + (restaurantArr[i] == null));
 				%>
 				<div
-					class="row no-gutters border rounded overflow-hidden flex-md-row md-4 shadow-md h-md-250 position-relative"
-					id="Recipe<%=i%>">
+					class="row no-gutters border rounded overflow-hidden flex-md-row md-4 shadow-md h-md-250 position-relative results-card"
+					id="Recipe<%=i%>"
+					onclick="window.location='/FeedMe/recipeDetails?arrNum=<%=i%>'">
 					<div style="background-color:<%=colorStyle%>;"
 						class="col p-4 d-flex flex-column position-static">
 						<div class="container">
@@ -296,7 +299,7 @@
 			id="page_bar">
 			<ul class="pagination">
 				<li class="page-item">
-					<a class="page-link" href="#" aria-label="Previous"> 
+					<a id="paginationPrevious" class="page-link" href="#" aria-label="Previous"> 
 						<span aria-hidden="true">&laquo;</span>
 						<span class="sr-only">Previous</span>
 					</a>
@@ -305,12 +308,12 @@
 	 			<%
 	 				for(int i=1; i<=resultPageCount; i++) {
 	 			%>
-	 					<li class="pag-item"><a class="page-link" id="paginationLink<%= i %>" href="#"><%=i%></a></li>
+	 					<li class="pag-item"><a class="page-link" id="paginationLink<%= i %>" href="/FeedMe/results?pageNumber=<%=i%>"><%=i%></a></li>
 	 			<%
 	 				}
 	 			%>
 				<li class="page-item">
-					<a class="page-link" href="#" aria-label="Next"> 
+					<a id="paginationNext" class="page-link" href="#" aria-label="Next"> 
 						<span aria-hidden="true">&raquo;</span>
 						<span class="sr-only">Next</span>
 					</a>
@@ -319,7 +322,26 @@
 		</nav>
 	</div>
 	<script>
-		// manaageList(form) function check the selection and make sure the redirection is correct
+	
+		function init() {
+			setStars();
+			setPreviousPagination();
+			setNextPagination();
+		}
+		
+		function setPreviousPagination() {
+			let previousPageNumber = (<%=currentPageNumber%> <= 1) ? 1 : <%=currentPageNumber%> - 1;
+			let previousPageLink = "/FeedMe/results?pageNumber=" + previousPageNumber;
+			document.getElementById("paginationPrevious").href = previousPageLink;
+		}
+		
+		function setNextPagination() {
+			let nextPageNumber = (<%=currentPageNumber%> >= <%=resultPageCount%>) ? <%=currentPageNumber%> : <%=currentPageNumber%> + 1;
+			let nextPageLink = "/FeedMe/results?pageNumber=" + nextPageNumber;
+			document.getElementById("paginationNext").href = nextPageLink;
+		}
+		
+		// manageList(form) function check the selection and make sure the redirection is correct
 		function manageList(form) {
 			var userInput = document.getElementById('listName').value;
 			console.log(userInput);
