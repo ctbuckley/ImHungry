@@ -1,5 +1,6 @@
 package servlettests;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -15,7 +16,9 @@ import javax.servlet.http.HttpSession;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatchers;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -35,6 +38,9 @@ public class ResultsPageServletTest {
 	HttpServletResponse response;
 	@Mock
 	HttpSession session;
+	
+	@Captor
+	ArgumentCaptor argCaptor;
 
 	@Mock
 	RequestDispatcher rd;
@@ -54,6 +60,7 @@ public class ResultsPageServletTest {
 		rd = mock(RequestDispatcher.class);
 		
 		when(request.getParameter("radiusInput")).thenReturn("40000");
+		when(request.getParameter("pageNumber")).thenReturn("1");
 		when(request.getSession()).thenReturn(session);
 		when(request.getRequestDispatcher("/jsp/results.jsp")).thenReturn(rd);
 		
@@ -113,7 +120,7 @@ public class ResultsPageServletTest {
 
 		when(session.getAttribute("userLists")).thenReturn(userLists);
 		when(session.getAttribute("searchTerm")).thenReturn("Chicken");		
-		when(session.getAttribute("resultCount")).thenReturn(3);
+		when(session.getAttribute("resultCount")).thenReturn("3");
 
 		new ResultsPageServlet().service(request, response);
 		
@@ -147,7 +154,6 @@ public class ResultsPageServletTest {
 		
 		verify(rd).forward(request, response);
 		verify(session).setAttribute(ArgumentMatchers.eq("resultsOrList"), ArgumentMatchers.eq("results"));
-		verify(session).setAttribute(ArgumentMatchers.eq("resultsOrList"), ArgumentMatchers.eq("results"));
 		verify(request).setAttribute(ArgumentMatchers.eq("imageUrlVec"), ArgumentMatchers.any());
 		verify(request).setAttribute(ArgumentMatchers.eq("restaurantArr"), ArgumentMatchers.any());
 		verify(request).setAttribute(ArgumentMatchers.eq("recipeArr"), ArgumentMatchers.any());
@@ -176,7 +182,6 @@ public class ResultsPageServletTest {
 		
 		verify(rd).forward(request, response);
 		verify(session).setAttribute(ArgumentMatchers.eq("resultsOrList"), ArgumentMatchers.eq("results"));
-		verify(session).setAttribute(ArgumentMatchers.eq("resultsOrList"), ArgumentMatchers.eq("results"));
 		verify(request).setAttribute(ArgumentMatchers.eq("imageUrlVec"), ArgumentMatchers.any());
 		verify(request).setAttribute(ArgumentMatchers.eq("restaurantArr"), ArgumentMatchers.any());
 		verify(request).setAttribute(ArgumentMatchers.eq("recipeArr"), ArgumentMatchers.any());
@@ -202,7 +207,6 @@ public class ResultsPageServletTest {
 		
 		verify(rd).forward(request, response);
 		verify(session).setAttribute(ArgumentMatchers.eq("resultsOrList"), ArgumentMatchers.eq("results"));
-		verify(session).setAttribute(ArgumentMatchers.eq("resultsOrList"), ArgumentMatchers.eq("results"));
 		verify(request).setAttribute(ArgumentMatchers.eq("imageUrlVec"), ArgumentMatchers.any());
 		verify(request).setAttribute(ArgumentMatchers.eq("restaurantArr"), ArgumentMatchers.any());
 		verify(request).setAttribute(ArgumentMatchers.eq("recipeArr"), ArgumentMatchers.any());
@@ -226,7 +230,6 @@ public class ResultsPageServletTest {
 		new ResultsPageServlet().service(request, response);
 		
 		verify(rd).forward(request, response);
-		verify(session).setAttribute(ArgumentMatchers.eq("resultsOrList"), ArgumentMatchers.eq("results"));
 		verify(session).setAttribute(ArgumentMatchers.eq("resultsOrList"), ArgumentMatchers.eq("results"));
 		verify(request).setAttribute(ArgumentMatchers.eq("imageUrlVec"), ArgumentMatchers.any());
 		verify(request).setAttribute(ArgumentMatchers.eq("restaurantArr"), ArgumentMatchers.any());
@@ -253,7 +256,6 @@ public class ResultsPageServletTest {
 		
 		verify(rd).forward(request, response);
 		verify(session).setAttribute(ArgumentMatchers.eq("resultsOrList"), ArgumentMatchers.eq("results"));
-		verify(session).setAttribute(ArgumentMatchers.eq("resultsOrList"), ArgumentMatchers.eq("results"));
 		verify(request).setAttribute(ArgumentMatchers.eq("imageUrlVec"), ArgumentMatchers.any());
 		verify(request).setAttribute(ArgumentMatchers.eq("restaurantArr"), ArgumentMatchers.any());
 		verify(request).setAttribute(ArgumentMatchers.eq("recipeArr"), ArgumentMatchers.any());
@@ -263,5 +265,74 @@ public class ResultsPageServletTest {
 		verify(session).setAttribute(ArgumentMatchers.eq("recipeResults"), ArgumentMatchers.any());		
 	}
 	
+	/*
+	 * Test that large queries will be broken up into multiple pages.
+	 */
+	@Test
+	public void testPagination() throws Exception{
+		
+		argCaptor = ArgumentCaptor.forClass(Recipe[].class);
+		
+		when(session.getAttribute("userLists")).thenReturn(userLists);
+		when(request.getParameter("q")).thenReturn("Chicken");
+		when(request.getParameter("n")).thenReturn("6");
+
+		new ResultsPageServlet().service(request, response);
+		
+		verify(rd).forward(request, response);
+		verify(session).setAttribute(ArgumentMatchers.eq("resultsOrList"), ArgumentMatchers.eq("results"));
+		verify(request).setAttribute(ArgumentMatchers.eq("imageUrlVec"), ArgumentMatchers.any());
+		
+		verify(request).setAttribute(ArgumentMatchers.eq("restaurantArr"), argCaptor.capture());
+		Restaurant[] restaurantArr = (Restaurant[]) argCaptor.getValue();
+		assertEquals(5, restaurantArr.length);
+		
+		verify(request).setAttribute(ArgumentMatchers.eq("recipeArr"), argCaptor.capture());
+		Recipe[] recipeArr = (Recipe[]) argCaptor.getValue();
+		assertEquals(5, recipeArr.length);
+
+		verify(request).setAttribute(ArgumentMatchers.eq("searchTerm"), ArgumentMatchers.eq("Chicken"));
+		verify(request).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(5));
+		verify(session).setAttribute(ArgumentMatchers.eq("restaurantResults"), ArgumentMatchers.any());
+		verify(session).setAttribute(ArgumentMatchers.eq("recipeResults"), ArgumentMatchers.any());	
+		verify(session).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(5));	
+		
+	}
+	
+	/*
+	 * Test that large queries will be broken up into multiple pages and that accessing the next page 
+	 * returns the correct amount of results.
+	 */
+	@Test
+	public void testPaginationMultiplePages() throws Exception{
+		
+		argCaptor = ArgumentCaptor.forClass(Recipe[].class);
+		
+		when(session.getAttribute("userLists")).thenReturn(userLists);
+		when(request.getParameter("q")).thenReturn("Chicken");
+		when(request.getParameter("n")).thenReturn("6");
+		when(request.getParameter("pageNumber")).thenReturn("2");
+
+		new ResultsPageServlet().service(request, response);
+		
+		verify(rd).forward(request, response);
+		verify(session).setAttribute(ArgumentMatchers.eq("resultsOrList"), ArgumentMatchers.eq("results"));
+		verify(request).setAttribute(ArgumentMatchers.eq("imageUrlVec"), ArgumentMatchers.any());
+		
+		verify(request).setAttribute(ArgumentMatchers.eq("restaurantArr"), argCaptor.capture());
+		Restaurant[] restaurantArr = (Restaurant[]) argCaptor.getValue();
+		assertEquals(1, restaurantArr.length);
+		
+		verify(request).setAttribute(ArgumentMatchers.eq("recipeArr"), argCaptor.capture());
+		Recipe[] recipeArr = (Recipe[]) argCaptor.getValue();
+		assertEquals(1, recipeArr.length);
+
+		verify(request).setAttribute(ArgumentMatchers.eq("searchTerm"), ArgumentMatchers.eq("Chicken"));
+		verify(request).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(5));
+		verify(session).setAttribute(ArgumentMatchers.eq("restaurantResults"), ArgumentMatchers.any());
+		verify(session).setAttribute(ArgumentMatchers.eq("recipeResults"), ArgumentMatchers.any());	
+		verify(session).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(1));	
+		
+	}
 	
 }
