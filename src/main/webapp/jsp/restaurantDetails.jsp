@@ -9,8 +9,9 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Homebrew CSS  -->
-    <link href="../css/buttons.css" rel="stylesheet" >
-    <link href="../css/details.css" rel="stylesheet" >
+    <link href="/FeedMe/css/buttons.css" rel="stylesheet" >
+    <link href="/FeedMe/css/details.css" rel="stylesheet" >
+    <script src="/FeedMe/javascript/buttons.js"></script>
     <%@page import="java.util.*" %>
 	<%@page import="data.*"%>
     <% 
@@ -34,7 +35,7 @@
   </head>
 
 <body>
-  	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  	<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navBar">
 		<a class="navbar-brand" onclick="goToSearchPage()">ImHungry</a>
 	 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 	   		<span class="navbar-toggler-icon"></span>
@@ -81,12 +82,10 @@
 	    <div class="buttons col-sm">
 	      <!-- Brings user to a printable version of the page -->
 	      
-	      <form action="/FeedMe/restaurantDetailsPagePrintableVersion?arrNum=<%=arrNum%>" method="POST">
-	      <button class="Button" id="printButton">Printable Version</button>
+	      <button id="printButton" class="Button" onclick="hideButtons()">Printable Version</button>
 	      <!-- Brings user back to results page -->
 	      
-	      </form>
-	            <!-- Brings user back to results page -->
+          <!-- Brings user back to results page -->
 	      <form action="/FeedMe/results" method="POST">
 	        <button id="backToResults" class="Button">Back To Results</button>
 	      </form>
