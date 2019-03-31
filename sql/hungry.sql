@@ -24,7 +24,7 @@ CREATE TABLE Item(
 	itemID INT(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
     itemType INT(11) NOT NULL, /* 0=recipe, 1=restaurant */
     itemName VARCHAR(50) NOT NULL, /* name of restaurant or recipe */
-    rating DOUBLE NOT NULL, /* star rating */
+    rating DOUBLE, /* star rating */
     
     /* recipe params */
     picURL VARCHAR(500), 
