@@ -9,6 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import data.Database;
+import data.Recipe;
+import data.Restaurant;
 import data.SearchItem;
 
 import static org.junit.Assert.assertEquals;
@@ -103,6 +105,120 @@ public class DatabaseTests {
 		assertEquals(0, results.size());
 		
 	}
+	
+	@Test
+	public void databaseItemTest() throws ClassNotFoundException, SQLException {
+		
+	}
+	
+	@Test
+	public void databaseListItemTest() throws ClassNotFoundException, SQLException {
+		
+		//insert 3 recipes and 3 restaurants for testing
+		ArrayList<String> ingredients = new ArrayList<String>();
+		ingredients.add("testIngredient1");
+		ingredients.add("testIngredient2");
+		
+		ArrayList<String> instructions = new ArrayList<String>();
+		instructions.add("testInstruction1");
+		instructions.add("testInstruction2");
+		
+		Recipe recipe1 = new Recipe("testRecipe1", "picURL", 1.0, 2.0, ingredients, instructions, 4.0);
+		Recipe recipe2 = new Recipe("testRecipe2", "picURL", 2.0, 3.0, ingredients, instructions, 3.0);
+		Recipe recipe3 = new Recipe("testRecipe3", "picURL", 3.0, 4.0, ingredients, instructions, 2.0);
+		
+		Restaurant restaurant1 = new Restaurant("testRestaurant1", "webURL", 20, "sampleAddress", "phoneNumber", 4.0, 30);
+		Restaurant restaurant2 = new Restaurant("testRestaurant2", "webURL", 20, "sampleAddress", "phoneNumber", 4.0, 30);
+		Restaurant restaurant3 = new Restaurant("testRestaurant3", "webURL", 20, "sampleAddress", "phoneNumber", 4.0, 30);
+		
+		int itemID1 = db.insertRecipe(recipe1);
+		int itemID2 = db.insertRecipe(recipe2);
+		int itemID3 = db.insertRecipe(recipe3);
+		
+		int itemID4 = db.insertRestaurant(restaurant1);
+		int itemID5 = db.insertRestaurant(restaurant2);
+		int itemID6 = db.insertRestaurant(restaurant3);
+		
+		//insert with userID, itemID, listName
+		//insertItemintoList(userID, itemID, listName);
+		
+		db.insertItemintoList(userID, itemID1, "Favorites");
+		db.insertItemintoList(userID, itemID2, "To Explore");
+		db.insertItemintoList(userID, itemID3, "Do Not Show");
+		db.insertItemintoList(userID, itemID4, "Favorites");
+		db.insertItemintoList(userID, itemID5, "To Explore");
+		db.insertItemintoList(userID, itemID6, "Do Not Show");
+		
+		//load data from database for verification
+		
+		ArrayList<Integer> favIDs = db.getItemsfromList(userID, "Favorites");
+		ArrayList<Integer> exploreIDs = db.getItemsfromList(userID, "To Explore");
+		ArrayList<Integer> donotshowIDs = db.getItemsfromList(userID, "Do Not Show");
+		
+		ArrayList<Recipe> favRecipes = new ArrayList<Recipe>();
+		ArrayList<Recipe> exploreRecipes = new ArrayList<Recipe>();
+		ArrayList<Recipe> dnsRecipes = new ArrayList<Recipe>();
+		ArrayList<Restaurant> favRestaurant = new ArrayList<Restaurant>();
+		ArrayList<Restaurant> exploreRestaurant = new ArrayList<Restaurant>();
+		ArrayList<Restaurant> dnsRestaurant = new ArrayList<Restaurant>();
+		
+		for (int id : favIDs) {
+			//recipe
+			if (db.getItemType(id) == 0) {
+				favRecipes.add(db.getRecipeInfo(id));
+			} else {
+				favRestaurant.add(db.getRestaurantInfo(id));
+			}
+		}
+		
+		for (int id : exploreIDs) {
+			//recipe
+			if (db.getItemType(id) == 0) {
+				exploreRecipes.add(db.getRecipeInfo(id));
+			} else {
+				exploreRestaurant.add(db.getRestaurantInfo(id));
+			}
+		}
+		
+		for (int id : donotshowIDs) {
+			//recipe
+			if (db.getItemType(id) == 0) {
+				dnsRecipes.add(db.getRecipeInfo(id));
+			} else {
+				dnsRestaurant.add(db.getRestaurantInfo(id));
+			}
+		}
+		
+		assertEquals(favIDs.size(), 2);
+		assertEquals(exploreIDs.size(), 2);
+		assertEquals(donotshowIDs.size(), 2);
+		
+		assertEquals(favRecipes.size(), 1);
+		assertEquals(exploreRecipes.size(), 1);
+		assertEquals(dnsRecipes.size(), 1);
+		assertEquals(favRestaurant.size(), 1);
+		assertEquals(exploreRestaurant.size(), 1);
+		assertEquals(dnsRestaurant.size(), 1);
+		
+		//cleanup database
+		
+		db.deleteItemfromList(userID, itemID1, "Favorites");
+		db.deleteItemfromList(userID, itemID2, "To Explore");
+		db.deleteItemfromList(userID, itemID3, "Do Not Show");
+		db.deleteItemfromList(userID, itemID4, "Favorites");
+		db.deleteItemfromList(userID, itemID5, "To Explore");
+		db.deleteItemfromList(userID, itemID6, "Do Not Show");
+		
+		db.deleteItemfromItem(itemID1);
+		db.deleteItemfromItem(itemID2);
+		db.deleteItemfromItem(itemID3);
+		db.deleteItemfromItem(itemID4);
+		db.deleteItemfromItem(itemID5);
+		db.deleteItemfromItem(itemID6);
+		
+	}
+	
+	
 	
 	@After
 	public void teardown() throws SQLException {
