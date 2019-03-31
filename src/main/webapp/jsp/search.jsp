@@ -38,7 +38,7 @@
         </div>
       </li>
 	     <li class="nav-item active ml-auto">
-	       <a class="nav-link" id="userButton" href="http://localhost:8080/FeedMe/login.jsp">Log out</a>
+	       <a class="nav-link" id="userButton" href="http://localhost:8080/FeedMe/jsp/login.jsp">Log out</a>
 	     </li>
 	   </ul>
 	 </div>
