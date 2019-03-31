@@ -4,7 +4,7 @@ end
 
 Then(/^there is a header that says I'm Hungry$/) do
 	expect(page.find_by_id("hungryText"))
-	expect(page.find_by_id("hungryText").native.text).to eq "I'm Hungry"
+	expect(page.find_by_id("hungryText").native.text).to eq "ImHungry"
 end
 
 Then(/^there is a guest login button$/) do
@@ -20,7 +20,7 @@ Then(/^there is a username and password field as well as a login and sign in but
 end
 
 Then(/^there should be an invisible error field$/) do
-  expect(page.find("#errorField", visible: false).native.css_value('visibility')).to eq('hidden')
+  expect(page.find("#errorField", visible: false).native.css_value('display')).to eq('none')
 end
 
 When(/^I enter in "([^"]*)" in the username field$/) do |username|
@@ -44,7 +44,7 @@ When(/^I click on the log in button$/) do
 end
 
 Then(/^I should be on the Login Page and I should see an error message$/) do
-	expect(page.find("#errorField").native.css_value('visibility')).to eq('visible')
+	expect(page.find("#errorField").native.css_value('display')).not_to eq('none')
 	expect(page.current_url).to include('http://localhost:8080/FeedMe/jsp/login')
 end
 
