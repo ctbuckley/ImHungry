@@ -143,70 +143,53 @@
 				<%
 					// rendering the list of restauratns while applying alternating grey color on each of the items
 					for (int i = 0; i < resultCount; i++) {
-						String colorStyle = "";
-						if (i % 2 == 0) {
-							colorStyle = "silver";
-						} else {
-							colorStyle = "grey";
-						}
 						if (restaurantArr[i] != null) {
 							System.out.println("Rest Arr: " + i + " " + (restaurantArr[i] == null));
+							String restaurantPrice = "";
+							int price = (int) restaurantArr[i].getPrice();
+							if (price == 1) {
+								restaurantPrice = "$";
+							} else if (price == 2) {
+								restaurantPrice = "$$";
+							} else {
+								restaurantPrice = "$$$";
+							}
 				%>
 				<!-- Restaurant item rendering -->
 				<div
-					class="row no-gutters border rounded overflow-hidden flex-md-row md-4 shadow-md h-md-250 position-relative results-card"
+					class="row no-gutters rounded overflow-hidden flex-md-row md-4 shadow-md h-md-250 position-relative results-card mb-3"
 					id="Restaurant<%=i%>"
 					onclick="window.location='/FeedMe/restaurantDetails?arrNum=<%=i%>'">
-					<div style="background-color:<%=colorStyle%>;"
-						class="col p-4 d-flex flex-column position-static">
+					<div class="col p-4 d-flex flex-column position-static">
 						<div class="container">
 							<div class="row">
-								<div class="col-sm">
-									<strong id="restaurantName<%=i%>">Name:</strong> <br>
-									<p><%=restaurantArr[i].getName()%>
-									</p>
+								<div class="col-xs-8">
+									<h3 id="restaurantName<%=i%>"><strong><%=restaurantArr[i].getName()%></strong></h3>
 								</div>
-
-								<div class="col-sm">
+								<div class="col-xs-4 text-right">
+									<h3 id="restaurantPrice<%=i%>"><%=restaurantPrice%></h3>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-12">
 									<div id="restaurantRating<%=i%>" class="outer_stars"
 										data-stars="<%=restaurantArr[i].getRating()%>">
 										<div class="inner_stars" id="innerRestaurantRating<%=i%>"></div>
 									</div>
 								</div>
-								<div class="col-sm"></div>
 							</div>
 							<div class="row">
-								<div class="col-sm"></div>
-								<div class="col-sm"></div>
+								<div class="col-xs-6">
+									<p id="restaurantAddress<%=i%>"><%=restaurantArr[i].getAddress()%></p>
+								</div>
 							</div>
 							<div class="row">
-								<div class="col-sm">
-									<strong id="restaurantDistance<%=i%>">Minutes:</strong> <br>
-									<p><%=restaurantArr[i].getDrivingTime()%>
-									</p>
-								</div>
-								<div class="col-sm">
-									<strong id="restaurantAddress<%=i%>">Address: </strong><br>
-									<p><%=restaurantArr[i].getAddress()%></p>
-								</div>
-								<div class="col-sm text-right">
-									<%
-										// Translating the price from number to $ signs
-												String restaurantPrice = "";
-												int price = (int) restaurantArr[i].getPrice();
-												if (price == 1) {
-													restaurantPrice = "$";
-												} else if (price == 2) {
-													restaurantPrice = "$$";
-												} else {
-													restaurantPrice = "$$$";
-												}
-									%>
-									<strong id="restaurantPrice<%=i%>">Price: <%=restaurantPrice%></strong>
+								<div class="col-xs-12">
+									<p id="restaurantDistance<%=i%>" class="minutes-away"><%=restaurantArr[i].getDrivingTime()%> Min(s) Away</p>
 								</div>
 							</div>
 						</div>
-					</div>
+						</div>
 					<div class="col-auto d-none d-lg-block"></div>
 				</div>
 				<%
@@ -220,22 +203,13 @@
 				<%
 					// rendering the list of recipes while applying alternating grey color on each of the items
 					for (int i = 0; i < resultCount; i++) {
-						String colorStyle = "";
-						if (i % 2 == 0) {
-							colorStyle = "silver";
-						} else {
-							colorStyle = "grey";
-						}
-
 						if (recipeArr[i] != null) {
 							System.out.println("Rest Arr: " + i + " " + (restaurantArr[i] == null));
 				%>
-				<div
-					class="row no-gutters border rounded overflow-hidden flex-md-row md-4 shadow-md h-md-250 position-relative results-card"
+				<div class="row no-gutters rounded overflow-hidden flex-md-row md-4 shadow-md h-md-250 position-relative results-card mb-3"
 					id="Recipe<%=i%>"
 					onclick="window.location='/FeedMe/recipeDetails?arrNum=<%=i%>'">
-					<div style="background-color:<%=colorStyle%>;"
-						class="col p-4 d-flex flex-column position-static">
+					<div class="col p-4 d-flex flex-column position-static">
 						<div class="container">
 							<div class="row">
 								<div class="col-sm">

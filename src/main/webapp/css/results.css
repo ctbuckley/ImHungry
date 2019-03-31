@@ -127,6 +127,19 @@
 	cursor: pointer;
 }
 
+.results-card {
+	border: 2px solid #dee2e6; 
+	box-shadow: 4px 4px 5px #c0c0c0;
+}
+
 .results-card:hover {
 	cursor: pointer;
 }
+
+.minutes-away {
+	color: lightblue;
+}
+
+
+/* @media (1000px or greater) have default 20px or something
+font-size: calc(12px + responsiveFactor) */
