@@ -20,8 +20,10 @@ Scenario: User reads restaurant information, clicks printable version, and goes 
 	Then there is no Back to Results button
 	Then there is no dropdown box
 	Then there is no Add to List button
-	When I go back
-	And click Back to Results button
+
+Scenario: Check go back to results page
+
+	When I click Back to Results button
 	Then I see Results Page
 
 
