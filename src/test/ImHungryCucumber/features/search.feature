@@ -17,7 +17,6 @@ Scenario: Requirements for Feed Me button
 	
 	Then there is a Feed Me button
 	And there is a Feed Me! button
-	And there is a red Feed Me button
 
 Scenario: Requirements for the Emoji
 	
@@ -40,15 +39,11 @@ Scenario: Check the Transition while input wrong search number
 	And press search
 	Then I should be on the Search Page
 
-Scenario: Check the background color
-	
-	Then the background color is smoke white
-
 Scenario: Check the title of search page
 	Then the title of search page is I'm Hungry
 
-Scenario: Check that a quick access dropdown exists and is empty by default
-	Then there is a quick access dropdown that is empty
+Scenario: Check that a quick access dropdown exists
+	Then there is a quick access list
 
 Scenario: Requirements for Logout Button 
 	Then there is a logout button
