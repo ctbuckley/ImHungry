@@ -3,27 +3,23 @@ Given(/^I am on the ImHungry Results Page$/) do
 end
 
 Then(/^there is a dropdown button$/) do
-  page.should have_selector("select[id=listName]")
-end
-
-Then(/^there is a not selected option$/) do
-  page.should have_selector("option[id=nOptionButton]")
+  expect(page.find_by_id("listName", visible: false))
 end
 
 Then(/^there is a favorites option$/) do
-  page.should have_selector("option[id=fOptionButton]")
+  expect(page.find_by_id("fOptionButton", visible: false))
 end
 
 Then(/^there is a to be explored option$/) do
-  page.should have_selector("option[id=tOptionButton]")
+  expect(page.find_by_id("tOptionButton", visible: false))
 end
 
 Then(/^there is a do not show option$/) do
-  page.should have_selector("option[id=dOptionButton]")
+  expect(page.find_by_id("dOptionButton", visible: false))
 end
 
 Then(/^there is a Manage Lists button$/) do
-  expect(page.find_by_id("addToList").native.text).to eq "Manage Lists"
+  expect(page.find_by_id("listName").native.text).to eq "Manage Lists"
 end
 
 Then(/^there is a Return to Search button$/) do
@@ -35,7 +31,7 @@ When(/^press return to search$/) do
 end
 
 Then(/^I should see search page title$/) do
-  page.should have_content("I'm Hungry")
+  page.should have_content("ImHungry")
 end
 
 Then(/^I should see Restaurant title$/) do
@@ -87,9 +83,9 @@ When(/^press manage list button$/) do
 end
 
 Then(/^there is a pagination div$/) do
-  expect(page.find_by_id("paginationNav"))
+  expect(page.find_by_id("page_bar"))
 end
 
 Then(/^there are "([^"]*)" pagination links$/) do |links|
-  expect(page.all("page-link").count).to eq links
+  expect(page.all(".page-link").count).to eq (links.to_i+2)
 end
