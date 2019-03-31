@@ -3,7 +3,7 @@ Background:
 
 	Given I am on the Recipe Details Page
 
-Scenario: User reads recipe information, and clicks printable version, and goes back to Results Page
+Scenario: User reads recipe information, and clicks printable version
 
 	Then there is recipe name
 	Then there is recipe picture
@@ -22,8 +22,10 @@ Scenario: User reads recipe information, and clicks printable version, and goes 
 	Then there is no Back to Results button
 	Then there is no dropdown box
 	Then there is no Add to List button
-	When I go back
-	And click Back to Results button
+
+Scenario: Check go back to results page
+
+	When I click Back to Results button
 	Then I see Results Page
 
 

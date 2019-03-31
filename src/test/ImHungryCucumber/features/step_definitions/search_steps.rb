@@ -19,10 +19,6 @@ Then(/^there is a Feed Me button$/) do
   page.should have_selector("button[id=feedMeButton]")
 end
 
-Then(/^there is a red Feed Me button$/) do
-  page.should have_selector("button[id=feedMeButton][style='color: red;']")
-end
-
 Then(/^there is a Emoji Image$/) do
   page.should have_selector("img[id=emoji]")
 end
@@ -57,16 +53,11 @@ Then(/^there is a Feed Me! button$/) do
 end
 
 Then(/^the title of search page is I'm Hungry$/) do
-  page.should have_content("I'm Hungry")
-end
-
-Then(/^there is a quick access dropdown that is empty$/) do
-  expect(page.find_by_id("quickAccessDropdown"))
-  expect(!page.find_by_id("quickAccessResult1"))
+  page.should have_content("ImHungry")
 end
 
 Then(/^there is a logout button$/) do
-  expect(page.find_by_id("userButton"))
+  expect(page.find_by_id("userButton", visible: false))
 end
 
 Then(/^there is a radius input field$/) do
@@ -82,7 +73,7 @@ Then(/^I should be on the Search Page$/) do
 end
 
 Then(/^there is a quick access list$/) do
-  expect(page.find_by_id("quickAccessDropdown"))
+  expect(page.find_by_id("quickAccessDropdown", visible: false))
 end
 
 Then (/^I should visit the search page$/) do
@@ -90,10 +81,10 @@ Then (/^I should visit the search page$/) do
 end
 
 Then(/^I should see 1 history result$/) do
-  expect(page.find_by_id("quickAccessResult1"))
+  expect(page.find_by_id("quickAccessResult0"))
 end
 
 Then(/^I should see 2 history results$/) do
+  expect(page.find_by_id("quickAccessResult0"))
   expect(page.find_by_id("quickAccessResult1"))
-  expect(page.find_by_id("quickAccessResult2"))
 end

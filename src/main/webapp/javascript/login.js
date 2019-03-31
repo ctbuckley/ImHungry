@@ -25,7 +25,7 @@ function validate() {
     			window.location.href = "http://localhost:8080/FeedMe/search"
     		}
     		else {
-    			document.getElementById("errorField").style.visibility = "visible"
+    			document.getElementById("errorField").style.display = "inherit"
     			document.getElementById("errorField").innerHTML = result.data.errorMsg
     		}
     	},
@@ -52,7 +52,7 @@ function addUser() {
     			window.location.href = "http://localhost:8080/FeedMe/search"
     		}
     		else {
-    			document.getElementById("errorField").style.visibility = "visible"
+    			document.getElementById("errorField").style.display = "inheirt"
     			document.getElementById("errorField").innerHTML = result.data.errorMsg
     		}
     	},

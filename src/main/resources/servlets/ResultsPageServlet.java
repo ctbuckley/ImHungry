@@ -54,8 +54,10 @@ public class ResultsPageServlet extends HttpServlet {
 		String searchTerm = request.getParameter("q");
 		String resultCountRaw = request.getParameter("n");
 		String radiusRaw = request.getParameter("radiusInput");
+		String pageNumberRaw = request.getParameter("pageNumber");
 		Integer resultCount = null;
 		Integer radius = null;
+		Integer pageNumber = null;
 		
 		/*
 		 *  If user clicked "return to search", get parameters from session.
@@ -65,15 +67,24 @@ public class ResultsPageServlet extends HttpServlet {
 			searchTerm = (String) session.getAttribute("searchTerm");
 		}
 		if (resultCountRaw == null) {
-			resultCount = (Integer) session.getAttribute("resultCount");
+			resultCount = (Integer) session.getAttribute("n");
 		} else {
 			resultCount = Integer.parseInt(resultCountRaw);
+			session.setAttribute("n", resultCount);
 		}
 		
 		if (radiusRaw == null) {
 			radius = (Integer) session.getAttribute("radiusInput");
 		} else {
 			radius = Integer.parseInt(radiusRaw);
+		}
+		
+		if (pageNumberRaw == null) {
+			pageNumber = 1;
+			System.out.println("Couldn't find page number");
+		} else {
+			System.out.println("Found page number: " + pageNumberRaw);
+			pageNumber = Integer.parseInt(pageNumberRaw);
 		}
 	
 		/* 
@@ -146,11 +157,21 @@ public class ResultsPageServlet extends HttpServlet {
 		// vector size should be resultCount (discard extra data)
 		restaurants.setSize(resultCount);
 		recipes.setSize(resultCount);
+		
+		// The size of a page for pagination;
+		int pageSize = 5;
+		int pageCount = (resultCount + pageSize - 1)/pageSize;
+
+		int startingIndex = (pageNumber - 1) * pageSize;
+		int endingIndex = Math.min(pageNumber * pageSize, resultCount);
+		
+		resultCount = endingIndex - startingIndex;
+		
 		// Make vectors into arrays and pass to jsp as attributes
 		Restaurant[] restaurantArr = new Restaurant[resultCount];
+		restaurants.subList(startingIndex, endingIndex).toArray(restaurantArr);
 		Recipe[] recipeArr = new Recipe[resultCount];
-		restaurants.toArray(restaurantArr);
-		recipes.toArray(recipeArr);
+		recipes.subList(startingIndex, endingIndex).toArray(recipeArr);
 
 		// Google Image Search to make collage of images
 		// array of image URLs passed to jsp as "imageUrlVec"
@@ -170,7 +191,8 @@ public class ResultsPageServlet extends HttpServlet {
 		// store searchTerm and resultCount -> used when user clicks "Return to Search"
 		session.setAttribute("searchTerm", searchTerm);
 		session.setAttribute("resultCount", resultCount);
-		session.setAttribute("radius", radius);
+		session.setAttribute("radiusInput", radius);
+		session.setAttribute("pageCount", pageCount);
 		
 		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/results.jsp");
 		dispatch.forward(request,  response);			

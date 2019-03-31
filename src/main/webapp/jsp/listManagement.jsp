@@ -7,7 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
     <meta charset="ISO-8859-1">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- Bootstrap JS file linkage -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <!-- Homebrew CSS" -->
     
     <!-- Import java data structures -->
@@ -42,7 +46,38 @@
     <!-- Title -->
     <title>List Management</title>
   </head>
-  <body style="background-color:whitesmoke;">
+  <body>
+  	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" onclick="goToSearchPage()">ImHungry</a>
+	 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+	   		<span class="navbar-toggler-icon"></span>
+	 	</button>
+	 	<div class="collapse navbar-collapse ml-auto" id="navbarNavDropdown">
+	   		<ul class="navbar-nav ml-auto">
+	   			<li class="nav-item dropdown ml-auto" id="listName">
+		        	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		          		Manage Lists
+		        	</a>
+		        	<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+			      		<a class="dropdown-item" id="fOptionButton" href="/FeedMe/listManagement?listName=f">Favorites</a>
+			      		<a class="dropdown-item" id="tOptionButton" href="/FeedMe/listManagement?listName=t">To Explore</a>
+			      		<a class="dropdown-item" id="dOptionButton" href="/FeedMe/listManagement?listName=d">Do Not Show</a>     
+		        	</div>
+		    	</li>
+		   		<li class="nav-item dropdown ml-auto" id="quickAccessDropdown">
+	        		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	          			Past Searches
+	        		</a>
+	        		<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	  <!--    <a class="dropdown-item" id="quickAccessResult1" href="#">Past Search 1</a>   -->   
+	        		</div>
+	      		</li>
+	     		<li class="nav-item active ml-auto">
+	       			<a class="nav-link" id="userButton" href="#">Log In</a>
+	     		</li>
+	     	</ul>
+	 	</div>
+	</nav>
     <div id="main" class="d-inline-flex p-1">
       <div class="p-2 ml-2">
       <!-- Restaurants and Recipes lists  -->
@@ -60,7 +95,8 @@
           	%>
           	<!-- This is the restaurant div -->
           	<div class="col-12" id="Restaurant<%=j%>">
-         			<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-8 shadow-sm h-md-250 position-relative">
+         			<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-8 shadow-sm h-md-250 position-relative results-card"
+         			onclick="window.location='/FeedMe/restaurantDetails?arrNum=<%=j%>'">
         			<div style="background-color:<%=colorStyle %>;"class="col p-4 d-flex flex-column position-static">
           			<div class="container">
   						<div class="row">
@@ -114,7 +150,7 @@
   						</div>
 					</div>
 
-          			<a href="/FeedMe/restaurantDetails?arrNum=<%=j%>" class="stretched-link"></a>
+          			<%-- <a href="/FeedMe/restaurantDetails?arrNum=<%=j%>" class="stretched-link"></a> --%>
         			</div>
       				</div>
       				<!-- This form takes the item to the specified list page -->
@@ -156,7 +192,8 @@
           	%>
           	<!-- Where the recipes start -->
     		<div class="col-12" id="Recipe<%=k%>">
-         			<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-8 shadow-sm h-md-250 position-relative">
+         			<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-8 shadow-sm h-md-250 position-relative results-card"
+         			onclick="window.location='/FeedMe/recipeDetails?arrNum=<%=k%>'">
         			<div style="background-color:<%=colorStyle %>;" class="col p-4 d-flex flex-column position-static">
           			<div class="container">
   						<div class="row">
@@ -213,7 +250,7 @@
 
 
 					<!-- Link that takes user to recipe details page -->
-          			<a href="/FeedMe/recipeDetails?arrNum=<%=k%>" class="stretched-link"></a>
+          			<%-- <a href="/FeedMe/recipeDetails?arrNum=<%=k%>" class="stretched-link"></a> --%>
         			</div>
         			<div class="col-auto d-none d-lg-block">
           			</div>
