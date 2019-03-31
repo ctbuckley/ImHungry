@@ -11,12 +11,13 @@
  	<link href="/FeedMe/css/search.css" rel="stylesheet" type="text/css">
 	<!-- Javascript -->
 	<script type="text/javascript" src="/FeedMe/javascript/searchEmoji.js"></script>
+	<script type="text/javascript" src="/FeedMe/javascript/login.js"></script>
 	<!-- Title -->
 	<title id="searchTitle">Search Page</title>
 </head>
 
 <!-- Html body -->
-<body>
+<body onload="loadSearchHistory();">
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 	 <a class="navbar-brand" href="http://localhost:8080/FeedMe/search">ImHungry</a>
 	 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +29,7 @@
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Past Searches
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <div id="dropdown-menu-Populate" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 		    <a class="dropdown-item quickAccessLink" id="quickAccessResult0" data-query="xxxx" data-numResults="x" data-radius="x" href="#">
 		    	<div class="top_past_history"> 
 		    		<p>Burger</p> <p>1</p> 

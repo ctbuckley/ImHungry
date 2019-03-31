@@ -107,11 +107,6 @@ public class DatabaseTests {
 	}
 	
 	@Test
-	public void databaseItemTest() throws ClassNotFoundException, SQLException {
-		
-	}
-	
-	@Test
 	public void databaseListItemTest() throws ClassNotFoundException, SQLException {
 		
 		//insert 3 recipes and 3 restaurants for testing

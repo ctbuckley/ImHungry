@@ -10,6 +10,7 @@
  	<link href="/FeedMe/css/login.css" rel="stylesheet" type="text/css">
 	<!-- Javascript -->
 	<script type="text/javascript" src="/FeedMe/javascript/searchEmoji.js"></script>
+	<script type="text/javascript" src="/FeedMe/javascript/login.js"></script>
 	<!--  jQuery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<!-- Title -->
