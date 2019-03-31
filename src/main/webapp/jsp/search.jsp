@@ -18,7 +18,7 @@
 <!-- Html body -->
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	 <a class="navbar-brand" href="#">ImHungry</a>
+	 <a class="navbar-brand" href="http://localhost:8080/FeedMe/search">ImHungry</a>
 	 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 	   <span class="navbar-toggler-icon"></span>
 	 </button>
@@ -29,32 +29,39 @@
           Past Searches
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-  <!--    <a class="dropdown-item" id="quickAccessResult1" href="#">Past Search 1</a>   -->   
+		    <a class="dropdown-item quickAccessLink" id="quickAccessResult0" data-query="xxxx" data-numResults="x" data-radius="x" href="#">
+		    	<div class="top_past_history"> 
+		    		<p>Burger</p> <p>1</p> 
+		    	</div>
+		    	<p>5000</p>
+		    </a>   
         </div>
       </li>
 	     <li class="nav-item active ml-auto">
-	       <a class="nav-link" id="userButton" href="#">Log In</a>
+	       <a class="nav-link" id="userButton" href="http://localhost:8080/FeedMe/login.jsp">Log out</a>
 	     </li>
 	   </ul>
 	 </div>
 	</nav>
 
 	<div class="container">
-  		<div class="row search_input_cont text-center">
+  		<div class="row search_input_cont text-center ">
   			<h1 id="hungryText">ImHungry</h1>
-  			<div class="col-md-12 text-center"> 
+  			<div class="col-md-12 text-center outer_search_cont"> 
   				<!-- The form including search term/search number -->
 				<form id="form" onsubmit= "return changeEmoji(this);"> <!-- Calls the js function that changes the emoji -->
 					<!-- input textbox for search term -->
-					<input id="queryInput" type="text" name="q" placeholder="Enter Food">
-		 			<!-- input textbox for search number -->
-		 			<input id="numResultsInput" title="Number of items to show in results" type="text" name="n" value="5" >
-		 			<!-- input textbox for radius -->
-		 			<input id="radiusInput" type="text" name="radiusInput" placeholder="Radius (meters)">
+					<input class="form-control large_input" id="queryInput" type="text" name="q" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Enter Food">					
+			 		<div class="bottom_search_cont">
+			 			<!-- input textbox for search number -->
+			 			<input class="form-control small_input" id="numResultsInput" title="Number of items to show in results"  aria-label="Default" aria-describedby="inputGroup-sizing-default" type="text" name="n" value="5" >
+			 			<!-- input textbox for radius -->
+			 			<input class="form-control small_input" id="radiusInput" type="text" name="radiusInput" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Radius (m)">
+		 			</div>
 		 			<input type="text" name="pageNumber" style="display: none" value="1">
 					<br>
 					<!-- Feed Me button with the emoji image -->
-					<button class="text-center" type="submit" value="Feed Me" name ="feedMeButton"id="feedMeButton" style="color: red;"><p>Feed Me!</p><img src="https://images.emojiterra.com/twitter/v11/512px/1f620.png" id ="emoji" height = 20 width = 20><br></button>
+					<button class="text-center btn btn-outline-primary" type="submit" value="Feed Me" name ="feedMeButton" id="feedMeButton"><p id="feedMeText">Feed Me!</p><img src="https://images.emojiterra.com/twitter/v11/512px/1f620.png" id ="emoji"><br></button>
 				</form>
 			</div>
   		</div>
