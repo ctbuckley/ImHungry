@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import data.Config;
 import data.Database;
 
 @WebServlet("/AddUser")
@@ -47,7 +48,7 @@ public class AddUserServlet extends HttpServlet {
 		String hashPass = "";
 		//Hash using sha256
 		try {
-	        MessageDigest md = MessageDigest.getInstance("SHA-256");
+	        MessageDigest md = MessageDigest.getInstance(Config.hashAlgo);
 	        byte[] hashInBytes = md.digest(pass.getBytes(StandardCharsets.UTF_8));
 	        StringBuilder sb = new StringBuilder();
 	        for (byte b : hashInBytes) {
@@ -57,7 +58,6 @@ public class AddUserServlet extends HttpServlet {
 		} catch (NoSuchAlgorithmException e) { 
 			e.printStackTrace(); 
 		}
-		
 		//Begin database access
 		ResultSet rs = null;
 		response.setContentType("application/json");
@@ -96,15 +96,7 @@ public class AddUserServlet extends HttpServlet {
 				System.out.println("sqle: " + sqle.getMessage());
 			} catch(ClassNotFoundException cnfe) {
 				System.out.println("cnfe: " + cnfe.getMessage());
-			} finally {
-				try {
-					if(rs!=null) {
-						rs.close();
-					}
-				} catch (SQLException sqle) {
-					System.out.println("sqle closing stream:-" + sqle.getMessage());
-				}
-			}
+			} 
 		}
 		else {
 			String objectToReturn =

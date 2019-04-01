@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import data.Config;
 import data.Database;
 
 @WebServlet("/ValidateLogin")
@@ -23,7 +24,7 @@ public class ValidateLoginServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//From previous page, extract parameters
 		
-		Database db; 
+		Database db;
 		
 		String username = request.getParameter("username");
 		String pass = request.getParameter("pass");
@@ -48,7 +49,7 @@ public class ValidateLoginServlet extends HttpServlet {
 		
 		//Hash using sha256
 		try {
-	        MessageDigest md = MessageDigest.getInstance("SHA-256");
+	        MessageDigest md = MessageDigest.getInstance(Config.hashAlgo);
 	        byte[] hashInBytes = md.digest(pass.getBytes(StandardCharsets.UTF_8));
 	        StringBuilder sb = new StringBuilder();
 	        for (byte b : hashInBytes) {
@@ -58,6 +59,8 @@ public class ValidateLoginServlet extends HttpServlet {
 		} catch (NoSuchAlgorithmException e) { 
 			e.printStackTrace(); 
 		}
+		
+		System.out.println(hashPass);
 		
 		ResultSet rs = null;
 		
@@ -101,15 +104,7 @@ public class ValidateLoginServlet extends HttpServlet {
 				System.out.println("sqle: " + sqle.getMessage());
 			} catch(ClassNotFoundException cnfe) {
 				System.out.println("cnfe: " + cnfe.getMessage());
-			} finally {
-				try {
-					if(rs!=null) {
-						rs.close();
-					}
-				} catch (SQLException sqle) {
-					System.out.println("sqle closing stream:-" + sqle.getMessage());
-				}
-			}
+			} 
 		}
 		else {
 			String objectToReturn =
