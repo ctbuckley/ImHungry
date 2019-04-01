@@ -19,11 +19,11 @@ Then(/^there is a do not show option$/) do
 end
 
 Then(/^there is a Manage Lists button$/) do
-  expect(page.find_by_id("listName").native.text).to eq "Manage Lists"
+  expect(page.find_by_id("listName", visible: false))
 end
 
 Then(/^there is a Return to Search button$/) do
-  expect(page.find_by_id("returntoSearch").native.text).to eq "Return to Search"
+  expect(page.find_by_id("returntoSearch").native.text).to eq "ImHungry"
 end
 
 When(/^press return to search$/) do
@@ -43,7 +43,7 @@ Then(/^I should see Recipe title$/) do
 end
 
 Then(/^there is the name of Restaurant list elements$/) do
-  page.should have_content("Name:")
+  expect(page.find_by_id("restaurantName0"))
 end
 
 Then(/^there is the Stars of Restaurant list elements$/) do
@@ -51,19 +51,19 @@ Then(/^there is the Stars of Restaurant list elements$/) do
 end
 
 Then(/^there is the minutes of Restaurant list elements$/) do
-  page.should have_content("Minutes:")
+  page.should have_content("Min(s) Away")
 end
 
 Then(/^there is the address of Restaurant list elements$/) do
-  page.should have_content("Address:")
+  expect(page.find_by_id("restaurantAddress0"))
 end
 
 Then(/^there is the price of Restaurant list elements$/) do
-  page.should have_content("Price:")
+  expect(page.find_by_id("restaurantPrice0"))
 end
 
 Then(/^there is the name of Recipe list elements$/) do
-  page.should have_content("Name:")
+  expect(page.find_by_id("recipeName0"))
 end
 
 Then(/^there is the Stars of Recipe list elements$/) do
@@ -76,10 +76,6 @@ end
 
 Then(/^there is the Prep Time of Recipe list elements$/) do
   page.should have_content("Prep Time:")
-end
-
-When(/^press manage list button$/) do
-  page.find_by_id("addToList").click()
 end
 
 Then(/^there is a pagination div$/) do

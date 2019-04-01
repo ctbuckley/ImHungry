@@ -38,10 +38,6 @@ Scenario: Check the Recipe list elements
 	And there is the Stars of Recipe list elements
 	And there is the Cook Time of Recipe list elements
 	And there is the Prep Time of Recipe list elements
-	
-Scenario: Click on the manage list without selecting anything
-	When press manage list button
-	Then I should see results for "burger"
 
 Scenario: Check the Pagination elements
 	Then there is a pagination div
