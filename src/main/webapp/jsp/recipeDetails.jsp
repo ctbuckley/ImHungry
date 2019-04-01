@@ -9,7 +9,10 @@
     <meta charset="ISO-8859-1">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  	 <%@page import="java.util.*" %>
+    <link href="/FeedMe/css/buttons.css" rel="stylesheet" >
+    <link href="/FeedMe/css/details.css" rel="stylesheet" >
+    <script src="/FeedMe/javascript/buttons.js"></script>
+    <%@page import="java.util.*" %>
 	<%@page import="data.*"%>
     <% 
     String resultsOrList = (String) request.getSession().getAttribute("resultsOrList");
@@ -25,7 +28,38 @@
   </head>
 
 
-  <body style="background-color:whitesmoke;">
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navBar">
+		<a class="navbar-brand" onclick="goToSearchPage()">ImHungry</a>
+	 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+	   		<span class="navbar-toggler-icon"></span>
+	 	</button>
+	 	<div class="collapse navbar-collapse ml-auto" id="navbarNavDropdown">
+	   		<ul class="navbar-nav ml-auto">
+	   			<li class="nav-item dropdown ml-auto" id="listName">
+		        	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		          		Add to List
+		        	</a>
+		        	<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+			      		<a class="dropdown-item" id="fOptionButton" href="/FeedMe/recipeDetails?listType=f&arrNum=<%= arrNum %>">Favorites</a>
+			      		<a class="dropdown-item" id="tOptionButton" href="/FeedMe/recipeDetails?listType=t&arrNum=<%= arrNum %>">To Explore</a>
+			      		<a class="dropdown-item" id="dOptionButton" href="/FeedMe/recipeDetails?listType=d&arrNum=<%= arrNum %>">Do Not Show</a>     
+		        	</div>
+		    	</li>
+		   		<li class="nav-item dropdown ml-auto" id="quickAccessDropdown">
+	        		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	          			Past Searches
+	        		</a>
+	        		<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	  <!--    <a class="dropdown-item" id="quickAccessResult1" href="#">Past Search 1</a>   -->   
+	        		</div>
+	      		</li>
+	     		<li class="nav-item active ml-auto">
+	       			<a class="nav-link" id="userButton" href="#">Log In</a>
+	     		</li>
+	     	</ul>
+	 	</div>
+	</nav>
     <!-- Row -->
     <div class="row">
 	    <div class="col-sm-10">
@@ -82,9 +116,7 @@
 	    <!-- Holds all the buttons -->
 	    <div class="buttons col-sm">
 	      <!-- Brings user to a printable version of the page -->
-	      <form action="/FeedMe/recipeDetailsPagePrintableVersion?arrNum=<%= arrNum%>" method= "POST">
-	      	<button id="printButton" class="Button">Printable Version</button>
-	      </form>
+	      	<button id="printButton" class="Button" onclick="hideButtons()">Printable Version</button>
 	      
 	      <!-- Brings user back to results page -->
 	       <form action="/FeedMe/results" method="POST">
