@@ -69,17 +69,32 @@ Scenario: Requirements for Quick Access List for Past Searches
 	Then there is a quick access list
 
 Scenario: Check that the past searches dropdown has one result
+	When I return to the Log In Page
+	And I should be on the login page
+	And I enter in "testUsername6" in the username field
+	And I enter in "testPassword6" in the password field
+	And I click on the sign up button
 	When I enter "burger" in the search box
 	And I enter "1" in the search number box
 	And I enter "5000" in the radius input field
+	And press search
+	And press return to search
 	Then I should see 1 history result
 
 Scenario: Check that the past searches dropdown has two result
-	When I enter "burger" in the search box
+	When I return to the Log In Page
+	And I should be on the login page
+	And I enter in "testUsername7" in the username field
+	And I enter in "testPassword7" in the password field
+	And I click on the sign up button
+	And I enter "burger" in the search box
 	And I enter "1" in the search number box
 	And I enter "5000" in the radius input field
+	And press search
 	And I should visit the search page
 	And I enter "ramen" in the search box
 	And I enter "1" in the search number box
 	And I enter "5000" in the radius input field
+	And press search
+	And press return to search
 	Then I should see 2 history results

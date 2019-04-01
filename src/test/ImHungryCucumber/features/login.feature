@@ -29,7 +29,7 @@ Scenario: Check that a registered user can log in
 	And I enter in "testUsername1" in the username field 
 	And I enter in "testPassword1" in the password field
 	And I click on the log in button
-	Then I should be on the Search Page
+	Then I should be on the Search Page after servlet
 
 Scenario: Check that an unregistered user can't log in
 
@@ -41,21 +41,23 @@ Scenario: Check that an unregistered user can't log in
 Scenario: Check that the guest login button redirects the user to the search page
 
 	When I click on the guest log in button
-	Then I should be on the Search Page
+	Then I should be on the Search Page after servlet
 
 Scenario: Check that an unregistered user can sign up
 
 	When I enter in "testUsername3" in the username field
 	And I enter in "testPassword3" in the password field
 	And I click on the sign up button
-	Then I should be on the Search Page
+	Then I should be on the Search Page after servlet
 
-Scenario: Check that an unregistered user can sign up
+Scenario: Check that a registered user can't sign up
 
 	When I enter in "testUsername4" in the username field
 	And I enter in "testPassword4" in the password field
 	And I click on the sign up button
 	And I return to the Log In Page
+	And I enter in "testUsername4" in the username field
+	And I enter in "testPassword4" in the password field
 	And I click on the sign up button
 	Then I should be on the Login Page and I should see an error message
 

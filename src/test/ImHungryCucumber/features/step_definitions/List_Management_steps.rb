@@ -18,33 +18,39 @@ Given(/^I am on the Search Page$/) do
   page.find_by_id("backToResults").click()
  end
  When(/^I go to Favorite list management page$/) do
+  page.find_by_id("navToggler").click();
   page.find_by_id("navbarDropdownMenuLink").click();
   page.find_by_id("fOptionButton").click();
  end
- Then(/^there is stars$/) do
-  page.should have_content("Stars");
+ Then(/^there is restaurant stars$/) do
+  expect(page.find_by_id("innerRestaurantRating0"))
  end
+
+ Then(/^there is recipe stars$/) do
+  expect(page.find_by_id("innerRecipeRating0"))
+ end
+
  Then(/^there is minutes$/) do
-  page.should have_content("Minutes");
+  expect(page.find_by_id("restaurantDistance0"))
  end
  Then(/^there is address$/) do
-  page.should have_content("Address");
+  expect(page.find_by_id("restaurantAddress0"))
  end
  
  Then(/^there is price$/) do
-  page.should have_content("Price");
+  expect(page.find_by_id("restaurantPrice0"))
  end
  Then(/^there is Manage List button$/) do
-  page.should have_selector("button[id=manageListButton]");
+  page.should have_selector("button[id=manageListButton]")
  end
  Then(/^there is Return to Search button$/) do
-  page.should have_selector("button[id=returnToSearch]");
+  page.should have_selector("button[id=returnToSearch]")
  end
  Then(/^there is move dropdown box to select predefined list$/) do
-  page.should have_selector("select[id=moveDropDown]");
+  page.should have_selector("select[id=moveDropDown]")
  end
  Then(/^there is Move button$/) do
-  page.should have_selector("button[id=moveButton]");
+  page.should have_selector("button[id=moveButton]")
  end
  When(/^I move the restaurant to To Explore list$/) do
   page.select 'To Explore', from: "moveDropDown"

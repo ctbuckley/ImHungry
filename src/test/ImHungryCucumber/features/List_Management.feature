@@ -2,7 +2,7 @@ Feature: List Management Page
 
 Background:
 
-	Given I am on the Results Page
+	Given I am on the Search Page
 
 Scenario: User adds a restaurant to Favorite list and a recipe to do not show list
 	
@@ -10,7 +10,7 @@ Scenario: User adds a restaurant to Favorite list and a recipe to do not show li
 	And I add a recipe to Do Not Show list
 	And I go to Favorite list management page
 	Then there is restaurant name
-	Then there is stars
+	Then there is restaurant stars
 	Then there is minutes
 	Then there is address
 	Then there is price
@@ -25,7 +25,7 @@ Scenario: User adds a restaurant to Favorite list and a recipe to do not show li
 	When I move the restaurant to To Explore list
 	And I go to Do Not Show list management page
 	Then there is recipe name
-	Then there is stars
+	Then there is recipe stars
 	Then there is cook time
 	Then there is prep time
 	Then there is dropdown box to select predefined lists
@@ -43,7 +43,7 @@ Scenario: User adds a restaurant to Favorite list and a recipe to do not show li
 	Then there is no prep time
 	When I go to To Explore list management page
 	Then there is restaurant name
-	Then there is stars
+	Then there is restaurant stars
 	Then there is minutes
 	Then there is address
 	Then there is price

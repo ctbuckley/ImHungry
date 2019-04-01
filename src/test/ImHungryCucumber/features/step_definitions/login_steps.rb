@@ -36,6 +36,7 @@ When(/^I click on the sign up button$/) do
 end
 
 When(/^I return to the Log In Page$/) do
+	sleep(0.5)
 	visit 'http://localhost:8080/FeedMe/jsp/login.jsp'
 end
 
@@ -45,6 +46,10 @@ end
 
 Then(/^I should be on the Login Page and I should see an error message$/) do
 	expect(page.find("#errorField").native.css_value('display')).not_to eq('none')
+	expect(page.current_url).to include('http://localhost:8080/FeedMe/jsp/login')
+end
+
+Then(/^I should be on the login page$/) do
 	expect(page.current_url).to include('http://localhost:8080/FeedMe/jsp/login')
 end
 

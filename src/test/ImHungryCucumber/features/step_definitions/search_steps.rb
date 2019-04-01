@@ -69,7 +69,13 @@ Then(/^I enter "([^"]*)" in the radius input field$/) do |radius|
 end
 
 Then(/^I should be on the Search Page$/) do
-	expect(page.current_url).to include('http://localhost:8080/FeedMe/jsp/search')
+  sleep(2)
+	expect(page.current_url).to include('http://localhost:8080/FeedMe/jsp/search.jsp')
+end
+
+Then(/^I should be on the Search Page after servlet$/) do
+  sleep(2)
+	expect(page.current_url).to include('http://localhost:8080/FeedMe/search')
 end
 
 Then(/^there is a quick access list$/) do
@@ -77,14 +83,15 @@ Then(/^there is a quick access list$/) do
 end
 
 Then (/^I should visit the search page$/) do
+  sleep(1)
   visit "http://localhost:8080/FeedMe/jsp/search.jsp"
 end
 
 Then(/^I should see 1 history result$/) do
-  expect(page.find_by_id("quickAccessResult0"))
+  expect(page.find_by_id("quickAccessResult0", visible: false))
 end
 
 Then(/^I should see 2 history results$/) do
-  expect(page.find_by_id("quickAccessResult0"))
-  expect(page.find_by_id("quickAccessResult1"))
+  expect(page.find_by_id("quickAccessResult0", visible: false))
+  expect(page.find_by_id("quickAccessResult1", visible: false))
 end
