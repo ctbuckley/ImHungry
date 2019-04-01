@@ -1,16 +1,69 @@
-@charset "utf-8";
-*{
-	background-color: whitesmoke;
-}
-html{
-	width:90%;
-}
-body{
+#main {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	height: 100%;
 	width: 100%;
-	float: left;
-  background-color: whitesmoke;
 }
 
-#listItems{
-	margin: 0;
+.results-card {
+    border: 2px solid #dee2e6;
+    box-shadow: 4px 4px 5px #c0c0c0;
+    height: 280px;
 }
+
+.results-card:hover {
+    cursor: pointer;
+}
+
+.outer_stars {
+  display: inline-block;
+  position: relative;
+  font-family: FontAwesome;
+      font-size: 1.8vw;
+
+}
+
+.outer_stars::before {
+  content: "\f006 \f006 \f006 \f006 \f006";
+  color: #C0C0C0;
+  font-size: 1.8vw;
+
+}
+
+.inner_stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  font-size: 1.8vw;
+}
+
+.inner_stars::before {
+  content: "\f005 \f005 \f005 \f005 \f005";
+  color: #f8ce0b;
+  font-size: 1.8vw;
+
+}
+
+.inner_star::before, .outer_stars::before {
+  font-size: 1.8vw;
+}
+
+.buttons {
+	width: 20%;
+	border: 0.5px solid #C0C0C0;
+	margin-left: 5px;
+	border-radius: 5px;
+	height: 20%;
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px;
+}
+
+.btn {
+	width: 100%;	
+	margin-bottom: 2vh;
+	margin-top: 2vh;
+}
+

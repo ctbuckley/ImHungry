@@ -132,6 +132,7 @@
 .results-card {
     border: 2px solid #dee2e6;
     box-shadow: 4px 4px 5px #c0c0c0;
+    height: 280px;
 }
 
 .results-card:hover {
