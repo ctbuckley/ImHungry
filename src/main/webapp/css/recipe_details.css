@@ -1,0 +1,132 @@
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
+.row {
+	padding-left: 8%;
+	padding-right: 8%;
+	display: flex;
+	align-items: flex-start;
+	flex-direction: row;
+}
+
+.recipe_picture_cont {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 3vh;
+	background-color: #A9A9A9;
+}
+
+/*
+.bg_cont:before {
+position: absolute;
+  z-index: -2;
+  top: -1.5em;
+  right: -1.5em;
+  bottom: -1.5em;
+  left: -1.5em;
+  border: inherit;
+  border-color: black;
+background-color: black;
+    color: black;
+  background: inherit;
+  background-clip: border-box;
+  filter: blur(9px);
+  clip-path: inset(0);
+  content: "";
+}
+.bg_cont {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+    overflow: hidden;
+    background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+    background-clip: border-box;
+       filter: brightness(70%);
+}
+
+*/
+
+#recipePicture {
+	display: flex;
+	align-self: center;
+}
+
+#recipeName {
+	padding-top: 1vh;
+	padding-bottom: 1vh;
+}
+
+.recipe_time_cont {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	border-bottom: 0.5px solid #C0C0C0;
+}
+
+
+.recipe_time_cont p {
+	width: 50%;
+}
+
+#ingredientsBloc, #instructionsBloc {
+	padding-bottom: 2vh;
+}
+
+#ingredientsBloc {
+	border-bottom: 0.5px solid #C0C0C0;
+}
+
+.recipe_section_title {
+	padding-top: 2vh;
+	padding-bottom: 2vh;
+}
+
+.btn {
+	width: 100%;	
+	margin-bottom: 2vh;
+	margin-top: 2vh;
+}
+
+.outer_detail_cont {
+	width: 80%;
+}
+
+.buttons {
+	width: 20%;
+	border: 0.5px solid #C0C0C0;
+	margin-left: 5px;
+	border-radius: 5px;
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px;
+}
+
+@media screen and (max-width: 1275px) {
+	.row {
+		flex-direction: column-reverse;
+		align-items: flex-start;
+		justify-content: space-between;
+		height: 120%;
+	}
+	
+	.buttons {
+		width: 100%;
+		display: inline-block;
+		height: 40%;
+	}
+	
+	.btn {
+		margin-bottom: 5px;
+	}
+	
+	.outer_detail_cont {
+		height: 60%;
+		display: inline-block;
+		width: 100%;
+	}
+}

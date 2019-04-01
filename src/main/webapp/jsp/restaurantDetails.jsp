@@ -67,42 +67,44 @@
 	 	</div>
 	</nav>
     <!-- Row -->
-    <div class="row">
-	    <div class="col-sm-8">
-	       <!-- Title -->
-	       <h1 id="restaurantName"><%= restaurantVal.getName() %></h1>
-	       <!-- Holds image, prep and cook time of recipe-->
-	       <div id="details">
-	         <a id="address" href="<%= "https://www.google.com/maps/dir/?api=1&origin=Tommy+Trojan%2C+Childs+Way%2CLos+Angeles+CA&origin_place_id=ChIJIfdecuPHwoARKagsKQF16io&destination=" + restaurantVal.getAddress()%>"><strong>Address:</strong> <%= restaurantVal.getAddress() %></a>
-	         <p id="phoneNumber"><strong>Phone Number:</strong><%= restaurantVal.getPhoneNumber() %></p>
-	         <a id="website" href="<%= restaurantVal.getWebsiteUrl() %>"><strong>Website Address: </strong><%= restaurantVal.getWebsiteUrl() %></a>
-	       </div>
-	    </div>
-	    <!-- Holds all the buttons -->
-	    <div class="buttons col-sm">
-	      <!-- Brings user to a printable version of the page -->
-	      
-	      <button id="printButton" class="Button" onclick="hideButtons()">Printable Version</button>
-	      <!-- Brings user back to results page -->
-	      
-          <!-- Brings user back to results page -->
-	      <form action="/FeedMe/results" method="POST">
-	        <button id="backToResults" class="Button">Back To Results</button>
-	      </form>
-	      <!-- This is the drop-down menu -->
-	      <form method="POST" onsubmit="return addToList(this)">
-	      <input type="hidden" name="arrNum" value="<%= arrNum %>">
-	      <select name="listType" id="dropDownBar" class="dropDownBar">
-          	<option disabled selected value id="defaultOption"> -- select an option -- </option>
-          	<option id="favoriteOption" value="f" >Favorites</option>
-          	<option id="toExploreOption" value="t">To Explore</option>
-          	<option id="doNotShowOption" value="d">Do Not Show</option>
-      	  </select>
-	      <!-- Button to add item to selected list, doesn't do anything if choice is empty -->
-	      <button type="submit" id="addToList" class="Button">Add to List</button>
-	      </form>
-	    </div>
-	 </div>
+    <div class="restaurant-container">
+	    <div class="row">
+		    <div class="col-sm-8">
+		       <!-- Title -->
+		       <h1 id="restaurantName"><%= restaurantVal.getName() %></h1>
+		       <!-- Holds image, prep and cook time of recipe-->
+		       <div id="details">
+		         <a id="address" href="<%= "https://www.google.com/maps/dir/?api=1&origin=Tommy+Trojan%2C+Childs+Way%2CLos+Angeles+CA&origin_place_id=ChIJIfdecuPHwoARKagsKQF16io&destination=" + restaurantVal.getAddress()%>"><strong>Address:</strong> <%= restaurantVal.getAddress() %></a>
+		         <p id="phoneNumber"><strong>Phone Number:</strong><%= restaurantVal.getPhoneNumber() %></p>
+		         <a id="website" href="<%= restaurantVal.getWebsiteUrl() %>"><strong>Website Address: </strong><%= restaurantVal.getWebsiteUrl() %></a>
+		       </div>
+		    </div>
+		    <!-- Holds all the buttons -->
+		    <div class="buttons col-sm">
+		      <!-- Brings user to a printable version of the page -->
+		      
+		      <button id="printButton" class="Button" onclick="hideButtons()">Printable Version</button>
+		      <!-- Brings user back to results page -->
+		      
+	          <!-- Brings user back to results page -->
+		      <form action="/FeedMe/results" method="POST">
+		        <button id="backToResults" class="Button">Back To Results</button>
+		      </form>
+		      <!-- This is the drop-down menu -->
+		      <form method="POST" onsubmit="return addToList(this)">
+		      <input type="hidden" name="arrNum" value="<%= arrNum %>">
+		      <select name="listType" id="dropDownBar" class="dropDownBar">
+	          	<option disabled selected value id="defaultOption"> -- select an option -- </option>
+	          	<option id="favoriteOption" value="f" >Favorites</option>
+	          	<option id="toExploreOption" value="t">To Explore</option>
+	          	<option id="doNotShowOption" value="d">Do Not Show</option>
+	      	  </select>
+		      <!-- Button to add item to selected list, doesn't do anything if choice is empty -->
+		      <button type="submit" id="addToList" class="Button">Add to List</button>
+		      </form>
+		    </div>
+		 </div>
+	</div>
     <!-- Homebrew JS -->
     <script>
     // Adds the item to the specified list, if the proper one is selected
