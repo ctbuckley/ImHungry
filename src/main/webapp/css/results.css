@@ -1,3 +1,9 @@
+
+.list_element{
+	min-height: 550;
+    width: 100%;
+}
+
 .outer_stars {
    display: inline-block;
    position: relative;

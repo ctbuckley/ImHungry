@@ -151,8 +151,10 @@
 								restaurantPrice = "$";
 							} else if (price == 2) {
 								restaurantPrice = "$$";
-							} else {
+							} else if (price == 3){
 								restaurantPrice = "$$$";
+							} else if (price == 4){
+								restaurantPrice = "$$$$";
 							}
 				%>
 				<!-- Restaurant item rendering -->
@@ -160,18 +162,17 @@
 					class="row no-gutters rounded overflow-hidden flex-md-row md-4 shadow-md h-md-250 position-relative results-card mb-3"
 					id="Restaurant<%=i%>"
 					onclick="window.location='/FeedMe/restaurantDetails?arrNum=<%=i%>'">
-					<div class="col p-4 d-flex flex-column position-static">
-						<div class="container">
+					<div class="p-4 d-flex flex-column position-static container list_element">
 							<div class="row">
-								<div class="col-xs-8">
-									<h3 id="restaurantName<%=i%>"><strong><%=restaurantArr[i].getName()%></strong></h3>
+								<div class="col-10">
+									<h4 id="restaurantName<%=i%>"><strong><%=restaurantArr[i].getName()%></strong></h4>
 								</div>
-								<div class="col-xs-4 text-right">
-									<h3 id="restaurantPrice<%=i%>"><%=restaurantPrice%></h3>
+								<div class="col-2 text-right">
+									<h4 id="restaurantPrice<%=i%>"><%=restaurantPrice%></h4>
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-xs-12">
+								<div class="col-12">
 									<div id="restaurantRating<%=i%>" class="outer_stars"
 										data-stars="<%=restaurantArr[i].getRating()%>">
 										<div class="inner_stars" id="innerRestaurantRating<%=i%>"></div>
@@ -179,16 +180,15 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-xs-6">
+								<div class="col-6">
 									<p id="restaurantAddress<%=i%>"><%=restaurantArr[i].getAddress()%></p>
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-xs-12">
+								<div class="col-12">
 									<p id="restaurantDistance<%=i%>" class="minutes-away"><%=restaurantArr[i].getDrivingTime()%> Min(s) Away</p>
 								</div>
 							</div>
-						</div>
 						</div>
 					<div class="col-auto d-none d-lg-block"></div>
 				</div>
@@ -209,14 +209,14 @@
 				<div class="row no-gutters rounded overflow-hidden flex-md-row md-4 shadow-md h-md-250 position-relative results-card mb-3"
 					id="Recipe<%=i%>"
 					onclick="window.location='/FeedMe/recipeDetails?arrNum=<%=i%>'">
-					<div class="col p-4 d-flex flex-column position-static">
-						<div class="container">
+					<div class="p-4 d-flex flex-column position-static container list_element">
 							<div class="row">
-								<div class="col-sm">
-									<strong id="recipeName<%=i%>">Name:</strong> <br>
-									<p><%=recipeArr[i].getName()%></p>
+								<div class="col-10">
+									<h4 id="recipeName<%=i%>"><strong><%=recipeArr[i].getName()%></strong></h4>
 								</div>
-								<div class="col-sm">
+							</div>
+							<div class="row">
+								<div class="col-12">
 									<div id="recipeRating<%=i%>" class="outer_stars"
 										data-stars="<%=recipeArr[i].getRating()%>">
 										<div class="inner_stars" id="innerRecipeRating<%=i%>"></div>
@@ -224,38 +224,33 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-sm"></div>
-								<div class="col-sm"></div>
-							</div>
-							<div class="row">
-								<div class="col-sm">
+								<div class="col-6">
 									<%
 										// set cook time to not available if no value is given back from API
-												double cookTime = recipeArr[i].getCookTime();
+												int cookTime = (int)recipeArr[i].getCookTime();
 												String renderCookTime = "";
 												if (cookTime < 0) {
 													renderCookTime = "Not Available";
 												} else {
-													renderCookTime = Double.toString(cookTime);
+													renderCookTime = Integer.toString(cookTime);
 												}
 												// set prep time to not available if no value is given back from API
-												double prepTime = recipeArr[i].getPrepTime();
+												int prepTime = (int)recipeArr[i].getPrepTime();
 												String renderPrepTime = "";
 												if (prepTime < 0) {
 													renderPrepTime = "Not Available";
 												} else {
-													renderPrepTime = Double.toString(prepTime);
+													renderPrepTime = Integer.toString(prepTime);
 												}
 									%>
-									<strong id="recipeCookTime<%=i%>">Cook Time:</strong> <br>
-									<p><%=renderCookTime%></p>
-								</div>
-								<div class="col-sm">
-									<strong id="recipePrepTime<%=i%>">Prep Time: </strong><br>
-									<p><%=renderPrepTime%></p>
+									<p id="recipeCookTime<%=i%>">Cook Time: <%=renderCookTime%> min(s)</p>
 								</div>
 							</div>
-						</div>
+							<div class="row">
+								<div class="col-12">
+									<p id="recipePrepTime<%=i%>" class="minutes-away"> Prep Time: <%=renderPrepTime%> min(s)</p>
+								</div>
+							</div>
 						<a href="/FeedMe/recipeDetails?arrNum=<%=i%>"
 							class="stretched-link"></a>
 					</div>
