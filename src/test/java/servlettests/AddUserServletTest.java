@@ -23,8 +23,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import data.Config;
 import data.Database;
 import servlets.AddUserServlet;
+import servlets.ValidateLoginServlet;
 
 /*
  *  Tests for the ResultsPageServlet class.
@@ -85,9 +87,6 @@ public class AddUserServletTest {
   		rs.next();
 		int uID = rs.getInt("userID");
 		db.deleteUserfromUsers(uID);
-		if(rs!=null) {
-			rs.close();
-		}
 	}	
 	
 	/*
@@ -195,8 +194,67 @@ public class AddUserServletTest {
   		rs.next();
 		int uID = rs.getInt("userID");
 		db.deleteUserfromUsers(uID);
-		if(rs!=null) {
-			rs.close();
-		}
 	}
+	
+	@Test
+    public void testThrowClassExceptions() throws Exception {
+    	
+		
+	when(request.getParameter("username")).thenReturn("testUser");
+	when(request.getParameter("pass")).thenReturn("root");
+    	
+       String tempClassName = Config.className;
+       Config.className = "garbage";
+       
+        
+       new AddUserServlet().service(request, response);
+       
+
+      Config.className = tempClassName;
+       
+    }
+    
+    @Test
+    public void testThrowSqlExceptions() throws Exception {
+    	
+    	when(request.getParameter("username")).thenReturn("testUser");
+    	when(request.getParameter("pass")).thenReturn("root");
+    	
+ 
+       String tempDBPW = Config.databasePW;
+       Config.databasePW = "notmypass";
+       
+       
+        
+       new AddUserServlet().service(request, response);
+       
+
+      Config.databasePW = tempDBPW;
+      
+       
+    }
+    
+    @Test
+    public void testThrowAlgorithmExceptions() throws Exception {
+    	
+    	when(request.getParameter("username")).thenReturn("testUser");
+    	when(request.getParameter("pass")).thenReturn("root");
+    	
+ 
+       String tempAlgo = Config.hashAlgo;
+       
+       Config.hashAlgo = "garbage";
+       
+       
+       StringWriter out = new StringWriter();
+	   when(response.getWriter()).thenReturn(new PrintWriter(out));
+        
+       
+       new AddUserServlet().service(request, response);
+       
+
+      Config.hashAlgo = tempAlgo;
+      
+       
+    }
 }

@@ -22,6 +22,7 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import data.Config;
 import data.Recipe;
 import data.Restaurant;
 import data.UserList;
@@ -171,8 +172,9 @@ public class ResultsPageServletTest {
 	public void testDoNotShow() throws Exception{
 		
 		// Add to Do Not Show
-		userLists[1].add(recipe2);
-		userLists[1].add(restaurant2);		
+		Config c = new Config();
+		userLists[1].add(recipe1);
+		userLists[1].add(restaurant1);		
 		
 		when(session.getAttribute("userLists")).thenReturn(userLists);
 		when(request.getParameter("q")).thenReturn("Chicken");
@@ -278,6 +280,7 @@ public class ResultsPageServletTest {
 		when(session.getAttribute("userLists")).thenReturn(userLists);
 		when(request.getParameter("q")).thenReturn("Chicken");
 		when(request.getParameter("n")).thenReturn("6");
+		when(request.getParameter("pageNumber")).thenReturn(null);
 
 		new ResultsPageServlet().service(request, response);
 		

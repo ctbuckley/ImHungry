@@ -19,6 +19,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import data.Config;
 import data.Database;
 import data.SearchItem;
 import servlets.AddSearchHistoryServlet;
@@ -78,8 +79,39 @@ public class AddSearchHistoryServletTest {
        
        db.deleteQueryfromSearchHistory(searchID);
        
-       
     } 
+    
+    @Test
+    public void testThrowClassExceptions() throws Exception {
+    	
+       String tempClassName = Config.className;
+    
+       Config.className = "garbage";
+        
+       new AddSearchHistoryServlet().service(request, response);
+       
+      Config.className =  tempClassName;
+      
+       
+    }
+    
+    @Test
+    public void testThrowSqlExceptions() throws Exception {
+    	
+ 
+       String tempDBPW = Config.databasePW;
+       
+
+       Config.databasePW = "notmypass";
+       
+        
+       new AddSearchHistoryServlet().service(request, response);
+       
+
+      Config.databasePW = tempDBPW;
+       
+    }
+    
     
     @After
 	public void teardown() throws SQLException {

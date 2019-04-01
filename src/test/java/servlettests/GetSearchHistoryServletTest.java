@@ -20,7 +20,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import data.Config;
 import data.Database;
+import servlets.AddUserServlet;
 import servlets.GetSearchHistoryServlet;
 
 public class GetSearchHistoryServletTest {
@@ -88,7 +90,45 @@ public class GetSearchHistoryServletTest {
 		
 		//Remove the user so that this test works next time
 		db.deleteUserfromUsers(userID);
-	}	
+	}
+	
+	@Test
+    public void testThrowClassExceptions() throws Exception {
+    	
+		
+	when(request.getParameter("username")).thenReturn("testUser");
+	when(request.getParameter("pass")).thenReturn("root");
+    	
+       String tempClassName = Config.className;
+       Config.className = "garbage";
+       
+        
+       new GetSearchHistoryServlet().service(request, response);
+       
+
+      Config.className = tempClassName;
+       
+    }
+    
+    @Test
+    public void testThrowSqlExceptions() throws Exception {
+    	
+    	when(request.getParameter("username")).thenReturn("testUser");
+    	when(request.getParameter("pass")).thenReturn("root");
+    	
+ 
+       String tempDBPW = Config.databasePW;
+       Config.databasePW = "notmypass";
+       
+       
+        
+       new GetSearchHistoryServlet().service(request, response);
+       
+
+      Config.databasePW = tempDBPW;
+      
+       
+    }
 	
 	@After
 	public void teardown() throws SQLException {

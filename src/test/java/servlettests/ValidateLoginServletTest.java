@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.sql.ResultSet;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import data.Config;
+import data.Database;
+import servlets.AddSearchHistoryServlet;
 import servlets.ValidateLoginServlet;
 
 /*
@@ -57,8 +61,14 @@ public class ValidateLoginServletTest {
 	 */
 	@Test
 	public void testValidLogin() throws Exception {
+		
+		Database db = new Database();
+		db.insertUserintoUsers("testUser", "4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2");
+		ResultSet rs = db.getUserfromUsers("testUser");
+		rs.next();
+		int uID = rs.getInt("userID");
 
-		when(request.getParameter("username")).thenReturn("master");
+		when(request.getParameter("username")).thenReturn("testUser");
 		when(request.getParameter("pass")).thenReturn("root");
 		StringWriter out = new StringWriter();
 		when(response.getWriter()).thenReturn(new PrintWriter(out));
@@ -67,11 +77,15 @@ public class ValidateLoginServletTest {
 		
 		String r = out.toString();
 		
+		System.out.println(r);
+		
 		JsonElement je = new JsonParser().parse(r);
 	    JsonObject  jo = je.getAsJsonObject();
 	    String result = jo.get("success").getAsString();
 	    
 	    assertEquals("true", result);
+	    
+	    db.deleteUserfromUsers(uID);
 	}
 	
 	/*
@@ -80,6 +94,13 @@ public class ValidateLoginServletTest {
 	
 	@Test
 	public void testInvalidLogin() throws Exception {
+		
+		Database db = new Database();
+		db.insertUserintoUsers("master", "pass");
+		ResultSet rs = db.getUserfromUsers("master");
+		rs.next();
+		int uID = rs.getInt("userID");
+
 
 		when(request.getParameter("username")).thenReturn("master");
 		when(request.getParameter("pass")).thenReturn("incorrectpass");
@@ -101,7 +122,7 @@ public class ValidateLoginServletTest {
 	    
 	    assertEquals("The password is incorrect!", result);
 		
-		
+	    db.deleteUserfromUsers(uID);
 	}
 	
 	/*
@@ -189,6 +210,101 @@ public class ValidateLoginServletTest {
 	    assertEquals("A user with that username does not exist!", result);
 		
 	}
+	
+	@Test
+    public void testThrowClassExceptions() throws Exception {
+    	
+		Database db = new Database();
+		db.insertUserintoUsers("testUser", "4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2");
+		ResultSet rs = db.getUserfromUsers("testUser");
+		rs.next();
+		int uID = rs.getInt("userID");
+		
+		when(request.getParameter("username")).thenReturn("testUser");
+		when(request.getParameter("pass")).thenReturn("root");
+    	
+ 
+       String tempClassName = Config.className;
+       
+
+       Config.className = "garbage";
+       
+       when(request.getParameter("username")).thenReturn("testUser");
+       when(request.getParameter("pass")).thenReturn("10000");
+       
+        
+       new ValidateLoginServlet().service(request, response);
+       
+
+      Config.className = tempClassName;
+      
+      db.deleteUserfromUsers(uID);
+       
+    }
+    
+    @Test
+    public void testThrowSqlExceptions() throws Exception {
+    	
+    	Database db = new Database();
+		db.insertUserintoUsers("testUser", "4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2");
+		ResultSet rs = db.getUserfromUsers("testUser");
+		rs.next();
+		int uID = rs.getInt("userID");
+		
+		when(request.getParameter("username")).thenReturn("testUser");
+		when(request.getParameter("pass")).thenReturn("root");
+    	
+ 
+       String tempDBPW = Config.databasePW;
+       
+
+       Config.databasePW = "notmypass";
+       
+       when(request.getParameter("username")).thenReturn("testUser");
+       when(request.getParameter("pass")).thenReturn("10000");
+       
+        
+       new ValidateLoginServlet().service(request, response);
+       
+
+      Config.databasePW = tempDBPW;
+      
+      db.deleteUserfromUsers(uID);
+       
+    }
+    
+    @Test
+    public void testThrowAlgorithmExceptions() throws Exception {
+    	
+    	Database db = new Database();
+		db.insertUserintoUsers("testUser", "4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2");
+		ResultSet rs = db.getUserfromUsers("testUser");
+		rs.next();
+		int uID = rs.getInt("userID");
+		
+		when(request.getParameter("username")).thenReturn("testUser");
+		when(request.getParameter("pass")).thenReturn("root");
+    	
+ 
+       String tempAlgo = Config.hashAlgo;
+       
+
+       Config.hashAlgo = "garbage";
+       
+       when(request.getParameter("username")).thenReturn("testUser");
+       when(request.getParameter("pass")).thenReturn("10000");
+       StringWriter out = new StringWriter();
+	   when(response.getWriter()).thenReturn(new PrintWriter(out));
+        
+       
+       new ValidateLoginServlet().service(request, response);
+       
+
+      Config.hashAlgo = tempAlgo;
+      
+      db.deleteUserfromUsers(uID);
+       
+    }
 	
 	
 	
