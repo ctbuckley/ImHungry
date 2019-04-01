@@ -120,7 +120,7 @@ public class ResultsPageServletTest {
 
 		when(session.getAttribute("userLists")).thenReturn(userLists);
 		when(session.getAttribute("searchTerm")).thenReturn("Chicken");		
-		when(session.getAttribute("resultCount")).thenReturn(3);
+		when(session.getAttribute("n")).thenReturn(3);
 
 		new ResultsPageServlet().service(request, response);
 		
