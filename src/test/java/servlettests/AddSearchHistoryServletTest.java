@@ -67,7 +67,7 @@ public class AddSearchHistoryServletTest {
        when(request.getParameter("searchQuery")).thenReturn("milk tea");
        when(request.getParameter("numResults")).thenReturn("7");
         
-       new AddSearchHistoryServlet.service(request, response);
+       new AddSearchHistoryServlet().service(request, response);
  
        ArrayList<SearchItem> si = db.getSearchItemfromSearch(userID);
        int searchID = si.get(0).searchID;

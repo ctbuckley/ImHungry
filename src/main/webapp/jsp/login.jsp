@@ -40,7 +40,7 @@
 				</div>
 			</div>
 			<div class="log_in_error_cont" id="errorField">
-				a;ofijrapaoijgm;rgijagj
+				
 			</div>
 			<div class="right_btns_cont">
 				<div class="log_in_btn_cont">

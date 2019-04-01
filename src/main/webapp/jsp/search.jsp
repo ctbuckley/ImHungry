@@ -12,8 +12,11 @@
 	<!-- Javascript -->
 	<script type="text/javascript" src="/FeedMe/javascript/searchEmoji.js"></script>
 	<script type="text/javascript" src="/FeedMe/javascript/login.js"></script>
+	<!--  jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<!-- Title -->
 	<title id="searchTitle">Search Page</title>
+	
 </head>
 
 <!-- Html body -->
@@ -30,12 +33,7 @@
           Past Searches
         </a>
         <div id="dropdown-menu-Populate" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-		    <a class="dropdown-item quickAccessLink" id="quickAccessResult0" data-query="xxxx" data-numResults="x" data-radius="x" href="#">
-		    	<div class="top_past_history"> 
-		    		<p>Burger</p> <p>1</p> 
-		    	</div>
-		    	<p>5000</p>
-		    </a>   
+		    
         </div>
       </li>
 	     <li class="nav-item active ml-auto">
@@ -62,7 +60,7 @@
 		 			<input type="text" name="pageNumber" style="display: none" value="1">
 					<br>
 					<!-- Feed Me button with the emoji image -->
-					<button class="text-center btn btn-outline-primary" type="submit" value="Feed Me" name ="feedMeButton" id="feedMeButton"><p id="feedMeText">Feed Me!</p><img src="https://images.emojiterra.com/twitter/v11/512px/1f620.png" id ="emoji"><br></button>
+					<button onclick="addToSearchHistory()" class="text-center btn btn-outline-primary" type="submit" value="Feed Me" name ="feedMeButton" id="feedMeButton"><p id="feedMeText">Feed Me!</p><img src="https://images.emojiterra.com/twitter/v11/512px/1f620.png" id ="emoji"><br></button>
 				</form>
 			</div>
   		</div>

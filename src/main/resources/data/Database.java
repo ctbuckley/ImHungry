@@ -16,7 +16,7 @@ public class Database {
 	public Database() throws ClassNotFoundException, SQLException {	
 	
 		Class.forName("com.mysql.jdbc.Driver");
-		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hungrydatabase?user=root&password=root&useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=utf8");	
+		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hungrydatabase?user=root&password=password&useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=utf8");	
 	
 	}
 	
