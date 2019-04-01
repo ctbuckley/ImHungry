@@ -9,8 +9,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Homebrew CSS  -->
-    <link href="/FeedMe/css/buttons.css" rel="stylesheet" >
     <link href="/FeedMe/css/details.css" rel="stylesheet" >
+    <link href="/FeedMe/css/recipe_details.css" rel="stylesheet">
     <script src="/FeedMe/javascript/buttons.js"></script>
     <%@page import="java.util.*" %>
 	<%@page import="data.*"%>
@@ -83,12 +83,12 @@
 		    <div class="buttons col-sm">
 		      <!-- Brings user to a printable version of the page -->
 		      
-		      <button id="printButton" class="Button" onclick="hideButtons()">Printable Version</button>
+		      <button id="printButton" class="btn btn-outline-primary" onclick="hideButtons()">Printable Version</button>
 		      <!-- Brings user back to results page -->
 		      
 	          <!-- Brings user back to results page -->
 		      <form action="/FeedMe/results" method="POST">
-		        <button id="backToResults" class="Button">Back To Results</button>
+		        <button id="backToResults" class="btn btn-outline-primary">Back To Results</button>
 		      </form>
 		      <!-- This is the drop-down menu -->
 		      <form method="POST" onsubmit="return addToList(this)">
@@ -100,7 +100,7 @@
 	          	<option id="doNotShowOption" value="d">Do Not Show</option>
 	      	  </select>
 		      <!-- Button to add item to selected list, doesn't do anything if choice is empty -->
-		      <button type="submit" id="addToList" class="Button">Add to List</button>
+		      <button type="submit" id="addToList" class="btn btn-outline-primary">Add to List</button>
 		      </form>
 		    </div>
 		 </div>

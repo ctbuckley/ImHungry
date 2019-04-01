@@ -14,8 +14,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     
-    <link href="/FeedMe/css/buttons.css" rel="stylesheet" >
-    <link href="/FeedMe/css/details.css" rel="stylesheet" >
     <link href="/FeedMe/css/recipe_details.css" rel="stylesheet">
     <script src="/FeedMe/javascript/buttons.js"></script>
     <%@page import="java.util.*" %>
@@ -66,11 +64,12 @@
 	     	</ul>
 	 	</div>
 	</nav>
-	<div class="recipe_picture_cont">	
-	   		<% String picUrl = recipeVal.getPictureUrl(); %>
-	        <img id="recipePicture" src="<%= picUrl %>" alt="Recipe Image"/>
-	        <div class="overlay"></div>
-        	<div class="bg_cont" style="background-image: url("<%=picUrl%>")"></div>
+	<% String picUrl = recipeVal.getPictureUrl(); %>
+	<div class="recipe_picture_cont">
+		<img id="recipePicture" src="<%= picUrl %>" alt="Recipe Image"/>
+	</div>
+	<div class="bg_cont" style="background-image: url(<%=picUrl%>); background-repeat: no-repeat;"></div>	
+	        
     </div>	
     <!-- Title -->
     <h1 id="recipeName"><%= recipeVal.getName() %></h1>

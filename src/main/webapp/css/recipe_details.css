@@ -9,58 +9,61 @@ html, body {
 	display: flex;
 	align-items: flex-start;
 	flex-direction: row;
+	postion: absolute;
+	z-index: 1;
+}
+
+
+.bg_cont:before {
+	position: absolute;
+	z-index: -2;
+	border: inherit;
+	border-color: black;
+	background-color: black;
+	color: black;
+	background: inherit;
+	background-clip: border-box;
+	filter: blur(20px);
+	clip-path: inset(0);
+	content: "";
+}
+
+.bg_cont {
+    width: 100%;
+    height: 30%;
+    position: relative;
+    z-index: -1;
+    overflow: hidden;
+    background-position: center;
+ 	background-repeat: no-repeat;
+ 	background-size: cover;
+    background-clip: border-box;
+    filter: brightness(60%);
+    display: flex; 
+    align-items: center;
+    justify-content: center;
 }
 
 .recipe_picture_cont {
 	width: 100%;
+	margin: auto;
+	height: 30%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin-bottom: 3vh;
-	background-color: #A9A9A9;
+	position: absolute;
+	z-index: 1;
+	box-sizing: border-box;
 }
-
-/*
-.bg_cont:before {
-position: absolute;
-  z-index: -2;
-  top: -1.5em;
-  right: -1.5em;
-  bottom: -1.5em;
-  left: -1.5em;
-  border: inherit;
-  border-color: black;
-background-color: black;
-    color: black;
-  background: inherit;
-  background-clip: border-box;
-  filter: blur(9px);
-  clip-path: inset(0);
-  content: "";
-}
-.bg_cont {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    z-index: -1;
-    overflow: hidden;
-    background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-    background-clip: border-box;
-       filter: brightness(70%);
-}
-
-*/
 
 #recipePicture {
-	display: flex;
-	align-self: center;
+	height: 100%;
 }
 
 #recipeName {
 	padding-top: 1vh;
 	padding-bottom: 1vh;
+	margin-left: 8%;
 }
 
 .recipe_time_cont {
@@ -106,27 +109,48 @@ background-color: black;
 	box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px;
 }
 
+/*
 @media screen and (max-width: 1275px) {
 	.row {
 		flex-direction: column-reverse;
 		align-items: flex-start;
 		justify-content: space-between;
-		height: 120%;
+		height: 100%;
 	}
 	
 	.buttons {
 		width: 100%;
-		display: inline-block;
+		display: flex;
+		justify-content: space-between;
+		flex-direction: column;
+		align-items: center;
 		height: 40%;
+		position:relative;
+		top:0%;
 	}
 	
 	.btn {
-		margin-bottom: 5px;
+		margin: 3px;
+	}
+	
+	form, #dropDownBar{
+		margin: 3px;
+		width: 100%;
 	}
 	
 	.outer_detail_cont {
-		height: 60%;
+		height: 80%;
 		display: inline-block;
+		width: 100%;
+		position: relative;
+		top: 20%;
+	}
+}
+
+*/
+
+@media screen and (max-width: 580px) {
+	.buttons {
 		width: 100%;
 	}
 }
