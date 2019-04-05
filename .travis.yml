@@ -6,5 +6,5 @@ before_script:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS HungryDatabase;'
   - sudo service mysql restart
   - cat sql/hungry.sql
-  - mysql < sql/hungry.sql
+  - mysql hungrydatabase < sql/hungry.sql
   - sudo service mysql restart
