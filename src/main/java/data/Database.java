@@ -35,10 +35,6 @@ public class Database {
 		ps.setString(1, Integer.toString(userID));
 		ps.executeUpdate();	
 		
-		ps = conn.prepareStatement("DELETE FROM hungrydatabase.Item WHERE userID=?");
-		ps.setString(1, Integer.toString(userID));
-		ps.executeUpdate();	
-		
 		ps = conn.prepareStatement("DELETE FROM hungrydatabase.Users WHERE userID=?");
 		ps.setString(1, Integer.toString(userID));
 		ps.executeUpdate();	
