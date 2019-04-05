@@ -5,4 +5,4 @@ before_script:
   - cat /etc/mysql/my.cnf
   - sudo service mysql restart
   - mysql -e 'CREATE DATABASE hungrydatabase;'
-  - mysql -u root -p hungrydatabase < ~/AlexColello/CS310GroupC/sql/hungry.sql
+  - mysql < ~/AlexColello/CS310GroupC/sql/hungry.sql
