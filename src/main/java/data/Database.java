@@ -31,7 +31,7 @@ public class Database {
 	}
 	
 	public void deleteUserfromUsers(int userID) throws SQLException {
-		ps = conn.prepareStatement("DELETE FROM HungryDatabase.Users WHERE userID=?");
+		ps = conn.prepareStatement("DELETE FROM hungrydatabase.Users WHERE userID=?");
 		ps.setString(1, Integer.toString(userID));
 		ps.executeUpdate();	
 	}
@@ -69,7 +69,7 @@ public class Database {
 	}
 	
 	public void deleteQueryfromSearchHistory(int searchID) throws SQLException {
-		ps = conn.prepareStatement("DELETE FROM HungryDatabase.SearchHistory WHERE searchID=?");
+		ps = conn.prepareStatement("DELETE FROM hungrydatabase.SearchHistory WHERE searchID=?");
 		ps.setString(1, Integer.toString(searchID));
 		ps.executeUpdate();	
 	}
