@@ -81,7 +81,7 @@ public class ScrapperTest {
 		Vector<Recipe> recipes = Scrapper.search("chicken", 5);
 		assertEquals(5, recipes.size());
 		
-		recipes = Scrapper.search("broccoli", 21);
+		recipes = Scrapper.search("chicken", 21);
 		assertEquals(21, recipes.size());
 		
 	}
