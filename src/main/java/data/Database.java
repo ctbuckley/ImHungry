@@ -31,6 +31,10 @@ public class Database {
 	}
 	
 	public void deleteUserfromUsers(int userID) throws SQLException {
+		ps = conn.prepareStatement("DELETE FROM hungrydatabase.Lists WHERE userID=?");
+		ps.setString(1, Integer.toString(userID));
+		ps.executeUpdate();	
+		
 		ps = conn.prepareStatement("DELETE FROM hungrydatabase.SearchHistory WHERE userID=?");
 		ps.setString(1, Integer.toString(userID));
 		ps.executeUpdate();	
