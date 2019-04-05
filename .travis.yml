@@ -6,5 +6,6 @@ before_script:
   - sudo service mysql restart	  
   - mysql -e 'CREATE DATABASE hungrydatabase;'	 
   - cat sql/hungry.sql
-  - mysql < sql/hungry.sql
-
+  - mysql --user="root" --database="hungrydatabase" --password="" < "ql/hungry.sql"
+  - mysql --user="root" --database="hungrydatabase" --password="" --execute="SELECT * FROM Users"
+  
