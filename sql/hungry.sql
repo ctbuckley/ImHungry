@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS HungryDatabase;
-CREATE DATABASE HungryDatabase;
+DROP DATABASE IF EXISTS hungrydatabase;
+CREATE DATABASE hungrydatabase;
 
-USE HungryDatabase;
+USE hungrydatabase;
 
 CREATE TABLE Users(
 	userID INT(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
