@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.ResultSet;
@@ -44,9 +45,10 @@ public class AddUserServletTest {
 	RequestDispatcher rd;
 	
 	Database db;
+	StringWriter out;
 
 	@Before
-	public void setUp() throws ClassNotFoundException, SQLException {
+	public void setUp() throws ClassNotFoundException, SQLException, IOException {
 		MockitoAnnotations.initMocks(this);
 		
 		db = new Database();
@@ -55,7 +57,9 @@ public class AddUserServletTest {
 		response = mock(HttpServletResponse.class);
 		session = mock(HttpSession.class);
 		rd = mock(RequestDispatcher.class);
+		out = new StringWriter();
 		
+		when(response.getWriter()).thenReturn(new PrintWriter(out));
 		when(request.getSession()).thenReturn(session);
 		
 	}
@@ -68,8 +72,6 @@ public class AddUserServletTest {
 
 		when(request.getParameter("username")).thenReturn("testValidNewUser");
 		when(request.getParameter("pass")).thenReturn("password");
-		StringWriter out = new StringWriter();
-		when(response.getWriter()).thenReturn(new PrintWriter(out));
 		
 		new AddUserServlet().service(request, response);
 		
@@ -98,8 +100,6 @@ public class AddUserServletTest {
 
 		when(request.getParameter("username")).thenReturn("");
 		when(request.getParameter("pass")).thenReturn("pass");
-		StringWriter out = new StringWriter();
-		when(response.getWriter()).thenReturn(new PrintWriter(out));
 		
 		new AddUserServlet().service(request, response);
 		
@@ -126,8 +126,6 @@ public class AddUserServletTest {
 
 		when(request.getParameter("username")).thenReturn("master");
 		when(request.getParameter("pass")).thenReturn("");
-		StringWriter out = new StringWriter();
-		when(response.getWriter()).thenReturn(new PrintWriter(out));
 		
 		new AddUserServlet().service(request, response);
 		
@@ -155,8 +153,6 @@ public class AddUserServletTest {
 		
 		when(request.getParameter("username")).thenReturn("testValidNewUser");
 		when(request.getParameter("pass")).thenReturn("password");
-		StringWriter out = new StringWriter();
-		when(response.getWriter()).thenReturn(new PrintWriter(out));
 		
 		new AddUserServlet().service(request, response);
 		
@@ -246,7 +242,7 @@ public class AddUserServletTest {
        Config.hashAlgo = "garbage";
        
        
-       StringWriter out = new StringWriter();
+       out = new StringWriter();
 	   when(response.getWriter()).thenReturn(new PrintWriter(out));
         
        

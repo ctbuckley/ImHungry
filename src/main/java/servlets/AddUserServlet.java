@@ -48,7 +48,7 @@ public class AddUserServlet extends HttpServlet {
 		String hashPass = "";
 		//Hash using sha256
 		try {
-	        MessageDigest md = MessageDigest.getInstance("SHA-256");
+	        MessageDigest md = MessageDigest.getInstance(Config.hashAlgo);
 	        byte[] hashInBytes = md.digest(pass.getBytes(StandardCharsets.UTF_8));
 	        StringBuilder sb = new StringBuilder();
 	        for (byte b : hashInBytes) {
