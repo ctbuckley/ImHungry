@@ -8,4 +8,5 @@ before_script:
   - mysql --user="root" --password="" < "sql/hungry.sql"
   - mysql --user="root" --database="hungrydatabase" --password="" < "sql/hungryTest.sql"
   - mysql --user="root" --database="hungrydatabase" --password="" --execute="SELECT * FROM Users"
+  - ./set_up_server.sh
   
