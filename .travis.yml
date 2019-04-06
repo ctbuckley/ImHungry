@@ -1,7 +1,6 @@
 language: java
 
 before_install:
-  - mvn -version
   - pwd
   - ls -a /home/travis
   - ls -a /home/travis/build
@@ -15,6 +14,5 @@ before_script:
   - sudo bash set_up_database.sh
 
 after_script:
-  - mvn -version
   - mvn -Dmaven.test.skip=true package
   - sudo bash deploy_application.sh
