@@ -6,7 +6,7 @@ before_install:
 
 after_install:
   - ls -a
-  - sudo bash deploy_aplication.sh
+  - sudo bash deploy_application.sh
 
 before_script:
   - sudo bash set_up_database.sh
