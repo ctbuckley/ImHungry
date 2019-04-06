@@ -3,16 +3,18 @@ language: java
 before_install:
   - mvn -version
   - pwd
-  - printenv 
   - ls -a /home/travis
   - ls -a /home/travis/build
   
 install:
   - sudo apt-get install systemd
   - sudo bash set_up_server.sh
+  - printenv 
 
 before_script:
   - sudo bash set_up_database.sh
 
 after_script:
+  - mvn -version
+  - mvn package
   - sudo bash deploy_application.sh
