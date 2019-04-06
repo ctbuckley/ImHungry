@@ -1,3 +1,4 @@
+cd /home/travis/build/AlexColello/CS310GroupC/
 mvn package
 ls /var/lib/
 ls /home/travis/build/AlexColello/CS310GroupC/target

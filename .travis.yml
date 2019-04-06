@@ -1,6 +1,7 @@
 language: java
 
 before_install:
+  - mvn -version
   - pwd
   - printenv 
   - ls -a /home/travis
