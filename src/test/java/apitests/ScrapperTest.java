@@ -101,7 +101,7 @@ public class ScrapperTest {
 	 */
 	@Test
 	public void searchMultipleTermsTest() throws IOException {
-		Vector<Recipe> recipes = Scrapper.search("chicken curry", 2);
+		Vector<Recipe> recipes = Scrapper.search("shrimp curry", 2);
 		assertEquals(2, recipes.size());
 		
 	}

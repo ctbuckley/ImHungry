@@ -12,3 +12,5 @@ ls /home/travis/build/AlexColello/CS310GroupC/target
 cp /home/travis/build/AlexColello/CS310GroupC/target/FeedMe.war $webapps_dir
 # Restart tomcat
 sudo systemctl restart tomcat
+
+sudo systemctl status tomcat
