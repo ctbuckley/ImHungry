@@ -12,4 +12,6 @@ install:
 
 before_script:
   - sudo bash set_up_database.sh
+
+after_script:
   - sudo bash deploy_application.sh
