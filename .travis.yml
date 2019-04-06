@@ -2,10 +2,10 @@ language: java
 
 before_install:
   - pwd
+  - printenv 
   - ls -a /home/travis
   - ls -a /home/travis/build
   
-
 install:
   - sudo apt-get install systemd
   - sudo bash set_up_server.sh
