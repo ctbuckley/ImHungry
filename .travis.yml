@@ -4,7 +4,7 @@ before_install:
   - sudo apt-get install systemd
   - sudo bash set_up_server.sh
 
-after_install:
+install:
   - ls -a
   - sudo bash deploy_application.sh
 
