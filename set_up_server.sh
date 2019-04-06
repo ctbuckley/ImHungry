@@ -4,7 +4,7 @@ sudo useradd -s /bin/nologin -g tomcat -d /opt/tomcat tomcat
 
 cd ~
 wget https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.17/bin/apache-tomcat-9.0.17.tar.gz
-sudo tar -zxvf apache-tomcat-9.0.17.tar.gz -C /opt/tomcat --strip-components=1
+sudo tar -zxvf apache-tomcat-9.0.17.tar.gz -C /opt/tomcat --strip-components=1 &> /dev/null
 
 cd /opt/tomcat
 sudo chgrp -R tomcat /opt/tomcat

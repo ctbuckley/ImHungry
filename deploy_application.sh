@@ -6,6 +6,9 @@ ls /home/travis/build/AlexColello/CS310GroupC/target/FeedMe
 webapps_dir=/opt/tomcat/webapps
 # Remove existing assets (if any)
 rm -rf $webapps_dir/FeedMe
+
+jar -cvf FeedMe.war /home/travis/build/AlexColello/CS310GroupC/target/FeedMe/*  
+
 # Copy WAR file into place
 cp /home/travis/build/AlexColello/CS310GroupC/target/FeedMe.war $webapps_dir
 # Restart tomcat
