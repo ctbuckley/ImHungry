@@ -1,9 +1,10 @@
 language: java
 
 before_install:
-  - ls /usr/java/
-  - ls /usr/java/apache-maven-3.0.3/conf
   - pwd
+  - ls -a /home/travis
+  - ls -a /home/travis/build
+  
 
 install:
   - sudo apt-get install systemd
