@@ -16,5 +16,5 @@ before_script:
 
 after_script:
   - mvn -version
-  - mvn package
+  - mvn -Dmaven.test.skip=true package
   - sudo bash deploy_application.sh
