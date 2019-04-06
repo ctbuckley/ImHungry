@@ -1,9 +1,15 @@
 language: java
+dist: trusty
+
+addons:
+  chrome: stable
 
 before_install:
   - pwd
   - ls -a /home/travis
   - ls -a /home/travis/build
+  - # start your web application and listen on `localhost`
+  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
   
 install:
   - sudo apt-get install systemd
@@ -12,7 +18,7 @@ install:
 
 before_script:
   - sudo bash set_up_database.sh
-
-after_script:
   - mvn -Dmaven.test.skip=true package
   - sudo bash deploy_application.sh
+
+script: "bundle exec rake knapsack:cucumber"
