@@ -4,5 +4,9 @@ before_install:
   - sudo apt-get install systemd
   - sudo bash set_up_server.sh
 
+after_install:
+  - ls -a
+  - sudo bash deploy_aplication.sh
+
 before_script:
   - sudo bash set_up_database.sh
