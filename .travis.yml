@@ -1,6 +1,8 @@
 language: java
 
 before_install:
+  - ls /usr/java/
+  - ls /usr/java/apache-maven-3.0.3/conf
   - pwd
 
 install:
@@ -10,4 +12,3 @@ install:
 before_script:
   - sudo bash set_up_database.sh
   - sudo bash deploy_application.sh
-
