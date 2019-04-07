@@ -32,6 +32,7 @@ matrix:
         - cd /home/travis/build/AlexColello/CS310GroupC/src/test/ImHungryCucumber
         - sudo chmod +x ./features/support/chromedriver
         - bundle install
+        - bundle update
         - gem list
 
       script: 
