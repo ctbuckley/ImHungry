@@ -24,8 +24,6 @@ matrix:
       install:
         - sudo apt-get install systemd
         - sudo bash set_up_server.sh
-
-      before_script:
         - sudo bash set_up_database.sh
         - mvn -Dmaven.test.skip=true package
         - sudo bash deploy_application.sh
