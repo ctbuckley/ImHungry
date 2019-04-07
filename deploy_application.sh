@@ -12,3 +12,6 @@ cp /home/travis/build/AlexColello/CS310GroupC/target/FeedMe.war $webapps_dir
 sudo systemctl restart tomcat
 
 sudo systemctl status tomcat
+
+page="$(curl http://localhost:8080/FeedMe/jsp/login.jsp/)"
+printf "%s" $page
