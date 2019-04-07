@@ -1,6 +1,5 @@
 Given(/^I am on the Recipe Details Page$/) do
   visit "http://localhost:8080/FeedMe/jsp/search.jsp"
-  sleep(20)
   fill_in('queryInput', :with => "pizza")
   fill_in('numResultsInput', :with => "1")
   fill_in('radiusInput', :with => "10000")
