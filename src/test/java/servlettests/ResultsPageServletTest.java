@@ -60,7 +60,7 @@ public class ResultsPageServletTest {
 		session = mock(HttpSession.class);
 		rd = mock(RequestDispatcher.class);
 		
-		when(request.getParameter("radiusInput")).thenReturn("40000");
+		when(request.getParameter("radiusInput")).thenReturn("2");
 		when(request.getParameter("pageNumber")).thenReturn("1");
 		when(request.getSession()).thenReturn(session);
 		when(request.getRequestDispatcher("/jsp/results.jsp")).thenReturn(rd);
@@ -253,7 +253,7 @@ public class ResultsPageServletTest {
 		when(request.getParameter("q")).thenReturn("Chicken");
 		when(request.getParameter("n")).thenReturn("3");
 		when(request.getParameter("radiusInput")).thenReturn(null);
-		when(session.getAttribute("radiusInput")).thenReturn(40000);
+		when(session.getAttribute("radiusInput")).thenReturn(2);
 
 		new ResultsPageServlet().service(request, response);
 		

@@ -46,7 +46,7 @@ Scenario: Check for three pagination elements
 	When I am on the ImHungry Search Page
 	And I enter "burger" in the search box
 	And I enter "11" in the search number box
-	And I enter "10000" in the radius input field
+	And I enter "10" in the radius input field
 	And press search
 	And there is a pagination div
 	And there are "3" pagination links

@@ -27,7 +27,7 @@ Scenario: Check the Transition to the results page
 
 	When I enter "burger" in the search box
 	And I enter "1" in the search number box
-	And I enter "5000" in the radius input field
+	And I enter "2" in the radius input field
 	And press search
 	Then I should see results for "burger"
 
@@ -35,7 +35,7 @@ Scenario: Check the Transition while input wrong search number
 
 	When I enter "burger" in the search box
 	And I enter "-1" in the search number box
-	And I enter "5000" in the radius input field
+	And I enter "2" in the radius input field
 	And press search
 	Then I should be on the Search Page
 
@@ -54,7 +54,7 @@ Scenario: Requirements for radius input field
 Scenario: Check the transition with radius input 
 	When I enter "burger" in the search box
 	And I enter "1" in the search number box
-	And I enter "5000" in the radius input field
+	And I enter "2" in the radius input field
 	And press search
 	Then I should see results for "burger"
 
@@ -76,7 +76,7 @@ Scenario: Check that the past searches dropdown has one result
 	And I click on the sign up button
 	When I enter "burger" in the search box
 	And I enter "1" in the search number box
-	And I enter "5000" in the radius input field
+	And I enter "2" in the radius input field
 	And press search
 	And press return to search
 	Then I should see 1 history result
@@ -89,12 +89,12 @@ Scenario: Check that the past searches dropdown has two result
 	And I click on the sign up button
 	And I enter "burger" in the search box
 	And I enter "1" in the search number box
-	And I enter "5000" in the radius input field
+	And I enter "2" in the radius input field
 	And press search
 	And I should visit the search page
 	And I enter "ramen" in the search box
 	And I enter "1" in the search number box
-	And I enter "5000" in the radius input field
+	And I enter "2" in the radius input field
 	And press search
 	And press return to search
 	Then I should see 2 history results
