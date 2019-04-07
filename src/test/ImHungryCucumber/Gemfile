@@ -2,4 +2,4 @@ source "http://rubygems.org"
 gem "capybara"
 gem "cucumber"
 gem "rspec"
-gem "selenium-webdriver", '>=3.5.1'
+gem "selenium-webdriver", '>= 3.4.1'
