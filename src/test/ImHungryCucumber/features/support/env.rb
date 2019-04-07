@@ -2,7 +2,7 @@
 require 'capybara'
 require 'capybara/cucumber'
 require 'rspec'
-
+require 'selenium-webdriver'
 
 Capybara.register_driver :chrome do |app|
 	capabilities = Capybara::Selenium::WebDriver::Remote::Capabilities.chrome(
