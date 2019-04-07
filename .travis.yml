@@ -17,12 +17,9 @@ matrix:
         - 2.6.2
 
       before_install:
-        - ls /usr/lib/chromium-browser
-        - google-chrome --version
-
+        - sudo apt-get install systemd
 
       install:
-        - sudo apt-get install systemd
         - sudo bash set_up_database.sh
         - sudo bash set_up_server.sh
         - mvn -Dmaven.test.skip=true package

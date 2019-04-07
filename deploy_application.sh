@@ -14,8 +14,4 @@ sudo systemctl restart tomcat
 sleep 45
 
 sudo systemctl status tomcat
-
 curl -v -u main_user:main_password http://127.0.0.1:8080/manager/text/list
-
-page="$(curl http://localhost:8080/FeedMe/jsp/login.jsp/)"
-printf "%s" $page
