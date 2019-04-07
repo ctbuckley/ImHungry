@@ -7,7 +7,6 @@ matrix:
         - sudo bash set_up_database.sh
         
     - language: ruby
-      cache: bundler
 
       dist: trusty
 
@@ -28,8 +27,10 @@ matrix:
         - sudo bash set_up_database.sh
         - mvn -Dmaven.test.skip=true package
         - sudo bash deploy_application.sh
+
       before_script: 
         - cd /home/travis/build/AlexColello/CS310GroupC/src/test/ImHungryCucumber
+        - sudo chmod +x ./features/support/chromedriver
         - bundle install
       script: 
         - bundle exec cucumber
