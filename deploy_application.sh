@@ -6,11 +6,12 @@ cat /opt/tomcat/conf/tomcat-users.xml
 webapps_dir=/opt/tomcat/webapps
 # Remove existing assets (if any)
 rm -rf $webapps_dir/FeedMe 
-ls /home/travis/build/AlexColello/CS310GroupC/target
 # Copy WAR file into place
 cp /home/travis/build/AlexColello/CS310GroupC/target/FeedMe.war $webapps_dir
 # Restart tomcat
 sudo systemctl restart tomcat
+
+sleep 10
 
 sudo systemctl status tomcat
 
