@@ -1,24 +1,37 @@
-language: java
-dist: trusty
 
-addons:
-  chrome: stable
+matrix:
+  include:
+    - language: java
+      dist: trusty
 
-before_install:
-  - pwd
-  - ls -a /home/travis
-  - ls -a /home/travis/build
-  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
-  
-install:
-  - sudo apt-get install systemd
-  - sudo bash set_up_server.sh
-  - printenv 
+      addons:
+        chrome: stable
 
-before_script:
-  - sudo bash set_up_database.sh
-  - rm -rf ~/.m2/repository
-  - mvn -Dmaven.test.skip=true package
-  - sudo bash deploy_application.sh
+      before_install:
+        - pwd
+        - ls -a /home/travis
+        - ls -a /home/travis/build
+        - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
+        
+      install:
+        - sudo apt-get install systemd
+        - sudo bash set_up_server.sh
+        - printenv 
 
-script: "bundle exec rake knapsack:cucumber"
+      before_script:
+        - sudo bash set_up_database.sh
+        - mvn -Dmaven.test.skip=true package
+        - sudo bash deploy_application.sh
+
+      script: 
+        - cd /home/travis/build/AlexColello/CS310GroupC/
+    - language: ruby
+      cache: bundler
+
+      rvm:
+        - 1.9.3
+        
+      before_install:
+        - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
+      before_script: 'bundle install'
+      script: 'bundle exec cucumber'

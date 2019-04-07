@@ -4,10 +4,7 @@ ls /home/travis/build/AlexColello/CS310GroupC/target
 # The application I wish to deploy is the main (ROOT) application
 webapps_dir=/opt/tomcat/webapps
 # Remove existing assets (if any)
-rm -rf $webapps_dir/FeedMe
-
-jar -cvf /home/travis/build/AlexColello/CS310GroupC/target/FeedMe.war /home/travis/build/AlexColello/CS310GroupC/target/FeedMe/* 
- 
+rm -rf $webapps_dir/FeedMe 
 ls /home/travis/build/AlexColello/CS310GroupC/target
 # Copy WAR file into place
 cp /home/travis/build/AlexColello/CS310GroupC/target/FeedMe.war $webapps_dir
