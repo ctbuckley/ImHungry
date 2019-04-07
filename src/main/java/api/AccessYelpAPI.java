@@ -26,7 +26,7 @@ public class AccessYelpAPI {
 	static double ttLong = -118.284668;
 
 	public static Vector<Restaurant> YelpRestaurantSearch(String searchTerm, int resultCount) throws UnsupportedEncodingException, IOException {
-		return YelpRestaurantSearch(searchTerm, resultCount, 40000);
+		return YelpRestaurantSearch(searchTerm, resultCount, 23);
 	}
 	/*
 	 * Queries Yelp API using user-provided search term and number of results.
@@ -35,6 +35,7 @@ public class AccessYelpAPI {
 	public static Vector<Restaurant> YelpRestaurantSearch(String searchTerm, int resultCount, int radius) throws UnsupportedEncodingException, IOException {
 		
 		searchTerm = URLEncoder.encode(searchTerm, "UTF-8");
+		radius = radius * 1760;
 		if(radius > 40000) {
 			radius = 40000;
 		}
