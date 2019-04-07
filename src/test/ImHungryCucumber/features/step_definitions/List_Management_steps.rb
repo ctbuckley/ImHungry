@@ -18,7 +18,6 @@ Given(/^I am on the Search Page$/) do
   page.find_by_id("backToResults").click()
  end
  When(/^I go to Favorite list management page$/) do
-  page.find_by_id("navToggler").click();
   page.find_by_id("navbarDropdownMenuLink").click();
   page.find_by_id("fOptionButton").click();
  end
