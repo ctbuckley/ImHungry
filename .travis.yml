@@ -3,9 +3,6 @@ matrix:
   include:
     - language: java
         
-      install:
-        - sudo apt-get install systemd
-
       before_script:
         - sudo bash set_up_database.sh
         
@@ -21,7 +18,7 @@ matrix:
         - 1.9.3
 
       before_install:
-        - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
+        - ls /usr/lib
 
       install:
         - sudo apt-get install systemd
