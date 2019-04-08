@@ -23,7 +23,7 @@
 	String pageNumberRaw = request.getParameter("pageNumber");
 	Integer currentPageNumber = 1;
 	if (pageNumberRaw != null) currentPageNumber = Integer.parseInt(request.getParameter("pageNumber"));
-	
+	Integer totalResultsRequested = (Integer) request.getSession().getAttribute("n");
 %>
 <!-- Bootstrap CSS  -->
     	<!-- Bootstrap CSS file linkage -->
@@ -258,9 +258,22 @@
 				 <li class="page-item <%= previousLinkActive %>"><a class="page-link" href="/FeedMe/results?pageNumber=<%=currentPageNumber - 1%>">Previous</a></li>
 	 			<!-- Where to insert new page items when generating the page -->
 	 			<%
+	 				int numPaginationLinksCreated = 0;
+	 				int startLinkCreationIndex = 1;
+	 				if (currentPageNumber <= 3)
+	 					startLinkCreationIndex = 1;
+	 				else if (resultPageCount - currentPageNumber <= 2)
+	 					startLinkCreationIndex = resultPageCount - 4;
+	 				else
+	 					startLinkCreationIndex = currentPageNumber - 2;
+	 				
 	 				for(int i=1; i<=resultPageCount; i++) {
 	 					String paginationLinkActive="";
 	 					if(currentPageNumber == i) paginationLinkActive = "active";
+	 					if (numPaginationLinksCreated >= 5 || i < startLinkCreationIndex) continue;
+	 					else {
+	 						numPaginationLinksCreated++;
+	 					}
 	 			%>
 	 					<li class="page-item <%= paginationLinkActive %>"><a class="page-link" id="paginationLink<%= i %>" href="/FeedMe/results?pageNumber=<%=i%>"><%=i%></a></li>
 	 			<%
