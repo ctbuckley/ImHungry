@@ -260,20 +260,15 @@
 	 			<%
 	 				int numPaginationLinksCreated = 0;
 	 				int startLinkCreationIndex = 1;
-	 				if (currentPageNumber <= 3)
-	 					startLinkCreationIndex = 1;
-	 				else if (resultPageCount - currentPageNumber <= 2)
-	 					startLinkCreationIndex = resultPageCount - 4;
-	 				else
-	 					startLinkCreationIndex = currentPageNumber - 2;
+	 				if (currentPageNumber <= 3) startLinkCreationIndex = 1;
+	 				else if (resultPageCount - currentPageNumber <= 2) startLinkCreationIndex = resultPageCount - 4;
+	 				else startLinkCreationIndex = currentPageNumber - 2;
 	 				
 	 				for(int i=1; i<=resultPageCount; i++) {
 	 					String paginationLinkActive="";
 	 					if(currentPageNumber == i) paginationLinkActive = "active";
 	 					if (numPaginationLinksCreated >= 5 || i < startLinkCreationIndex) continue;
-	 					else {
-	 						numPaginationLinksCreated++;
-	 					}
+	 					else numPaginationLinksCreated++;
 	 			%>
 	 					<li class="page-item <%= paginationLinkActive %>"><a class="page-link" id="paginationLink<%= i %>" href="/FeedMe/results?pageNumber=<%=i%>"><%=i%></a></li>
 	 			<%
