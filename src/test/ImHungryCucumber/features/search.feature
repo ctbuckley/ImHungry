@@ -48,6 +48,9 @@ Scenario: Check that a quick access dropdown exists
 Scenario: Requirements for Logout Button 
 	Then there is a logout button
 
+Scenario: Requirements for Grocery List Button
+    Then there is a grocery list button
+
 Scenario: Requirements for radius input field
 	Then there is a radius input field
 

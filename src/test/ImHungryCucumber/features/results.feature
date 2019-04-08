@@ -11,6 +11,7 @@ Scenario: Requirements for select button/manage lists button/
 	And there is a do not show option
 	And there is a Manage Lists button
 	And there is a Return to Search button
+    And there is a grocery list button
 
 Scenario: Check the Transition to the search page
 

@@ -11,6 +11,7 @@ Scenario: User reads restaurant information, clicks printable version, and goes 
 	Then there is website link
 	Then there is Printable Version button
 	Then there is Back to Results button
+    Then there is a grocery list button
 	Then there is dropdown box to select predefined lists
         Then dropdown has 4 options
         Then no list is selected in dropdown by default

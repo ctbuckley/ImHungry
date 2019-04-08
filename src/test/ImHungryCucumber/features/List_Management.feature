@@ -16,6 +16,7 @@ Scenario: User adds a restaurant to Favorite list and a recipe to do not show li
     Then there is price
     Then there is Back to Results button
     Then there is Return to Search button
+    Then there is a grocery list button
     Then there is move dropdown box to select predefined list
     Then there is Move button
     When I move the restaurant to To Explore list

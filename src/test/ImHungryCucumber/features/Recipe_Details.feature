@@ -13,6 +13,8 @@ Scenario: User reads recipe information, and clicks printable version
 	Then there is intsructions
 	Then there is Printable Version button
 	Then there is Back to Results button
+    Then there is a grocery list button
+    Then there is a checkbox for each instruction
 	Then there is dropdown box to select predefined lists
         Then dropdown has 4 options
         Then no list is selected in dropdown by default
