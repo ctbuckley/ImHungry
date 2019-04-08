@@ -9,7 +9,7 @@ Capybara.register_driver :chrome do |app|
 	options.add_argument('--headless')
 	options.add_argument('--disable-gpu')
 	options.add_argument('--window-size=750,750')
-    Capybara::Selenium::Driver.new(app, browser: :chrome, driver_path: './features/support/chromedriver.exe', options: options)
+    Capybara::Selenium::Driver.new(app, browser: :chrome, driver_path: './features/support/chromedriver', options: options)
 end
 
 Capybara.default_driver = :chrome
