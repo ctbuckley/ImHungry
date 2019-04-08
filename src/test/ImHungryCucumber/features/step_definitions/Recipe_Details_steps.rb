@@ -28,7 +28,8 @@ Then(/^there is intsructions$/) do
     page.should have_content("Instructions");
 end
 
-Then(/^there is a checkbox for each instruction$/) dp
-    page.all('#ingredient_list_item').each do |el|:
+Then(/^there is a checkbox for each instruction$/) do
+    page.all('#ingredient_list_item').each do |el|
       expect(el.find("input[type='checkbox']"))
+    end
 end
