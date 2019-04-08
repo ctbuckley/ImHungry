@@ -258,12 +258,13 @@
 				 <li class="page-item <%= previousLinkActive %>"><a class="page-link" href="/FeedMe/results?pageNumber=<%=currentPageNumber - 1%>">Previous</a></li>
 	 			<!-- Where to insert new page items when generating the page -->
 	 			<%
-	 				String paginationLinkActive="";
 	 				for(int i=1; i<=resultPageCount; i++) {
+	 					String paginationLinkActive="";
 	 					if(currentPageNumber == i) paginationLinkActive = "active";
 	 			%>
 	 					<li class="page-item <%= paginationLinkActive %>"><a class="page-link" id="paginationLink<%= i %>" href="/FeedMe/results?pageNumber=<%=i%>"><%=i%></a></li>
 	 			<%
+	 				
 	 				}
 	 			%>
 				<li class="page-item <%= nextLinkActive %>"><a class="page-link" href="/FeedMe/results?pageNumber=<%= currentPageNumber + 1%>">Next</a></li>
