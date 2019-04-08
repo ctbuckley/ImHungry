@@ -103,6 +103,18 @@ Then(/^the second pagination link is active$/) do
   expect(page.find_by_id("paginationLink2").find(:xpath, '..')['class']).to have_content 'active'
 end
 
+When(/^I should see pagination links "([^"]*)", "([^"]*)", "([^"]*)", "([^"]*)", and "([^"]*)"$/) do |link1, link2, link3, link4, link5|
+  expect(page.find_by_id("paginationLink" + link1))
+  expect(page.find_by_id("paginationLink" + link2))
+  expect(page.find_by_id("paginationLink" + link3))
+  expect(page.find_by_id("paginationLink" + link4))
+  expect(page.find_by_id("paginationLink" + link5))
+end
+
+When(/^I click on pagination link "([^"]*)"$/) do |link|
+  page.find_by_id("paginationLink" + link).click()
+end
+
 
 
 
