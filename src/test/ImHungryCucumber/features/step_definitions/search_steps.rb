@@ -69,7 +69,7 @@ Then(/^I enter "([^"]*)" in the radius input field$/) do |radius|
 end
 
 Then(/^I should be on the Search Page$/) do
-  sleep(2)
+  sleep(5)
 	expect(page.current_url).to include('http://localhost:8080/FeedMe/jsp/search.jsp')
 end
 

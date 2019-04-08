@@ -1,8 +1,8 @@
 Given(/^I am on the Recipe Details Page$/) do
-  visit "localhost:8080/FeedMe/jsp/search.jsp"
+  visit "http://localhost:8080/FeedMe/jsp/search.jsp"
   fill_in('queryInput', :with => "pizza")
   fill_in('numResultsInput', :with => "1")
-  fill_in('radiusInput', :with => "10000")
+  fill_in('radiusInput', :with => "12")
   page.find_by_id("feedMeButton").click()
   page.find_by_id("Recipe0").click()
 end

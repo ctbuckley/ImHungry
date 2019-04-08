@@ -73,7 +73,7 @@ public class YelpTest {
 	 */
 	@Test
 	public void testLargeRadius() throws IOException{
-		Vector<Restaurant> arr = AccessYelpAPI.YelpRestaurantSearch("pizza", 5, 50000);
+		Vector<Restaurant> arr = AccessYelpAPI.YelpRestaurantSearch("pizza", 5, 30);
 		assertNotEquals(0, arr.size());
 	}
 

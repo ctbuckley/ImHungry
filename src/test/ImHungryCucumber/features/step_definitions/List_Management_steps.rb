@@ -1,8 +1,8 @@
 Given(/^I am on the Search Page$/) do
-  visit "localhost:8080/FeedMe/jsp/search.jsp"
+  visit "http://localhost:8080/FeedMe/jsp/search.jsp"
   fill_in('queryInput', :with => "pizza")
   fill_in('numResultsInput', :with => "1")
-  fill_in('radiusInput', :with => "10000")
+  fill_in('radiusInput', :with => "12")
   page.find_by_id("feedMeButton").click()
  end
  When(/^I add a restaurant to Favorite list$/) do
@@ -57,12 +57,16 @@ Given(/^I am on the Search Page$/) do
   page.find_by_id("moveButton").click()
  end
  When(/^I go to Do Not Show list management page$/) do
-  page.select 'Do Not Show', from: "dropDownBar"
-  page.find_by_id("manageListButton").click()
+  page.find_by_id("navToggler").click();
+  page.find_by_id("navbarDropdownMenuLink").click();
+  page.find_by_id("dOptionButton").click();
  end
  When(/^I trash the recipe$/) do
   page.select 'Trash', from: "moveDropDown"
   page.find_by_id("moveButton").click()
+ end
+ Then (/^there is a recipe name in the card$/) do
+  page.find_by_id("recipeName0")
  end
  Then(/^there is no recipe name$/) do
   expect(page).to have_no_content("Pear and Gorgonzola Cheese Pizza");
@@ -77,9 +81,10 @@ Given(/^I am on the Search Page$/) do
   expect(page).to have_no_content("Prep Time");
  end
  When(/^I go to To Explore list management page$/) do
-  page.select 'To Explore', from: "dropDownBar"
-  page.find_by_id("manageListButton").click()
- end    
+  page.find_by_id("navToggler").click();
+  page.find_by_id("navbarDropdownMenuLink").click();
+  page.find_by_id("tOptionButton").click();
+ end 
  When(/^I click on the restaurant in list management page$/) do
   page.find_by_id("Restaurant0").click()
  end
