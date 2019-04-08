@@ -3,6 +3,37 @@ html, body {
 	height: 100%;
 }
 
+a.navbar-brand {
+	color: #007BFF !important;
+}
+
+.navbar-toggler-icon {
+	fill: #007BFF !important;
+}
+
+.grocery_cart path {
+	stroke: #C9C9C9;
+	fill: #C9C9C9 !important;
+}
+
+#grocery_link_button {
+	display: flex;
+	align-items: center;
+}
+
+#grocery_link_button:hover {
+	color: #007BFF;
+}
+
+
+#grocery_icon {
+	fill: #C9C9C9 !important;
+}
+
+#grocery_icon:hover {
+	fill: #007BFF !important;
+}
+
 .row {
 	padding-left: 8%;
 	padding-right: 8%;
@@ -38,7 +69,7 @@ html, body {
  	background-repeat: no-repeat;
  	background-size: cover;
     background-clip: border-box;
-    filter: brightness(60%);
+    filter: brightness(60%) blur(1px);
     display: flex; 
     align-items: center;
     justify-content: center;
@@ -86,9 +117,30 @@ html, body {
 	border-bottom: 0.5px solid #C0C0C0;
 }
 
-.recipe_section_title {
+
+.ingredients_header{
 	padding-top: 2vh;
 	padding-bottom: 2vh;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+#addAllBtn {
+	max-width: 200px;
+	margin-left: 2vw;
+}
+
+.ingredient_list_item {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	margin-bottom: 1rem;
+}
+
+.ingredient_list_item p {
+	margin-bottom: 0;
+	margin-left: 1rem;
 }
 
 .btn {

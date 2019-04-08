@@ -40,16 +40,15 @@
 	 	</button>
 	 	<div class="collapse navbar-collapse ml-auto" id="navbarNavDropdown">
 	   		<ul class="navbar-nav ml-auto">
-<!--   			<li class="nav-item dropdown ml-auto" id="listName">
-		        	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		          		Add to List
-		        	</a>
-		        	<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-			      		<a class="dropdown-item" id="fOptionButton" href="/FeedMe/recipeDetails?listType=f&arrNum=<%= arrNum %>">Favorites</a>
-			      		<a class="dropdown-item" id="tOptionButton" href="/FeedMe/recipeDetails?listType=t&arrNum=<%= arrNum %>">To Explore</a>
-			      		<a class="dropdown-item" id="dOptionButton" href="/FeedMe/recipeDetails?listType=d&arrNum=<%= arrNum %>">Do Not Show</a>     
-		        	</div>
-		    	</li>  -->
+	   			<li class="nav-item active ml-auto">
+	       			<a class="nav-link" id="grocery_link_button" href="#">
+						<svg class="grocry_cart" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+							<path id="grocery_icon" d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+							<path d="M0 0h24v24H0z" fill="none"/>
+						</svg>
+						Grocery List
+	       			</a>
+	     		</li>
 		   		<li class="nav-item dropdown ml-auto" id="quickAccessDropdown">
 	        		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	          			Past Searches
@@ -59,7 +58,7 @@
 	        		</div>
 	      		</li>
 	     		<li class="nav-item active ml-auto">
-	       			<a class="nav-link" id="userButton" href="#">Log In</a>
+	       			<a class="nav-link" id="userButton" href="#">Log Out</a>
 	     		</li>
 	     	</ul>
 	 	</div>
@@ -104,11 +103,20 @@
 			</div>
 		      <!-- Ingredients -->
 		      <div id="ingredientsBloc" class="">
-		        <h2 class="recipe_section_title">Ingredients</h2>
+		      	<div class="ingredients_header">
+		      		<h2 class="recipe_section_title ingredients_title">Ingredients</h2>
+		      		<button id="addAllBtn" class="btn btn-outline-primary">Add All Ingredients</button>
+		      	</div>
 		        <ul id="ingredients" class="r-inline-flex clearfix">
 		          <% ArrayList<String> ingredients = (ArrayList<String>) recipeVal.getIngredients();%>
 		          <% for(int i = 0; i < ingredients.size(); i++){ %>
-		          	<li class="" style="width:45%;float:left;margin-right:5%;"><p><%=ingredients.get(i) %></p></li>
+		          	<li class="ingredient_list_item" style="width:45%;float:left;margin-right:5%;">
+		          		<div class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input" id="customCheck<%= i %>" name="">
+							<label class="custom-control-label" for="customCheck<%= i %>"></label>
+						</div>
+		          		<p><%=ingredients.get(i) %></p>
+		          	</li>
 		          <% } %>
 		        </ul>
 		      </div>
