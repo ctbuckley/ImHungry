@@ -52,7 +52,7 @@
   <body onload="setStars();">
   	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a class="navbar-brand" onclick="goToSearchPage()">ImHungry</a>
-	 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+	 	<button class="navbar-toggler" id="navToggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 	   		<span class="navbar-toggler-icon"></span>
 	 	</button>
 	 	<div class="collapse navbar-collapse ml-auto" id="navbarNavDropdown">
@@ -68,11 +68,11 @@
 		        	</div>
 		    	</li>
 		   		<li class="nav-item dropdown ml-auto" id="quickAccessDropdown">
-	        		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	        		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkA" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	          			Past Searches
 	        		</a>
 	        		<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	  <!--    <a class="dropdown-item" id="quickAccessResult1" href="#">Past Search 1</a>   -->   
+	 					 <!--    <a class="dropdown-item" id="quickAccessResult1" href="#">Past Search 1</a>   -->   
 	        		</div>
 	      		</li>
 	     		<li class="nav-item active ml-auto">
@@ -82,9 +82,9 @@
 	 	</div>
 	</nav>
     <div id="main">
-    	<div class="p-2 ml-2">
+    	<div class=" resultList">
       	<!-- Restaurants and Recipes lists  -->
-      		<h1><%=listName %> List</h1>
+      		<h1 class="pageTitle col-12"><%=listName %> List</h1>
       		<% // Used to alternate colors
    			int j = 0;
           	while(j < restaurantArr.size()){
@@ -105,7 +105,7 @@
           	<div class="col-12" id="Restaurant<%=j%>">
          			<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-8 shadow-sm h-md-250 position-relative results-card mb-3"
          			onclick="window.location='/FeedMe/restaurantDetails?arrNum=<%=j%>'">
-        			<div class="col p-4 d-flex flex-column position-static">
+        			<div class="col p-4 position-static">
           			<div class="container">
   						<div class="row">
 							<div class="col-10">
@@ -117,9 +117,11 @@
 						</div>
 						<div class="row">
 							<div class="col-12">
-								<div id="restaurantRating<%=j%>" class="outer_stars"
-									data-stars="<%=restaurantArr.get(j).getRating()%>">
-									<div class="inner_stars" id="innerRestaurantRating<%=j%>"></div>
+								<div class="ratings">
+									<div id="restaurantRating<%=j%>" class="outer_stars"
+										data-stars="<%=restaurantArr.get(j).getRating()%>">
+										<div class="inner_stars" id="innerRestaurantRating<%=j%>"></div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -174,9 +176,11 @@
 							</div>
 							<div class="row">
 								<div class="col-12">
-									<div id="recipeRating<%=k%>" class="outer_stars"
-										data-stars="<%=recipeArr.get(k).getRating()%>">
-										<div class="inner_stars" id="innerRecipeRating<%=k%>"></div>
+									<div class="ratings">
+										<div id="recipeRating<%=k%>" class="outer_stars"
+											data-stars="<%=recipeArr.get(k).getRating()%>">
+											<div class="inner_stars" id="innerRecipeRating<%=k%>"></div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -238,17 +242,6 @@
         </div>
         <!-- Takes the user to the specified list -->
 		<div id="buttons" class="buttons align-middle p-1">
-			<form name="list" onsubmit="return manageList(this);">
-	      	<select id="dropDownBar" name="listName" class="dropDownBar">
-	      		<option disabled selected value> -- select an option -- </option>
-	       		<option value ="f" >Favorites</option>
-	        	<option value ="t">To Explore</option>
-	        	<option value ="d">Do Not Show</option>
-	      	</select>
-	     	<!-- Button to add item to selected list, doesn't do anything if choice is empty -->
-	     	<button class="btn btn-outline-primary" id="manageListButton">Manage List</button> <br>
-	
-	       </form>
 		  <!-- Takes user to the search page -->
 	      <form action ="/FeedMe/jsp/search.jsp">
 	      	<button class="btn btn-outline-primary" id="returnToSearch" onclick="javascript:location.href = this.value;">Return to Search</button>

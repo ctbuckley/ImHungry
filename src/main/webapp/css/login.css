@@ -29,7 +29,7 @@ body, html {
 	align-items: flex-start;
 }
 .log_in_col_right {
-	width: 50%;
+	width: 20%;
 	height: 50%;
 	display: flex; 
 	align-items: center;
@@ -37,22 +37,29 @@ body, html {
 	flex-direction: column;
 }
 
-.log_in_col_left {
-	width: 50%;
-	height: 50%;
-	display: flex; 
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	border-right: 0.5px solid #C0C0C0;	
+.log_in_input_cont {
+	width: 100%;
 }
+input {
+	width: 100%;
+}
+
 
 .log_in_error_cont {
 	display: none;	
+	margin-bottom: 2vh;
+}
+
+.right_btns_cont {
+	width: 100%;
 }
 
 #userLogInButton {
 	margin-bottom: 2vh;
+}
+
+#userLogInButton, #signUpButton {
+	width: 100%;
 }
 
 @media screen and (max-width: 500px) {

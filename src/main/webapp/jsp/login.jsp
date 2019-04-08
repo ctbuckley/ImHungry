@@ -25,11 +25,6 @@
   		</div>
 	</div>
 	<div class="log_in_cont">
-		<div class="log_in_col_left">
-			<div class="no_sign_in_cont">
-				<button id="guestLogInButton" class="btn btn-outline-primary" onclick="noSignIn()">Continue without signing in</button>
-			</div>
-		</div>
 		<div class="log_in_col_right">
 			<div class="log_in_input_cont">
 				<div class="username_input_cont form-group">
