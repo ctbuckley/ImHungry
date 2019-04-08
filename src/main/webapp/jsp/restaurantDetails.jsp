@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Homebrew CSS  -->
     <link href="/FeedMe/css/details.css" rel="stylesheet" >
+    <link href="/FeedMe/css/navbar.css" rel="stylesheet" type="text/css">
     <link href="/FeedMe/css/recipe_details.css" rel="stylesheet">
     <script src="/FeedMe/javascript/buttons.js"></script>
     <%@page import="java.util.*" %>
@@ -70,7 +71,7 @@
 	        		</div>
 	      		</li>
 	     		<li class="nav-item active ml-auto">
-	       			<a class="nav-link" id="userButton" href="#">Log In</a>
+	       			<a class="nav-link" id="userButton" href="http://localhost:8080/FeedMe/jsp/login.jsp">Log Out</a>
 	     		</li>
 	     	</ul>
 	 	</div>
@@ -126,6 +127,10 @@
     	else{
     		form.action = "/FeedMe/restaurantDetails";
     	}
+    	
+    	function goToSearchPage() {
+			window.location.href = "http://localhost:8080/FeedMe/jsp/search.jsp";
+		}
     }
     </script>
     <!-- Bootstrap JS -->

@@ -17,6 +17,7 @@
 
     <!-- CSS -->
     <link href="/FeedMe/css/listManagement.css" rel="stylesheet" type="text/css">
+    <link href="/FeedMe/css/navbar.css" rel="stylesheet" type="text/css">
     <!-- Import java data structures -->
 	<%@page import="java.util.*" %>
 	<%@page import="data.*"%>
@@ -85,7 +86,7 @@
 	        		</div>
 	      		</li>
 	     		<li class="nav-item active ml-auto">
-	       			<a class="nav-link" id="userButton" href="#">Log In</a>
+	       			<a class="nav-link" id="userButton" href="http://localhost:8080/FeedMe/jsp/login.jsp">Log Out</a>
 	     		</li>
 	     	</ul>
 	 	</div>
@@ -301,6 +302,9 @@
 		};
 	}
 	
+	function goToSearchPage() {
+		window.location.href = "http://localhost:8080/FeedMe/jsp/search.jsp";
+	}
 	
 </script>
   </body>

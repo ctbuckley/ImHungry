@@ -1,0 +1,40 @@
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
+.bg-light {
+	background-color: white !important;
+	border-bottom: 0.5px solid #C9C9C9;
+}
+a.navbar-brand {
+	color: #007BFF !important;
+}
+
+.navbar-toggler-icon {
+	stroke: #007BFF !important;
+	fill: #007BFF !important;
+}
+
+.grocery_cart path {
+	stroke: #C9C9C9;
+	fill: #C9C9C9 !important;
+}
+
+#grocery_link_button {
+	display: flex;
+	align-items: center;
+}
+
+#grocery_link_button:hover {
+	color: #007BFF;
+}
+
+
+#grocery_icon {
+	fill: #C9C9C9 !important;
+}
+
+#grocery_icon:hover {
+	fill: #007BFF !important;
+}

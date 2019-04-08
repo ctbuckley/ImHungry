@@ -13,8 +13,9 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="/FeedMe/css/recipe_details.css" rel="stylesheet">
+    <link href="/FeedMe/css/navbar.css" rel="stylesheet" type="text/css">
     <script src="/FeedMe/javascript/buttons.js"></script>
     <%@page import="java.util.*" %>
 	<%@page import="data.*"%>
@@ -58,7 +59,7 @@
 	        		</div>
 	      		</li>
 	     		<li class="nav-item active ml-auto">
-	       			<a class="nav-link" id="userButton" href="#">Log Out</a>
+	       			<a class="nav-link" id="userButton" href=http://localhost:8080/FeedMe/jsp/login.jsp>Log Out</a>
 	     		</li>
 	     	</ul>
 	 	</div>
@@ -111,11 +112,12 @@
 		          <% ArrayList<String> ingredients = (ArrayList<String>) recipeVal.getIngredients();%>
 		          <% for(int i = 0; i < ingredients.size(); i++){ %>
 		          	<li class="ingredient_list_item" style="width:45%;float:left;margin-right:5%;">
-		          		<div class="custom-control custom-checkbox">
-							<input type="checkbox" class="custom-control-input" id="customCheck<%= i %>" name="">
-							<label class="custom-control-label" for="customCheck<%= i %>"></label>
-						</div>
-		          		<p><%=ingredients.get(i) %></p>
+		          		<p>
+							<label class="" for="customCheck<%= i %>">
+								<input type="checkbox"  id="customCheck<%= i %>" name="">
+								<span><%=ingredients.get(i) %></span>
+							</label>
+						</p>
 		          	</li>
 		          <% } %>
 		        </ul>
@@ -167,6 +169,10 @@
     	else{
     		form.action = "/FeedMe/recipeDetails";
     	}
+    	
+    	function goToSearchPage() {
+			window.location.href = "http://localhost:8080/FeedMe/jsp/search.jsp";
+		}
     }
     </script>
     <!-- Bootstrap JS -->

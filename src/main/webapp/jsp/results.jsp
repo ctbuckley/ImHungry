@@ -38,6 +38,7 @@
 	rel='stylesheet' type='text/css'>
 <link href="/FeedMe/css/results.css" rel="stylesheet" type="text/css">
 <link href="/FeedMe/css/buttons.css" rel="stylesheet" type="text/css">
+<link href="/FeedMe/css/navbar.css" rel="stylesheet" type="text/css">
 <!-- Javascript -->
 <script type="text/javascript"
 	src="/FeedMe/javascript/manageListButton.js"></script>
@@ -81,7 +82,7 @@
 	        		</div>
 	      		</li>
 	     		<li class="nav-item active ml-auto">
-	       			<a class="nav-link" id="userButton" href="#">Log In</a>
+	       			<a class="nav-link" id="userButton" href="http://localhost:8080/FeedMe/jsp/login.jsp">Log Out</a>
 	     		</li>
 	     	</ul>
 	 	</div>
@@ -89,35 +90,6 @@
 	<div class="container mt-5">
 		<!-- Row for collage and buttons -->
 		<div class="row align-items-start">
-			<!-- <div class="col-sm-2 order-3">
-
-				Buttons
-				<div class="buttons">
-					<form id="listDropDown" name="list"
-						onsubmit="return manageList(this);">
-						<select id="listName" name="listName" class="dropDownBar">
-							Default selection is nothing
-							<option id="nOptionButton" disabled selected value>--
-								select an option --</option>
-							<option id="fOptionButton" value="f">Favorites</option>
-							<option id="tOptionButton" value="t">To Explore</option>
-							<option id="dOptionButton" value="d">Do Not Show</option>
-						</select> <br>
-						Button to add item to selected list, doesn't do anything if choice is empty
-						<button id="addToList" class="Button">Manage Lists</button>
-						<br>
-					</form>
-					Click on the button will redirect you to the search page
-					<form action="/FeedMe/jsp/search.jsp">
-						<button id="returntoSearch"
-							onclick="javascript:location.href = this.value;" class="Button">Return
-							to Search</button>
-					</form>
-
-				</div>
-			</div> -->
-
-		<!-- 	class="col-sm-6 order-2 pt-3 overflow-hidden" -->
 			<div class="gallery">
 				<%
 					// creating random angle for each of the image in the collage
@@ -128,9 +100,6 @@
 				<figure class="gallery_item gallery_item_<%=i%>">
 					<img src="<%=imageUrlVec[i]%>" class="gallery_img" alt=""/>
 				</figure>
-				<%-- <img
-					style=" vertical-align: middle; transform: rotate(<%=angle%>deg);"
-					src="<%=imageUrlVec[i]%>" height="100" width="100"> --%>
 				<%
 					}
 				%>
@@ -276,26 +245,28 @@
 		<nav aria-label="Page navigation example" class="pagination_nav"
 			id="page_bar">
 			<ul class="pagination">
-				<li class="page-item">
-					<a id="paginationPrevious" class="page-link" href="#" aria-label="Previous"> 
-						<span aria-hidden="true">&laquo;</span>
-						<span class="sr-only">Previous</span>
-					</a>
-				</li>
+				<%
+					String previousLinkActive = "";
+					String nextLinkActive = "";
+					if(currentPageNumber == 1) {
+						previousLinkActive = "disabled";
+					}
+					if(currentPageNumber == resultPageCount) {
+						nextLinkActive = "disabled";
+					}
+				%>
+				 <li class="page-item <%= previousLinkActive %>"><a class="page-link" href="/FeedMe/results?pageNumber=<%=currentPageNumber - 1%>">Previous</a></li>
 	 			<!-- Where to insert new page items when generating the page -->
 	 			<%
+	 				String paginationLinkActive="";
 	 				for(int i=1; i<=resultPageCount; i++) {
+	 					if(currentPageNumber == i) paginationLinkActive = "active";
 	 			%>
-	 					<li class="pag-item"><a class="page-link" id="paginationLink<%= i %>" href="/FeedMe/results?pageNumber=<%=i%>"><%=i%></a></li>
+	 					<li class="page-item <%= paginationLinkActive %>"><a class="page-link" id="paginationLink<%= i %>" href="/FeedMe/results?pageNumber=<%=i%>"><%=i%></a></li>
 	 			<%
 	 				}
 	 			%>
-				<li class="page-item">
-					<a id="paginationNext" class="page-link" href="#" aria-label="Next"> 
-						<span aria-hidden="true">&raquo;</span>
-						<span class="sr-only">Next</span>
-					</a>
-				</li>
+				<li class="page-item <%= nextLinkActive %>"><a class="page-link" href="/FeedMe/results?pageNumber=<%= currentPageNumber + 1%>">Next</a></li>
 			</ul>
 		</nav>
 	</div>
