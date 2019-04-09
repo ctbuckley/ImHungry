@@ -69,8 +69,6 @@ public class ResultsPageServlet extends HttpServlet {
 		ArrayList<Restaurant> doNotShowRestaurants = doNotShowList.getRestaurants();
 		ArrayList<Recipe> doNotShowRecipes = doNotShowList.getRecipes();
 		
-		
-		
 		/*
 		 *  If user clicked "return to search", get parameters from session.
 		 * 	Else, get parameters from url
@@ -99,6 +97,10 @@ public class ResultsPageServlet extends HttpServlet {
 			pageNumber = Integer.parseInt(pageNumberRaw);
 		}
 	
+		
+		if(dataIsCached && (Math.max(doNotShowRecipes.size(), doNotShowRestaurants.size()) + resultCount > Math.min(pastSearchList.getRecipes().size(), pastSearchList.getRestaurants().size())) ){
+			dataIsCached = false;
+		}
 		
 		UserList currentResults = new UserList();
 		
