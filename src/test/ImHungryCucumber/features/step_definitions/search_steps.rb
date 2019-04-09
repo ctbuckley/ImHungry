@@ -95,3 +95,11 @@ Then(/^I should see 2 history results$/) do
   expect(page.find_by_id("quickAccessResult0", visible: false))
   expect(page.find_by_id("quickAccessResult1", visible: false))
 end
+
+Then(/^I should see a recipe error message$/) do
+  expect(page.find("#errorMessageRecipe").native.css_value('display')).not_to eq('none')
+end
+
+Then(/^I should see a restaurant error message$/) do
+  expect(page.find("#errorMessageRestaurant").native.css_value('display')).not_to eq('none')
+end
