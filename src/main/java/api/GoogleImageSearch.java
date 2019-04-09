@@ -30,7 +30,7 @@ public class GoogleImageSearch {
 		searchTerm = URLEncoder.encode(searchTerm, "UTF-8"); // Encode before constructing url
 		// Construct query url using user-provided search term - this can return non-food pictures
 		String query = "https://www.googleapis.com/customsearch/v1?searchType=image&imgType=photo&key=" + API_KEY
-				+ "&cx=" + SEARCH_ENGINE_ID + "&q=" + searchTerm;
+				+ "&cx=" + SEARCH_ENGINE_ID + "&q=" + searchTerm + "&imgSize=medium";
 		
 		// Get JSON string
 		String json = jsonGetRequest(query);

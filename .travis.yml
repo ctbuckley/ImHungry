@@ -8,10 +8,14 @@ matrix:
         
     - language: ruby
 
+      
       dist: trusty
 
       addons:
         chrome: stable
+
+      cache: bundler
+      sudo: 'false'
 
       rvm:
         - 2.6.2
