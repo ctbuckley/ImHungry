@@ -39,12 +39,13 @@
 				</a>
 			</li>
 		<li class="nav-item dropdown ml-auto" id="quickAccessDropdown">
-     		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkA" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-       			Past Searches
-     		</a>
-     		<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-     		</div>
-   		</li>
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkA" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Past Searches
+        </a>
+        <div id="dropdown-menu-Populate" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+		    
+        </div>
+      </li>
 	     <li class="nav-item active ml-auto">
 	       <a class="nav-link" id="userButton" href="http://localhost:8080/FeedMe/jsp/login.jsp">Log out</a>
 	     </li>
