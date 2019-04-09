@@ -1,37 +1,7 @@
+@charset "UTF-8";
 html, body {
 	width: 100%;
 	height: 100%;
-}
-
-a.navbar-brand {
-	color: #007BFF !important;
-}
-
-.navbar-toggler-icon {
-	fill: #007BFF !important;
-}
-
-.grocery_cart path {
-	stroke: #C9C9C9;
-	fill: #C9C9C9 !important;
-}
-
-#grocery_link_button {
-	display: flex;
-	align-items: center;
-}
-
-#grocery_link_button:hover {
-	color: #007BFF;
-}
-
-
-#grocery_icon {
-	fill: #C9C9C9 !important;
-}
-
-#grocery_icon:hover {
-	fill: #007BFF !important;
 }
 
 .row {
@@ -161,48 +131,38 @@ a.navbar-brand {
 	box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px;
 }
 
-/*
-@media screen and (max-width: 1275px) {
-	.row {
-		flex-direction: column-reverse;
-		align-items: flex-start;
-		justify-content: space-between;
-		height: 100%;
-	}
-	
-	.buttons {
-		width: 100%;
-		display: flex;
-		justify-content: space-between;
-		flex-direction: column;
-		align-items: center;
-		height: 40%;
-		position:relative;
-		top:0%;
-	}
-	
-	.btn {
-		margin: 3px;
-	}
-	
-	form, #dropDownBar{
-		margin: 3px;
-		width: 100%;
-	}
-	
-	.outer_detail_cont {
-		height: 80%;
-		display: inline-block;
-		width: 100%;
-		position: relative;
-		top: 20%;
-	}
+#ingredients label input[type=checkbox] {
+	 position: relative;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+	  font-size: inherit;
+	  width: 1em;
+	  margin: 0;
+	  color: black;
+	  outline: none;
+	  font-family: "Font Awesome 5 Free";
+	  transition: 300ms ease-out;
 }
 
-*/
+#ingredients label input[type=checkbox]::after {
+content: '\f111';
+  display: inline-block;
+  text-align: center;
+  width: 1em;
+}
 
-@media screen and (max-width: 580px) {
-	.buttons {
-		width: 100%;
-	}
+#ingredients label input[type=checkbox]:checked::after {
+	font-weight: 900;
+	color: #007bff;
+	content: '\f058';
+}
+
+#ingredients label input[type=checkbox]:active {
+	-webkit-transform: scale(0.6);
+          transform: scale(0.6);
+}
+
+#ingredients label input[type=checkbox] + span {
+	margin-left: .35em;
 }

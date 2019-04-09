@@ -13,8 +13,9 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="/FeedMe/css/recipe_details.css" rel="stylesheet">
+    <link href="/FeedMe/css/navbar.css" rel="stylesheet" type="text/css">
     <script src="/FeedMe/javascript/buttons.js"></script>
     <%@page import="java.util.*" %>
 	<%@page import="data.*"%>
@@ -49,16 +50,8 @@
 						Grocery List
 	       			</a>
 	     		</li>
-		   		<li class="nav-item dropdown ml-auto" id="quickAccessDropdown">
-	        		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	          			Past Searches
-	        		</a>
-	        		<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	  <!--    <a class="dropdown-item" id="quickAccessResult10" href="#">Past Search 1</a>   -->   
-	        		</div>
-	      		</li>
 	     		<li class="nav-item active ml-auto">
-	       			<a class="nav-link" id="userButton" href="#">Log Out</a>
+	       			<a class="nav-link" id="userButton" href=http://localhost:8080/FeedMe/jsp/login.jsp>Log Out</a>
 	     		</li>
 	     	</ul>
 	 	</div>
@@ -78,22 +71,22 @@
 			<!-- Holds image, prep and cook time of recipe-->
 			<div id="details">
 				<%     
-					double cookTime = recipeVal.getCookTime();
+					int cookTime = (int)recipeVal.getCookTime();
 					String renderCookTime = "";
 					if (cookTime < 0){
 						renderCookTime = "Not Available";
 					}
 					else{
-						renderCookTime = Double.toString(cookTime) + " minutes";
+						renderCookTime = Integer.toString(cookTime) + " minutes";
 					}
 					
-					double prepTime = recipeVal.getPrepTime();
+					int prepTime = (int)recipeVal.getPrepTime();
 					String renderPrepTime = "";
 					if (prepTime < 0){
 						renderPrepTime = "Not Available";
 					}
 					else{
-						renderPrepTime = Double.toString(prepTime) + " minutes";
+						renderPrepTime = Integer.toString(prepTime) + " minutes";
 					}			
 				%>
 		        <div class="recipe_time_cont">
@@ -111,11 +104,12 @@
 		          <% ArrayList<String> ingredients = (ArrayList<String>) recipeVal.getIngredients();%>
 		          <% for(int i = 0; i < ingredients.size(); i++){ %>
 		          	<li class="ingredient_list_item" style="width:45%;float:left;margin-right:5%;">
-		          		<div class="custom-control custom-checkbox">
-							<input type="checkbox" class="custom-control-input" id="customCheck<%= i %>" name="">
-							<label class="custom-control-label" for="customCheck<%= i %>"></label>
-						</div>
-		          		<p><%=ingredients.get(i) %></p>
+		          		<p>
+							<label class="" for="customCheck<%= i %>">
+								<input type="checkbox"  id="customCheck<%= i %>" name="">
+								<span><%=ingredients.get(i) %></span>
+							</label>
+						</p>
 		          	</li>
 		          <% } %>
 		        </ul>
@@ -157,17 +151,22 @@
     </div>
     <!-- Homebrew JS -->
     <script>
-    // Adds the item to the specified list, if the user specifies the proper list
-    function addToList(form){
-    	var userInput = document.getElementById('listType').value;
-    	console.log(userInput);
-    	if (userInput == null || userInput.length == 0){
-    		return false;	
-    	}
-    	else{
-    		form.action = "/FeedMe/recipeDetails";
-    	}
-    }
+	    // Adds the item to the specified list, if the user specifies the proper list
+	    function addToList(form){
+	    	var userInput = document.getElementById('listType').value;
+	    	console.log(userInput);
+	    	if (userInput == null || userInput.length == 0){
+	    		return false;	
+	    	}
+	    	else{
+	    		form.action = "/FeedMe/recipeDetails";
+	    	}
+	    };
+	    
+	    function goToSearchPage() {
+    		console.log("HELLLO");
+			window.location.href = "http://localhost:8080/FeedMe/jsp/search.jsp";
+		}
     </script>
     <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

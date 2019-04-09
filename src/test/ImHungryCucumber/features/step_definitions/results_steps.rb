@@ -85,3 +85,37 @@ end
 Then(/^there are "([^"]*)" pagination links$/) do |links|
   expect(page.all(".page-link").count).to eq (links.to_i+2)
 end
+
+When(/^the first restaurant on the first results page is different from the first restaurant on second results page$/) do
+  $result1 = page.find_by_id("recipeName0").native.text
+  page.find_by_id("paginationLink2").click()
+  sleep(1)
+  expect(page.find_by_id("recipeName0").native.text).not_to eq $result1
+end
+
+When(/^the first pagination link is active$/) do
+  expect(page.find_by_id("paginationLink1").find(:xpath, '..')['class']).to have_content 'active'
+  expect(page.find_by_id("paginationLink2").find(:xpath, '..')['class']).not_to have_content 'active'
+end
+
+Then(/^the second pagination link is active$/) do
+  expect(page.find_by_id("paginationLink1").find(:xpath, '..')['class']).not_to have_content 'active'
+  expect(page.find_by_id("paginationLink2").find(:xpath, '..')['class']).to have_content 'active'
+end
+
+When(/^I should see pagination links "([^"]*)", "([^"]*)", "([^"]*)", "([^"]*)", and "([^"]*)"$/) do |link1, link2, link3, link4, link5|
+  expect(page.find_by_id("paginationLink" + link1))
+  expect(page.find_by_id("paginationLink" + link2))
+  expect(page.find_by_id("paginationLink" + link3))
+  expect(page.find_by_id("paginationLink" + link4))
+  expect(page.find_by_id("paginationLink" + link5))
+end
+
+When(/^I click on pagination link "([^"]*)"$/) do |link|
+  page.find_by_id("paginationLink" + link).click()
+end
+
+
+
+
+

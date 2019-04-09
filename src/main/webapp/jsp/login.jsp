@@ -47,6 +47,6 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="../javascript/login.js"></script>
+	<script type="text/javascript" src="/FeedMe/javascript/login.js"></script>
 </body>
 </html>

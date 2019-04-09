@@ -143,6 +143,10 @@
     color: lightblue;
 }
 
-
+.errorCont {
+	display: flex;
+	align-self: center;
+	color: red;
+}
 /* @media (1000px or greater) have default 20px or something
 font-size: calc(12px + responsiveFactor) */

@@ -101,3 +101,11 @@ Scenario: Check that the past searches dropdown has two result
 	And press search
 	And press return to search
 	Then I should see 2 history results
+
+Scenario: Check that an error message appears when no restaurants found
+	When I enter "halfond" in the search box
+	And I enter "1" in the search number box
+	And I enter "2" in the radius input field
+	And press search
+	And I should see a recipe error message
+	Then I should see a restaurant error message
