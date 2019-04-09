@@ -66,7 +66,7 @@ Scenario: Check that current link is active and results are different on differe
 
 Scenario: Check that the number of pagination links per page is limited
 	When I am on the ImHungry Search Page
-	And I enter "burger" in the search box
+	And I enter "chicken" in the search box
 	And I enter "31" in the search number box
 	And I enter "100" in the radius input field
 	And press search
