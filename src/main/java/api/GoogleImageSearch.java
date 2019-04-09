@@ -21,7 +21,7 @@ import com.google.gson.JsonParser;
  */
 public class GoogleImageSearch {
 
-	static final String API_KEY = "AIzaSyB1dG3sx6ViBzfuYrTzF_XuCNUVE4dVXdk";
+	static final String API_KEY = "AIzaSyDUB_EE6FdB4xzWrjVnDbWMPgoe0-TVDnw";
 	static final String SEARCH_ENGINE_ID = "012879953607576427254:2cidu_it4hw"; //searches for images on the web
 	
 	// Returns a vector of image urls using the user-provided search term
