@@ -62,14 +62,6 @@
 			      		<a class="dropdown-item" id="dOptionButton" href="/FeedMe/restaurantDetails?listType=d&arrNum=<%= arrNum %>">Do Not Show</a>     
 		        	</div>
 		    	</li>
-		   		<li class="nav-item dropdown ml-auto" id="quickAccessDropdown">
-	        		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	          			Past Searches
-	        		</a>
-	        		<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	  <!--    <a class="dropdown-item" id="quickAccessResult1" href="#">Past Search 1</a>   -->   
-	        		</div>
-	      		</li>
 	     		<li class="nav-item active ml-auto">
 	       			<a class="nav-link" id="userButton" href="http://localhost:8080/FeedMe/jsp/login.jsp">Log Out</a>
 	     		</li>

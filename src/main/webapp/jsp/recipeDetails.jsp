@@ -50,14 +50,6 @@
 						Grocery List
 	       			</a>
 	     		</li>
-		   		<li class="nav-item dropdown ml-auto" id="quickAccessDropdown">
-	        		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	          			Past Searches
-	        		</a>
-	        		<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	  <!--    <a class="dropdown-item" id="quickAccessResult10" href="#">Past Search 1</a>   -->   
-	        		</div>
-	      		</li>
 	     		<li class="nav-item active ml-auto">
 	       			<a class="nav-link" id="userButton" href=http://localhost:8080/FeedMe/jsp/login.jsp>Log Out</a>
 	     		</li>
@@ -79,22 +71,22 @@
 			<!-- Holds image, prep and cook time of recipe-->
 			<div id="details">
 				<%     
-					double cookTime = recipeVal.getCookTime();
+					int cookTime = (int)recipeVal.getCookTime();
 					String renderCookTime = "";
 					if (cookTime < 0){
 						renderCookTime = "Not Available";
 					}
 					else{
-						renderCookTime = Double.toString(cookTime) + " minutes";
+						renderCookTime = Integer.toString(cookTime) + " minutes";
 					}
 					
-					double prepTime = recipeVal.getPrepTime();
+					int prepTime = (int)recipeVal.getPrepTime();
 					String renderPrepTime = "";
 					if (prepTime < 0){
 						renderPrepTime = "Not Available";
 					}
 					else{
-						renderPrepTime = Double.toString(prepTime) + " minutes";
+						renderPrepTime = Integer.toString(prepTime) + " minutes";
 					}			
 				%>
 		        <div class="recipe_time_cont">
@@ -159,21 +151,22 @@
     </div>
     <!-- Homebrew JS -->
     <script>
-    // Adds the item to the specified list, if the user specifies the proper list
-    function addToList(form){
-    	var userInput = document.getElementById('listType').value;
-    	console.log(userInput);
-    	if (userInput == null || userInput.length == 0){
-    		return false;	
-    	}
-    	else{
-    		form.action = "/FeedMe/recipeDetails";
-    	}
-    	
-    	function goToSearchPage() {
+	    // Adds the item to the specified list, if the user specifies the proper list
+	    function addToList(form){
+	    	var userInput = document.getElementById('listType').value;
+	    	console.log(userInput);
+	    	if (userInput == null || userInput.length == 0){
+	    		return false;	
+	    	}
+	    	else{
+	    		form.action = "/FeedMe/recipeDetails";
+	    	}
+	    };
+	    
+	    function goToSearchPage() {
+    		console.log("HELLLO");
 			window.location.href = "http://localhost:8080/FeedMe/jsp/search.jsp";
 		}
-    }
     </script>
     <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

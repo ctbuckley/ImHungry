@@ -4,37 +4,6 @@ html, body {
 	height: 100%;
 }
 
-a.navbar-brand {
-	color: #007BFF !important;
-}
-
-.navbar-toggler-icon {
-	fill: #007BFF !important;
-}
-
-.grocery_cart path {
-	stroke: #C9C9C9;
-	fill: #C9C9C9 !important;
-}
-
-#grocery_link_button {
-	display: flex;
-	align-items: center;
-}
-
-#grocery_link_button:hover {
-	color: #007BFF;
-}
-
-
-#grocery_icon {
-	fill: #C9C9C9 !important;
-}
-
-#grocery_icon:hover {
-	fill: #007BFF !important;
-}
-
 .row {
 	padding-left: 8%;
 	padding-right: 8%;
@@ -170,7 +139,7 @@ a.navbar-brand {
 	  font-size: inherit;
 	  width: 1em;
 	  margin: 0;
-	  color: inherit;
+	  color: black;
 	  outline: none;
 	  font-family: "Font Awesome 5 Free";
 	  transition: 300ms ease-out;
@@ -185,6 +154,7 @@ content: '\f111';
 
 #ingredients label input[type=checkbox]:checked::after {
 	font-weight: 900;
+	color: #007bff;
 	content: '\f058';
 }
 
@@ -196,56 +166,3 @@ content: '\f111';
 #ingredients label input[type=checkbox] + span {
 	margin-left: .35em;
 }
-
-.fancy label {
-  display: inline-flex;
-  align-items: baseline;
-}
-.fancy label input[type=checkbox],
-.fancy label input[type=radio] {
-  position: relative;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-  font-size: inherit;
-  width: 1em;
-  margin: 0;
-  color: inherit;
-  outline: none;
-  font-family: "Font";
-  transition: 300ms ease-out;
-}
-.fancy label input[type=checkbox]::after,
-.fancy label input[type=radio]::after {
-  content: '\f111';
-  display: inline-block;
-  text-align: center;
-  width: 1em;
-}
-.fancy label input[type=checkbox]:checked::after,
-.fancy label input[type=radio]:checked::after {
-  font-weight: 900;
-}
-.fancy label input[type=checkbox]:active,
-.fancy label input[type=radio]:active {
-  -webkit-transform: scale(0.6);
-          transform: scale(0.6);
-}
-.fancy label input[type=checkbox] + span,
-.fancy label input[type=radio] + span {
-  margin-left: .35em;
-}
-.fancy label input[type=checkbox]:checked::after {
-  content: '\f058';
-}
-.fancy label input[type=radio]:checked::after {
-  content: '\f192';
-}
-
-.fancy.square label input[type=checkbox]:after {
-  content: '\f0c8';
-}
-.fancy.square label input[type=checkbox]:checked::after {
-  content: '\f14a';
-}
-

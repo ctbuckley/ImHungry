@@ -24,6 +24,18 @@
 	Integer currentPageNumber = 1;
 	if (pageNumberRaw != null) currentPageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 	Integer totalResultsRequested = (Integer) request.getSession().getAttribute("n");
+	String visibleRestaurant = "none";
+	String visibleRecipe = "none";
+	for(int i = 0; i < restaurantArr.length; i++) {
+		if(restaurantArr[i] == null) {
+			visibleRestaurant = "inherit";
+		}
+	}
+	for(int i = 0; i < recipeArr.length; i++) {
+		if(recipeArr[i] == null) {
+			visibleRecipe = "inherit";
+		}
+	}
 %>
 <!-- Bootstrap CSS  -->
     	<!-- Bootstrap CSS file linkage -->
@@ -118,6 +130,7 @@
 		<div class="row md-2">
 			<div class="col-md-6">
 				<h2 id="restaurantTitle" class="text-center">Restaurants</h2>
+				<div id="errorMessageRestaurant" class="errorCont text-center" style="display: <%= visibleRestaurant %>">No Restaurants available with provided parameters</div>
 				<%
 					// rendering the list of restauratns while applying alternating grey color on each of the items
 					for (int i = 0; i < resultCount; i++) {
@@ -178,6 +191,7 @@
 			<!-- Recipes lists rendering -->
 			<div class="col-md-6">
 				<h2 id="recipeTitle" class="text-center">Recipes</h2>
+				<div id="errorMessageRecipe" class="errorCont text-center" style="display: <%= visibleRecipe %>">No Recipes available with provided parameters</div>
 				<%
 					// rendering the list of recipes while applying alternating grey color on each of the items
 					for (int i = 0; i < resultCount; i++) {
@@ -255,7 +269,7 @@
 						nextLinkActive = "disabled";
 					}
 				%>
-				 <li class="page-item <%= previousLinkActive %>"><a class="page-link" href="/FeedMe/results?pageNumber=<%=currentPageNumber - 1%>">Previous</a></li>
+				 <li class="page-item <%= previousLinkActive %>"><a id="paginationPrevious" class="page-link" href="/FeedMe/results?pageNumber=<%=currentPageNumber - 1%>">Previous</a></li>
 	 			<!-- Where to insert new page items when generating the page -->
 	 			<%
 	 				int numPaginationLinksCreated = 0;
@@ -275,7 +289,7 @@
 	 				
 	 				}
 	 			%>
-				<li class="page-item <%= nextLinkActive %>"><a class="page-link" href="/FeedMe/results?pageNumber=<%= currentPageNumber + 1%>">Next</a></li>
+				<li class="page-item <%= nextLinkActive %>"><a id="paginationNext" class="page-link" href="/FeedMe/results?pageNumber=<%= currentPageNumber + 1%>">Next</a></li>
 			</ul>
 		</nav>
 	</div>
@@ -285,6 +299,10 @@
 			setStars();
 			setPreviousPagination();
 			setNextPagination();
+			console.log("Restaurant size: <%= restaurantArr.length %>");
+			console.log("Restaurant size: <%= recipeArr.length %>");
+			console.log("Restaurant results: <%= visibleRestaurant%>");
+			console.log("Recipe results: <%= visibleRecipe %>");
 		}
 		
 		function setPreviousPagination() {

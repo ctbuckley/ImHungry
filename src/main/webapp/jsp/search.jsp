@@ -9,7 +9,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<!-- Customised CSS file linkage -->
  	<link href="/FeedMe/css/search.css" rel="stylesheet" type="text/css">
- 	<link href="/FeedMe/css/navbar.css" rel="stylesheet" type="text/css">
 	<!-- Javascript -->
 	<script type="text/javascript" src="/FeedMe/javascript/searchEmoji.js"></script>
 	<script type="text/javascript" src="/FeedMe/javascript/login.js"></script>
@@ -22,6 +21,7 @@
 
 <!-- Html body -->
 <body onload="loadSearchHistory();">
+	<div class="bg_cont"></div>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 	 <a class="navbar-brand" id="returntoSearch" href="http://localhost:8080/FeedMe/search">ImHungry</a>
 	 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,21 +31,13 @@
 	   <ul class="navbar-nav ml-auto">
 			<li class="nav-item active ml-auto">
 				<a class="nav-link" id="grocery_link_button" href="#">
-					<svg class="grocry_cart" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+					<svg class="grocery_cart" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 						<path id="grocery_icon" d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
 						<path d="M0 0h24v24H0z" fill="none"/>
 					</svg>
 					Grocery List
 				</a>
 			</li>
-	   <li class="nav-item dropdown ml-auto" id="quickAccessDropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Past Searches
-        </a>
-        <div id="dropdown-menu-Populate" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-		    
-        </div>
-      </li>
 	     <li class="nav-item active ml-auto">
 	       <a class="nav-link" id="userButton" href="http://localhost:8080/FeedMe/jsp/login.jsp">Log out</a>
 	     </li>
@@ -54,7 +46,7 @@
 	</nav>
 
 	<div class="container">
-  		<div class="row search_input_cont text-center ">
+  		<div class="search_input_cont text-center ">
   			<h1 id="hungryText">ImHungry</h1>
   			<div class="col-md-12 text-center outer_search_cont"> 
   				<!-- The form including search term/search number -->

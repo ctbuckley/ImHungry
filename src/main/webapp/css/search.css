@@ -1,9 +1,93 @@
-.search_input_cont {
-	margin-top: 20%;
+html, body {
+	width: 100%;
+	height: 100%;
+	max-height: 100%;
+	overflow: hidden;
+}
+
+.bg-light {
+	background-color: transparent !important;
+}
+
+.navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link {
+    color: white;
+}
+
+a.navbar-brand {
+	color: white !important;
+	font-weight: bold;
+}
+
+.navbar-light .navbar-toggler {
+    color: white !important;
+    border-color: white;
+    background-color: white;
+}
+
+#grocery_link_button {
 	display: flex;
-	justify-content: center;
 	align-items: center;
-	flex-direction: column;
+}
+
+
+#grocery_icon {
+	fill: white !important;
+}
+
+.grocery_cart {
+	margin-right: 6px;
+}
+
+.bg_cont:before {
+position: absolute;
+  z-index: -2;
+  top: -1.5em;
+  right: -1.5em;
+  bottom: -1.5em;
+  left: -1.5em;
+  border: inherit;
+  border-color: black;
+background-color: black;
+    color: black;
+  background: inherit;
+  background-clip: border-box;
+  filter: blur(9px);
+  clip-path: inset(0);
+  content: "";
+}
+.bg_cont {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+    overflow: hidden;
+/*    background-image: linear-gradient(-45deg, #74ebd5, #ACB6E5);*/
+    background-image: url(/FeedMe/img/img_2.jpg);
+    background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+    background-clip: border-box;
+       filter: brightness(70%);
+}
+
+.container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	align-self: center;
+}
+
+.search_input_cont {
+	margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 30px;
+  border-radius: 1.5rem;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px;
 }
 
 #hungryText {
@@ -82,7 +166,6 @@
 @media screen and (max-height: 500px) {
 	html {
 		overflow-y: scroll;
-		height: 130%;
 	}
 	
 	.outer_search_cont {

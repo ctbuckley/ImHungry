@@ -26,15 +26,7 @@ a.navbar-brand {
 	align-items: center;
 }
 
-#grocery_link_button:hover {
-	color: #007BFF;
-}
-
 
 #grocery_icon {
 	fill: #C9C9C9 !important;
-}
-
-#grocery_icon:hover {
-	fill: #007BFF !important;
 }
