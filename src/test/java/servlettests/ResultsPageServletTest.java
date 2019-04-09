@@ -95,7 +95,7 @@ public class ResultsPageServletTest {
 	 */
 	@Test
 	public void testFromSearch() throws Exception {
-
+		when(request.getParameter("fromSearch")).thenReturn("true");
 		when(request.getParameter("q")).thenReturn("Chicken");
 		when(request.getParameter("n")).thenReturn("3");
 		
@@ -118,7 +118,7 @@ public class ResultsPageServletTest {
 	 */
 	@Test
 	public void testFromBackToSearch() throws Exception {
-
+		when(request.getParameter("fromSearch")).thenReturn("true");
 		when(session.getAttribute("userLists")).thenReturn(userLists);
 		when(session.getAttribute("searchTerm")).thenReturn("Chicken");		
 		when(session.getAttribute("n")).thenReturn(3);
@@ -146,7 +146,7 @@ public class ResultsPageServletTest {
 		// Add to Favorites
 		userLists[0].add(recipe1);
 		userLists[0].add(restaurant1);				
-		
+		when(request.getParameter("fromSearch")).thenReturn("true");
 		when(session.getAttribute("userLists")).thenReturn(userLists);
 		when(request.getParameter("q")).thenReturn("Chicken");
 		when(request.getParameter("n")).thenReturn("3");
@@ -175,7 +175,7 @@ public class ResultsPageServletTest {
 		Config c = new Config();
 		userLists[1].add(recipe1);
 		userLists[1].add(restaurant1);		
-		
+		when(request.getParameter("fromSearch")).thenReturn("true");
 		when(session.getAttribute("userLists")).thenReturn(userLists);
 		when(request.getParameter("q")).thenReturn("Chicken");
 		when(request.getParameter("n")).thenReturn("3");
@@ -199,7 +199,7 @@ public class ResultsPageServletTest {
 	 */
 	@Test
 	public void testSmallRadius() throws Exception {
-		
+		when(request.getParameter("fromSearch")).thenReturn("true");
 		when(session.getAttribute("userLists")).thenReturn(userLists);
 		when(request.getParameter("q")).thenReturn("Chicken");
 		when(request.getParameter("n")).thenReturn("3");
@@ -223,7 +223,7 @@ public class ResultsPageServletTest {
 	 */
 	@Test
 	public void testBigRadius() throws Exception {
-		
+		when(request.getParameter("fromSearch")).thenReturn("true");
 		when(session.getAttribute("userLists")).thenReturn(userLists);
 		when(request.getParameter("q")).thenReturn("Chicken");
 		when(request.getParameter("n")).thenReturn("3");
@@ -248,7 +248,7 @@ public class ResultsPageServletTest {
 	 */
 	@Test
 	public void testNoRadius() throws Exception {
-		
+		when(request.getParameter("fromSearch")).thenReturn("true");
 		when(session.getAttribute("userLists")).thenReturn(userLists);
 		when(request.getParameter("q")).thenReturn("Chicken");
 		when(request.getParameter("n")).thenReturn("3");
@@ -276,7 +276,7 @@ public class ResultsPageServletTest {
 	public void testPagination() throws Exception{
 		
 		argCaptor = ArgumentCaptor.forClass(Recipe[].class);
-		
+		when(request.getParameter("fromSearch")).thenReturn("true");
 		when(session.getAttribute("userLists")).thenReturn(userLists);
 		when(request.getParameter("q")).thenReturn("Chicken");
 		when(request.getParameter("n")).thenReturn("6");
@@ -316,7 +316,7 @@ public class ResultsPageServletTest {
 	public void testPaginationMultiplePages() throws Exception{
 		
 		argCaptor = ArgumentCaptor.forClass(Recipe[].class);
-		
+		when(request.getParameter("fromSearch")).thenReturn("true");
 		when(session.getAttribute("userLists")).thenReturn(userLists);
 		when(request.getParameter("q")).thenReturn("Chicken");
 		when(request.getParameter("n")).thenReturn("6");
@@ -345,5 +345,102 @@ public class ResultsPageServletTest {
 		
 		
 	}
+	
+	@Test
+	public void testCaching() throws Exception {
+		
+		UserList pastSearches = new UserList();
+		pastSearches.add(recipe1);
+		pastSearches.add(restaurant1);
+		
+		when(request.getParameter("fromSearch")).thenReturn(null);
+		when(session.getAttribute("pastSearchList")).thenReturn(pastSearches);
+		when(session.getAttribute("userLists")).thenReturn(userLists);
+		when(request.getParameter("q")).thenReturn("Chicken");
+		when(request.getParameter("n")).thenReturn("1");
+
+		new ResultsPageServlet().service(request, response);
+
+	}
+	
+	
+	@Test
+	public void testFromSearchTrueTrue() throws Exception {
+		
+		UserList pastSearches = new UserList();
+		pastSearches.add(recipe1);
+		pastSearches.add(restaurant1);
+		
+		when(request.getParameter("fromSearch")).thenReturn("true");
+		when(session.getAttribute("pastSearchList")).thenReturn(pastSearches);
+		when(session.getAttribute("userLists")).thenReturn(userLists);
+		when(request.getParameter("q")).thenReturn("Chicken");
+		when(request.getParameter("n")).thenReturn("1");
+		new ResultsPageServlet().service(request, response);
+	}
+	
+	@Test
+	public void testFromSearchNullTrue() throws Exception {
+		
+		UserList pastSearches = new UserList();
+		pastSearches.add(recipe1);
+		pastSearches.add(restaurant1);
+		when(session.getAttribute("userLists")).thenReturn(userLists);
+		when(request.getParameter("q")).thenReturn("Chicken");
+		when(request.getParameter("n")).thenReturn("6");
+		when(request.getParameter("fromSearch")).thenReturn(null);
+		when(session.getAttribute("pastSearchList")).thenReturn(pastSearches);
+		new ResultsPageServlet().service(request, response);
+		
+	}
+	
+	@Test
+	public void testNullTrueBranch() throws Exception {
+		UserList pastSearches = new UserList();
+		pastSearches.add(recipe1);
+		pastSearches.add(restaurant1);
+		when(session.getAttribute("userLists")).thenReturn(userLists);
+		when(request.getParameter("q")).thenReturn("Chicken");
+		when(request.getParameter("n")).thenReturn("1");
+		when(request.getParameter("fromSearch")).thenReturn("true");
+		when(session.getAttribute("pastSearchList")).thenReturn(null);
+		new ResultsPageServlet().service(request, response);
+		
+	}
+	
+	@Test
+	public void testNullNullBranch() throws Exception {
+		UserList pastSearches = new UserList();
+		pastSearches.add(recipe1);
+		pastSearches.add(restaurant1);
+		when(session.getAttribute("userLists")).thenReturn(userLists);
+		when(request.getParameter("q")).thenReturn("Chicken");
+		when(request.getParameter("n")).thenReturn("1");
+		when(request.getParameter("fromSearch")).thenReturn(null);
+		when(session.getAttribute("pastSearchList")).thenReturn(null);
+		new ResultsPageServlet().service(request, response);
+		
+	}
+	
+	@Test
+	public void testTooManyDoNotShow() throws Exception {
+		UserList pastSearches = new UserList();
+		pastSearches.add(recipe1);
+		pastSearches.add(restaurant1);
+		userLists[1].add(recipe1);
+		when(session.getAttribute("userLists")).thenReturn(userLists);
+		when(request.getParameter("q")).thenReturn("Chicken");
+		when(request.getParameter("n")).thenReturn("1");
+		when(request.getParameter("fromSearch")).thenReturn(null);
+		when(session.getAttribute("pastSearchList")).thenReturn(pastSearches);
+		new ResultsPageServlet().service(request, response);
+		
+	}
+	
+	
+	
+	
+	
+	
 	
 }

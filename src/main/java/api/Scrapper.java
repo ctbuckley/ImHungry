@@ -48,9 +48,15 @@ public class Scrapper {
 				wait(1000);
 									
 				currentPage++;
-				doc = Jsoup.connect(baseUrl + "&page=" + currentPage).get();
-				elem = doc.getElementById("fixedGridSection");
-				recipeBoxes = elem.getElementsByClass("fixed-recipe-card__info");
+				try {
+					doc = Jsoup.connect(baseUrl + "&page=" + currentPage).get();
+					elem = doc.getElementById("fixedGridSection");
+					recipeBoxes = elem.getElementsByClass("fixed-recipe-card__info");
+				} catch(NullPointerException el) {
+					System.out.println("Failed for page " + baseUrl + "&page=" + currentPage);
+			    	el.printStackTrace();
+			    	break;
+				}
 				
 				n -= i - 1;
 				i = 0;
