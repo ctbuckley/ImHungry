@@ -357,7 +357,7 @@ public class ResultsPageServletTest {
 		when(session.getAttribute("pastSearchList")).thenReturn(pastSearches);
 		when(session.getAttribute("userLists")).thenReturn(userLists);
 		when(request.getParameter("q")).thenReturn("Chicken");
-		when(request.getParameter("n")).thenReturn("6");
+		when(request.getParameter("n")).thenReturn("1");
 
 		new ResultsPageServlet().service(request, response);
 
@@ -375,7 +375,7 @@ public class ResultsPageServletTest {
 		when(session.getAttribute("pastSearchList")).thenReturn(pastSearches);
 		when(session.getAttribute("userLists")).thenReturn(userLists);
 		when(request.getParameter("q")).thenReturn("Chicken");
-		when(request.getParameter("n")).thenReturn("6");
+		when(request.getParameter("n")).thenReturn("1");
 		new ResultsPageServlet().service(request, response);
 	}
 	
@@ -401,7 +401,7 @@ public class ResultsPageServletTest {
 		pastSearches.add(restaurant1);
 		when(session.getAttribute("userLists")).thenReturn(userLists);
 		when(request.getParameter("q")).thenReturn("Chicken");
-		when(request.getParameter("n")).thenReturn("6");
+		when(request.getParameter("n")).thenReturn("1");
 		when(request.getParameter("fromSearch")).thenReturn("true");
 		when(session.getAttribute("pastSearchList")).thenReturn(null);
 		new ResultsPageServlet().service(request, response);
@@ -415,14 +415,27 @@ public class ResultsPageServletTest {
 		pastSearches.add(restaurant1);
 		when(session.getAttribute("userLists")).thenReturn(userLists);
 		when(request.getParameter("q")).thenReturn("Chicken");
-		when(request.getParameter("n")).thenReturn("6");
+		when(request.getParameter("n")).thenReturn("1");
 		when(request.getParameter("fromSearch")).thenReturn(null);
 		when(session.getAttribute("pastSearchList")).thenReturn(null);
 		new ResultsPageServlet().service(request, response);
 		
 	}
 	
-	
+	@Test
+	public void testTooManyDoNotShow() throws Exception {
+		UserList pastSearches = new UserList();
+		pastSearches.add(recipe1);
+		pastSearches.add(restaurant1);
+		userLists[1].add(recipe1);
+		when(session.getAttribute("userLists")).thenReturn(userLists);
+		when(request.getParameter("q")).thenReturn("Chicken");
+		when(request.getParameter("n")).thenReturn("1");
+		when(request.getParameter("fromSearch")).thenReturn(null);
+		when(session.getAttribute("pastSearchList")).thenReturn(pastSearches);
+		new ResultsPageServlet().service(request, response);
+		
+	}
 	
 	
 	
