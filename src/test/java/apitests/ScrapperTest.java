@@ -91,7 +91,11 @@ public class ScrapperTest {
 	 */
 	@Test
 	public void searchBadRequestTest() throws IOException {
-		Vector<Recipe> recipes = Scrapper.search("qwertyuiop", 25);
+
+		Vector<Recipe> recipes = Scrapper.search("qwertysdfgh", 1);
+		assertEquals(0, recipes.size());
+		
+		recipes = Scrapper.search("qwertyuiop", 25);
 		assertEquals(0, recipes.size());
 				
 	}
@@ -106,5 +110,14 @@ public class ScrapperTest {
 		
 	}
 	
+	/*
+	 *  Tests weird edge case.
+	 */
+	@Test
+	public void searchBadQueryTest() throws IOException {
+		Vector<Recipe> recipes = Scrapper.search("computer", 2);
+		assertEquals(0, recipes.size());
+		
+	}
 	
 }
