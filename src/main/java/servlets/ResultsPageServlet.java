@@ -33,6 +33,25 @@ public class ResultsPageServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("resultsOrList", "results");
 		UserList[] userLists = (UserList[]) session.getAttribute("userLists");
+		
+		// input validation should be done on front end (empty string, non-integer for resultCount, etc.)
+		String searchTerm = request.getParameter("q");
+		String resultCountRaw = request.getParameter("n");
+		String radiusRaw = request.getParameter("radiusInput");
+		String pageNumberRaw = request.getParameter("pageNumber");
+		String fromSearch = request.getParameter("fromSearch");
+		Integer resultCount = null;
+		Integer radius = null;
+		Integer pageNumber = null;
+		
+		UserList pastSearchList = (UserList)session.getAttribute("pastSearchList");
+		
+		//Pull results from session 
+		boolean dataIsCached = false;
+		if (pastSearchList != null && fromSearch == null) {
+			dataIsCached = true;
+		}
+		
 		/*
 		 * If no UserList array is stored in session, the server considers the user to be a new user,
 		 *  and makes new userList array for this session. 
@@ -50,14 +69,7 @@ public class ResultsPageServlet extends HttpServlet {
 		ArrayList<Restaurant> doNotShowRestaurants = doNotShowList.getRestaurants();
 		ArrayList<Recipe> doNotShowRecipes = doNotShowList.getRecipes();
 		
-		// input validation should be done on front end (empty string, non-integer for resultCount, etc.)
-		String searchTerm = request.getParameter("q");
-		String resultCountRaw = request.getParameter("n");
-		String radiusRaw = request.getParameter("radiusInput");
-		String pageNumberRaw = request.getParameter("pageNumber");
-		Integer resultCount = null;
-		Integer radius = null;
-		Integer pageNumber = null;
+		
 		
 		/*
 		 *  If user clicked "return to search", get parameters from session.
@@ -87,11 +99,26 @@ public class ResultsPageServlet extends HttpServlet {
 			pageNumber = Integer.parseInt(pageNumberRaw);
 		}
 	
+		
+		UserList currentResults = new UserList();
+		
 		/* 
 		 * Fetch a list of restaurant objects made from query results given by Yelp API
 		 * Get enough results to make up for restaurants/recipes in Do Not Show list, which will not be displayed
 		 */
-		Vector<Restaurant> restaurants = AccessYelpAPI.YelpRestaurantSearch(searchTerm, resultCount + doNotShowRestaurants.size(), radius);
+		
+		Vector<Restaurant> restaurants = null;
+		
+		if (dataIsCached) {
+			restaurants = new Vector<Restaurant>(pastSearchList.getRestaurants());
+		} else {
+			restaurants = AccessYelpAPI.YelpRestaurantSearch(searchTerm, resultCount + doNotShowRestaurants.size(), radius);
+			for (Restaurant i : restaurants) {
+				currentResults.add(i);
+			}
+		}
+		
+		
 		/*
 		 * Sort restaurants in ascending order of drive time from Tommy Trojan,
 		 * using compareTo method overridden in Restaurant class
@@ -126,7 +153,20 @@ public class ResultsPageServlet extends HttpServlet {
 		/* 
 		 * Fetch a list of recipe objects made by web scraping from allrecipes.com
 		 */
-		Vector<Recipe> recipes  = Scrapper.search(searchTerm, resultCount + doNotShowRecipes.size());
+		
+		
+		Vector<Recipe> recipes = null;
+		
+		if (dataIsCached) {
+			recipes = new Vector<Recipe>(pastSearchList.getRecipes());
+		} else {
+			recipes = Scrapper.search(searchTerm, resultCount + doNotShowRecipes.size());
+			for (Recipe i : recipes) {
+				currentResults.add(i);
+			}
+		}
+		
+		
 		/*
 		 * Sort recipes in ascending order of prep time,
 		 * using compareTo method overridden in Recipe class
@@ -193,6 +233,10 @@ public class ResultsPageServlet extends HttpServlet {
 		session.setAttribute("resultCount", resultCount);
 		session.setAttribute("radiusInput", radius);
 		session.setAttribute("pageCount", pageCount);
+		
+		if (!dataIsCached) {
+			session.setAttribute("pastSearchList", currentResults);
+		}
 		
 		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/results.jsp");
 		dispatch.forward(request,  response);			

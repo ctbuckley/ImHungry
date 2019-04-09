@@ -58,6 +58,7 @@
   			<div class="col-md-12 text-center outer_search_cont"> 
   				<!-- The form including search term/search number -->
 				<form id="form" onsubmit= "return changeEmoji(this);"> <!-- Calls the js function that changes the emoji -->
+					<input type="hidden" name="fromSearch" value="true">
 					<!-- input textbox for search term -->
 					<input class="form-control large_input" id="queryInput" type="text" name="q" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Enter Food">					
 			 		<div class="bottom_search_cont">
