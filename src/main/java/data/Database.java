@@ -344,4 +344,46 @@ public class Database {
 		
 	}
 	
+	/* grocery list */
+	
+	public ArrayList<String> getGroceryListforUser(int userID) throws SQLException{
+		
+		ps = conn.prepareStatement("SELECT * FROM Grocery WHERE userID=?");
+		ps.setInt(1, userID);
+		rs = ps.executeQuery();
+		ArrayList<String> result = new ArrayList<String>();
+		
+		while(rs.next()) {
+			result.add(rs.getString("ingredientName"));
+		}
+		return result;
+		
+	}
+	
+	public int insertIngredientintoGrocery(int userID, String ingredient) throws SQLException{
+		ps = conn.prepareStatement("INSERT INTO Grocery (userID, ingredientName) "
+				+ "VALUES (?, ?);");
+		ps.setInt(1, userID);
+		ps.setString(2,  ingredient);
+		ps.executeUpdate();
+		
+		ps = conn.prepareStatement("SELECT MAX(groceryID) FROM Grocery");
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		return rs.getInt("MAX(groceryID)");
+	}
+	
+	public void deleteIngredientfromGrocery(int userID, String ingredient) throws SQLException {
+		ps = conn.prepareStatement("SELECT * FROM Grocery WHERE userID=? AND ingredientName=?");
+		ps.setInt(1, userID);
+		ps.setString(2, ingredient);
+
+		rs = ps.executeQuery();
+		rs.next();
+		
+		ps = conn.prepareStatement("DELETE FROM Grocery WHERE groceryID=?");
+		ps.setInt(1, rs.getInt("groceryID"));
+		ps.executeUpdate();	
+	}
+	
 }
