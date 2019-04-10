@@ -1,5 +1,5 @@
 Given(/^I am on the ImHungry Search Page$/) do
-  visit "http://localhost:8080/FeedMe/jsp/search.jsp"
+  visit "https://localhost:8443/FeedMe/jsp/search.jsp"
 end
 
 Then(/^there is a query input field$/) do
@@ -70,12 +70,12 @@ end
 
 Then(/^I should be on the Search Page$/) do
   sleep(5)
-	expect(page.current_url).to include('http://localhost:8080/FeedMe/jsp/search.jsp')
+	expect(page.current_url).to include('https://localhost:8443/FeedMe/jsp/search.jsp')
 end
 
 Then(/^I should be on the Search Page after servlet$/) do
   sleep(2)
-	expect(page.current_url).to include('http://localhost:8080/FeedMe/search')
+	expect(page.current_url).to include('https://localhost:8443/FeedMe/search')
 end
 
 Then(/^there is a quick access list$/) do
@@ -84,7 +84,7 @@ end
 
 Then (/^I should visit the search page$/) do
   sleep(1)
-  visit "http://localhost:8080/FeedMe/jsp/search.jsp"
+  visit "https://localhost:8443/FeedMe/jsp/search.jsp"
 end
 
 Then(/^I should see 1 history result$/) do

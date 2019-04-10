@@ -1,5 +1,5 @@
 Given(/^I am on the Restaurant Details Page$/) do
-  visit "http://localhost:8080/FeedMe/jsp/search.jsp"
+  visit "https://localhost:8443/FeedMe/jsp/search.jsp"
   fill_in('queryInput', :with => "pizza")
   fill_in('numResultsInput', :with => "1")
   fill_in('radiusInput', :with => "12")
