@@ -11,7 +11,7 @@ cp /home/travis/build/AlexColello/CS310GroupC/target/FeedMe.war $webapps_dir
 # Restart tomcat
 sudo systemctl restart tomcat
 
-sleep 30
+sleep 60
 
 sudo systemctl status tomcat
 curl -v -u main_user:main_password https://127.0.0.1:8443/manager/text/list
