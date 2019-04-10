@@ -14,4 +14,4 @@ sudo systemctl restart tomcat
 sleep 30
 
 sudo systemctl status tomcat
-curl -v -u main_user:main_password http://127.0.0.1:8080/manager/text/list
+curl -v -u main_user:main_password https://127.0.0.1:8443/manager/text/list
