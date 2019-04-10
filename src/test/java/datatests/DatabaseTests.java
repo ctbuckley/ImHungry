@@ -213,6 +213,33 @@ public class DatabaseTests {
 		
 	}
 	
+	@Test
+	public void databaseGroceryTest() throws Exception {
+		
+		db.insertIngredientintoGrocery(userID, "2.5 lbs of chicken");
+		db.insertIngredientintoGrocery(userID, "1/2 cup of soymilk"); 
+		db.insertIngredientintoGrocery(userID, "2 eggs");
+		db.insertIngredientintoGrocery(userID, "3 cups of flour");
+		
+		ArrayList<String> results = db.getGroceryListforUser(userID);
+		
+		assertEquals(4, results.size());
+		assertEquals("2 eggs", results.get(2));
+		
+		db.deleteIngredientfromGrocery(userID, "1/2 cup of soymilk");
+		
+		results = db.getGroceryListforUser(userID);
+		assertEquals("2 eggs", results.get(1));
+
+		db.deleteIngredientfromGrocery(userID, "2.5 lbs of chicken");
+		db.deleteIngredientfromGrocery(userID, "2 eggs");
+		db.deleteIngredientfromGrocery(userID, "3 cups of flour");
+		
+		results = db.getGroceryListforUser(userID);
+		assertEquals(0, results.size());
+		
+	}	
+	
 	
 	
 	@After
