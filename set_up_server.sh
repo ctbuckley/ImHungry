@@ -18,7 +18,7 @@ echo -e "[Unit]\nDescription=Apache Tomcat Web Application Container\nAfter=sysl
 
 echo -e "<?xml version='1.0' encoding='cp1252'?>\n<tomcat-users xmlns=\"http://tomcat.apache.org/xml\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://tomcat.apache.org/xml tomcat-users.xsd\" version=\"1.0\">\n<role rolename=\"manager-gui\"/>\n<role rolename=\"manager-script\"/>\n<role rolename=\"manager-jmx\"/>\n<role rolename=\"manager-status\"/>\n<role rolename=\"admin-gui\"/>\n<role rolename=\"admin-script\"/>\n\n<user username=\"main_user\" password=\"main_password\" roles=\"manager-gui,manager-script,manager-jmx,manager-status,admin-gui,admin-script\"/>\n</tomcat-users>" | sudo tee /opt/tomcat/conf/tomcat-users.xml
 
-sudo bash deploy_certificate.sh
+sudo bash /home/travis/build/AlexColello/CS310GroupC/deploy_certificate.sh
 
 sudo systemctl daemon-reload
 
