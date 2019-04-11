@@ -97,8 +97,19 @@
 		      <!-- Ingredients -->
 		      <div id="ingredientsBloc" class="">
 		      	<div class="ingredients_header">
-		      		<h2 class="recipe_section_title ingredients_title">Ingredients</h2>
-		      		<button id="addAllBtn" class="btn btn-outline-primary">Add All Ingredients</button>
+		      		<div class="row">
+		      			<div class = "col-6">
+			      			<h2 class="recipe_section_title ingredients_title">Ingredients</h2>
+			      		</div>
+			      		<div class = "col-6">
+			      			<button id="addAllBtn" class="btn btn-outline-primary">Add All Ingredients</button>
+			      		</div>
+			      	</div>
+			      	<div class="row">
+			      		<div class = "col-6">
+			      			<button id="confirmAddBtn" class="btn btn-outline-primary" onclick="addSelectedToGroceryList();">Add Selected</button>
+			      		</div>
+		      		</div>
 		      	</div>
 		        <ul id="ingredients" class="r-inline-flex clearfix">
 		          <% ArrayList<String> ingredients = (ArrayList<String>) recipeVal.getIngredients();%>
@@ -167,6 +178,22 @@
     		console.log("HELLLO");
 			window.location.href = "http://localhost:8080/FeedMe/jsp/search.jsp";
 		}
+	    
+	    function addSelectedToGroceryList() {
+	    	let groceryItems = [];
+	    	<% for(int i = 0; i < ingredients.size(); i++) { %>
+	    		if (document.getElementById("customCheck" + <%=i%>).checked) {
+	    			groceryItems.push("<%=ingredients.get(i)%>");
+	    		}
+	    	<% }%>
+	    	var xhttp = new XMLHttpRequest();
+	    	xhttp.onreadystatechange = function() {
+	    		console.log("Successfully added.");
+	    	}
+	    	xhttp.open("POST", "/FeedMe/AddToGroceryList?groceryListItems=" + encodeURI(JSON.stringify(groceryItems)));
+	    	xhttp.send();
+	    	console.log(groceryItems);
+	    }
     </script>
     <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
