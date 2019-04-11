@@ -101,6 +101,10 @@ html, body {
 	margin-left: 2vw;
 }
 
+#ingredients {
+	padding-left: 10px;
+}
+
 .ingredient_list_item {
 	display: flex;
 	align-items: center;
@@ -111,6 +115,11 @@ html, body {
 .ingredient_list_item p {
 	margin-bottom: 0;
 	margin-left: 1rem;
+}
+
+.instructions_header {
+	padding-top: 2vh;
+	padding-bottom: 2vh;
 }
 
 .btn {
