@@ -1,5 +1,5 @@
 Given(/^I am on the ImHungry Login Page$/) do
-  visit "https://localhost:8443/FeedMe/jsp/login.jsp"
+  visit "http://localhost:8080/FeedMe/jsp/login.jsp"
 end
 
 Then(/^there is a header that says I'm Hungry$/) do
@@ -37,7 +37,7 @@ end
 
 When(/^I return to the Log In Page$/) do
 	sleep(0.5)
-	visit 'https://localhost:8443/FeedMe/jsp/login.jsp'
+	visit 'http://localhost:8080/FeedMe/jsp/login.jsp'
 end
 
 When(/^I click on the log in button$/) do
@@ -46,11 +46,11 @@ end
 
 Then(/^I should be on the Login Page and I should see an error message$/) do
 	expect(page.find("#errorField").native.css_value('display')).not_to eq('none')
-	expect(page.current_url).to include('https://localhost:8443/FeedMe/jsp/login')
+	expect(page.current_url).to include('http://localhost:8080/FeedMe/jsp/login')
 end
 
 Then(/^I should be on the login page$/) do
-	expect(page.current_url).to include('https://localhost:8443/FeedMe/jsp/login')
+	expect(page.current_url).to include('http://localhost:8080/FeedMe/jsp/login')
 end
 
 When(/^I click on the guest log in button$/) do

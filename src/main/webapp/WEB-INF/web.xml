@@ -50,6 +50,7 @@
   	<description></description>
   	<servlet-class>servlets.RecipeDetailsPagePrintableVersionServlet</servlet-class>
   </servlet>
+  <!-- 
   <security-constraint>
    <web-resource-collection>
        <web-resource-name>securedapp</web-resource-name>
@@ -59,4 +60,5 @@
        <transport-guarantee>CONFIDENTIAL</transport-guarantee>
    </user-data-constraint>
   </security-constraint>
+  -->
 </web-app>
