@@ -31,3 +31,5 @@ sudo systemctl status tomcat
 
 sudo ufw allow 8443
 sudo ufw allow 8080
+
+sudo systemctl stop tomcat
