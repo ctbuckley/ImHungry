@@ -1,10 +1,15 @@
+
 require 'capybara'
 require 'capybara/cucumber'
 require 'rspec'
+require 'selenium-webdriver'
 
-
- Capybara.register_driver :chrome do |app|
-  Capybara::Selenium::Driver.new(app, :browser => :chrome, :driver_path=>'C:\Users\Julia\Downloads\chromedriver_win32 (1)\chromedriver.exe')
+Capybara.register_driver :chrome do |app|
+	options = Selenium::WebDriver::Chrome::Options.new
+	options.add_argument('--headless')
+	options.add_argument('--disable-gpu')
+	options.add_argument('--window-size=750,750')
+    Capybara::Selenium::Driver.new(app, browser: :chrome, driver_path: './features/support/chromedriver', options: options)
 end
 
- Capybara.default_driver = :chrome
+Capybara.default_driver = :chrome
