@@ -105,13 +105,14 @@
     -->
     <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
               maxThreads="150" SSLEnabled="true" secure="true" scheme="https">
-       <SSLHostConfig>
-           caCertificateFile="/home/travis/build/AlexColello/CS310GroupC/configuration_files/rootCA.pem"
-             certificateVerification="require"
-             certificateVerificationDepth="10"
-           <Certificate certificateKeyFile="/home/travis/build/AlexColello/CS310GroupC/configuration_files/server.key"
-                        certificateFile="/home/travis/build/AlexColello/CS310GroupC/configuration_files/server.crt"
-                        type="RSA" />
+		<UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
+		<SSLHostConfig>
+			caCertificateFile="C:/Users/alexl/git/CS310GroupC/configuration_files/rootCA.pem"
+	        certificateVerification="require"
+	        certificateVerificationDepth="10"
+	        <Certificate certificateKeyFile="C:/Users/alexl/git/CS310GroupC/configuration_files/server.key"
+	                  certificateFile="C:/Users/alexl/git/CS310GroupC/configuration_files/server.crt"
+	                  type="RSA" />
        </SSLHostConfig>
    </Connector>
     <!-- Define an AJP 1.3 Connector on port 8009 -->
