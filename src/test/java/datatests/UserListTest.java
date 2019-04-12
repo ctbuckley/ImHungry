@@ -138,5 +138,21 @@ public class UserListTest {
 
 	}
 	
+	/*
+	 * Test incorrect classes being put into UserList functions.
+	 */
+	@Test
+	public void testIncorrectClassType() {
+		
+		UserList list = new UserList();
+		
+		String bad = "Not a restaurant or recipe";
+		
+		assertFalse(list.add(bad));
+		assertFalse(list.contains(bad));		
+		assertFalse(list.remove(bad));
+		
+	}
+	
 
 }
