@@ -32,48 +32,65 @@ public class UserList implements Serializable {
 	 * Returns false if the passed object is already in the list 
 	 * Returns true if successfully added to the list
 	 */
-	public boolean add(Recipe r){
-		if (recipes.contains(r)) {
+	
+	public boolean add(Object r) {
+		if(r instanceof Recipe) {
+			
+			if (recipes.contains((Recipe)r)) {
+				return false;
+			} else {
+				recipes.add((Recipe)r);
+				return true;
+			}
+			
+		} else if(r instanceof Restaurant) {
+			
+			if (restaurants.contains((Restaurant)r)) {
+				return false;
+			} else {
+				restaurants.add((Restaurant)r);
+				return true;
+			}
+			
+		} else {
+			System.out.println("The class in remove is not a Recipe or Restaurant.");
 			return false;
-		}
-		else {
-			recipes.add(r);
-			return true;
 		}
 	}
 
-	public boolean add(Restaurant r) {
-		if (restaurants.contains(r)) {
-			return false;
-		}
-		else {
-			restaurants.add(r);
-			return true;
-		}
-	}
 	/*
-	 * remove methods:
+	 * remove method:
 	 * Returns true if successfully removed from the list
 	 * Returns false if the passed object is not in the list
 	 */
-	public boolean remove(Recipe r) {
-		return recipes.remove(r);
+	
+	public boolean remove(Object r) {
+		if(r instanceof Recipe) {
+			return recipes.remove(r);
+		} else if(r instanceof Restaurant) {
+			return restaurants.remove(r);
+		} else {
+			System.out.println("The class in remove is not a Recipe or Restaurant.");
+			return false;
+		}
 	}
 	
-	public boolean remove(Restaurant r) {
-		return restaurants.remove(r);
-	}
-	
+
 	/*
 	 * contains methods:
 	 * Returns true if the passed object is in the list
 	 * Returns false if the passed object is not in the list
 	 */
-	public boolean contains(Recipe r) {
-		return recipes.contains(r);
-	}
 	
-	public boolean contains(Restaurant r) {
-		return restaurants.contains(r);
+	public boolean contains(Object r) {
+		if(r instanceof Recipe) {
+			return recipes.contains(r);
+		} else if(r instanceof Restaurant) {
+			return restaurants.contains(r);
+		} else {
+			System.out.println("The class in remove is not a Recipe or Restaurant.");
+			return false;
+		}
 	}
+
 }
