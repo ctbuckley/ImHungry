@@ -6,6 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+
 
 public class Database {
 
@@ -161,7 +164,7 @@ public class Database {
 	public void insertItemintoList(int userID, int itemID, String listName) throws SQLException {
 		
 		int listID = getList(listName);
-		int itemIndex = getIndex(userID, listID);
+		int itemIndex = getIndex(userID, listID) + 1;
 		
 		ps = conn.prepareStatement("INSERT INTO Lists "
 				+ "(userID, itemID, listID, itemIndex) VALUES "
@@ -258,6 +261,67 @@ public class Database {
 				rs.getString("address"), rs.getString("phone"), r, rs.getInt("driveTime"));
 	}
 	
+	public void swapItemIndex(int userID, int listID, int itemID, boolean moveDown) throws SQLException{ 
+		
+		ps = conn.prepareStatement("SELECT * from Lists WHERE userID=? AND listID=? AND itemID=?");
+		ps.setInt(1, userID);
+		ps.setInt(2,  listID);
+		ps.setInt(3,  itemID);
+		
+		rs = ps.executeQuery();
+		
+		rs.next();
+		int index = rs.getInt("itemIndex"); //this is the CURRENT itemIndex
+		int newIndex = 0;
+		
+		if (moveDown) {
+			
+			/* itemID is the item being moved DOWN 
+			 * i.e. A -- B -- C
+			 * if itemID = A, then it becomes
+			 * B -- A -- C
+			 * then, if itemID = A again, it becomes
+			 * B -- C -- A
+			 */
+			newIndex = index+1;
+			
+		}else {
+			/* itemID is the item being moved UP 
+			 * i.e. A -- B -- C
+			 * if itemID = C, then it becomes
+			 * A -- C -- B
+			 * then, if itemID = C again, it becomes
+			 * C -- A -- B
+			 */
+			newIndex = index-1;
+		}
+		
+		ps = conn.prepareStatement("UPDATE Lists " + 
+				"SET itemIndex = ? " + 
+				"WHERE userID=? AND listID=? AND itemID=?");
+		ps.setInt(1, -1);
+		ps.setInt(2, userID);
+		ps.setInt(3, listID);
+		ps.setInt(4, itemID);
+		ps.executeUpdate(); 
+		
+		ps = conn.prepareStatement("UPDATE Lists " + 
+				"SET itemIndex = ? " + 
+				"WHERE userID=? AND listID=? AND itemIndex=?");
+		ps.setInt(1, index);
+		ps.setInt(2, userID);
+		ps.setInt(3, listID);
+		ps.setInt(4, newIndex);
+		ps.executeUpdate();
+		
+		ps = conn.prepareStatement("UPDATE Lists " + 
+				"SET itemIndex = ? " + 
+				"WHERE itemIndex=?");
+		ps.setInt(1, newIndex);
+		ps.setInt(2, -1);
+		ps.executeUpdate();
+		  
+	}	
 	public ArrayList<Integer> getItemsfromList(int userID, String listName) throws SQLException {
 		
 		int listID = getList(listName);
@@ -271,8 +335,19 @@ public class Database {
 		
 		ArrayList<Integer> items = new ArrayList<Integer>();
 		
+		ArrayList<Integer> itemIndexes = new ArrayList<Integer>();
+		
+		HashMap<Integer, Integer> indexToItemID = new HashMap<Integer, Integer>();
+		
 		while(rs.next()) {		
-			items.add(rs.getInt("itemID"));		
+			itemIndexes.add(rs.getInt("itemIndex"));
+			indexToItemID.put(rs.getInt("itemindex"), rs.getInt("itemID"));
+		}
+		
+		Collections.sort(itemIndexes);
+		
+		for (int i : itemIndexes) {
+			items.add(indexToItemID.get(i));
 		}
 		
 		return items;
