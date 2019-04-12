@@ -200,7 +200,8 @@ public class ResultsPageServlet extends HttpServlet {
 			currObject = original.get(i);
 			
 			if(doNotShowList.contains(currObject)) {
-				continue;
+				original.remove(currObject);
+				i--;
 			}
 						
 			if (favoritesList.contains(currObject)) {
@@ -208,6 +209,10 @@ public class ResultsPageServlet extends HttpServlet {
 				original.remove(currObject);
 				i--;
 			}
+		}
+		
+		for (T item : original) {
+			returnValue.add(item);
 		}
 		
 		return returnValue;
