@@ -20,6 +20,13 @@
 	
 }
 
+h3 {
+	padding-left: 15px;
+}
+
+.outer_cont {
+	background-color: white;
+}
 .resultList {
 }
 
@@ -84,6 +91,12 @@
 	width: 100%;	
 	margin-bottom: 2vh;
 	margin-top: 2vh;
+}
+
+ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
 }
 
 
