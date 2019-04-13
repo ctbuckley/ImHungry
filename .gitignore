@@ -1,2 +1,3 @@
 /target/
 src/test/ImHungryCucumber/debug.log
+src/test/ImHungryCucumber/features/support/env.rb
