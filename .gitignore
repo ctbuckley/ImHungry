@@ -1,3 +1,4 @@
 /target/
 src/test/ImHungryCucumber/debug.log
 src/test/ImHungryCucumber/features/support/env.rb
+src/main/java/data/Config.java
