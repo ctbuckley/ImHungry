@@ -29,6 +29,14 @@ a.navbar-brand {
 	align-items: center;
 }
 
+a {
+	color: white;
+}
+
+
+.nav-link {
+	color: white !important;
+}
 
 #grocery_icon {
 	fill: white !important;
@@ -166,19 +174,48 @@ background-color: black;
 @media screen and (max-height: 500px) {
 	html {
 		overflow-y: scroll;
+		min-height: 500px;
 	}
 	
-	.outer_search_cont {
+	.bg_cont:before {
 		position: absolute;
-		top: 300px;
+		z-index: -2;
+		top: -1.5em;
+		right: -1.5em;
+		bottom: -1.5em;
+		left: -1.5em;
+		border: inherit;
+		border-color: black;
+		background-color: black;
+		color: black;
+		background: inherit;
+		background-clip: border-box;
+		filter: blur(9px);
+		content: "";
+	}
+	.bg_cont {
+		width: 100%;
+		height: 500px;
+		position: absolute;
+		z-index: -1;
+		overflow: hidden;
+		/*    background-image: linear-gradient(-45deg, #74ebd5, #ACB6E5);*/
+		background-image: url(/FeedMe/img/img_2.jpg);
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		filter: brightness(70%);
 	}
 	
 	#hungryText {
-		font-size: 65px;
-		position: absolute;
-		top: 140px;
+		font-size: 76px;
 	}
-		
+	
+	.search_input_cont {
+		position: absolute;
+		top: 250px;
+		height: 400px;
+	}
 }
 
 @media screen and (max-width: 450px) {

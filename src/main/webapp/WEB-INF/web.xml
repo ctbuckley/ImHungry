@@ -50,5 +50,17 @@
   	<description></description>
   	<servlet-class>servlets.RecipeDetailsPagePrintableVersionServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>DisplayGroceryList</servlet-name>
+  	<display-name>DisplayGroceryList</display-name>
+  	<description></description>
+  	<servlet-class>servlets.DisplayGroceryList</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>DeleteFromGroceriesServlet</servlet-name>
+  	<display-name>DeleteFromGroceriesServlet</display-name>
+  	<description></description>
+  	<servlet-class>servlets.DeleteFromGroceriesServlet</servlet-class>
+  </servlet>
 
 </web-app>

@@ -36,13 +36,13 @@
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navBar">
 		<a class="navbar-brand" onclick="goToSearchPage()">ImHungry</a>
-	 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+	 	<button id="navToggler" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 	   		<span class="navbar-toggler-icon"></span>
 	 	</button>
 	 	<div class="collapse navbar-collapse ml-auto" id="navbarNavDropdown">
 	   		<ul class="navbar-nav ml-auto">
 	   			<li class="nav-item active ml-auto">
-	       			<a class="nav-link" id="grocery_link_button" href="#">
+	       			<a class="nav-link" id="grocery_link_button" href="http://localhost:8080/FeedMe/DisplayGroceryList">
 						<svg class="grocry_cart" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 							<path id="grocery_icon" d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
 							<path d="M0 0h24v24H0z" fill="none"/>
@@ -97,8 +97,9 @@
 		      <!-- Ingredients -->
 		      <div id="ingredientsBloc" class="">
 		      	<div class="ingredients_header">
-		      		<h2 class="recipe_section_title ingredients_title">Ingredients</h2>
-		      		<button id="addAllBtn" class="btn btn-outline-primary">Add All Ingredients</button>
+	      			<h2 class="recipe_section_title ingredients_title">Ingredients</h2>
+	      			<button id="addAllBtn" class="btn btn-outline-primary">Add All Ingredients</button>
+	      			<button id="confirmAddBtn" class="btn btn-outline-primary" onclick="addSelectedToGroceryList();">Add Selected</button>
 		      	</div>
 		        <ul id="ingredients" class="r-inline-flex clearfix">
 		          <% ArrayList<String> ingredients = (ArrayList<String>) recipeVal.getIngredients();%>
@@ -107,7 +108,7 @@
 		          		<p>
 							<label class="" for="customCheck<%= i %>">
 								<input type="checkbox"  id="customCheck<%= i %>" name="">
-								<span><%=ingredients.get(i) %></span>
+								<span id="ingredient<%=i%>"><%=ingredients.get(i) %></span>
 							</label>
 						</p>
 		          	</li>
@@ -116,7 +117,7 @@
 		      </div>
 		      <!-- Instructions -->
 		      <div id="instructionsBloc" class="">
-		        <h2 class="recipe_section_title">Instructions</h2>
+		        <h2 class="instructions_header">Instructions</h2>
 		        <ol id="instructions" class="r-inline-flex clearfix">
 		          <% ArrayList<String> ins = (ArrayList<String>) recipeVal.getInstructions();%>
 		          <% for(int i = 0; i < ins.size(); i++) { %>
@@ -167,6 +168,22 @@
     		console.log("HELLLO");
 			window.location.href = "http://localhost:8080/FeedMe/jsp/search.jsp";
 		}
+	    
+	    function addSelectedToGroceryList() {
+	    	let groceryItems = [];
+	    	<% for(int i = 0; i < ingredients.size(); i++) { %>
+	    		if (document.getElementById("customCheck" + <%=i%>).checked) {
+	    			groceryItems.push("<%=ingredients.get(i)%>");
+	    		}
+	    	<% }%>
+	    	var xhttp = new XMLHttpRequest();
+	    	xhttp.onreadystatechange = function() {
+	    		console.log("Successfully added.");
+	    	}
+	    	xhttp.open("POST", "/FeedMe/AddToGroceryList?groceryListItems=" + encodeURI(JSON.stringify(groceryItems)));
+	    	xhttp.send();
+	    	console.log(groceryItems);
+	    }
     </script>
     <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

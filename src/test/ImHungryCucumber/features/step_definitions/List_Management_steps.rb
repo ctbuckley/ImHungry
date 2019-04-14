@@ -1,7 +1,7 @@
 Given(/^I am on the Search Page$/) do
   visit "http://localhost:8080/FeedMe/jsp/search.jsp"
   fill_in('queryInput', :with => "pizza")
-  fill_in('numResultsInput', :with => "1")
+  fill_in('numResultsInput', :with => "2")
   fill_in('radiusInput', :with => "12")
   page.find_by_id("feedMeButton").click()
  end
@@ -11,6 +11,28 @@ Given(/^I am on the Search Page$/) do
   page.find_by_id("addToList").click()
   page.find_by_id("backToResults").click()
  end
+
+ When(/^I add a recipe to Favorite list$/) do
+  page.find_by_id("Recipe0").click()
+  page.select 'Favorites', from: "dropDownBar"
+  page.find_by_id("addToList").click()
+  page.find_by_id("backToResults").click()
+ end
+
+ When(/^I add the second restaurant to Favorite list$/) do
+  page.find_by_id("Restaurant1").click()
+  page.select 'Favorites', from: "dropDownBar"
+  page.find_by_id("addToList").click()
+  page.find_by_id("backToResults").click()
+ end
+
+ When(/^I add the second recipe to Favorite list$/) do
+  page.find_by_id("Recipe1").click()
+  page.select 'Favorites', from: "dropDownBar"
+  page.find_by_id("addToList").click()
+  page.find_by_id("backToResults").click()
+ end
+
  When(/^I add a recipe to Do Not Show list$/) do
   page.find_by_id("Recipe0").click()
   page.select 'Do Not Show', from: "dropDownBar"
@@ -91,3 +113,33 @@ Given(/^I am on the Search Page$/) do
  Then(/^I am in the Restaurant Details Page$/) do
   expect(page).to have_title("Restaurant Details")
  end
+# https://gist.github.com/dwt/1406218
+ def drag_to(source, target)
+  builder = page.driver.browser.action
+  source = source.native
+  target = target.native
+  
+  builder.click_and_hold source
+  builder.move_to        target, 1, 11
+  builder.move_to        target
+  builder.release        target
+  builder.perform
+end
+
+Then(/^I move the first restaurant to the second position$/) do
+  drag_to find('#Restaurant1'), find('#Restaurant0')
+end
+
+Then(/^I move the first recipe to the second position$/) do
+  drag_to find('#Recipe1'), find('#Recipe0')
+end
+
+Then(/^the second restaurant should be first in the list$/) do
+    expect(first('.restaurant_cont')[:id]).to eq "Restaurant1"
+end
+
+Then(/^the second recipe should be first in the list$/) do
+  expect(first('.recipe_cont')[:id]).to eq "Recipe1"
+end
+
+
