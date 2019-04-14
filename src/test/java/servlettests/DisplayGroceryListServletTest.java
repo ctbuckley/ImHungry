@@ -1,0 +1,123 @@
+package servlettests;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Captor;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import data.Config;
+import data.Database;
+import servlets.DisplayGroceryListServlet;
+
+public class DisplayGroceryListServletTest {
+
+	@Mock
+	HttpServletRequest request;
+	@Mock
+	HttpServletResponse response;
+	@Mock
+	HttpSession session;
+	@Mock
+	RequestDispatcher rd;
+	
+	@Captor
+	ArgumentCaptor argCaptor;
+	
+	Database db;
+	int userID;
+	String databasePW;
+	String className;
+	
+	@Before
+	public void setUp() throws ClassNotFoundException, SQLException {
+	    MockitoAnnotations.initMocks(this);
+	    
+	    databasePW = Config.databasePW;
+	    className = Config.className;
+	    
+	    db = new Database();
+		db.insertUserintoUsers("testUser", "password");
+		ResultSet rs =  db.getUserfromUsers("testUser");
+		rs.next();
+		userID = rs.getInt("userID");
+		
+		db.insertIngredientintoGrocery(userID, "2 eggs");
+		
+	    request = mock(HttpServletRequest.class);
+	    response = mock(HttpServletResponse.class);
+	    session = mock(HttpSession.class);
+	    rd = mock(RequestDispatcher.class);
+	    
+	    when(request.getSession()).thenReturn(session);
+	}
+	/*
+	 *  Test to make sure a valid new user returns correctly.
+	 */
+	@Test
+	public void testInsertIngredient() throws Exception {
+		
+		argCaptor = ArgumentCaptor.forClass(String[].class);
+		when(session.getAttribute("username")).thenReturn("testUser");
+		    
+		new DisplayGroceryListServlet().service(request, response);
+		   
+		verify(session).setAttribute(ArgumentMatchers.eq("groceryList"), argCaptor.capture());
+		String[] ingredientList = (String[]) argCaptor.getValue();
+		assertEquals(1, ingredientList.length);
+		assertEquals(ingredientList[0], "2 eggs");
+			
+	} 
+	
+	@Test
+	public void testThrowClassExceptions() throws Exception {
+		    
+	   Config.className = "garbage";
+	    
+	   new DisplayGroceryListServlet().service(request, response);
+	          
+	}
+	
+	@Test
+	public void testThrowSqlExceptions() throws Exception {
+		
+	
+	   Config.databasePW = "notmypass";
+	   
+	   new DisplayGroceryListServlet().service(request, response);
+	          
+	}
+	
+	@After
+	public void teardown() throws SQLException {
+		
+		Config.databasePW = databasePW;
+		Config.className = className;
+		
+		try {
+			db.deleteIngredientfromGrocery(userID, "2 eggs");
+		} catch (SQLException sqle) {
+			
+		}
+		
+		db.deleteUserfromUsers(userID);
+	}
+	
+
+}
