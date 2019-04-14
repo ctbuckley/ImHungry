@@ -43,19 +43,10 @@ Scenario: Check the Recipe list elements
 Scenario: Check the Pagination elements
 	Then there is a pagination div
 
-Scenario: Check for three pagination elements
-	When I am on the ImHungry Search Page
-	And I enter "burger" in the search box
-	And I enter "11" in the search number box
-	And I enter "10" in the radius input field
-	And press search
-	And there is a pagination div
-	And there are "3" pagination links
-
 Scenario: Check that current link is active and results are different on different result pages
 	When I am on the ImHungry Search Page
 	And I enter "burger" in the search box
-	And I enter "6" in the search number box
+	And I enter "11" in the search number box
 	And I enter "10" in the radius input field
 	And press search
 	And there is a pagination div
@@ -67,7 +58,7 @@ Scenario: Check that current link is active and results are different on differe
 Scenario: Check that the number of pagination links per page is limited
 	When I am on the ImHungry Search Page
 	And I enter "chicken" in the search box
-	And I enter "31" in the search number box
+	And I enter "61" in the search number box
 	And I enter "100" in the radius input field
 	And press search
 	And I should see pagination links "1", "2", "3", "4", and "5"
