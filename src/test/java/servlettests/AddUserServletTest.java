@@ -30,7 +30,7 @@ import servlets.AddUserServlet;
 import servlets.ValidateLoginServlet;
 
 /*
- *  Tests for the ResultsPageServlet class.
+ *  Tests for the AddUserServlet class.
  */
 public class AddUserServletTest {
 

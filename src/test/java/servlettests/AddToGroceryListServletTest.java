@@ -28,7 +28,7 @@ import servlets.AddSearchHistoryServlet;
 import servlets.AddToGroceryListServlet;
 
 /*
- *  Tests for the ResultsPageServlet class.
+ *  Tests for the AddToGroceryListServlet class.
  */
 public class AddToGroceryListServletTest {
     @Mock

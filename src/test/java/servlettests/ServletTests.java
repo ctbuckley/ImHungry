@@ -10,7 +10,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({ AddSearchHistoryServletTest.class, AddUserServletTest.class, GetSearchHistoryServletTest.class, ListManagementPageServletTest.class, RecipeDetailsPageServletTest.class, 
 	RestaurantDetailsPageServletTest.class, ResultsPageServletTest.class, SearchPageServletTest.class, ValidateLoginServletTest.class, AddToGroceryListServletTest.class, 
-	DisplayGroceryListServletTest.class })
+	DisplayGroceryListServletTest.class, DeleteFromGroceriesServletTest.class })
 public class ServletTests {
 
 }
