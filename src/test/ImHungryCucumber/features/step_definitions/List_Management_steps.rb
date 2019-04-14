@@ -113,7 +113,7 @@ Given(/^I am on the Search Page$/) do
  Then(/^I am in the Restaurant Details Page$/) do
   expect(page).to have_title("Restaurant Details")
  end
-
+# https://gist.github.com/dwt/1406218
  def drag_to(source, target)
   builder = page.driver.browser.action
   source = source.native
