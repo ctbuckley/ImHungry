@@ -145,7 +145,7 @@ public class ResultsPageServlet extends HttpServlet {
 		
 		
 		// The size of a page for pagination;
-		int pageSize = 5;
+		int pageSize = 10;
 		int pageCount = (resultCount + pageSize - 1)/pageSize;
 
 		int startingIndex = (pageNumber - 1) * pageSize;
