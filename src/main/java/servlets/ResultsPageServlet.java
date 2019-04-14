@@ -120,42 +120,11 @@ public class ResultsPageServlet extends HttpServlet {
 			}
 		}
 		
+		restaurants = sortList(restaurants, doNotShowList, favoriteList);
 		
-		/*
-		 * Sort restaurants in ascending order of drive time from Tommy Trojan,
-		 * using compareTo method overridden in Restaurant class
-		 */
-		Collections.sort(restaurants);
-		Restaurant currRestaurant;
-		int insertIndex = 0;
-		// Check for restaurants in Favorite list, and put them on top
-		for (int i = 0; i < restaurants.size(); ++i) {
-			currRestaurant = restaurants.get(i);
-			System.out.println(currRestaurant.getName());
-			if (favoriteList.contains(currRestaurant)) {
-				System.out.println("is in the favorite list");
-				restaurants.remove(i);
-				restaurants.add(insertIndex, currRestaurant);
-				for (int j = 0; j < restaurants.size(); ++j) {
-					System.out.print(restaurants.get(j).getName() + "  ");
-				}
-				System.out.println("");
-				++insertIndex;
-			}
-		}
-		// Check for restaurants in Do Not Show list, and remove them, 
-		// 	assuming a restaurant cannot be in more than one predefined list
-		for (int i = insertIndex; i < restaurants.size(); ++i) {
-			currRestaurant = restaurants.get(i);
-			if (doNotShowList.contains(currRestaurant)) {
-				restaurants.remove(i);
-				--i;
-			}
-		}
 		/* 
 		 * Fetch a list of recipe objects made by web scraping from allrecipes.com
 		 */
-		
 		
 		Vector<Recipe> recipes = null;
 		
@@ -168,37 +137,12 @@ public class ResultsPageServlet extends HttpServlet {
 			}
 		}
 		
+		recipes = sortList(recipes, doNotShowList, favoriteList);
 		
-		/*
-		 * Sort recipes in ascending order of prep time,
-		 * using compareTo method overridden in Recipe class
-		 */
-		Collections.sort(recipes);
-		Recipe currRecipe;
-		insertIndex = 0;
-		// Check for recipes in Favorite list, and put them on top
-		for (int i = 0; i < recipes.size(); ++i) {
-			currRecipe = recipes.get(i);
-			System.out.println(currRecipe.getName());
-			if (favoriteList.contains(currRecipe)) {
-				System.out.println("is contained in favorite list");
-				recipes.add(insertIndex, currRecipe);
-				recipes.remove(i+1);
-				++insertIndex;
-			}
-		}
-		// Check for recipes in Do Not Show list, and remove them, 
-		// 	assuming a recipe cannot be in more than one predefined list
-		for (int i = insertIndex; i < recipes.size(); ++i) {
-			currRecipe = recipes.get(i);
-			if (doNotShowList.contains(currRecipe)) {
-				recipes.remove(i);
-				--i;
-			}
-		}
 		// vector size should be resultCount (discard extra data)
 		restaurants.setSize(resultCount);
 		recipes.setSize(resultCount);
+		
 		
 		// The size of a page for pagination;
 		int pageSize = 5;
@@ -243,4 +187,35 @@ public class ResultsPageServlet extends HttpServlet {
 		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/results.jsp");
 		dispatch.forward(request,  response);			
 	}
+	
+	private <T extends Comparable<T>> Vector<T> sortList(Vector<T> original, UserList doNotShowList, UserList favoritesList){
+		
+		Vector<T> returnValue = new Vector<T>();
+		Collections.sort(original);
+		
+		Object currObject;
+		// Check for objects in Favorite list, and put them on top
+		for (int i = 0; i < original.size(); ++i) {
+			
+			currObject = original.get(i);
+			
+			if(doNotShowList.contains(currObject)) {
+				original.remove(currObject);
+				i--;
+			}
+						
+			if (favoritesList.contains(currObject)) {
+				returnValue.add((T) currObject);
+				original.remove(currObject);
+				i--;
+			}
+		}
+		
+		for (T item : original) {
+			returnValue.add(item);
+		}
+		
+		return returnValue;
+	}
+	
 }
