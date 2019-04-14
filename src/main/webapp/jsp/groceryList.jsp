@@ -35,6 +35,9 @@
 						Grocery List
 					</a>
 				</li>
+				<li class="nav-item active ml-auto">
+	       			<a class="nav-link" id="backToResults" href="/FeedMe/results">Back to Results</a>
+	     		</li>
 	     		<li class="nav-item active ml-auto">
 	       			<a class="nav-link" id="userButton" href="http://localhost:8080/FeedMe/jsp/login.jsp">Log Out</a>
 	     		</li>

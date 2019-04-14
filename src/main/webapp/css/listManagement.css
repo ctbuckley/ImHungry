@@ -24,16 +24,14 @@ h3 {
 	padding-left: 15px;
 }
 
-.outer_cont {
-	background-color: white;
-}
 .resultList {
 }
 
 .results-card {
-    border: 2px solid #dee2e6;
-    box-shadow: 4px 4px 5px #c0c0c0;
-    height: 280px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 6px;
+	border-radius: 5px;
+	border: 0.5px solid #F8F8F8;
+    min-height: 170px;
 }
 
 .results-card:hover {

@@ -19,6 +19,8 @@
     <!-- CSS -->
     <link href="/FeedMe/css/listManagement.css" rel="stylesheet" type="text/css">
     <link href="/FeedMe/css/navbar.css" rel="stylesheet" type="text/css">
+    
+    <link rel="shortcut icon" href="#">
     <!-- Import java data structures -->
 	<%@page import="java.util.*" %>
 	<%@page import="data.*"%>
@@ -89,7 +91,7 @@
       	<!-- Restaurants and Recipes lists  -->
       		<h1 class="pageTitle col-12"><%=listName %> List</h1>
       		<h3>Restaurants</h3>
-      		<ul class="sortable">
+      		<ul class="sortable" data-type="restaurant">
 	      		<% // Used to alternate colors
 	   			int j = 0;
 	          	while(j < restaurantArr.size()){
@@ -107,9 +109,9 @@
 						}
 	          	%>
 	          	<!-- This is the restaurant div -->
-	          	<li>
+	          	<li class="restaurant">
 		          	<div class="col-12 restaurant_cont" id="Restaurant<%=j%>">
-	         			<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-8 shadow-sm h-md-250 position-relative results-card mb-3"
+	         			<div class="row no-gutters overflow-hidden flex-md-row mb-8 shadow-sm h-md-250 position-relative results-card mb-3"
 		         			onclick="window.location='/FeedMe/restaurantDetails?arrNum=<%=j%>'">
 		        			<div class="col p-4 position-static outer_cont">
 			          			<div class="container">
@@ -132,7 +134,7 @@
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-6">
+										<div class="col-12">
 											<p id="restaurantAddress<%=j%>"><%=restaurantArr.get(j).getAddress()%></p>
 										</div>
 									</div>
@@ -165,14 +167,14 @@
 			</ul>
     		<!-- Recipes -->
     		<h3>Recipes</h3>
-    		<ul class="sortable">
+    		<ul class="sortable" data-type="recipe">
 	    		<%
 	    		// Use the number of items in the restauarant array to coordinate the background color for the recipes
 	   			int k = 0;
 	          	while(k < recipeArr.size()){
 	          	%>
 	          	<!-- Where the recipes start -->
-          		<li>
+          		<li class="recipe">
 		    		<div class="col-12 recipe_cont" id="Recipe<%=k%>">
 		         		<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-8 shadow-sm h-md-250 position-relative results-card mb-3"
 		         			onclick="window.location='/FeedMe/recipeDetails?arrNum=<%=k%>'">
@@ -261,7 +263,7 @@
 		
 		</div>
 	</div>
-	<script>
+	<script type="text/javascript">
 	  $( function() {
 	    $( ".sortable" ).sortable();
 	    $( ".sortable" ).disableSelection();
@@ -309,6 +311,26 @@
 		window.location.href = "http://localhost:8080/FeedMe/jsp/search.jsp";
 	}
 	
+</script>
+<script>
+	if (window.console) console.log('foo');
+
+	$('.sortable').sortable({
+	    start: function(e, ui) {
+	        // creates a temporary attribute on the element with the old index
+	        $(this).attr('data-previndex', ui.item.index());
+	        console.log("hi");
+	    },
+	    update: function(e, ui) {
+	        // gets the new and old index then removes the temporary attribute
+	        var newIndex = ui.item.index();
+	        var oldIndex = $(this).attr('data-previndex');
+	        console.log("new index: " + newIndex + ", old index: " + oldIndex);
+	        var classType = $(this).attr('data-type');
+	        console.log("class " + classType);
+	        $(this).removeAttr('data-previndex');
+	    }
+	});
 </script>
   </body>
   <style>

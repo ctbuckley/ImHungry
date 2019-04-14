@@ -1,42 +1,42 @@
+.mt-5 {
+	margin-top: 0.5rem !important;
+}
+
+.py-5 {
+	padding-top: 1rem !important;
+	padding-bottom: 1rem !important;
+}
+
 .outer_stars {
   display: inline-block;
   position: relative;
   font-family: FontAwesome;
-      font-size: 1.8vw;
-
 }
 
 .outer_stars::before {
-  content: "\f006 \f006 \f006 \f006 \f006";
-  color: #C0C0C0;
-  font-size: 1.8vw;
-
+	content: "\f006 \f006 \f006 \f006 \f006";
+	color: #C0C0C0;
+	font-size: calc(12px + 0.5vw);
 }
 
 .inner_stars {
-  position: absolute;
-  top: 0;
-  left: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  width: 0;
-  font-size: 1.8vw;
+	position: absolute;
+	top: 0;
+	left: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	width: 0;
 }
 
 .inner_stars::before {
   content: "\f005 \f005 \f005 \f005 \f005";
   color: #f8ce0b;
-  font-size: 1.8vw;
-
-}
-
-.inner_star::before, .outer_stars::before {
-  font-size: 1.8vw;
+  font-size: calc(12px + 0.5vw);
 }
 
 .pagination_cont {
-   position: fixed;
-   bottom: 0;
+   position: sticky;
+   bottom: 3px;
    width: 100%;
    display: flex;
    align-items: center;
@@ -130,15 +130,19 @@
 }
 
 .results-card {
-    border: 2px solid #dee2e6;
-    box-shadow: 4px 4px 5px #c0c0c0;
-    height: 280px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 6px;
+	border-radius: 5px;
+	border: 0.5px solid #F8F8F8;
+    min-height: 200px;
 }
 
 .results-card:hover {
     cursor: pointer;
 }
 
+p {
+	margin-bottom: 0;
+}
 .minutes-away {
     color: lightblue;
 }
@@ -148,5 +152,72 @@
 	align-self: center;
 	color: red;
 }
+
+.pastSearches_outer_cont {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	width: 100%;
+}
+
+.pastSearches_outer_cont h3 {
+	margin-top: 0.5rem;
+	margin-bottom: 1.5rem;
+}
+
+.search_cont {
+	display:flex;
+	flex-direction: row;
+	align-items: center;
+	min-width: 430px;
+	width: 49%;
+	padding-right: 15px;
+	padding-left: 15px;
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 6px;
+	border-radius: 5px;
+	border: 0.5px solid #F8F8F8;
+	margin-bottom: 5px;
+	cursor: pointer;
+}
+
+.pastSearchGallery {
+	margin: 2%;
+	width: 20%;
+	height: 5%;
+	display: grid;
+	grid-template-columns: repeat(8, 1fr);
+	grid-template-rows: repeat(7, 1vh);
+	grid-gap: 5px;
+}
+
+.search_params_cont {
+	margin-right: 2%;
+	margin-left: 2%;
+	margin-top: 2%;
+	height: 5%;
+	width: 50%;
+}
+
+.search_term p, .search_others p, .search_others p {
+	margin-top: 0;
+	margin-bottom: 0;
+	margin-right: 5px;
+}
+
+.search_others,.search_info, .search_term {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.search_others,.search_info {
+	justify-content: space-between;
+}
+
+.subtitle {
+	font-weight: 600;
+}
+
+
 /* @media (1000px or greater) have default 20px or something
 font-size: calc(12px + responsiveFactor) */

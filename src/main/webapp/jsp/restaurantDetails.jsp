@@ -13,7 +13,7 @@
     <link href="/FeedMe/css/navbar.css" rel="stylesheet" type="text/css">
     <link href="/FeedMe/css/recipe_details.css" rel="stylesheet">
     <script src="/FeedMe/javascript/buttons.js"></script>
-    <%@page import="java.util.*" %>
+    <%@page import="java.util.*" %> 
 	<%@page import="data.*"%>
     <% 
     // To check if we came from results page or list page
@@ -52,16 +52,6 @@
 						Grocery List
 					</a>
 				</li>
-	   			<li class="nav-item dropdown ml-auto" id="listName">
-		        	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		          		Add to List
-		        	</a>
-		        	<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-			      		<a class="dropdown-item" id="fOptionButton" href="/FeedMe/restaurantDetails?listType=f&arrNum=<%= arrNum %>">Favorites</a>
-			      		<a class="dropdown-item" id="tOptionButton" href="/FeedMe/restaurantDetails?listType=t&arrNum=<%= arrNum %>">To Explore</a>
-			      		<a class="dropdown-item" id="dOptionButton" href="/FeedMe/restaurantDetails?listType=d&arrNum=<%= arrNum %>">Do Not Show</a>     
-		        	</div>
-		    	</li>
 	     		<li class="nav-item active ml-auto">
 	       			<a class="nav-link" id="userButton" href="http://localhost:8080/FeedMe/jsp/login.jsp">Log Out</a>
 	     		</li>

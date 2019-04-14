@@ -9,6 +9,7 @@ html, body {
 }
 a.navbar-brand {
 	color: #007BFF !important;
+	cursor: pointer;
 }
 
 .navbar-toggler-icon {
