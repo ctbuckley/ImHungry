@@ -240,6 +240,50 @@ public class DatabaseTests {
 		
 	}	
 	
+	@Test
+	public void databaseSearchQueryImageTest() throws Exception {
+		
+		String searchQuery = "chicken";
+		String searchQuery2 = "pizza";
+		
+		String imgURL1 = "testURL1";
+		String imgURL2 = "testURL2";
+		String imgURL3 = "testURL3";
+		String imgURL4 = "testURL4";
+		String imgURL5 = "testURL5";
+		String imgURL6 = "testURL6";
+		String imgURL7 = "testURL7";
+		
+		db.insertLinkintoImages(searchQuery, imgURL1);
+		db.insertLinkintoImages(searchQuery, imgURL2);
+		db.insertLinkintoImages(searchQuery, imgURL3);
+		db.insertLinkintoImages(searchQuery, imgURL4);
+		db.insertLinkintoImages(searchQuery, imgURL5);
+		db.insertLinkintoImages(searchQuery2, imgURL6);
+		db.insertLinkintoImages(searchQuery2, imgURL7);
+		
+		ArrayList<String> resultsOne = db.getLinksfromImages(searchQuery);
+		ArrayList<String> resultsTwo = db.getLinksfromImages(searchQuery2);
+		
+		assertEquals(5, resultsOne.size());
+		assertEquals(2, resultsTwo.size());
+		assertEquals("testURL3", resultsOne.get(2));
+		assertEquals("testURL7", resultsTwo.get(1));
+		
+		db.deleteLinkfromImages(imgURL1);
+		db.deleteLinkfromImages(imgURL2);
+		db.deleteLinkfromImages(imgURL3);
+		db.deleteLinkfromImages(imgURL4);
+		db.deleteLinkfromImages(imgURL5);
+		db.deleteLinkfromImages(imgURL6);
+		db.deleteLinkfromImages(imgURL7);
+		
+		resultsOne = db.getLinksfromImages(searchQuery);
+		resultsTwo = db.getLinksfromImages(searchQuery2);
+		
+		assertEquals(0, resultsOne.size());
+		assertEquals(0, resultsTwo.size());
+	}
 	
 	
 	@After

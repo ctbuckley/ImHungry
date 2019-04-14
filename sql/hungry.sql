@@ -73,3 +73,9 @@ CREATE TABLE Grocery(
     ingredientName VARCHAR(500) NOT NULL,
     FOREIGN KEY fk6(userID) REFERENCES Users(userID)
 );
+
+CREATE TABLE Images(
+	imageID INT(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    searchQuery VARCHAR(50) NOT NULL,
+    imgURL VARCHAR(500) NOT NULL
+);
