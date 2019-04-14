@@ -19,6 +19,9 @@ public class ListManagementPageServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		UserList[] userLists = (UserList[]) session.getAttribute("userLists");
+		
+		//load data from database
+		
 		if (userLists == null) {
 			RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/search.jsp");
 			dispatch.forward(request,  response);
