@@ -121,6 +121,8 @@ public class DatabaseTests {
 		Recipe recipe1 = new Recipe("testRecipe1", "picURL", 1.0, 2.0, ingredients, instructions, 4.0);
 		Recipe recipe2 = new Recipe("testRecipe2", "picURL", 2.0, 3.0, ingredients, instructions, 3.0);
 		Recipe recipe3 = new Recipe("testRecipe3", "picURL", 3.0, 4.0, ingredients, instructions, 2.0);
+		Recipe recipe4 = new Recipe("testRecipe4", "picURL", 3.0, 4.0, ingredients, instructions, 2.0);
+		Recipe recipe5 = new Recipe("testRecipe5", "picURL", 3.0, 4.0, ingredients, instructions, 2.0);
 		
 		Restaurant restaurant1 = new Restaurant("testRestaurant1", "webURL", 20, "sampleAddress", "phoneNumber", 4.0, 30);
 		Restaurant restaurant2 = new Restaurant("testRestaurant2", "webURL", 20, "sampleAddress", "phoneNumber", 4.0, 30);
@@ -134,6 +136,9 @@ public class DatabaseTests {
 		int itemID5 = db.insertRestaurant(restaurant2);
 		int itemID6 = db.insertRestaurant(restaurant3);
 		
+		int itemID7 = db.insertRecipe(recipe4);
+		int itemID8 = db.insertRecipe(recipe5);
+		
 		//insert with userID, itemID, listName
 		//insertItemintoList(userID, itemID, listName);
 		
@@ -143,6 +148,9 @@ public class DatabaseTests {
 		db.insertItemintoList(userID, itemID4, "Favorites");
 		db.insertItemintoList(userID, itemID5, "To Explore");
 		db.insertItemintoList(userID, itemID6, "Do Not Show");
+		
+		db.insertItemintoList(userID, itemID7, "Favorites");
+		db.insertItemintoList(userID, itemID8, "Favorites");
 		
 		//load data from database for verification
 		
@@ -184,16 +192,39 @@ public class DatabaseTests {
 			}
 		}
 		
-		assertEquals(favIDs.size(), 2);
+		assertEquals(favIDs.size(), 4);
 		assertEquals(exploreIDs.size(), 2);
 		assertEquals(donotshowIDs.size(), 2);
 		
-		assertEquals(favRecipes.size(), 1);
+		assertEquals(favRecipes.size(), 3);
 		assertEquals(exploreRecipes.size(), 1);
 		assertEquals(dnsRecipes.size(), 1);
 		assertEquals(favRestaurant.size(), 1);
 		assertEquals(exploreRestaurant.size(), 1);
 		assertEquals(dnsRestaurant.size(), 1);
+		
+		//test swapping and ordering
+		
+		//we want to test moving items in favIDs
+		//order is itemID1, itemID4, itemID7, itemID8
+		assertEquals((Integer)favIDs.get(0), (Integer)itemID1);
+		assertEquals((Integer)favIDs.get(1), (Integer)itemID4);
+		assertEquals((Integer)favIDs.get(2), (Integer)itemID7);
+		assertEquals((Integer)favIDs.get(3), (Integer)itemID8);
+		
+		db.swapItemIndex(userID, 1, itemID1, true); 
+		favIDs = db.getItemsfromList(userID, "Favorites");
+		assertEquals((Integer)favIDs.get(0), (Integer)itemID4);
+		assertEquals((Integer)favIDs.get(1), (Integer)itemID1);
+		assertEquals((Integer)favIDs.get(2), (Integer)itemID7);
+		assertEquals((Integer)favIDs.get(3), (Integer)itemID8);
+		
+		db.swapItemIndex(userID, 1, itemID1, false); 
+		favIDs = db.getItemsfromList(userID, "Favorites");
+		assertEquals((Integer)favIDs.get(0), (Integer)itemID1); 
+		assertEquals((Integer)favIDs.get(1), (Integer)itemID4);
+		assertEquals((Integer)favIDs.get(2), (Integer)itemID7);
+		assertEquals((Integer)favIDs.get(3), (Integer)itemID8);
 		
 		//cleanup database
 		
@@ -203,6 +234,8 @@ public class DatabaseTests {
 		db.deleteItemfromList(userID, itemID4, "Favorites");
 		db.deleteItemfromList(userID, itemID5, "To Explore");
 		db.deleteItemfromList(userID, itemID6, "Do Not Show");
+		db.deleteItemfromList(userID, itemID7, "Favorites");
+		db.deleteItemfromList(userID, itemID8, "Favorites");
 		
 		db.deleteItemfromItem(itemID1);
 		db.deleteItemfromItem(itemID2);
@@ -210,7 +243,8 @@ public class DatabaseTests {
 		db.deleteItemfromItem(itemID4);
 		db.deleteItemfromItem(itemID5);
 		db.deleteItemfromItem(itemID6);
-		
+		db.deleteItemfromItem(itemID7);
+		db.deleteItemfromItem(itemID8);
 	}
 	
 	@Test

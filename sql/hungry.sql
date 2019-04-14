@@ -2,6 +2,8 @@ DROP DATABASE IF EXISTS hungrydatabase;
 CREATE DATABASE hungrydatabase;
 
 USE hungrydatabase;
+SET SQL_SAFE_UPDATES = 0;
+
 
 CREATE TABLE Users(
 	userID INT(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
