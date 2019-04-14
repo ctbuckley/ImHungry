@@ -279,7 +279,7 @@ public class ResultsPageServletTest {
 		when(request.getParameter("fromSearch")).thenReturn("true");
 		when(session.getAttribute("userLists")).thenReturn(userLists);
 		when(request.getParameter("q")).thenReturn("Chicken");
-		when(request.getParameter("n")).thenReturn("6");
+		when(request.getParameter("n")).thenReturn("11");
 		when(request.getParameter("pageNumber")).thenReturn(null);
 
 		new ResultsPageServlet().service(request, response);
@@ -290,20 +290,20 @@ public class ResultsPageServletTest {
 		
 		verify(request).setAttribute(ArgumentMatchers.eq("restaurantArr"), argCaptor.capture());
 		Restaurant[] restaurantArr = (Restaurant[]) argCaptor.getValue();
-		assertEquals(5, restaurantArr.length);
+		assertEquals(10, restaurantArr.length);
 		
 		verify(request).setAttribute(ArgumentMatchers.eq("recipeArr"), argCaptor.capture());
 		Recipe[] recipeArr = (Recipe[]) argCaptor.getValue();
-		assertEquals(5, recipeArr.length);
+		assertEquals(10, recipeArr.length);
 
 		verify(request).setAttribute(ArgumentMatchers.eq("searchTerm"), ArgumentMatchers.eq("Chicken"));
-		verify(request).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(5));
+		verify(request).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(10));
 		
 		verify(session).setAttribute(ArgumentMatchers.eq("restaurantResults"), ArgumentMatchers.any());
 		verify(session).setAttribute(ArgumentMatchers.eq("recipeResults"), ArgumentMatchers.any());	
 		verify(session).setAttribute(ArgumentMatchers.eq("searchTerm"), ArgumentMatchers.eq("Chicken"));
-		verify(session).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(5));	
-		verify(session).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(5));	
+		verify(session).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(10));	
+		verify(session).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(10));	
 		verify(session).setAttribute(ArgumentMatchers.eq("pageCount"), ArgumentMatchers.eq(2));
 		
 	}
@@ -319,7 +319,7 @@ public class ResultsPageServletTest {
 		when(request.getParameter("fromSearch")).thenReturn("true");
 		when(session.getAttribute("userLists")).thenReturn(userLists);
 		when(request.getParameter("q")).thenReturn("Chicken");
-		when(request.getParameter("n")).thenReturn("6");
+		when(request.getParameter("n")).thenReturn("11");
 		when(request.getParameter("pageNumber")).thenReturn("2");
 
 		new ResultsPageServlet().service(request, response);
