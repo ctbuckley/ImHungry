@@ -5,6 +5,7 @@ end
 
 When(/^I view the first recipe$/) do
     page.find_by_id("Recipe0").click()
+    $firstIngredient = page.find_by_id("ingredient0").native.text
 end
 
 Then(/^I view the first restaurant$/) do
@@ -43,3 +44,28 @@ end
 Then(/^I visit the search page$/) do
     visit "http://localhost:8080/FeedMe/jsp/search.jsp"
 end
+
+Then(/^I click on the first ingredient$/) do
+    page.find_by_id("customCheck0").click();
+end
+
+Then(/^I add selected ingredients to the grocery list$/) do
+    page.find_by_id("confirmAddBtn").click();
+end
+
+Then(/^I should see the first ingredient in the grocery list$/) do
+    expect(page).to have_content($firstIngredient)
+end
+
+Then(/^I remove the first ingredient from the grocery list$/) do
+    page.find_by_id("removeBtn0").click();
+end
+
+Then(/^I should not see the first ingredient in the grocery list$/) do
+    expect(page).not_to have_content($firstIngredient)
+end
+
+
+
+
+
