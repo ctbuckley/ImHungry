@@ -58,7 +58,7 @@ Scenario: Check that current link is active and results are different on differe
 Scenario: Check that the number of pagination links per page is limited
 	When I am on the ImHungry Search Page
 	And I enter "chicken" in the search box
-	And I enter "61" in the search number box
+	And I enter "51" in the search number box
 	And I enter "100" in the radius input field
 	And press search
 	And I should see pagination links "1", "2", "3", "4", and "5"
@@ -67,10 +67,8 @@ Scenario: Check that the number of pagination links per page is limited
 	And I click on pagination link "4"
 	And I should see pagination links "2", "3", "4", "5", and "6"
 	And I click on pagination link "5"
-	And I should see pagination links "3", "4", "5", "6", and "7"
+	And I should see pagination links "2", "3", "4", "5", and "6"
 	And I click on pagination link "6"
-	And I should see pagination links "3", "4", "5", "6", and "7"
-	And I click on pagination link "7"
-	And I should see pagination links "3", "4", "5", "6", and "7"
+	And I should see pagination links "2", "3", "4", "5", and "6"
 
 
