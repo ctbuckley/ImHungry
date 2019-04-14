@@ -81,7 +81,7 @@ public class ScrapperTest {
 		Vector<Recipe> recipes = Scrapper.search("chicken", 5);
 		assertEquals(5, recipes.size());
 		
-		recipes = Scrapper.search("broccoli", 21);
+		recipes = Scrapper.search("chicken", 21);
 		assertEquals(21, recipes.size());
 		
 	}
@@ -91,7 +91,11 @@ public class ScrapperTest {
 	 */
 	@Test
 	public void searchBadRequestTest() throws IOException {
-		Vector<Recipe> recipes = Scrapper.search("qwertyuiop", 25);
+
+		Vector<Recipe> recipes = Scrapper.search("qwertysdfgh", 1);
+		assertEquals(0, recipes.size());
+		
+		recipes = Scrapper.search("qwertyuiop", 25);
 		assertEquals(0, recipes.size());
 				
 	}
@@ -101,10 +105,19 @@ public class ScrapperTest {
 	 */
 	@Test
 	public void searchMultipleTermsTest() throws IOException {
-		Vector<Recipe> recipes = Scrapper.search("chicken curry", 2);
+		Vector<Recipe> recipes = Scrapper.search("shrimp curry", 2);
 		assertEquals(2, recipes.size());
 		
 	}
 	
+	/*
+	 *  Tests weird edge case.
+	 */
+	@Test
+	public void searchBadQueryTest() throws IOException {
+		Vector<Recipe> recipes = Scrapper.search("computer", 2);
+		assertEquals(0, recipes.size());
+		
+	}
 	
 }

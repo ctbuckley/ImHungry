@@ -1,0 +1,39 @@
+
+matrix:
+  include:
+    - language: java
+        
+      before_script:
+        - sudo bash set_up_database.sh
+        
+    - language: ruby
+
+      
+      dist: trusty
+
+      addons:
+        chrome: stable
+
+      cache: bundler
+      sudo: 'false'
+
+      rvm:
+        - 2.6.2
+
+      before_install:
+        - sudo apt-get install systemd
+
+      install:
+        - sudo bash set_up_database.sh
+        - sudo bash set_up_server.sh
+        - mvn -Dmaven.test.skip=true package
+        - sudo bash deploy_application.sh
+
+      before_script: 
+        - cd /home/travis/build/AlexColello/CS310GroupC/src/test/ImHungryCucumber
+        - sudo chmod +x ./features/support/chromedriver
+        - bundle install
+        - gem list
+
+      script: 
+        - bundle exec cucumber

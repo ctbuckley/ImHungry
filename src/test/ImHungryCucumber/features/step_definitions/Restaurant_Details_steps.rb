@@ -1,7 +1,8 @@
 Given(/^I am on the Restaurant Details Page$/) do
-  visit "localhost:8080/FeedMe/jsp/search.jsp"
-  fill_in('userInput', :with => "pizza")
-  fill_in('searchTermTest', :with => "1")
+  visit "http://localhost:8080/FeedMe/jsp/search.jsp"
+  fill_in('queryInput', :with => "pizza")
+  fill_in('numResultsInput', :with => "1")
+  fill_in('radiusInput', :with => "12")
   page.find_by_id("feedMeButton").click()
   page.find_by_id("Restaurant0").click()
 end
@@ -62,13 +63,11 @@ end
 Then(/^there is no Add to List button$/) do
     expect(page).not_to have_selector("button[id=addToList]");
 end
-When(/^I go back$/) do
-   page.evaluate_script('window.history.back()')
-end
 
-When(/^click Back to Results button$/) do
+When(/^I click Back to Results button$/) do
    page.find_by_id("backToResults").click();
 end
+
 Then(/^I see Results Page$/) do
    expect(page).to have_title("pizza")
 end

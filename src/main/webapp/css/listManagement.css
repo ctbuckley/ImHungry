@@ -1,16 +1,96 @@
-@charset "utf-8";
-*{
-	background-color: whitesmoke;
-}
-html{
-	width:90%;
-}
-body{
+#main {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around !important;
+	height: 100%;
 	width: 100%;
-	float: left;
-  background-color: whitesmoke;
+	margin-bottom: 3vh;
 }
 
-#listItems{
-	margin: 0;
+.pageTitle {
+	margin-top: 2vh;
+	margin-bottom: 2vh;
+}
+
+#Restaurant {
+	
+}
+
+#Recipe {
+	
+}
+
+.resultList {
+}
+
+.results-card {
+    border: 2px solid #dee2e6;
+    box-shadow: 4px 4px 5px #c0c0c0;
+    height: 280px;
+}
+
+.results-card:hover {
+    cursor: pointer;
+}
+
+.outer_stars {
+  display: inline-block;
+  position: relative;
+  font-family: FontAwesome;
+}
+
+.outer_stars::before {
+	content: "\f006 \f006 \f006 \f006 \f006";
+	color: #C0C0C0;
+	font-size: calc(12px + 0.5vw);
+}
+
+.inner_stars {
+	position: absolute;
+	top: 0;
+	left: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	width: 0;
+}
+
+.inner_stars::before {
+  content: "\f005 \f005 \f005 \f005 \f005";
+  color: #f8ce0b;
+  font-size: calc(12px + 0.5vw);
+}
+
+
+#moveDropDown {
+	margin-bottom: 1vh;
+}
+
+#buttons {
+	width: 20%;
+	border: 0.5px solid #C0C0C0;
+	border-radius: 5px;
+	height: 20%;
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px;
+	padding: 2vw !important;
+	margin-top: 9vh;
+	position: sticky;
+	background-color: white;
+	top: 40px;
+	min-width: 200px;
+}
+
+
+.btn {
+	width: 100%;	
+	margin-bottom: 2vh;
+	margin-top: 2vh;
+}
+
+
+@media screen and (max-width: 800px) {
+	html {
+		width: 830px;
+		overflow-x: scroll;
+	}
+	
 }

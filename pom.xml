@@ -19,6 +19,12 @@
 	  <artifactId>jsoup</artifactId>
 	  <version>1.11.3</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+	<dependency>
+	    <groupId>org.apache.httpcomponents</groupId>
+	    <artifactId>httpclient</artifactId>
+	    <version>4.5.8</version>
+	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
 	<dependency>
 	    <groupId>org.mockito</groupId>
@@ -39,12 +45,6 @@
 	    <artifactId>mysql-connector-java</artifactId>
 	    <version>5.1.6</version>
 	</dependency>
-	<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-	<dependency>
-	    <groupId>mysql</groupId>
-	    <artifactId>mysql-connector-java</artifactId>
-	    <version>5.1.6</version>
-	</dependency>
 	<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson --> 
 	<dependency> 
 	<groupId>com.google.code.gson</groupId> 
@@ -54,5 +54,21 @@
   </dependencies>
   <build>
     <finalName>FeedMe</finalName>
+      <plugins>
+		  <plugin>
+		    <artifactId>maven-war-plugin</artifactId>
+		    <version>3.2.2</version>
+		    <configuration>
+		        <attachClasses>true</attachClasses>
+		        <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+		        <webResources>
+		            <resource>
+		                <directory>src/main/webapp</directory>
+		                <filtering>true</filtering>
+		            </resource>
+		        </webResources>
+		    </configuration>
+		</plugin>
+	  </plugins>
   </build>
 </project>

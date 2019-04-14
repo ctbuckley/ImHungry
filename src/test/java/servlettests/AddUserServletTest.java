@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.ResultSet;
@@ -23,8 +24,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import data.Config;
 import data.Database;
 import servlets.AddUserServlet;
+import servlets.ValidateLoginServlet;
 
 /*
  *  Tests for the ResultsPageServlet class.
@@ -42,9 +45,10 @@ public class AddUserServletTest {
 	RequestDispatcher rd;
 	
 	Database db;
+	StringWriter out;
 
 	@Before
-	public void setUp() throws ClassNotFoundException, SQLException {
+	public void setUp() throws ClassNotFoundException, SQLException, IOException {
 		MockitoAnnotations.initMocks(this);
 		
 		db = new Database();
@@ -53,7 +57,9 @@ public class AddUserServletTest {
 		response = mock(HttpServletResponse.class);
 		session = mock(HttpSession.class);
 		rd = mock(RequestDispatcher.class);
+		out = new StringWriter();
 		
+		when(response.getWriter()).thenReturn(new PrintWriter(out));
 		when(request.getSession()).thenReturn(session);
 		
 	}
@@ -66,8 +72,6 @@ public class AddUserServletTest {
 
 		when(request.getParameter("username")).thenReturn("testValidNewUser");
 		when(request.getParameter("pass")).thenReturn("password");
-		StringWriter out = new StringWriter();
-		when(response.getWriter()).thenReturn(new PrintWriter(out));
 		
 		new AddUserServlet().service(request, response);
 		
@@ -85,9 +89,6 @@ public class AddUserServletTest {
   		rs.next();
 		int uID = rs.getInt("userID");
 		db.deleteUserfromUsers(uID);
-		if(rs!=null) {
-			rs.close();
-		}
 	}	
 	
 	/*
@@ -99,8 +100,6 @@ public class AddUserServletTest {
 
 		when(request.getParameter("username")).thenReturn("");
 		when(request.getParameter("pass")).thenReturn("pass");
-		StringWriter out = new StringWriter();
-		when(response.getWriter()).thenReturn(new PrintWriter(out));
 		
 		new AddUserServlet().service(request, response);
 		
@@ -127,8 +126,6 @@ public class AddUserServletTest {
 
 		when(request.getParameter("username")).thenReturn("master");
 		when(request.getParameter("pass")).thenReturn("");
-		StringWriter out = new StringWriter();
-		when(response.getWriter()).thenReturn(new PrintWriter(out));
 		
 		new AddUserServlet().service(request, response);
 		
@@ -156,8 +153,6 @@ public class AddUserServletTest {
 		
 		when(request.getParameter("username")).thenReturn("testValidNewUser");
 		when(request.getParameter("pass")).thenReturn("password");
-		StringWriter out = new StringWriter();
-		when(response.getWriter()).thenReturn(new PrintWriter(out));
 		
 		new AddUserServlet().service(request, response);
 		
@@ -195,8 +190,67 @@ public class AddUserServletTest {
   		rs.next();
 		int uID = rs.getInt("userID");
 		db.deleteUserfromUsers(uID);
-		if(rs!=null) {
-			rs.close();
-		}
 	}
+	
+	@Test
+    public void testThrowClassExceptions() throws Exception {
+    	
+		
+	when(request.getParameter("username")).thenReturn("testUser");
+	when(request.getParameter("pass")).thenReturn("root");
+    	
+       String tempClassName = Config.className;
+       Config.className = "garbage";
+       
+        
+       new AddUserServlet().service(request, response);
+       
+
+      Config.className = tempClassName;
+       
+    }
+    
+    @Test
+    public void testThrowSqlExceptions() throws Exception {
+    	
+    	when(request.getParameter("username")).thenReturn("testUser");
+    	when(request.getParameter("pass")).thenReturn("root");
+    	
+ 
+       String tempDBPW = Config.databasePW;
+       Config.databasePW = "notmypass";
+       
+       
+        
+       new AddUserServlet().service(request, response);
+       
+
+      Config.databasePW = tempDBPW;
+      
+       
+    }
+    
+    @Test
+    public void testThrowAlgorithmExceptions() throws Exception {
+    	
+    	when(request.getParameter("username")).thenReturn("testUser");
+    	when(request.getParameter("pass")).thenReturn("root");
+    	
+ 
+       String tempAlgo = Config.hashAlgo;
+       
+       Config.hashAlgo = "garbage";
+       
+       
+       out = new StringWriter();
+	   when(response.getWriter()).thenReturn(new PrintWriter(out));
+        
+       
+       new AddUserServlet().service(request, response);
+       
+
+      Config.hashAlgo = tempAlgo;
+      
+       
+    }
 }

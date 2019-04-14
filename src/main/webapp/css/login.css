@@ -4,6 +4,16 @@ body, html {
 	margin: 0;	
 }
 
+#hungryText {
+    font-size: calc(12px + 13vmin);
+    display: flex;
+    align-self: flex-end;
+    background-image: radial-gradient( circle farthest-corner at 12.3% 19.3%,  rgba(85,88,218,1) 0%, rgba(95,209,249,1) 100.2% );
+  -webkit-background-clip: text;
+     color: transparent;
+     padding-bottom: 2vh;
+}
+
 .hungry_cont {
 	height: 30%;
 	display: flex;
@@ -19,7 +29,7 @@ body, html {
 	align-items: flex-start;
 }
 .log_in_col_right {
-	width: 50%;
+	width: 20%;
 	height: 50%;
 	display: flex; 
 	align-items: center;
@@ -27,17 +37,61 @@ body, html {
 	flex-direction: column;
 }
 
-.log_in_col_left {
-	width: 50%;
-	height: 50%;
-	display: flex; 
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	
+.log_in_input_cont {
+	width: 100%;
 }
+input {
+	width: 100%;
+}
+
 
 .log_in_error_cont {
-	visibility: hidden;	
+	display: none;	
+	margin-bottom: 2vh;
 }
 
+.right_btns_cont {
+	width: 100%;
+}
+
+#userLogInButton {
+	margin-bottom: 2vh;
+}
+
+#userLogInButton, #signUpButton {
+	width: 100%;
+}
+
+@media screen and (max-width: 500px) {
+	.log_in_cont {
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.log_in_col_left {
+		height: 10%;
+		border: none;
+	}
+}
+
+@media screen and (max-height: 500px) {
+	html {
+		overflow-y: scroll;
+		height: 130%;
+	}
+	
+	.log_in_cont {
+		position: absolute;
+		top: 300px;
+	}
+	
+	#hungryText {
+		font-size: 65px;
+		position: absolute;
+		top: 140px;
+	}
+	
+	
+	
+}

@@ -1,33 +1,29 @@
 Given(/^I am on the ImHungry Results Page$/) do
-  visit "http://localhost:8080/FeedMe/results?q=burger&n=5&feedMeButton=Feed+Me"
+  visit "http://localhost:8080/FeedMe/results?q=burger&n=5&radiusInput=3&feedMeButton=Feed+Me"
 end
 
 Then(/^there is a dropdown button$/) do
-  page.should have_selector("select[id=listName]")
-end
-
-Then(/^there is a not selected option$/) do
-  page.should have_selector("option[id=nOptionButton]")
+  expect(page.find_by_id("listName", visible: false))
 end
 
 Then(/^there is a favorites option$/) do
-  page.should have_selector("option[id=fOptionButton]")
+  expect(page.find_by_id("fOptionButton", visible: false))
 end
 
 Then(/^there is a to be explored option$/) do
-  page.should have_selector("option[id=tOptionButton]")
+  expect(page.find_by_id("tOptionButton", visible: false))
 end
 
 Then(/^there is a do not show option$/) do
-  page.should have_selector("option[id=dOptionButton]")
+  expect(page.find_by_id("dOptionButton", visible: false))
 end
 
 Then(/^there is a Manage Lists button$/) do
-  expect(page.find_by_id("addToList").native.text).to eq "Manage Lists"
+  expect(page.find_by_id("listName", visible: false))
 end
 
 Then(/^there is a Return to Search button$/) do
-  expect(page.find_by_id("returntoSearch").native.text).to eq "Return to Search"
+  expect(page.find_by_id("returntoSearch").native.text).to eq "ImHungry"
 end
 
 When(/^press return to search$/) do
@@ -35,7 +31,7 @@ When(/^press return to search$/) do
 end
 
 Then(/^I should see search page title$/) do
-  page.should have_content("I'm Hungry")
+  page.should have_content("ImHungry")
 end
 
 Then(/^I should see Restaurant title$/) do
@@ -47,31 +43,31 @@ Then(/^I should see Recipe title$/) do
 end
 
 Then(/^there is the name of Restaurant list elements$/) do
-  page.should have_content("Name:")
+  expect(page.find_by_id("restaurantName0"))
 end
 
 Then(/^there is the Stars of Restaurant list elements$/) do
-  expect(page.find_by_id("restaurantRating1"))
+  expect(page.find_by_id("restaurantRating0"))
 end
 
 Then(/^there is the minutes of Restaurant list elements$/) do
-  page.should have_content("Minutes:")
+  page.should have_content("Min(s) Away")
 end
 
 Then(/^there is the address of Restaurant list elements$/) do
-  page.should have_content("Address:")
+  expect(page.find_by_id("restaurantAddress0"))
 end
 
 Then(/^there is the price of Restaurant list elements$/) do
-  page.should have_content("Price:")
+  expect(page.find_by_id("restaurantPrice0"))
 end
 
 Then(/^there is the name of Recipe list elements$/) do
-  page.should have_content("Name:")
+  expect(page.find_by_id("recipeName0"))
 end
 
 Then(/^there is the Stars of Recipe list elements$/) do
-  expect(page.find_by_id("recipeRating1"))
+  expect(page.find_by_id("recipeRating0"))
 end
 
 Then(/^there is the Cook Time of Recipe list elements$/) do
@@ -82,15 +78,42 @@ Then(/^there is the Prep Time of Recipe list elements$/) do
   page.should have_content("Prep Time:")
 end
 
-Then(/^the background color is smoke white$/) do
-  page.should have_selector("body[style='background-color:whitesmoke;']")
+Then(/^there is a pagination div$/) do
+  expect(page.find_by_id("page_bar"))
 end
 
-When(/^press manage list button$/) do
-  page.find_by_id("addToList").click()
+Then(/^there are "([^"]*)" pagination links$/) do |links|
+  expect(page.all(".page-link").count).to eq (links.to_i+2)
 end
 
+When(/^the first restaurant on the first results page is different from the first restaurant on second results page$/) do
+  $result1 = page.find_by_id("recipeName0").native.text
+  page.find_by_id("paginationLink2").click()
+  sleep(1)
+  expect(page.find_by_id("recipeName0").native.text).not_to eq $result1
+end
 
+When(/^the first pagination link is active$/) do
+  expect(page.find_by_id("paginationLink1").find(:xpath, '..')['class']).to have_content 'active'
+  expect(page.find_by_id("paginationLink2").find(:xpath, '..')['class']).not_to have_content 'active'
+end
+
+Then(/^the second pagination link is active$/) do
+  expect(page.find_by_id("paginationLink1").find(:xpath, '..')['class']).not_to have_content 'active'
+  expect(page.find_by_id("paginationLink2").find(:xpath, '..')['class']).to have_content 'active'
+end
+
+When(/^I should see pagination links "([^"]*)", "([^"]*)", "([^"]*)", "([^"]*)", and "([^"]*)"$/) do |link1, link2, link3, link4, link5|
+  expect(page.find_by_id("paginationLink" + link1))
+  expect(page.find_by_id("paginationLink" + link2))
+  expect(page.find_by_id("paginationLink" + link3))
+  expect(page.find_by_id("paginationLink" + link4))
+  expect(page.find_by_id("paginationLink" + link5))
+end
+
+When(/^I click on pagination link "([^"]*)"$/) do |link|
+  page.find_by_id("paginationLink" + link).click()
+end
 
 
 

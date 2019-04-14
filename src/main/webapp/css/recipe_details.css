@@ -1,0 +1,168 @@
+@charset "UTF-8";
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
+.row {
+	padding-left: 8%;
+	padding-right: 8%;
+	display: flex;
+	align-items: flex-start;
+	flex-direction: row;
+	postion: absolute;
+	z-index: 1;
+}
+
+
+.bg_cont:before {
+	position: absolute;
+	z-index: -2;
+	border: inherit;
+	border-color: black;
+	background-color: black;
+	color: black;
+	background: inherit;
+	background-clip: border-box;
+	filter: blur(20px);
+	clip-path: inset(0);
+	content: "";
+}
+
+.bg_cont {
+    width: 100%;
+    height: 30%;
+    position: relative;
+    z-index: -1;
+    overflow: hidden;
+    background-position: center;
+ 	background-repeat: no-repeat;
+ 	background-size: cover;
+    background-clip: border-box;
+    filter: brightness(60%) blur(1px);
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+}
+
+.recipe_picture_cont {
+	width: 100%;
+	margin: auto;
+	height: 30%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	z-index: 1;
+	box-sizing: border-box;
+}
+
+#recipePicture {
+	height: 100%;
+}
+
+#recipeName {
+	padding-top: 1vh;
+	padding-bottom: 1vh;
+	margin-left: 8%;
+}
+
+.recipe_time_cont {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	border-bottom: 0.5px solid #C0C0C0;
+}
+
+
+.recipe_time_cont p {
+	width: 50%;
+}
+
+#ingredientsBloc, #instructionsBloc {
+	padding-bottom: 2vh;
+}
+
+#ingredientsBloc {
+	border-bottom: 0.5px solid #C0C0C0;
+}
+
+
+.ingredients_header{
+	padding-top: 2vh;
+	padding-bottom: 2vh;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+#addAllBtn {
+	max-width: 200px;
+	margin-left: 2vw;
+}
+
+.ingredient_list_item {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	margin-bottom: 1rem;
+}
+
+.ingredient_list_item p {
+	margin-bottom: 0;
+	margin-left: 1rem;
+}
+
+.btn {
+	width: 100%;	
+	margin-bottom: 2vh;
+	margin-top: 2vh;
+}
+
+.outer_detail_cont {
+	width: 80%;
+}
+
+.buttons {
+	width: 20%;
+	border: 0.5px solid #C0C0C0;
+	margin-left: 5px;
+	border-radius: 5px;
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px;
+}
+
+#ingredients label input[type=checkbox] {
+	 position: relative;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+	  font-size: inherit;
+	  width: 1em;
+	  margin: 0;
+	  color: black;
+	  outline: none;
+	  font-family: "Font Awesome 5 Free";
+	  transition: 300ms ease-out;
+}
+
+#ingredients label input[type=checkbox]::after {
+content: '\f111';
+  display: inline-block;
+  text-align: center;
+  width: 1em;
+}
+
+#ingredients label input[type=checkbox]:checked::after {
+	font-weight: 900;
+	color: #007bff;
+	content: '\f058';
+}
+
+#ingredients label input[type=checkbox]:active {
+	-webkit-transform: scale(0.6);
+          transform: scale(0.6);
+}
+
+#ingredients label input[type=checkbox] + span {
+	margin-left: .35em;
+}

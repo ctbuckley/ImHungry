@@ -1,27 +1,33 @@
 @charset "utf-8";
-*{
-	background-color: whitesmoke;
-}
 html, body{
-	height: 100%;
-}
-body{
-	margin-right: 5%;
-	margin-left: 5%;
-	margin-top: 5%;
-	
-  display: inline-block;
+    height: 100%;
 }
 #main{
-	float: left;
-	height: 100%;
-	width: 75%;
+    float: left;
+    height: 100%;
+    width: 75%;
+}
+
+.row {
+	margin-top: 4vh;
 }
 a:link{
-	text-decoration: inherit;
-	color: inherit;
+    text-decoration: inherit;
+    color: inherit;
 }
 a:visited{
-  text-decoration: inherit;
-  color: inherit;
+ text-decoration: inherit;
+ color: inherit;
+}
+.restaurant-container {
+    margin-left:10%;
+    width: 80%;
+    margin-right:10%;
+}
+#phoneNumber {
+    margin-top: 16px;
+}
+
+a {
+	word-wrap: break-word;
 }

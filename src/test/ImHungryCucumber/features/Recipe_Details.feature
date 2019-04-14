@@ -3,7 +3,7 @@ Background:
 
 	Given I am on the Recipe Details Page
 
-Scenario: User reads recipe information, and clicks printable version, and goes back to Results Page
+Scenario: User reads recipe information, and clicks printable version
 
 	Then there is recipe name
 	Then there is recipe picture
@@ -13,6 +13,8 @@ Scenario: User reads recipe information, and clicks printable version, and goes 
 	Then there is intsructions
 	Then there is Printable Version button
 	Then there is Back to Results button
+    Then there is a grocery list button
+    Then there is a checkbox for each instruction
 	Then there is dropdown box to select predefined lists
         Then dropdown has 4 options
         Then no list is selected in dropdown by default
@@ -22,8 +24,10 @@ Scenario: User reads recipe information, and clicks printable version, and goes 
 	Then there is no Back to Results button
 	Then there is no dropdown box
 	Then there is no Add to List button
-	When I go back
-	And click Back to Results button
+
+Scenario: Check go back to results page
+
+	When I click Back to Results button
 	Then I see Results Page
 
 
