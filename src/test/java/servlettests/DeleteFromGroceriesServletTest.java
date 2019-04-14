@@ -62,9 +62,7 @@ public class DeleteFromGroceriesServletTest {
         
         when(request.getSession()).thenReturn(session);
     }
-    /*
-     *  Test to make sure a valid new user returns correctly.
-     */
+ 
     @Test
     public void testRemoveIngredient() throws Exception {
        when(session.getAttribute("username")).thenReturn("testUser");
@@ -75,6 +73,20 @@ public class DeleteFromGroceriesServletTest {
        ArrayList<String> ingredients = db.getGroceryListforUser(userID);
        assertEquals(ingredients.get(0), "1 tablespoon olive oil");
        assertEquals(ingredients.size(), 1);
+
+    } 
+    
+    @Test
+    public void testRemoveInvalidIngredient() throws Exception {
+       when(session.getAttribute("username")).thenReturn("testUser");
+       when(request.getParameter("item")).thenReturn("1 egg");
+        
+       new DeleteFromGroceriesServlet().service(request, response);
+       
+       ArrayList<String> ingredients = db.getGroceryListforUser(userID);
+       assertEquals(ingredients.get(0), "2 eggs");
+       assertEquals(ingredients.get(1), "1 tablespoon olive oil");
+       assertEquals(ingredients.size(), 2);
 
     } 
     
@@ -104,8 +116,8 @@ public class DeleteFromGroceriesServletTest {
     	Config.className = className;
     	
     	try {
-    		db.deleteIngredientfromGrocery(userID, "2 eggs");
     		db.deleteIngredientfromGrocery(userID, "1 tablespoon olive oil");
+    		db.deleteIngredientfromGrocery(userID, "2 eggs");
     	} catch (SQLException sqle) {
     		
     	}

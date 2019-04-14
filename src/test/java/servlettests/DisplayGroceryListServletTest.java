@@ -66,6 +66,8 @@ public class DisplayGroceryListServletTest {
 	    rd = mock(RequestDispatcher.class);
 	    
 	    when(request.getSession()).thenReturn(session);
+        when(request.getRequestDispatcher("/jsp/groceryList.jsp")).thenReturn(rd);
+
 	}
 	/*
 	 *  Test to make sure a valid new user returns correctly.
@@ -83,6 +85,8 @@ public class DisplayGroceryListServletTest {
 		assertEquals(1, ingredientList.length);
 		assertEquals(ingredientList[0], "2 eggs");
 			
+		verify(rd).forward(request, response);
+
 	} 
 	
 	@Test
@@ -91,6 +95,8 @@ public class DisplayGroceryListServletTest {
 	   Config.className = "garbage";
 	    
 	   new DisplayGroceryListServlet().service(request, response);
+	   
+	   verify(rd).forward(request, response);
 	          
 	}
 	
@@ -101,6 +107,8 @@ public class DisplayGroceryListServletTest {
 	   Config.databasePW = "notmypass";
 	   
 	   new DisplayGroceryListServlet().service(request, response);
+	   
+	   verify(rd).forward(request, response);
 	          
 	}
 	
