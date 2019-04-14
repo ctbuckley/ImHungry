@@ -390,4 +390,40 @@ public class Database {
 		ps.executeUpdate();	
 	}
 	
+	/* image links */
+	
+	public int insertLinkintoImages(String searchQuery, String imgURL) throws SQLException {
+		ps = conn.prepareStatement("INSERT INTO Images (searchQuery, imgURL) "
+				+ "VALUES (?, ?);");
+		ps.setString(1, searchQuery);
+		ps.setString(2, imgURL);
+		ps.executeUpdate();
+		
+		ps = conn.prepareStatement("SELECT MAX(imageID) FROM Images");
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		return rs.getInt("MAX(imageID)");
+	
+	}
+	
+	public ArrayList<String> getLinksfromImages(String searchQuery) throws SQLException {
+		
+		ps = conn.prepareStatement("SELECT * FROM Images WHERE searchQuery=?");
+		ps.setString(1, searchQuery);
+		rs = ps.executeQuery();
+		ArrayList<String> result = new ArrayList<String>();
+		
+		while(rs.next()) {
+			result.add(rs.getString("imgURL"));
+		}
+		return result;
+		
+	}
+	
+	public void deleteLinkfromImages(String imgURL) throws SQLException {
+		ps = conn.prepareStatement("DELETE FROM Images WHERE imgURL=?");
+		ps.setString(1, imgURL);
+		ps.executeUpdate();
+	}
+	
 }
