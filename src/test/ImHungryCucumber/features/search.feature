@@ -42,9 +42,6 @@ Scenario: Check the Transition while input wrong search number
 Scenario: Check the title of search page
 	Then the title of search page is I'm Hungry
 
-Scenario: Check that a quick access dropdown exists
-	Then there is a quick access list
-
 Scenario: Requirements for Logout Button 
 	Then there is a logout button
 
@@ -54,14 +51,14 @@ Scenario: Requirements for Grocery List Button
 Scenario: Requirements for radius input field
 	Then there is a radius input field
 
-Scenario: Check the transition with radius input 
+Scenario: Check the transition with good radius input 
 	When I enter "burger" in the search box
 	And I enter "1" in the search number box
 	And I enter "2" in the radius input field
 	And press search
 	Then I should see results for "burger"
 
-Scenario: Check the transition with radius input 
+Scenario: Check the transition with bad radius input 
 	When I enter "burger" in the search box
 	And I enter "1" in the search number box
 	And I enter "-1" in the radius input field
@@ -69,6 +66,10 @@ Scenario: Check the transition with radius input
 	Then I should be on the Search Page
 
 Scenario: Requirements for Quick Access List for Past Searches
+	When I enter "burger" in the search box
+	And I enter "1" in the search number box
+	And I enter "2" in the radius input field
+	And press search
 	Then there is a quick access list
 
 Scenario: Check that the past searches dropdown has one result
@@ -81,7 +82,6 @@ Scenario: Check that the past searches dropdown has one result
 	And I enter "1" in the search number box
 	And I enter "2" in the radius input field
 	And press search
-	And press return to search
 	Then I should see 1 history result
 
 Scenario: Check that the past searches dropdown has two result
@@ -99,8 +99,9 @@ Scenario: Check that the past searches dropdown has two result
 	And I enter "1" in the search number box
 	And I enter "2" in the radius input field
 	And press search
-	And press return to search
-	Then I should see 2 history results
+	And I should see 2 history results
+	And I click on the first item in the quick access list
+	Then I should see results for "burger"
 
 Scenario: Check that an error message appears when no restaurants found
 	When I enter "halfond" in the search box

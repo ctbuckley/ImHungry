@@ -26,16 +26,13 @@
 	Integer totalResultsRequested = (Integer) request.getSession().getAttribute("n");
 	String visibleRestaurant = "none";
 	String visibleRecipe = "none";
-	for(int i = 0; i < restaurantArr.length; i++) {
-		if(restaurantArr[i] == null) {
-			visibleRestaurant = "inherit";
-		}
+	if(restaurantArr[0] == null) {
+		visibleRestaurant = "inherit";
 	}
-	for(int i = 0; i < recipeArr.length; i++) {
-		if(recipeArr[i] == null) {
-			visibleRecipe = "inherit";
-		}
+	if(recipeArr[0] == null) {
+		visibleRecipe = "inherit";
 	}
+
 %>
 <!-- Bootstrap CSS  -->
     	<!-- Bootstrap CSS file linkage -->
@@ -54,6 +51,8 @@
 <!-- Javascript -->
 <script type="text/javascript"
 	src="/FeedMe/javascript/manageListButton.js"></script>
+	<script type="text/javascript" src="/FeedMe/javascript/login.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <title><%=searchTerm%></title>
 </head>
 
@@ -67,7 +66,7 @@
 	 	<div class="collapse navbar-collapse ml-auto" id="navbarNavDropdown">
 	   		<ul class="navbar-nav ml-auto">
 		   		<li class="nav-item active ml-auto">
-					<a class="nav-link" id="grocery_link_button" href="#">
+					<a class="nav-link" id="grocery_link_button" href="http://localhost:8080/FeedMe/DisplayGroceryList">
 						<svg class="grocry_cart" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 							<path id="grocery_icon" d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
 							<path d="M0 0h24v24H0z" fill="none"/>
@@ -85,14 +84,6 @@
 			      		<a class="dropdown-item" id="dOptionButton" href="/FeedMe/listManagement?listName=d">Do Not Show</a>     
 		        	</div>
 		    	</li>
-		   		<li class="nav-item dropdown ml-auto" id="quickAccessDropdown">
-	        		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkA" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	          			Past Searches
-	        		</a>
-	        		<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	  <!--    <a class="dropdown-item" id="quickAccessResult1" href="#">Past Search 1</a>   -->   
-	        		</div>
-	      		</li>
 	     		<li class="nav-item active ml-auto">
 	       			<a class="nav-link" id="userButton" href="http://localhost:8080/FeedMe/jsp/login.jsp">Log Out</a>
 	     		</li>
@@ -116,7 +107,6 @@
 					}
 				%>
 			</div>
-			<div class="col-sm-3 order-1"></div>
 		</div>
 
 		<!-- Search For xx  -->
@@ -156,7 +146,7 @@
 					<div class="p-4 d-flex flex-column position-static container list_element">
 							<div class="row">
 								<div class="col-10">
-									<h4 id="restaurantName<%=i%>"><strong><%=restaurantArr[i].getName()%></strong></h4>
+									<p id="restaurantName<%=i%>"><strong><%=restaurantArr[i].getName()%></strong></p>
 								</div>
 								<div class="col-2 text-right">
 									<h4 id="restaurantPrice<%=i%>"><%=restaurantPrice%></h4>
@@ -171,7 +161,7 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-6">
+								<div class="col-12">
 									<p id="restaurantAddress<%=i%>"><%=restaurantArr[i].getAddress()%></p>
 								</div>
 							</div>
@@ -204,7 +194,7 @@
 					<div class="p-4 d-flex flex-column position-static container list_element">
 							<div class="row">
 								<div class="col-10">
-									<h4 id="recipeName<%=i%>"><strong><%=recipeArr[i].getName()%></strong></h4>
+									<p id="recipeName<%=i%>"><strong><%=recipeArr[i].getName()%></strong></p>
 								</div>
 							</div>
 							<div class="row">
@@ -254,6 +244,12 @@
 				%>
 			</div>
 		</div>
+		<!-- PAST SEARCHES -->
+		<div class="pastSearches_outer_cont">
+			<h3>Past Searches</h3>
+			<div class="pastSearchesCont" id="dropdown-menu-populate">
+			</div>
+		</div>
 	</div>
 	<div class="pagination_cont">
 		<nav aria-label="Page navigation example" class="pagination_nav"
@@ -299,10 +295,7 @@
 			setStars();
 			setPreviousPagination();
 			setNextPagination();
-			console.log("Restaurant size: <%= restaurantArr.length %>");
-			console.log("Restaurant size: <%= recipeArr.length %>");
-			console.log("Restaurant results: <%= visibleRestaurant%>");
-			console.log("Recipe results: <%= visibleRecipe %>");
+			loadSearchHistory();
 		}
 		
 		function setPreviousPagination() {

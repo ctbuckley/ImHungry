@@ -344,7 +344,11 @@ public class Database {
 		
 	}
 	
-	/* grocery list */
+	/* 
+	 * *******************************************************************************
+	 * GROCERY LIST 
+	 * *******************************************************************************
+	 */
 	
 	public ArrayList<String> getGroceryListforUser(int userID) throws SQLException{
 		

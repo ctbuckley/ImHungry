@@ -69,31 +69,34 @@ Then(/^I enter "([^"]*)" in the radius input field$/) do |radius|
 end
 
 Then(/^I should be on the Search Page$/) do
-  sleep(5)
 	expect(page.current_url).to include('http://localhost:8080/FeedMe/jsp/search.jsp')
 end
 
 Then(/^I should be on the Search Page after servlet$/) do
-  sleep(2)
 	expect(page.current_url).to include('http://localhost:8080/FeedMe/search')
 end
 
 Then(/^there is a quick access list$/) do
-  expect(page.find_by_id("quickAccessDropdown", visible: false))
+  expect(page.find_by_id("dropdown-menu-populate"))
 end
 
 Then (/^I should visit the search page$/) do
-  sleep(1)
   visit "http://localhost:8080/FeedMe/jsp/search.jsp"
 end
 
 Then(/^I should see 1 history result$/) do
-  expect(page.find_by_id("quickAccessResult0", visible: false))
+  expect(page.find_by_id("quickAccessResult0"))
+  expect(page).to have_css("figure.gallery_item", :count => 20)
 end
 
 Then(/^I should see 2 history results$/) do
-  expect(page.find_by_id("quickAccessResult0", visible: false))
-  expect(page.find_by_id("quickAccessResult1", visible: false))
+  expect(page.find_by_id("quickAccessResult0"))
+  expect(page.find_by_id("quickAccessResult1"))
+  expect(page).to have_css("figure.gallery_item", :count => 30)
+end
+
+Then(/^I click on the first item in the quick access list$/) do
+  page.find_by_id("quickAccessResult0").click()
 end
 
 Then(/^I should see a recipe error message$/) do
