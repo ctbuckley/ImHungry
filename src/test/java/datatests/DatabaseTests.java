@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import data.Config;
 import data.Database;
 import data.Recipe;
 import data.Restaurant;
@@ -110,6 +111,8 @@ public class DatabaseTests {
 	
 	@Test
 	public void databaseListItemTest() throws ClassNotFoundException, SQLException {
+		
+		Config c = new Config();
 		
 		//insert 3 recipes and 3 restaurants for testing
 		ArrayList<String> ingredients = new ArrayList<String>();
@@ -249,6 +252,9 @@ public class DatabaseTests {
 		db.deleteItemfromList(userID, itemID5, "To Explore");
 		db.deleteItemfromList(userID, itemID6, "Do Not Show");
 		db.dropTable("Lists");
+		
+		db.getItemId(recipe1);
+		db.getItemId(restaurant1);
 		
 		db.deleteItemfromItem(itemID1);
 		db.deleteItemfromItem(itemID2);

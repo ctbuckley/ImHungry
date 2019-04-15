@@ -61,16 +61,14 @@ public class ResultsPageServlet extends HttpServlet {
 			 * If no UserList array is stored in session, the server considers the user to be a new user,
 			 *  and makes new userList array for this session. 
 			 * Else, retrieve UserList array from session.
-			 */
-			if (userLists == null) {
-				
-				userLists = new UserList[3]; 
-				for(int i = 0; i < 3; i++) {
-					userLists[i] = db.getUserList(username, i);
-				}
-				
-				session.setAttribute("userLists", userLists);
+			 */	
+			userLists = new UserList[3]; 
+			for(int i = 0; i < 3; i++) {
+				userLists[i] = db.getUserList(username, i);
 			}
+			
+			session.setAttribute("userLists", userLists);
+			
 			
 			UserList favoriteList = userLists[0];
 			UserList doNotShowList = userLists[1];
