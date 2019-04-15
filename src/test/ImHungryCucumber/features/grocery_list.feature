@@ -16,7 +16,6 @@ Scenario: Check the features of the grocery List
     And I should see results for "burger"
     And I click on the grocery link
     And I should see the grocery list title
-    And I should see the clear list button
     And I should see the log out link
     Then I should see the return to search link
 

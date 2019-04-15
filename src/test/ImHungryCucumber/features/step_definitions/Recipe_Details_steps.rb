@@ -7,10 +7,10 @@ Given(/^I am on the Recipe Details Page$/) do
   page.find_by_id("Recipe0").click()
 end
 Then(/^there is recipe name$/) do
-  page.should have_content("Pear and Gorgonzola Cheese Pizza");
+  expect(page.find_by_id('recipeName'))
 end
 Then(/^there is recipe picture$/) do
-    expect(page.find('#recipePicture')['src']).to have_content('https://images.media-allrecipes.com/userphotos/560x315/2258878.jpg');
+    expect(page.find('#recipePicture'));
 end
 Then(/^there is prep time$/) do
     page.should have_content("Prep Time");    
