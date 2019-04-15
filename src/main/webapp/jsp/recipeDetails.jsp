@@ -21,9 +21,13 @@
 	<%@page import="data.*"%>
     <% 
     String resultsOrList = (String) request.getSession().getAttribute("resultsOrList");
-	Recipe recipeVal = (Recipe) request.getAttribute("recipeVal");
+	Recipe recipeVal = (Recipe) request.getSession().getAttribute("recipeVal");
 	
-    int arrNum = Integer.parseInt((String) request.getParameter("arrNum"));
+	Database db = new Database();
+	int itemID = db.insertRecipe(recipeVal);
+	
+    int arrNum = (int)request.getSession().getAttribute("arrNum");
+
 	if(resultsOrList.equals("list")){
 		ArrayList<Recipe> rest = (ArrayList<Recipe>) request.getSession().getAttribute("recipes");
 		recipeVal = rest.get(arrNum);
