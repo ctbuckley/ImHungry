@@ -61,7 +61,6 @@ function addUser() {
 function onLogIn(username) {
 	//set up any javascript we need for loading the new user
 	
-	
 	sessionStorage.setItem("loggedIn", true);
 	sessionStorage.setItem("username", username);
 	
@@ -161,8 +160,15 @@ function loadSearchHistory() {
 	    			var query = sessionStorage.getItem("searchQuery" + i);
 	    			var numResults = sessionStorage.getItem("numResults" + i);
 	    			imgLinks2 = sessionStorage.getItem("imgLinks" + i);
-	    			imgLinks = imgLinks2.split(",");
 	    			
+	    			imgLinks = imgLinks2.split(",http");
+	    			
+	    			for (var u = 1; u < 10; u++) {
+	    				var temp = imgLinks[u];
+	    				var newLink = "http" + temp;
+	    				imgLinks[u] = newLink;
+	    				
+	    			}
 	    			
 	    			var link = "http://localhost:8080/FeedMe/results?q=" + query + "&n=" + numResults + "&radiusInput=" + radius + "&pageNumber=1";
 	    					

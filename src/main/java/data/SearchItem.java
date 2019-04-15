@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 public class SearchItem implements Serializable{
    public int searchID;
-    public int userID;
-    public int numResults;
-    public int radius;
+   public int userID;
+   public int numResults;
+   public int radius;
    public String searchQuery;
    public ArrayList<String> imgURLs;
 
@@ -20,5 +20,4 @@ public class SearchItem implements Serializable{
        this.searchQuery = searchQuery;
        this.imgURLs = imgIn;
    }
-   
 }
