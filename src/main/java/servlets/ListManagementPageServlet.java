@@ -67,8 +67,10 @@ public class ListManagementPageServlet extends HttpServlet {
 						}else {
 							listName = "To Explore";
 						}
+						
 						int itemID = db.getItemId(fromList.getRecipes().get(arrNum));
-						db.deleteItemfromList(rs.getInt("userID"), itemID, listName);
+						int userID = rs.getInt("userID");
+						db.deleteItemfromList(userID, itemID, listName);
 						
 						fromList.remove(fromList.getRecipes().get(arrNum));
 					}
