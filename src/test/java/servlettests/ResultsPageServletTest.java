@@ -103,11 +103,9 @@ public class ResultsPageServletTest {
 		
 		verify(rd).forward(request, response);
 		verify(session).setAttribute(ArgumentMatchers.eq("resultsOrList"), ArgumentMatchers.eq("results"));
-		verify(request).setAttribute(ArgumentMatchers.eq("imageUrlVec"), ArgumentMatchers.any());
-		verify(request).setAttribute(ArgumentMatchers.eq("restaurantArr"), ArgumentMatchers.any());
-		verify(request).setAttribute(ArgumentMatchers.eq("recipeArr"), ArgumentMatchers.any());
-		verify(request).setAttribute(ArgumentMatchers.eq("searchTerm"), ArgumentMatchers.eq("Chicken"));
-		verify(request).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(3));
+		verify(session).setAttribute(ArgumentMatchers.eq("imageUrlVec"), ArgumentMatchers.any());
+		verify(session).setAttribute(ArgumentMatchers.eq("searchTerm"), ArgumentMatchers.eq("Chicken"));
+		verify(session).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(3));
 		verify(session).setAttribute(ArgumentMatchers.eq("restaurantResults"), ArgumentMatchers.any());
 		verify(session).setAttribute(ArgumentMatchers.eq("recipeResults"), ArgumentMatchers.any());
 
@@ -127,11 +125,9 @@ public class ResultsPageServletTest {
 		
 		verify(rd).forward(request, response);
 		verify(session).setAttribute(ArgumentMatchers.eq("resultsOrList"), ArgumentMatchers.eq("results"));
-		verify(request).setAttribute(ArgumentMatchers.eq("imageUrlVec"), ArgumentMatchers.any());
-		verify(request).setAttribute(ArgumentMatchers.eq("restaurantArr"), ArgumentMatchers.any());
-		verify(request).setAttribute(ArgumentMatchers.eq("recipeArr"), ArgumentMatchers.any());
-		verify(request).setAttribute(ArgumentMatchers.eq("searchTerm"), ArgumentMatchers.eq("Chicken"));
-		verify(request).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(3));
+		verify(session).setAttribute(ArgumentMatchers.eq("imageUrlVec"), ArgumentMatchers.any());
+		verify(session).setAttribute(ArgumentMatchers.eq("searchTerm"), ArgumentMatchers.eq("Chicken"));
+		verify(session).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(3));
 		verify(session).setAttribute(ArgumentMatchers.eq("restaurantResults"), ArgumentMatchers.any());
 		verify(session).setAttribute(ArgumentMatchers.eq("recipeResults"), ArgumentMatchers.any());
 
@@ -155,11 +151,9 @@ public class ResultsPageServletTest {
 		
 		verify(rd).forward(request, response);
 		verify(session).setAttribute(ArgumentMatchers.eq("resultsOrList"), ArgumentMatchers.eq("results"));
-		verify(request).setAttribute(ArgumentMatchers.eq("imageUrlVec"), ArgumentMatchers.any());
-		verify(request).setAttribute(ArgumentMatchers.eq("restaurantArr"), ArgumentMatchers.any());
-		verify(request).setAttribute(ArgumentMatchers.eq("recipeArr"), ArgumentMatchers.any());
-		verify(request).setAttribute(ArgumentMatchers.eq("searchTerm"), ArgumentMatchers.eq("Chicken"));
-		verify(request).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(3));
+		verify(session).setAttribute(ArgumentMatchers.eq("imageUrlVec"), ArgumentMatchers.any());
+		verify(session).setAttribute(ArgumentMatchers.eq("searchTerm"), ArgumentMatchers.eq("Chicken"));
+		verify(session).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(3));
 		verify(session).setAttribute(ArgumentMatchers.eq("restaurantResults"), ArgumentMatchers.any());
 		verify(session).setAttribute(ArgumentMatchers.eq("recipeResults"), ArgumentMatchers.any());
 
@@ -184,11 +178,9 @@ public class ResultsPageServletTest {
 		
 		verify(rd).forward(request, response);
 		verify(session).setAttribute(ArgumentMatchers.eq("resultsOrList"), ArgumentMatchers.eq("results"));
-		verify(request).setAttribute(ArgumentMatchers.eq("imageUrlVec"), ArgumentMatchers.any());
-		verify(request).setAttribute(ArgumentMatchers.eq("restaurantArr"), ArgumentMatchers.any());
-		verify(request).setAttribute(ArgumentMatchers.eq("recipeArr"), ArgumentMatchers.any());
-		verify(request).setAttribute(ArgumentMatchers.eq("searchTerm"), ArgumentMatchers.eq("Chicken"));
-		verify(request).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(3));
+		verify(session).setAttribute(ArgumentMatchers.eq("imageUrlVec"), ArgumentMatchers.any());
+		verify(session).setAttribute(ArgumentMatchers.eq("searchTerm"), ArgumentMatchers.eq("Chicken"));
+		verify(session).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(3));
 		verify(session).setAttribute(ArgumentMatchers.eq("restaurantResults"), ArgumentMatchers.any());
 		verify(session).setAttribute(ArgumentMatchers.eq("recipeResults"), ArgumentMatchers.any());
 
@@ -209,11 +201,9 @@ public class ResultsPageServletTest {
 		
 		verify(rd).forward(request, response);
 		verify(session).setAttribute(ArgumentMatchers.eq("resultsOrList"), ArgumentMatchers.eq("results"));
-		verify(request).setAttribute(ArgumentMatchers.eq("imageUrlVec"), ArgumentMatchers.any());
-		verify(request).setAttribute(ArgumentMatchers.eq("restaurantArr"), ArgumentMatchers.any());
-		verify(request).setAttribute(ArgumentMatchers.eq("recipeArr"), ArgumentMatchers.any());
-		verify(request).setAttribute(ArgumentMatchers.eq("searchTerm"), ArgumentMatchers.eq("Chicken"));
-		verify(request).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(3));
+		verify(session).setAttribute(ArgumentMatchers.eq("imageUrlVec"), ArgumentMatchers.any());
+		verify(session).setAttribute(ArgumentMatchers.eq("searchTerm"), ArgumentMatchers.eq("Chicken"));
+		verify(session).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(3));
 		verify(session).setAttribute(ArgumentMatchers.eq("restaurantResults"), ArgumentMatchers.any());
 		verify(session).setAttribute(ArgumentMatchers.eq("recipeResults"), ArgumentMatchers.any());		
 	}
@@ -233,11 +223,9 @@ public class ResultsPageServletTest {
 		
 		verify(rd).forward(request, response);
 		verify(session).setAttribute(ArgumentMatchers.eq("resultsOrList"), ArgumentMatchers.eq("results"));
-		verify(request).setAttribute(ArgumentMatchers.eq("imageUrlVec"), ArgumentMatchers.any());
-		verify(request).setAttribute(ArgumentMatchers.eq("restaurantArr"), ArgumentMatchers.any());
-		verify(request).setAttribute(ArgumentMatchers.eq("recipeArr"), ArgumentMatchers.any());
-		verify(request).setAttribute(ArgumentMatchers.eq("searchTerm"), ArgumentMatchers.eq("Chicken"));
-		verify(request).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(3));
+		verify(session).setAttribute(ArgumentMatchers.eq("imageUrlVec"), ArgumentMatchers.any());
+		verify(session).setAttribute(ArgumentMatchers.eq("searchTerm"), ArgumentMatchers.eq("Chicken"));
+		verify(session).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(3));
 		
 		verify(session).setAttribute(ArgumentMatchers.eq("restaurantResults"), ArgumentMatchers.any());
 		verify(session).setAttribute(ArgumentMatchers.eq("recipeResults"), ArgumentMatchers.any());		
@@ -259,11 +247,9 @@ public class ResultsPageServletTest {
 		
 		verify(rd).forward(request, response);
 		verify(session).setAttribute(ArgumentMatchers.eq("resultsOrList"), ArgumentMatchers.eq("results"));
-		verify(request).setAttribute(ArgumentMatchers.eq("imageUrlVec"), ArgumentMatchers.any());
-		verify(request).setAttribute(ArgumentMatchers.eq("restaurantArr"), ArgumentMatchers.any());
-		verify(request).setAttribute(ArgumentMatchers.eq("recipeArr"), ArgumentMatchers.any());
-		verify(request).setAttribute(ArgumentMatchers.eq("searchTerm"), ArgumentMatchers.eq("Chicken"));
-		verify(request).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(3));
+		verify(session).setAttribute(ArgumentMatchers.eq("imageUrlVec"), ArgumentMatchers.any());
+		verify(session).setAttribute(ArgumentMatchers.eq("searchTerm"), ArgumentMatchers.eq("Chicken"));
+		verify(session).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(3));
 		verify(session).setAttribute(ArgumentMatchers.eq("restaurantResults"), ArgumentMatchers.any());
 		verify(session).setAttribute(ArgumentMatchers.eq("recipeResults"), ArgumentMatchers.any());	
 		verify(session).setAttribute(ArgumentMatchers.eq("pageCount"), ArgumentMatchers.eq(1));
@@ -286,18 +272,18 @@ public class ResultsPageServletTest {
 		
 		verify(rd).forward(request, response);
 		verify(session).setAttribute(ArgumentMatchers.eq("resultsOrList"), ArgumentMatchers.eq("results"));
-		verify(request).setAttribute(ArgumentMatchers.eq("imageUrlVec"), ArgumentMatchers.any());
+		verify(session).setAttribute(ArgumentMatchers.eq("imageUrlVec"), ArgumentMatchers.any());
 		
-		verify(request).setAttribute(ArgumentMatchers.eq("restaurantArr"), argCaptor.capture());
+		verify(session).setAttribute(ArgumentMatchers.eq("restaurantResults"), argCaptor.capture());
 		Restaurant[] restaurantArr = (Restaurant[]) argCaptor.getValue();
 		assertEquals(10, restaurantArr.length);
 		
-		verify(request).setAttribute(ArgumentMatchers.eq("recipeArr"), argCaptor.capture());
+		verify(session).setAttribute(ArgumentMatchers.eq("recipeResults"), argCaptor.capture());
 		Recipe[] recipeArr = (Recipe[]) argCaptor.getValue();
 		assertEquals(10, recipeArr.length);
 
-		verify(request).setAttribute(ArgumentMatchers.eq("searchTerm"), ArgumentMatchers.eq("Chicken"));
-		verify(request).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(10));
+		verify(session).setAttribute(ArgumentMatchers.eq("searchTerm"), ArgumentMatchers.eq("Chicken"));
+		verify(session).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(10));
 		
 		verify(session).setAttribute(ArgumentMatchers.eq("restaurantResults"), ArgumentMatchers.any());
 		verify(session).setAttribute(ArgumentMatchers.eq("recipeResults"), ArgumentMatchers.any());	
@@ -326,18 +312,18 @@ public class ResultsPageServletTest {
 		
 		verify(rd).forward(request, response);
 		verify(session).setAttribute(ArgumentMatchers.eq("resultsOrList"), ArgumentMatchers.eq("results"));
-		verify(request).setAttribute(ArgumentMatchers.eq("imageUrlVec"), ArgumentMatchers.any());
+		verify(session).setAttribute(ArgumentMatchers.eq("imageUrlVec"), ArgumentMatchers.any());
 		
-		verify(request).setAttribute(ArgumentMatchers.eq("restaurantArr"), argCaptor.capture());
+		verify(session).setAttribute(ArgumentMatchers.eq("restaurantResults"), argCaptor.capture());
 		Restaurant[] restaurantArr = (Restaurant[]) argCaptor.getValue();
 		assertEquals(1, restaurantArr.length);
 		
-		verify(request).setAttribute(ArgumentMatchers.eq("recipeArr"), argCaptor.capture());
+		verify(session).setAttribute(ArgumentMatchers.eq("recipeResults"), argCaptor.capture());
 		Recipe[] recipeArr = (Recipe[]) argCaptor.getValue();
 		assertEquals(1, recipeArr.length);
 
-		verify(request).setAttribute(ArgumentMatchers.eq("searchTerm"), ArgumentMatchers.eq("Chicken"));
-		verify(request).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(1));
+		verify(session).setAttribute(ArgumentMatchers.eq("searchTerm"), ArgumentMatchers.eq("Chicken"));
+		verify(session).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(1));
 		verify(session).setAttribute(ArgumentMatchers.eq("restaurantResults"), ArgumentMatchers.any());
 		verify(session).setAttribute(ArgumentMatchers.eq("recipeResults"), ArgumentMatchers.any());	
 		verify(session).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(1));	
