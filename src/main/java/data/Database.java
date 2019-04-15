@@ -397,6 +397,40 @@ public class Database {
 		return items;
 	}
 	
+	public UserList getUserList(String username, int listIndex) throws SQLException {
+		
+		ResultSet rs = this.getUserfromUsers(username);
+		rs.next();
+		int userID = rs.getInt("userID");
+		
+		String listName = "";
+		
+		if (listIndex == 0) {
+			listName = "Favorites";
+		} else if (listIndex == 2) {
+			listName = "Do Not Show";
+		} else {
+			listName = "To Explore";
+		}
+		
+		ArrayList<Integer> itemIDs = getItemsfromList(userID, listName);
+		UserList result = new UserList();
+		
+		for(int i=0; i<itemIDs.size(); i++) {
+			int type = getItemType(itemIDs.get(i));
+			
+			if(type==0) {
+				result.add(getRecipeInfo(itemIDs.get(i)));
+			}else{
+				result.add(getRestaurantInfo(itemIDs.get(i)));
+			}
+			
+		}
+		
+		return result;
+	}
+	
+	
 	public void deleteIngredients(int itemID) throws SQLException{
 		ps = conn.prepareStatement("SELECT * FROM Ingredients WHERE itemID=?");
 		ps.setInt(1, itemID);
