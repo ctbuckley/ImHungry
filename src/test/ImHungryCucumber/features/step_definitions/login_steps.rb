@@ -74,7 +74,7 @@ When(/^I click on the guest log in button$/) do
   find('#guestLogInButton').click
 end
 
-
-
-
-
+Then(/^I click on the log out button$/) do
+	page.find_by_id("navToggler").click();
+    page.find_by_id('userButton').click
+end

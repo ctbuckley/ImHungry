@@ -156,13 +156,13 @@
 		    	            	<input type="hidden" name="recOrRest" value="rest">
 		        	        	<input type="hidden" name="arrNum" value="<%=j%>">
 		            	    	<% request.setAttribute("item", restaurantArr.get(j)); %>
-		                		<select id="moveDropDown" class="form-control" name="opType">
+		                		<select id="moveDropDownRest<%=j %>" class="form-control" name="opType">
 			                		<option value="f">Favorites</option>
 		    	            		<option value="t">To Explore</option>
 		        	        		<option value="d">Do Not Show</option>
 		            	    		<option value="r">Trash</option>
 		                		</select>
-			                	<button id="moveButton" class="form-control" type="submit">Move</button>
+			                	<button id="moveButtonRest<%=j %>" class="form-control" type="submit">Move</button>
 							</form>
 		    		</div>
 	    		</li>
@@ -240,13 +240,13 @@
 		    	            	<input type="hidden" name="recOrRest" value="rec">
 		        	        	<input type="hidden" name="arrNum" value="<%=k%>">
 		            	    	<% request.setAttribute("item", recipeArr.get(k)); %>
-		                		<select id="moveDropDown" class="form-control" name="opType">
+		                		<select id="moveDropDownRec<%=k %>" class="form-control" name="opType">
 			                		<option value="f">Favorites</option>
 		    	            		<option value="t">To Explore</option>
 		        	        		<option value="d">Do Not Show</option>
 		            	    		<option value="r">Trash</option>
 		                		</select>
-			                	<button id="moveButton" class="form-control" type="submit">Move</button>
+			                	<button id="moveButtonRec<%=k %>" class="form-control" type="submit">Move</button>
 							</form>
 		    		</div>    	
         	<%k++; }%>

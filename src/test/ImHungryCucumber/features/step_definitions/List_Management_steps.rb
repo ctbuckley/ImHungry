@@ -1,53 +1,48 @@
 Given(/^I am on the Search Page$/) do
   visit "http://localhost:8080/FeedMe/jsp/search.jsp"
   fill_in('queryInput', :with => "pizza")
-  fill_in('numResultsInput', :with => "2")
+  fill_in('numResultsInput', :with => "3")
   fill_in('radiusInput', :with => "12")
   page.find_by_id("feedMeButton").click()
  end
  When(/^I add a restaurant to Favorite list$/) do
-  sleep(3)
+  sleep(1)
   page.find_by_id("Restaurant0").click()
   page.select 'Favorites', from: "dropDownBar"
+  sleep(1)
   page.find_by_id("addToList").click()
-  sleep(5)
+  sleep(1)
   page.find_by_id("backToResults").click()
  end
 
  When(/^I add a recipe to Favorite list$/) do
-  sleep(3)
+  sleep(1)
   page.find_by_id("Recipe0").click()
   page.select 'Favorites', from: "dropDownBar"
   page.find_by_id("addToList").click()
-  sleep(5)
   page.find_by_id("backToResults").click()
  end
 
  When(/^I add the second restaurant to Favorite list$/) do
-  sleep(5)
+  sleep(1)
   page.find_by_id("Restaurant1").click()
   page.select 'Favorites', from: "dropDownBar"
-  sleep(5)
   page.find_by_id("addToList").click()
-  sleep(5)
   page.find_by_id("backToResults").click()
  end
 
  When(/^I add the second recipe to Favorite list$/) do
-  sleep(5)
+  sleep(1)
   page.find_by_id("Recipe1").click()
   page.select 'Favorites', from: "dropDownBar"
-  sleep(5)
   page.find_by_id("addToList").click()
-  sleep(5)
   page.find_by_id("backToResults").click()
  end
 
  When(/^I add a recipe to Do Not Show list$/) do
-  page.find_by_id("Recipe0").click()
+  page.find_by_id("Recipe2").click()
   page.select 'Do Not Show', from: "dropDownBar"
   page.find_by_id("addToList").click()
-  sleep(5)
   page.find_by_id("backToResults").click()
  end
 
@@ -55,7 +50,7 @@ Given(/^I am on the Search Page$/) do
   page.find_by_id("navToggler").click();
   page.find_by_id("navbarDropdownMenuLink").click();
   page.find_by_id("fOptionButton").click();
-  sleep(5)
+  sleep(1)
  end
 
  Then(/^there is restaurant stars$/) do
@@ -83,14 +78,19 @@ Given(/^I am on the Search Page$/) do
   page.should have_selector("button[id=returnToSearch]")
  end
  Then(/^there is move dropdown box to select predefined list$/) do
-  page.should have_selector("select[id=moveDropDown]")
+  page.should have_selector("select[id=moveDropDownRest0]")
  end
- Then(/^there is Move button$/) do
+ Then(/^there is Restaurant Move button$/) do
+  page.should have_selector("button[id=moveButtonRest0]")
+ end
+
+ Then(/^there is Recipe Move button$/) do
   page.should have_selector("button[id=moveButton]")
  end
+
  When(/^I move the restaurant to To Explore list$/) do
-  page.select 'To Explore', from: "moveDropDown"
-  page.find_by_id("moveButton").click()
+  page.select 'To Explore', from: "moveDropDownRest0"
+  page.find_by_id("moveButtonRest0").click()
  end
  When(/^I go to Do Not Show list management page$/) do
   page.find_by_id("navToggler").click();
@@ -98,9 +98,8 @@ Given(/^I am on the Search Page$/) do
   page.find_by_id("dOptionButton").click();
  end
  When(/^I trash the recipe$/) do
-  page.select 'Trash', from: "moveDropDown"
-  page.find_by_id("moveButton").click()
-  sleep(5)
+  page.select 'Trash', from: "moveDropDownRec0"
+  page.find_by_id("moveButtonRec0").click()
  end
  Then (/^there is a recipe name in the card$/) do
   page.find_by_id("recipeName0")
@@ -112,7 +111,6 @@ Given(/^I am on the Search Page$/) do
   expect(page).to have_no_content("Stars");
  end
  Then(/^there is no cook time$/) do
-  sleep(5)
   expect(page).to have_no_content("Cook Time");
  end
  Then(/^there is no prep time$/) do
@@ -121,7 +119,7 @@ Given(/^I am on the Search Page$/) do
  When(/^I go to To Explore list management page$/) do
   page.find_by_id("navToggler").click();
   page.find_by_id("navbarDropdownMenuLink").click();
-  sleep(5)
+  sleep(1)
   page.find_by_id("tOptionButton").click();
  end 
  When(/^I click on the restaurant in list management page$/) do

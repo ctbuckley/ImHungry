@@ -105,8 +105,8 @@ Scenario: Check that the user lists persist when the user logs out
 	And I should see results for "ramen"
     And I add a recipe to Favorite list
     And I click on the log out button
-    And I enter in "testUsername12" in the username field
-    And I enter in "testPassword12" in the password field
+    And I enter in "testUsername13" in the username field
+    And I enter in "testPassword13" in the password field
     And I click on the log in button
     And I enter "chicken" in the search box
 	And I enter "1" in the search number box
@@ -133,8 +133,8 @@ Scenario: Check that the grocery list persist when the user logs out
 	And I click on the grocery link
 	And I should see the first ingredient in the grocery list
     And I click on the log out button
-    And I enter in "testUsername12" in the username field
-    And I enter in "testPassword12" in the password field
+    And I enter in "testUsername14" in the username field
+    And I enter in "testPassword14" in the password field
     And I click on the log in button
     And I enter "chicken" in the search box
 	And I enter "1" in the search number box
