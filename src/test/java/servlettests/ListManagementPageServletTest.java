@@ -163,7 +163,7 @@ public class ListManagementPageServletTest {
         userLists[1].add(restaurant1);
         
         itemID = db.insertRestaurant(restaurant1);
-        db.insertItemintoList(userID, itemID, "To Explore");
+        db.insertItemintoList(userID, itemID, "Do Not Show");
         
         when(session.getAttribute("userLists")).thenReturn(userLists);
         
@@ -197,7 +197,7 @@ public class ListManagementPageServletTest {
         userLists[2].add(recipe1);
         
         itemID = db.insertRecipe(recipe1);
-        db.insertItemintoList(userID, itemID, "Do Not Show");
+        db.insertItemintoList(userID, itemID, "To Explore");
         
         when(session.getAttribute("userLists")).thenReturn(userLists);
         
@@ -272,7 +272,7 @@ public class ListManagementPageServletTest {
         when(session.getAttribute("username")).thenReturn("testUser");
         
         itemID = db.insertRecipe(recipe1);
-        db.insertItemintoList(userID, itemID, "Do Not Show");
+        db.insertItemintoList(userID, itemID, "To Explore");
         
         userLists[2].add(recipe1);
         when(session.getAttribute("userLists")).thenReturn(userLists);
@@ -315,7 +315,7 @@ public class ListManagementPageServletTest {
         userLists[2].add(recipe1);
         
         itemID = db.insertRecipe(recipe1);
-        db.insertItemintoList(userID, itemID, "Do Not Show");
+        db.insertItemintoList(userID, itemID, "To Explore");
         
         when(session.getAttribute("userLists")).thenReturn(userLists);
         
@@ -426,7 +426,7 @@ public class ListManagementPageServletTest {
         when(session.getAttribute("username")).thenReturn("testUser");
         
         itemID = db.insertRestaurant(restaurant1);
-        db.insertItemintoList(userID, itemID, "Do Not Show");
+        db.insertItemintoList(userID, itemID, "To Explore");
         
         userLists[2].add(restaurant1);
         when(session.getAttribute("userLists")).thenReturn(userLists);
