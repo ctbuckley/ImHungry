@@ -332,7 +332,6 @@
 	        $(this).removeAttr('data-previndex');
 	        
 	        var listName = "<%= listName %>";
-	        
 
 	        $.ajax({
 	        	type: "POST",

@@ -430,6 +430,10 @@ public class Database {
 		return result;
 	}
 	
+	public void dropTable(String tableName) throws SQLException{
+		ps = conn.prepareStatement("DELETE FROM " + tableName + ";");
+		ps.executeUpdate();
+	}
 	
 	public void deleteIngredients(int itemID) throws SQLException{
 		ps = conn.prepareStatement("SELECT * FROM Ingredients WHERE itemID=?");

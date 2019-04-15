@@ -17,7 +17,7 @@ public class ListManagementPageServlet extends HttpServlet {
 	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		UserList[] userLists = (UserList[]) session.getAttribute("userLists");
+		UserList[] userLists = (UserList[])session.getAttribute("userLists");
 		int listIndex = -1;
 		
 		try {

@@ -248,8 +248,7 @@ public class DatabaseTests {
 		db.deleteItemfromList(userID, itemID4, "Favorites");
 		db.deleteItemfromList(userID, itemID5, "To Explore");
 		db.deleteItemfromList(userID, itemID6, "Do Not Show");
-		db.deleteItemfromList(userID, itemID7, "Favorites");
-		db.deleteItemfromList(userID, itemID8, "Favorites");
+		db.dropTable("Lists");
 		
 		db.deleteItemfromItem(itemID1);
 		db.deleteItemfromItem(itemID2);
