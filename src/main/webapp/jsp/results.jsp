@@ -9,15 +9,15 @@
 	// set the session to declare whether it is on results page or list management page
 	request.getSession().setAttribute("resultsOrList", "results");
 	// get the google image data from the google custom search api
-	String[] imageUrlVec = (String[]) request.getAttribute("imageUrlVec");
+	String[] imageUrlVec = (String[]) request.getSession().getAttribute("imageUrlVec");
 	// get the search term from the request
-	String searchTerm = (String) request.getAttribute("searchTerm");
+	String searchTerm = (String) request.getSession().getAttribute("searchTerm");
 	// get the search number from the request 
-	Integer resultCount = (Integer) request.getAttribute("resultCount");
+	Integer resultCount = (Integer) request.getSession().getAttribute("resultCount");
 	// get the array of the restaurants from the request 
-	Restaurant[] restaurantArr = (Restaurant[]) request.getAttribute("restaurantArr");
+	Restaurant[] restaurantArr = (Restaurant[]) request.getSession().getAttribute("restaurantResults");
 	// get the array of recipes from the request
-	Recipe[] recipeArr = (Recipe[]) request.getAttribute("recipeArr");
+	Recipe[] recipeArr = (Recipe[]) request.getSession().getAttribute("recipeResults");
 	// get the number of pages for pagination
 	Integer resultPageCount = (Integer) request.getSession().getAttribute("pageCount");
 	String pageNumberRaw = request.getParameter("pageNumber");

@@ -18,12 +18,12 @@
     <% 
     // To check if we came from results page or list page
     String resultsOrList = (String) request.getSession().getAttribute("resultsOrList");
-	Restaurant restaurantVal = (Restaurant) request.getAttribute("restaurantVal");
+	Restaurant restaurantVal = (Restaurant) request.getSession().getAttribute("restaurantVal");
     
 	Database db = new Database();
 	int itemID = db.insertRestaurant(restaurantVal);
 	
-	int arrNum = Integer.parseInt((String) request.getParameter("arrNum"));
+	int arrNum = Integer.parseInt((String) request.getSession().getAttribute("arrNum"));
     // Check to see what the previous page was
 	if(resultsOrList.equals("list")){
 		// Get data from session

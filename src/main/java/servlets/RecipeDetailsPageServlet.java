@@ -63,8 +63,8 @@ public class RecipeDetailsPageServlet extends HttpServlet {
 			session.setAttribute("userLists", userLists);
 		}
 		// Pass recipe object and arrNum to jsp
-		request.setAttribute("recipeVal", recipeResults[arrNum]);
-		request.setAttribute("arrNum", arrNum);
+		session.setAttribute("recipeVal", recipeResults[arrNum]);
+		session.setAttribute("arrNum", arrNum);
 
 		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/recipeDetails.jsp");
 		dispatch.forward(request,  response);				
