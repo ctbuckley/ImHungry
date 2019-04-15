@@ -23,14 +23,15 @@
     String resultsOrList = (String) request.getSession().getAttribute("resultsOrList");
 	Recipe recipeVal = (Recipe) request.getAttribute("recipeVal");
 	
-	Database db = new Database();
-	int itemID = db.insertRecipe(recipeVal);
-	
     int arrNum = Integer.parseInt((String) request.getParameter("arrNum"));
 	if(resultsOrList.equals("list")){
 		ArrayList<Recipe> rest = (ArrayList<Recipe>) request.getSession().getAttribute("recipes");
 		recipeVal = rest.get(arrNum);
 	}
+	
+	Database db = new Database();
+	int itemID = db.insertRecipe(recipeVal);
+	request.getSession().setAttribute("itemID", itemID);
     %>
     <!-- Title -->
     <title>Recipe Details</title>
@@ -102,7 +103,7 @@
 		      <div id="ingredientsBloc" class="">
 		      	<div class="ingredients_header">
 	      			<h2 class="recipe_section_title ingredients_title">Ingredients</h2>
-	      			<button id="addAllBtn" class="btn btn-outline-primary">Add All Ingredients</button>
+	      			<!-- <button id="addAllBtn" class="btn btn-outline-primary">Add All Ingredients</button> -->
 	      			<button id="confirmAddBtn" class="btn btn-outline-primary" onclick="addSelectedToGroceryList();">Add Selected</button>
 		      	</div>
 		        <ul id="ingredients" class="r-inline-flex clearfix">

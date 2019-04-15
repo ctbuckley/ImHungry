@@ -19,9 +19,6 @@
     // To check if we came from results page or list page
     String resultsOrList = (String) request.getSession().getAttribute("resultsOrList");
 	Restaurant restaurantVal = (Restaurant) request.getAttribute("restaurantVal");
-    
-	Database db = new Database();
-	int itemID = db.insertRestaurant(restaurantVal);
 	
 	int arrNum = Integer.parseInt((String) request.getParameter("arrNum"));
     // Check to see what the previous page was
@@ -32,6 +29,10 @@
 		// Put restaurant item into local variable
 		restaurantVal = rest.get(arrNum);
 	}
+    
+	Database db = new Database();
+	int itemID = db.insertRestaurant(restaurantVal);
+	request.getSession().setAttribute("itemID", itemID);
     %>
     
     
