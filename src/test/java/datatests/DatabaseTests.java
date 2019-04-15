@@ -12,6 +12,7 @@ import data.Database;
 import data.Recipe;
 import data.Restaurant;
 import data.SearchItem;
+import data.UserList;
 
 import static org.junit.Assert.assertEquals;
 
@@ -219,6 +220,18 @@ public class DatabaseTests {
 		assertEquals((Integer)favIDs.get(2), (Integer)itemID1);
 		assertEquals((Integer)favIDs.get(3), (Integer)itemID8);
 		
+		UserList favList = db.getUserList("testUser", 0);
+		assertEquals(3, favList.getRecipes().size());
+		assertEquals(1, favList.getRestaurants().size());
+		
+		favList = db.getUserList("testUser", 1);
+		assertEquals(1, favList.getRecipes().size());
+		assertEquals(1, favList.getRestaurants().size());
+		
+		favList = db.getUserList("testUser", 2);
+		assertEquals(1, favList.getRecipes().size());
+		assertEquals(1, favList.getRestaurants().size());
+		
 		db.swapItemIndex(3, 1, "testUser", "Favorites"); 
 		favIDs = db.getItemsfromList(userID, "Favorites");
 		assertEquals((Integer)favIDs.get(0), (Integer)itemID1); 
@@ -322,9 +335,6 @@ public class DatabaseTests {
 		assertEquals(0, resultsOne.size());
 		assertEquals(0, resultsTwo.size());
 	}
-	
-	
-	
 	
 	@After
 	public void teardown() throws SQLException {
