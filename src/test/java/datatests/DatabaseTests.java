@@ -15,6 +15,7 @@ import data.SearchItem;
 import data.UserList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class DatabaseTests {
 
@@ -286,6 +287,14 @@ public class DatabaseTests {
 		assertEquals(0, results.size());
 		
 	}	
+	
+	@Test
+	public void databaseEmptyUserList() throws Exception {
+		UserList test = db.getUserList("testUser", 0);
+		assertNotEquals(test, null);
+		assertEquals(test.getRecipes().size(), 0);
+		assertEquals(test.getRestaurants().size(), 0);
+	}
 	
 	@Test
 	public void databaseSearchQueryImageTest() throws Exception {
