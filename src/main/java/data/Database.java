@@ -261,12 +261,56 @@ public class Database {
 				rs.getString("address"), rs.getString("phone"), r, rs.getInt("driveTime"));
 	}
 	
-	public void swapItemIndex(int userID, int listID, int itemID, boolean moveDown) throws SQLException{ 
+	public void swapItemIndex(int oldIndex, int newIndex, String username, String listName) throws SQLException {
+		
+		//username
+		ResultSet rs = this.getUserfromUsers(username);
+		int userID = -1;
+		rs.next();
+		userID = rs.getInt("userID");
+		
+		//listID
+		int listID = this.getList(listName);
+		
+		
+		//how do we get itemID?
+		ps = conn.prepareStatement("SELECT * from Lists WHERE userID=? AND listID=? AND itemIndex=?");
+		ps.setInt(1, userID);
+		ps.setInt(2, listID);
+		ps.setInt(3, oldIndex);
+		
+		ResultSet rs1 = ps.executeQuery();
+		
+		System.out.println("UserID: " + userID);
+		System.out.println("listID: " + listID);
+		System.out.println("ItemIndex: " + oldIndex);
+		
+		rs1.next();
+		int itemID = rs1.getInt("itemID");
+		
+		boolean moveDown = true;
+		int loopNum = 0;
+		
+		if (oldIndex < newIndex) {
+			moveDown = true;
+			loopNum = newIndex - oldIndex;
+		} else {
+			moveDown = false;
+			loopNum = oldIndex - newIndex;
+		}
+		
+		for (int i = 0; i < loopNum; i++) {
+			swapHelper(userID, listID, itemID, moveDown);
+		}
+	
+	}
+	
+	public void swapHelper(int userID, int listID, int itemID, boolean moveDown) throws SQLException{ 
 		
 		ps = conn.prepareStatement("SELECT * from Lists WHERE userID=? AND listID=? AND itemID=?");
 		ps.setInt(1, userID);
-		ps.setInt(2,  listID);
-		ps.setInt(3,  itemID);
+		ps.setInt(2, listID);
+		ps.setInt(3, itemID);
 		
 		rs = ps.executeQuery();
 		
