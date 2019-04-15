@@ -211,15 +211,15 @@ public class DatabaseTests {
 		assertEquals((Integer)favIDs.get(1), (Integer)itemID4);
 		assertEquals((Integer)favIDs.get(2), (Integer)itemID7);
 		assertEquals((Integer)favIDs.get(3), (Integer)itemID8);
-		
-		db.swapItemIndex(userID, 1, itemID1, true); 
+		 
+		db.swapItemIndex(1, 3, "testUser", "Favorites"); 
 		favIDs = db.getItemsfromList(userID, "Favorites");
 		assertEquals((Integer)favIDs.get(0), (Integer)itemID4);
-		assertEquals((Integer)favIDs.get(1), (Integer)itemID1);
-		assertEquals((Integer)favIDs.get(2), (Integer)itemID7);
+		assertEquals((Integer)favIDs.get(1), (Integer)itemID7);
+		assertEquals((Integer)favIDs.get(2), (Integer)itemID1);
 		assertEquals((Integer)favIDs.get(3), (Integer)itemID8);
 		
-		db.swapItemIndex(userID, 1, itemID1, false); 
+		db.swapItemIndex(3, 1, "testUser", "Favorites"); 
 		favIDs = db.getItemsfromList(userID, "Favorites");
 		assertEquals((Integer)favIDs.get(0), (Integer)itemID1); 
 		assertEquals((Integer)favIDs.get(1), (Integer)itemID4);
@@ -277,6 +277,8 @@ public class DatabaseTests {
 	@Test
 	public void databaseSearchQueryImageTest() throws Exception {
 		
+		assertEquals(db.queryImagesExist("testQuery1"), false);
+		
 		String searchQuery = "testQuery1";
 		String searchQuery2 = "testQuery2";
 		
@@ -304,6 +306,8 @@ public class DatabaseTests {
 		assertEquals("testURL3", resultsOne.get(2));
 		assertEquals("testURL7", resultsTwo.get(1));
 		
+		assertEquals(db.queryImagesExist("testQuery1"), true);
+		
 		db.deleteLinkfromImages(imgURL1);
 		db.deleteLinkfromImages(imgURL2);
 		db.deleteLinkfromImages(imgURL3);
@@ -318,6 +322,8 @@ public class DatabaseTests {
 		assertEquals(0, resultsOne.size());
 		assertEquals(0, resultsTwo.size());
 	}
+	
+	
 	
 	
 	@After
