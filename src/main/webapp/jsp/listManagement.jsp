@@ -330,6 +330,23 @@
 	        var classType = $(this).attr('data-type');
 	        console.log("class " + classType);
 	        $(this).removeAttr('data-previndex');
+	        
+	        var listName = "<%= listName %>";
+
+	        $.ajax({
+	        	type: "POST",
+	        	url: "/FeedMe/ListReorder",
+	        	async: true,
+	        	data: {
+	        		username: username,
+	        		newIndex: newIndex,
+	        		oldIndex: oldIndex,
+	        		listName: listName
+	        	},
+	        	success: function() {
+	        		console.log("changed list order in database");
+	        	}
+	        })
 	    }
 	});
 </script>

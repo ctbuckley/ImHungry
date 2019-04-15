@@ -5,6 +5,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -12,12 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import data.Config;
+import data.Database;
 import data.Recipe;
 import data.Restaurant;
 import data.UserList;
@@ -42,10 +47,23 @@ public class ListManagementPageServletTest {
 	private Restaurant restaurant1;
 	private Restaurant restaurant2;
 	private UserList[] userLists;
+	
+	Database db;
+	int userID;
+	int itemID;
+	
 
 	@Before
-	public void setUp() {
+	public void setUp() throws SQLException, ClassNotFoundException {
 		MockitoAnnotations.initMocks(this);
+		
+		itemID = -1;
+		db = new Database();
+
+		db.insertUserintoUsers("testUser", "pass");
+		ResultSet rs = db.getUserfromUsers("testUser");
+		rs.next();
+		userID = rs.getInt("userID");
 		
 		request = mock(HttpServletRequest.class);
 		response = mock(HttpServletResponse.class);
@@ -87,6 +105,7 @@ public class ListManagementPageServletTest {
 		
         when(request.getRequestDispatcher("/jsp/search.jsp")).thenReturn(rd);
         when(session.getAttribute("userLists")).thenReturn(null);
+        when(session.getAttribute("username")).thenReturn("testUser");
 
 		new ListManagementPageServlet().service(request, response);
 
@@ -102,6 +121,7 @@ public class ListManagementPageServletTest {
 		
         when(request.getRequestDispatcher("/jsp/search.jsp")).thenReturn(rd);
         when(session.getAttribute("userLists")).thenReturn(userLists);
+        when(session.getAttribute("username")).thenReturn("testUser");
 
 		new ListManagementPageServlet().service(request, response);
 
@@ -118,6 +138,7 @@ public class ListManagementPageServletTest {
         when(request.getRequestDispatcher("/jsp/search.jsp")).thenReturn(rd);
         when(session.getAttribute("userLists")).thenReturn(userLists);
         when(request.getParameter("listIndex")).thenReturn("3");
+        when(session.getAttribute("username")).thenReturn("testUser");
 
 		new ListManagementPageServlet().service(request, response);
 
@@ -136,9 +157,14 @@ public class ListManagementPageServletTest {
         when(request.getParameter("listIndex")).thenReturn("1");
         when(request.getParameter("recOrRest")).thenReturn("rest");
         when(request.getParameter("arrNum")).thenReturn("0");
+        when(session.getAttribute("username")).thenReturn("testUser");
 
         
         userLists[1].add(restaurant1);
+        
+        itemID = db.insertRestaurant(restaurant1);
+        db.insertItemintoList(userID, itemID, "To Explore");
+        
         when(session.getAttribute("userLists")).thenReturn(userLists);
         
         assertEquals(1, userLists[1].getRestaurants().size());
@@ -153,7 +179,6 @@ public class ListManagementPageServletTest {
 		verify(session).setAttribute(ArgumentMatchers.eq("listIndex"), ArgumentMatchers.eq(1));
 		verify(session).setAttribute(ArgumentMatchers.eq("restaurants"), ArgumentMatchers.eq(userLists[1].getRestaurants()));
 		verify(session).setAttribute(ArgumentMatchers.eq("recipes"), ArgumentMatchers.eq(userLists[1].getRecipes()));
-		
 	}
 	
 	/*
@@ -167,8 +192,13 @@ public class ListManagementPageServletTest {
         when(request.getParameter("listIndex")).thenReturn("2");
         when(request.getParameter("recOrRest")).thenReturn("rec");
         when(request.getParameter("arrNum")).thenReturn("0");
+        when(session.getAttribute("username")).thenReturn("testUser");
         
         userLists[2].add(recipe1);
+        
+        itemID = db.insertRecipe(recipe1);
+        db.insertItemintoList(userID, itemID, "Do Not Show");
+        
         when(session.getAttribute("userLists")).thenReturn(userLists);
         
         assertEquals(1, userLists[2].getRecipes().size());
@@ -196,8 +226,13 @@ public class ListManagementPageServletTest {
         when(request.getParameter("listIndex")).thenReturn("0");
         when(request.getParameter("recOrRest")).thenReturn("rest");
         when(request.getParameter("arrNum")).thenReturn("0");
+        when(session.getAttribute("username")).thenReturn("testUser");
         
         userLists[0].add(restaurant1);
+        
+        itemID = db.insertRestaurant(restaurant1);
+        db.insertItemintoList(userID, itemID, "Favorites");
+        
         when(session.getAttribute("userLists")).thenReturn(userLists);
         
 		new ListManagementPageServlet().service(request, response);
@@ -220,6 +255,7 @@ public class ListManagementPageServletTest {
 		verify(session).setAttribute(ArgumentMatchers.eq("listIndex"), ArgumentMatchers.eq(0));
 		verify(session).setAttribute(ArgumentMatchers.eq("restaurants"), ArgumentMatchers.eq(userLists[0].getRestaurants()));
 		verify(session).setAttribute(ArgumentMatchers.eq("recipes"), ArgumentMatchers.eq(userLists[0].getRecipes()));
+		
 	}
 	
 	/*
@@ -233,6 +269,10 @@ public class ListManagementPageServletTest {
         when(request.getParameter("listIndex")).thenReturn("2");
         when(request.getParameter("recOrRest")).thenReturn("rec");
         when(request.getParameter("arrNum")).thenReturn("0");
+        when(session.getAttribute("username")).thenReturn("testUser");
+        
+        itemID = db.insertRecipe(recipe1);
+        db.insertItemintoList(userID, itemID, "Do Not Show");
         
         userLists[2].add(recipe1);
         when(session.getAttribute("userLists")).thenReturn(userLists);
@@ -270,8 +310,13 @@ public class ListManagementPageServletTest {
         when(request.getParameter("listIndex")).thenReturn("2");
         when(request.getParameter("recOrRest")).thenReturn("rec");
         when(request.getParameter("arrNum")).thenReturn("0");
+        when(session.getAttribute("username")).thenReturn("testUser");
         
         userLists[2].add(recipe1);
+        
+        itemID = db.insertRecipe(recipe1);
+        db.insertItemintoList(userID, itemID, "Do Not Show");
+        
         when(session.getAttribute("userLists")).thenReturn(userLists);
         
 		new ListManagementPageServlet().service(request, response);
@@ -282,6 +327,7 @@ public class ListManagementPageServletTest {
 		}
 		
 		tmpUserLists[2].add(recipe1);
+		
 		ArrayList<Recipe> tmp = tmpUserLists[2].getRecipes();
 		
 		assertEquals(0, userLists[0].getRecipes().size());
@@ -303,6 +349,7 @@ public class ListManagementPageServletTest {
         when(request.getParameter("listIndex")).thenReturn("2");
         when(request.getParameter("recOrRest")).thenReturn("rec");
         when(request.getParameter("arrNum")).thenReturn("0");
+        when(session.getAttribute("username")).thenReturn("testUser");
         
         userLists[2].add(recipe1);
         when(session.getAttribute("userLists")).thenReturn(userLists);
@@ -337,6 +384,8 @@ public class ListManagementPageServletTest {
         when(request.getParameter("listIndex")).thenReturn("2");
         when(request.getParameter("recOrRest")).thenReturn("rec");
         when(request.getParameter("arrNum")).thenReturn("0");
+        when(session.getAttribute("username")).thenReturn("testUser");
+        
         
         userLists[2].add(recipe1);
         when(session.getAttribute("userLists")).thenReturn(userLists);
@@ -374,6 +423,10 @@ public class ListManagementPageServletTest {
         when(request.getParameter("listIndex")).thenReturn("2");
         when(request.getParameter("recOrRest")).thenReturn("rest");
         when(request.getParameter("arrNum")).thenReturn("0");
+        when(session.getAttribute("username")).thenReturn("testUser");
+        
+        itemID = db.insertRestaurant(restaurant1);
+        db.insertItemintoList(userID, itemID, "Do Not Show");
         
         userLists[2].add(restaurant1);
         when(session.getAttribute("userLists")).thenReturn(userLists);
@@ -398,5 +451,15 @@ public class ListManagementPageServletTest {
 		verify(session).setAttribute(ArgumentMatchers.eq("restaurants"), ArgumentMatchers.eq(userLists[2].getRestaurants()));
 		verify(session).setAttribute(ArgumentMatchers.eq("recipes"), ArgumentMatchers.eq(userLists[2].getRecipes()));
 	}
+	
+	@After
+	public void tearDown() throws SQLException {
+		db.dropTable("Lists");
+		if (itemID != -1) {
+			db.deleteItemfromItem(itemID);
+		}
+		db.dropTable("Users");
+	}
+	
 
 }

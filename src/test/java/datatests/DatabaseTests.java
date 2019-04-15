@@ -8,12 +8,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import data.Config;
 import data.Database;
 import data.Recipe;
 import data.Restaurant;
 import data.SearchItem;
+import data.UserList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class DatabaseTests {
 
@@ -108,6 +111,8 @@ public class DatabaseTests {
 	
 	@Test
 	public void databaseListItemTest() throws ClassNotFoundException, SQLException {
+		
+		Config c = new Config();
 		
 		//insert 3 recipes and 3 restaurants for testing
 		ArrayList<String> ingredients = new ArrayList<String>();
@@ -219,6 +224,18 @@ public class DatabaseTests {
 		assertEquals((Integer)favIDs.get(2), (Integer)itemID1);
 		assertEquals((Integer)favIDs.get(3), (Integer)itemID8);
 		
+		UserList favList = db.getUserList("testUser", 0);
+		assertEquals(3, favList.getRecipes().size());
+		assertEquals(1, favList.getRestaurants().size());
+		
+		favList = db.getUserList("testUser", 1);
+		assertEquals(1, favList.getRecipes().size());
+		assertEquals(1, favList.getRestaurants().size());
+		
+		favList = db.getUserList("testUser", 2);
+		assertEquals(1, favList.getRecipes().size());
+		assertEquals(1, favList.getRestaurants().size());
+		
 		db.swapItemIndex(3, 1, "testUser", "Favorites"); 
 		favIDs = db.getItemsfromList(userID, "Favorites");
 		assertEquals((Integer)favIDs.get(0), (Integer)itemID1); 
@@ -234,8 +251,10 @@ public class DatabaseTests {
 		db.deleteItemfromList(userID, itemID4, "Favorites");
 		db.deleteItemfromList(userID, itemID5, "To Explore");
 		db.deleteItemfromList(userID, itemID6, "Do Not Show");
-		db.deleteItemfromList(userID, itemID7, "Favorites");
-		db.deleteItemfromList(userID, itemID8, "Favorites");
+		db.dropTable("Lists");
+		
+		db.getItemId(recipe1);
+		db.getItemId(restaurant1);
 		
 		db.deleteItemfromItem(itemID1);
 		db.deleteItemfromItem(itemID2);
@@ -273,6 +292,14 @@ public class DatabaseTests {
 		assertEquals(0, results.size());
 		
 	}	
+	
+	@Test
+	public void databaseEmptyUserList() throws Exception {
+		UserList test = db.getUserList("testUser", 0);
+		assertNotEquals(test, null);
+		assertEquals(test.getRecipes().size(), 0);
+		assertEquals(test.getRestaurants().size(), 0);
+	}
 	
 	@Test
 	public void databaseSearchQueryImageTest() throws Exception {
@@ -322,9 +349,6 @@ public class DatabaseTests {
 		assertEquals(0, resultsOne.size());
 		assertEquals(0, resultsTwo.size());
 	}
-	
-	
-	
 	
 	@After
 	public void teardown() throws SQLException {

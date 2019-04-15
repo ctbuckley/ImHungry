@@ -5,6 +5,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -12,11 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import data.Config;
+import data.Database;
 import data.Recipe;
 import data.UserList;
 import servlets.RecipeDetailsPageServlet;
@@ -38,15 +43,29 @@ public class RecipeDetailsPageServletTest {
 	
 	Recipe[] results;
 	UserList[] userLists;
+	Database db;
+	int userID;
+	int itemID;
+	String databasePW;
+	String className;
 	
 	@Before
-	public void setUp(){
+	public void setUp() throws ClassNotFoundException, SQLException{
 		MockitoAnnotations.initMocks(this);
 		
 		request = mock(HttpServletRequest.class);
 		response = mock(HttpServletResponse.class);
 		session = mock(HttpSession.class);
 		rd = mock(RequestDispatcher.class);
+		
+		databasePW = Config.databasePW;
+	    className = Config.className;
+		
+	    db = new Database();
+		db.insertUserintoUsers("testUser", "password");
+		ResultSet rs =  db.getUserfromUsers("testUser");
+		rs.next();
+		userID = rs.getInt("userID");
 		
 		when(request.getSession()).thenReturn(session);
 		
@@ -70,13 +89,18 @@ public class RecipeDetailsPageServletTest {
 		Recipe recipe1 = new Recipe(name, pictureUrl, prepTime, cookTime, ingredients, instructions, rating);
 		Recipe recipe2 = new Recipe("Not" + name, pictureUrl, prepTime, cookTime, ingredients, instructions, rating);
         
+
+		itemID = db.insertRecipe(recipe2);		
+		
 		results = new Recipe[2];
 		results[0] = recipe1;
 		results[1] = recipe2;
         
+		when(session.getAttribute("itemID")).thenReturn(itemID);
         when(session.getAttribute("recipeResults")).thenReturn(results);
         when(request.getParameter("arrNum")).thenReturn("1");
         when(session.getAttribute("userLists")).thenReturn(userLists);
+        when(session.getAttribute("username")).thenReturn("testUser");
 	}
 
 	/*
@@ -336,6 +360,20 @@ public class RecipeDetailsPageServletTest {
 		verify(rd).forward(request, response);
 
 	}
-
-
+	
+	@After
+	public void teardown() throws SQLException {
+		
+		Config.databasePW = databasePW;
+		Config.className = className;
+		
+		try {
+			db.dropTable("Lists");
+		} catch (SQLException sqle) {
+			
+		}
+		
+		db.deleteUserfromUsers(userID);
+	}
+	
 }

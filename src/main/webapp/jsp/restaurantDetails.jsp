@@ -32,6 +32,10 @@
 		// Put restaurant item into local variable
 		restaurantVal = rest.get(arrNum);
 	}
+    
+	Database db = new Database();
+	int itemID = db.insertRestaurant(restaurantVal);
+	request.getSession().setAttribute("itemID", itemID);
     %>
     
     

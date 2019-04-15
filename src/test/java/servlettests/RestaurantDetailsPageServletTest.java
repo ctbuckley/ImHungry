@@ -5,16 +5,22 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import data.Config;
+import data.Database;
 import data.Restaurant;
 import data.UserList;
 import servlets.RestaurantDetailsPageServlet;
@@ -37,9 +43,14 @@ public class RestaurantDetailsPageServletTest {
 	
 	Restaurant[] results;
 	UserList[] userLists;
+	Database db;
+	int userID;
+	int itemID;
+	String databasePW;
+	String className;
 	
 	@Before
-	public void setUp(){
+	public void setUp() throws SQLException, ClassNotFoundException{
 		MockitoAnnotations.initMocks(this);
 		
 		request = mock(HttpServletRequest.class);
@@ -47,6 +58,15 @@ public class RestaurantDetailsPageServletTest {
 		session = mock(HttpSession.class);
 		rd = mock(RequestDispatcher.class);
 		
+		databasePW = Config.databasePW;
+	    className = Config.className;
+	    
+	    db = new Database();
+  		db.insertUserintoUsers("testUser", "password");
+  		ResultSet rs =  db.getUserfromUsers("testUser");
+  		rs.next();
+  		userID = rs.getInt("userID");
+	  		
 		when(request.getSession()).thenReturn(session);
 		
 		userLists = new UserList[3];
@@ -58,9 +78,13 @@ public class RestaurantDetailsPageServletTest {
 		results[0] = new Restaurant("A Good Restaurant", "https://www.mcdonalds.com/us/en-us.html", 1, "Everywhere", "(123)456-7890", 2.25, 5);
 		results[1] = new Restaurant("A Bad Restaurant", "https://www.bk.com/", 2, "Almost everywhere", "(123)456-7896", 1.25, 50);
         
+		itemID = db.insertRestaurant(results[1]);
+		
+		when(session.getAttribute("itemID")).thenReturn(itemID);
         when(session.getAttribute("restaurantResults")).thenReturn(results);
         when(request.getParameter("arrNum")).thenReturn("1");
         when(session.getAttribute("userLists")).thenReturn(userLists);
+        when(session.getAttribute("username")).thenReturn("testUser");
 	}
 
 	/*
@@ -319,6 +343,21 @@ public class RestaurantDetailsPageServletTest {
 
 		verify(rd).forward(request, response);
 
+	}
+	
+	@After
+	public void teardown() throws SQLException {
+		
+		Config.databasePW = databasePW;
+		Config.className = className;
+		
+		try {
+			db.dropTable("Lists");
+		} catch (SQLException sqle) {
+			
+		}
+		
+		db.deleteUserfromUsers(userID);
 	}
 
 }

@@ -50,7 +50,7 @@
 			<!-- Title and Button -->
 			<div class="grocery_header">
 				<h1 id="groceryListTitle">Grocery List</h1>
-				<button class="btn btn-outline-primary" id="clearListBtn">Clear List</button>
+				<!-- <button class="btn btn-outline-primary" id="clearListBtn">Clear List</button> -->
 			</div>
 			<!-- List of Ingredients -->
 			<div class="grocery_list_cont">

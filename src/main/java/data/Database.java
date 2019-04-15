@@ -209,6 +209,30 @@ public class Database {
 		return rs.getInt("itemType");
 	}
 	
+	public int getItemId(Recipe r) throws SQLException{
+		
+		ps = conn.prepareStatement("SELECT * from Item WHERE itemName=? AND rating=? AND prepTime=? AND cookTime=?");
+		ps.setString(1, r.getName());
+		ps.setDouble(2, r.getRating());
+		ps.setDouble(3, r.getPrepTime());
+		ps.setDouble(4, r.getCookTime());
+		
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		return rs.getInt("itemID");
+	}
+	
+	public int getItemId(Restaurant r) throws SQLException {
+		ps = conn.prepareStatement("SELECT * from Item WHERE itemName=? AND rating=? AND address=?");
+		ps.setString(1, r.getName());
+		ps.setDouble(2, r.getRating());
+		ps.setString(3, r.getAddress());
+		
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		return rs.getInt("itemID");
+	}
+	
 	public ArrayList<String> getIngredients(int itemID) throws SQLException{
 		ps = conn.prepareStatement("SELECT * FROM Ingredients "
 				+ "WHERE itemID=?");
@@ -395,6 +419,44 @@ public class Database {
 		}
 		
 		return items;
+	}
+	
+	public UserList getUserList(String username, int listIndex) throws SQLException {
+		
+		ResultSet rs = this.getUserfromUsers(username);
+		rs.next();
+		int userID = rs.getInt("userID");
+		
+		String listName = "";
+		
+		if (listIndex == 0) {
+			listName = "Favorites";
+		} else if (listIndex == 2) {
+			listName = "Do Not Show";
+		} else {
+			listName = "To Explore";
+		}
+		
+		ArrayList<Integer> itemIDs = getItemsfromList(userID, listName);
+		UserList result = new UserList();
+		
+		for(int i=0; i<itemIDs.size(); i++) {
+			int type = getItemType(itemIDs.get(i));
+			
+			if(type==0) {
+				result.add(getRecipeInfo(itemIDs.get(i)));
+			}else{
+				result.add(getRestaurantInfo(itemIDs.get(i)));
+			}
+			
+		}
+		
+		return result;
+	}
+	
+	public void dropTable(String tableName) throws SQLException{
+		ps = conn.prepareStatement("DELETE FROM " + tableName + ";");
+		ps.executeUpdate();
 	}
 	
 	public void deleteIngredients(int itemID) throws SQLException{
