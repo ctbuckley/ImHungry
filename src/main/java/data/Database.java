@@ -209,6 +209,30 @@ public class Database {
 		return rs.getInt("itemType");
 	}
 	
+	public int getItemId(Recipe r) throws SQLException{
+		
+		ps = conn.prepareStatement("SELECT * from Item WHERE itemName=? AND rating=? AND prepTime=? AND cookTime=?");
+		ps.setString(1, r.getName());
+		ps.setDouble(2, r.getRating());
+		ps.setDouble(3, r.getPrepTime());
+		ps.setDouble(4, r.getCookTime());
+		
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		return rs.getInt("itemID");
+	}
+	
+	public int getItemId(Restaurant r) throws SQLException {
+		ps = conn.prepareStatement("SELECT * from Item WHERE itemName=? AND rating=? AND address=?");
+		ps.setString(1, r.getName());
+		ps.setDouble(2, r.getRating());
+		ps.setString(3, r.getAddress());
+		
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		return rs.getInt("itemID");
+	}
+	
 	public ArrayList<String> getIngredients(int itemID) throws SQLException{
 		ps = conn.prepareStatement("SELECT * FROM Ingredients "
 				+ "WHERE itemID=?");
