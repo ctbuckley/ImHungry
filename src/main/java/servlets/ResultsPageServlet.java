@@ -186,26 +186,22 @@ public class ResultsPageServlet extends HttpServlet {
 	        }
 		
 			String[] imageUrlArr = new String[imageUrlVec.size()];
-			imageUrlVec.toArray(imageUrlArr);
-			
-			// Pass variables needed for generating front-end
-			request.setAttribute("imageUrlVec", imageUrlArr);
-			request.setAttribute("restaurantArr", restaurantArr);
-			request.setAttribute("recipeArr", recipeArr);
-			request.setAttribute("searchTerm", searchTerm);
-			request.setAttribute("resultCount", resultCount);
-			// store result arrays in session -> used for details page
-			session.setAttribute("restaurantResults", restaurantArr);
-			session.setAttribute("recipeResults", recipeArr);
-			// store searchTerm and resultCount -> used when user clicks "Return to Search"
-			session.setAttribute("searchTerm", searchTerm);
-			session.setAttribute("resultCount", resultCount);
-			session.setAttribute("radiusInput", radius);
-			session.setAttribute("pageCount", pageCount);
-			
-			if (!dataIsCached) {
-				session.setAttribute("pastSearchList", currentResults);
-			}
+      imageUrlVec.toArray(imageUrlArr);
+
+      // Pass variables needed for generating front-end
+      session.setAttribute("imageUrlVec", imageUrlArr);
+      // store result arrays in session -> used for details page
+      session.setAttribute("restaurantResults", restaurantArr);
+      session.setAttribute("recipeResults", recipeArr);
+      // store searchTerm and resultCount -> used when user clicks "Return to Search"
+      session.setAttribute("searchTerm", searchTerm);
+      session.setAttribute("resultCount", resultCount);
+      session.setAttribute("radiusInput", radius);
+      session.setAttribute("pageCount", pageCount);
+
+      if (!dataIsCached) {
+        session.setAttribute("pastSearchList", currentResults);
+      }
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -214,6 +210,8 @@ public class ResultsPageServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
+		
+	
 		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/results.jsp");
 		dispatch.forward(request,  response);			
 	}

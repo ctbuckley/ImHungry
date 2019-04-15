@@ -134,15 +134,15 @@ public class ListManagementPageServlet extends HttpServlet {
 				}
 			}
 			
-			request.setAttribute("listVal", userLists[listIndex]); // Send the userList object that contains both restaurant and recipe files
-			request.setAttribute("listIndex", listIndex); // Send the list name
-			session.setAttribute("restaurants", userLists[listIndex].getRestaurants()); // So that when user clicks on item, it shows in the details page
-			session.setAttribute("recipes", userLists[listIndex].getRecipes()); // Same as previous comment
-	
-			session.setAttribute("userLists", userLists); // Send the entire array of lists to session, so that we can access any item on front end 
-			RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/listManagement.jsp");
-			dispatch.forward(request,  response);
-		
+
+		session.setAttribute("listVal", userLists[listIndex]); // Send the userList object that contains both restaurant and recipe files
+		session.setAttribute("listIndex", listIndex); // Send the list name
+		session.setAttribute("restaurants", userLists[listIndex].getRestaurants()); // So that when user clicks on item, it shows in the details page
+		session.setAttribute("recipes", userLists[listIndex].getRecipes()); // Same as previous comment
+
+		session.setAttribute("userLists", userLists); // Send the entire array of lists to session, so that we can access any item on front end 
+		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/listManagement.jsp");
+		dispatch.forward(request,  response);
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

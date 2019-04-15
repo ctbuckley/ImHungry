@@ -81,13 +81,15 @@ public class RestaurantDetailsPageServlet extends HttpServlet {
 				session.setAttribute("userLists", userLists);
 			}
 			// Pass restaurant object and arrNum to jsp
-			request.setAttribute("restaurantVal", restaurantResults[arrNum]);
-			request.setAttribute("arrNum", arrNum);
+      session.setAttribute("restaurantVal", restaurantResults[arrNum]);
+      session.setAttribute("arrNum", arrNum);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+
 		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/restaurantDetails.jsp");
 		dispatch.forward(request,  response);			
 	}
