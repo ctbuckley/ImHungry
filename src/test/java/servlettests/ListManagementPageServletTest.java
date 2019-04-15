@@ -26,6 +26,7 @@ import data.Database;
 import data.Recipe;
 import data.Restaurant;
 import data.UserList;
+import servlets.AddSearchHistoryServlet;
 import servlets.ListManagementPageServlet;
 
 /*
@@ -449,6 +450,22 @@ public class ListManagementPageServletTest {
 		verify(session).setAttribute(ArgumentMatchers.eq("restaurants"), ArgumentMatchers.eq(userLists[2].getRestaurants()));
 		verify(session).setAttribute(ArgumentMatchers.eq("recipes"), ArgumentMatchers.eq(userLists[2].getRecipes()));
 	}
+	
+	@Test
+    public void testThrowClassExceptions() throws Exception {
+       String tempClassName = Config.className;
+       Config.className = "garbage";
+       new ListManagementPageServlet().service(request, response);
+       Config.className =  tempClassName;
+    }
+    
+    @Test
+    public void testThrowSqlExceptions() throws Exception {
+       String tempDBPW = Config.databasePW;
+       Config.databasePW = "notmypass";
+       new ListManagementPageServlet().service(request, response);
+       Config.databasePW = tempDBPW;
+    }
 	
 	@After
 	public void tearDown() throws SQLException {
