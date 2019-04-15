@@ -49,6 +49,7 @@ end
 
 When(/^I click on the sign up button$/) do
 	find('#signUpButton').click
+	sleep(0.5)
 end
 
 When(/^I return to the Log In Page$/) do

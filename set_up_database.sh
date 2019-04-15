@@ -3,5 +3,4 @@ cat /etc/mysql/my.cnf
 sudo service mysql restart	  
 cat sql/hungry.sql
 mysql --user="root" --password="" < "sql/hungry.sql"
-mysql --user="root" --database="hungrydatabase" --password="" < "sql/hungryTest.sql"
 mysql --user="root" --database="hungrydatabase" --password="" --execute="SELECT * FROM Users"
