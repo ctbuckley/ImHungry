@@ -47,18 +47,3 @@ Scenario: User adds a restaurant to Favorite list and a recipe to do not show li
     Then there is price
     When I click on the restaurant in list management page
     Then I am in the Restaurant Details Page
-
-Scenario: User can reorder a restaurant in a list
-    When I add a restaurant to Favorite list
-    And I add the second restaurant to Favorite list
-    And I go to Favorite list management page
-    And I move the first restaurant to the second position
-    Then the second restaurant should be first in the list
-
-
-Scenario: User can reorder a recipe in a list
-    When I add a recipe to Favorite list
-    And I add the second recipe to Favorite list
-    And I go to Favorite list management page
-    And I move the first recipe to the second position
-    Then the second recipe should be first in the list
