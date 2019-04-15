@@ -30,13 +30,16 @@
   	// Name of the list
     String listName = "";
   	// List name value pull from servlet
-    String listID = (String) request.getAttribute("listName");
+    Integer listIndex = (Integer) request.getAttribute("listIndex");
     // If value doesn't exist, we shouldn't be here on this page
-    if(listID == null){
-    	listName = "error";
-    }
-    else{
-    	listName = listID;
+    if(listIndex == null){
+    	listName = "Error";
+    }else if(listIndex == 0){
+    	listName = "Favorites";
+    }else if(listIndex == 1){
+    	listName = "Don't Show";
+    }else if(listIndex == 2){
+    	listName = "To Explore";
     }
 	// Get the List that is needed from servlet
     UserList lists = (UserList) request.getAttribute("listVal");
@@ -75,9 +78,9 @@
 		          		Manage Lists
 		        	</a>
 		        	<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-			      		<a class="dropdown-item" id="fOptionButton" href="/FeedMe/listManagement?listName=f">Favorites</a>
-			      		<a class="dropdown-item" id="tOptionButton" href="/FeedMe/listManagement?listName=t">To Explore</a>
-			      		<a class="dropdown-item" id="dOptionButton" href="/FeedMe/listManagement?listName=d">Do Not Show</a>     
+			      		<a class="dropdown-item" id="fOptionButton" href="/FeedMe/listManagement?listIndex=0">Favorites</a>
+			      		<a class="dropdown-item" id="tOptionButton" href="/FeedMe/listManagement?listIndex=2">To Explore</a>
+			      		<a class="dropdown-item" id="dOptionButton" href="/FeedMe/listManagement?listIndex=1">Do Not Show</a>     
 		        	</div>
 		    	</li>
 	     		<li class="nav-item active ml-auto">
@@ -148,8 +151,7 @@
 		      			</div>
 		      				<!-- This form takes the item to the specified list page -->
 		      				<form style="display:flex;flex-direction:column;justify-content:center;" class="mb-3" method="POST" action="/FeedMe/listManagement">
-		             			<input type="hidden" name="listName" value="<%=listName.toLowerCase().charAt(0)%>">
-			 	            	<input type="hidden" name="fromList" value="<%=listName.toLowerCase().charAt(0)%>">
+		             			<input type="hidden" name="listIndex" value="<%=listIndex%>">
 		    	            	<input type="hidden" name="recOrRest" value="rest">
 		        	        	<input type="hidden" name="arrNum" value="<%=j%>">
 		            	    	<% request.setAttribute("item", restaurantArr.get(j)); %>
@@ -233,8 +235,7 @@
 		      				</div>
 		      				<!-- Moves the recipe to the specified list -->
 		      				<form style="display:flex;flex-direction:column;justify-content:center;" class="" method="POST" action="/FeedMe/listManagement">
-		             			<input type="hidden" name="listName" value="<%=listName.toLowerCase().charAt(0)%>">
-			 	            	<input type="hidden" name="fromList" value="<%=listName.toLowerCase().charAt(0)%>">
+		             			<input type="hidden" name="listIndex" value="<%=listIndex%>">
 		    	            	<input type="hidden" name="recOrRest" value="rec">
 		        	        	<input type="hidden" name="arrNum" value="<%=k%>">
 		            	    	<% request.setAttribute("item", recipeArr.get(k)); %>

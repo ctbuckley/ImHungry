@@ -79,9 +79,9 @@
 		          		Manage Lists
 		        	</a>
 		        	<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-			      		<a class="dropdown-item" id="fOptionButton" href="/FeedMe/listManagement?listName=f">Favorites</a>
-			      		<a class="dropdown-item" id="tOptionButton" href="/FeedMe/listManagement?listName=t">To Explore</a>
-			      		<a class="dropdown-item" id="dOptionButton" href="/FeedMe/listManagement?listName=d">Do Not Show</a>     
+			      		<a class="dropdown-item" id="fOptionButton" href="/FeedMe/listManagement?listIndex=0">Favorites</a>
+			      		<a class="dropdown-item" id="tOptionButton" href="/FeedMe/listManagement?listIndex=2">To Explore</a>
+			      		<a class="dropdown-item" id="dOptionButton" href="/FeedMe/listManagement?listIndex=1">Do Not Show</a>     
 		        	</div>
 		    	</li>
 	     		<li class="nav-item active ml-auto">
@@ -315,7 +315,7 @@
 			var userInput = document.getElementById('listName').value;
 			console.log(userInput);
 			// if the user didn't choose any selection, stays on the page
-			if (userInput == null || userInput.length == 0) {
+			if (userInput == null) {
 				return false;
 			}
 			// if the user choose one of the predefined lists, go to list management page
