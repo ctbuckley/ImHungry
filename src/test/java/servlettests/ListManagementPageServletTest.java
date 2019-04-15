@@ -100,12 +100,11 @@ public class ListManagementPageServletTest {
 	@Test
 	public void testNullValues() throws Exception {
 		
-        when(request.getRequestDispatcher("/jsp/listManagement.jsp")).thenReturn(rd);
+        when(request.getRequestDispatcher("/jsp/search.jsp")).thenReturn(rd);
         when(session.getAttribute("userLists")).thenReturn(userLists);
 
 		new ListManagementPageServlet().service(request, response);
 
-		verify(session).setAttribute(ArgumentMatchers.eq("userLists"), ArgumentMatchers.eq(userLists));
 		verify(rd).forward(request, response);
 
 	}
@@ -116,13 +115,12 @@ public class ListManagementPageServletTest {
 	@Test
 	public void testIncorrectListType() throws Exception {
 		
-        when(request.getRequestDispatcher("/jsp/listManagement.jsp")).thenReturn(rd);
+        when(request.getRequestDispatcher("/jsp/search.jsp")).thenReturn(rd);
         when(session.getAttribute("userLists")).thenReturn(userLists);
-        when(request.getParameter("listName")).thenReturn("a");
+        when(request.getParameter("listIndex")).thenReturn("3");
 
 		new ListManagementPageServlet().service(request, response);
 
-		verify(session).setAttribute(ArgumentMatchers.eq("userLists"), ArgumentMatchers.eq(userLists));
 		verify(rd).forward(request, response);
 
 	}
@@ -135,8 +133,7 @@ public class ListManagementPageServletTest {
 		
         when(request.getRequestDispatcher("/jsp/listManagement.jsp")).thenReturn(rd);
         when(request.getParameter("opType")).thenReturn("r");
-        when(request.getParameter("fromList")).thenReturn("d");
-        when(request.getParameter("listName")).thenReturn("d");
+        when(request.getParameter("listIndex")).thenReturn("1");
         when(request.getParameter("recOrRest")).thenReturn("rest");
         when(request.getParameter("arrNum")).thenReturn("0");
 
@@ -153,7 +150,7 @@ public class ListManagementPageServletTest {
 		assertEquals(0, userLists[2].getRestaurants().size());
 		verify(rd).forward(request, response);
 		verify(request).setAttribute(ArgumentMatchers.eq("listVal"), ArgumentMatchers.eq(userLists[1]));
-		verify(request).setAttribute(ArgumentMatchers.eq("listName"), ArgumentMatchers.eq("Don't Show"));
+		verify(request).setAttribute(ArgumentMatchers.eq("listIndex"), ArgumentMatchers.eq(1));
 		verify(session).setAttribute(ArgumentMatchers.eq("restaurants"), ArgumentMatchers.eq(userLists[1].getRestaurants()));
 		verify(session).setAttribute(ArgumentMatchers.eq("recipes"), ArgumentMatchers.eq(userLists[1].getRecipes()));
 		
@@ -167,8 +164,7 @@ public class ListManagementPageServletTest {
 		
         when(request.getRequestDispatcher("/jsp/listManagement.jsp")).thenReturn(rd);
         when(request.getParameter("opType")).thenReturn("r");
-        when(request.getParameter("fromList")).thenReturn("t");
-        when(request.getParameter("listName")).thenReturn("t");
+        when(request.getParameter("listIndex")).thenReturn("2");
         when(request.getParameter("recOrRest")).thenReturn("rec");
         when(request.getParameter("arrNum")).thenReturn("0");
         
@@ -184,7 +180,7 @@ public class ListManagementPageServletTest {
 		assertEquals(0, userLists[2].getRecipes().size());
 		verify(rd).forward(request, response);
 		verify(request).setAttribute(ArgumentMatchers.eq("listVal"), ArgumentMatchers.eq(userLists[2]));
-		verify(request).setAttribute(ArgumentMatchers.eq("listName"), ArgumentMatchers.eq("To Explore"));
+		verify(request).setAttribute(ArgumentMatchers.eq("listIndex"), ArgumentMatchers.eq(2));
 		verify(session).setAttribute(ArgumentMatchers.eq("restaurants"), ArgumentMatchers.eq(userLists[2].getRestaurants()));
 		verify(session).setAttribute(ArgumentMatchers.eq("recipes"), ArgumentMatchers.eq(userLists[2].getRecipes()));
 	}
@@ -197,8 +193,7 @@ public class ListManagementPageServletTest {
 		
         when(request.getRequestDispatcher("/jsp/listManagement.jsp")).thenReturn(rd);
         when(request.getParameter("opType")).thenReturn("d");
-        when(request.getParameter("fromList")).thenReturn("f");
-        when(request.getParameter("listName")).thenReturn("f");
+        when(request.getParameter("listIndex")).thenReturn("0");
         when(request.getParameter("recOrRest")).thenReturn("rest");
         when(request.getParameter("arrNum")).thenReturn("0");
         
@@ -222,7 +217,7 @@ public class ListManagementPageServletTest {
 		assertEquals(tmp.get(0), userLists[1].getRestaurants().get(0));
 		verify(rd).forward(request, response);
 		verify(request).setAttribute(ArgumentMatchers.eq("listVal"), ArgumentMatchers.eq(userLists[0]));
-		verify(request).setAttribute(ArgumentMatchers.eq("listName"), ArgumentMatchers.eq("Favorites"));
+		verify(request).setAttribute(ArgumentMatchers.eq("listIndex"), ArgumentMatchers.eq(0));
 		verify(session).setAttribute(ArgumentMatchers.eq("restaurants"), ArgumentMatchers.eq(userLists[0].getRestaurants()));
 		verify(session).setAttribute(ArgumentMatchers.eq("recipes"), ArgumentMatchers.eq(userLists[0].getRecipes()));
 	}
@@ -235,8 +230,7 @@ public class ListManagementPageServletTest {
 		
         when(request.getRequestDispatcher("/jsp/listManagement.jsp")).thenReturn(rd);
         when(request.getParameter("opType")).thenReturn("f");
-        when(request.getParameter("fromList")).thenReturn("t");
-        when(request.getParameter("listName")).thenReturn("t");
+        when(request.getParameter("listIndex")).thenReturn("2");
         when(request.getParameter("recOrRest")).thenReturn("rec");
         when(request.getParameter("arrNum")).thenReturn("0");
         
@@ -260,7 +254,7 @@ public class ListManagementPageServletTest {
 		assertEquals(tmp.get(0), userLists[0].getRecipes().get(0));
 		verify(rd).forward(request, response);
 		verify(request).setAttribute(ArgumentMatchers.eq("listVal"), ArgumentMatchers.eq(userLists[2]));
-		verify(request).setAttribute(ArgumentMatchers.eq("listName"), ArgumentMatchers.eq("To Explore"));
+		verify(request).setAttribute(ArgumentMatchers.eq("listIndex"), ArgumentMatchers.eq(2));
 		verify(session).setAttribute(ArgumentMatchers.eq("restaurants"), ArgumentMatchers.eq(userLists[2].getRestaurants()));
 		verify(session).setAttribute(ArgumentMatchers.eq("recipes"), ArgumentMatchers.eq(userLists[2].getRecipes()));
 	}
@@ -273,8 +267,7 @@ public class ListManagementPageServletTest {
 		
         when(request.getRequestDispatcher("/jsp/listManagement.jsp")).thenReturn(rd);
         when(request.getParameter("opType")).thenReturn("t");
-        when(request.getParameter("fromList")).thenReturn("t");
-        when(request.getParameter("listName")).thenReturn("t");
+        when(request.getParameter("listIndex")).thenReturn("2");
         when(request.getParameter("recOrRest")).thenReturn("rec");
         when(request.getParameter("arrNum")).thenReturn("0");
         
@@ -297,7 +290,75 @@ public class ListManagementPageServletTest {
 		assertEquals(tmp.get(0), userLists[2].getRecipes().get(0));
 		verify(rd).forward(request, response);
 		verify(request).setAttribute(ArgumentMatchers.eq("listVal"), ArgumentMatchers.eq(userLists[2]));
-		verify(request).setAttribute(ArgumentMatchers.eq("listName"), ArgumentMatchers.eq("To Explore"));
+		verify(request).setAttribute(ArgumentMatchers.eq("listIndex"), ArgumentMatchers.eq(2));
+		verify(session).setAttribute(ArgumentMatchers.eq("restaurants"), ArgumentMatchers.eq(userLists[2].getRestaurants()));
+		verify(session).setAttribute(ArgumentMatchers.eq("recipes"), ArgumentMatchers.eq(userLists[2].getRecipes()));
+	}
+	
+	@Test
+	public void testInvalidOperation() throws Exception {
+		
+        when(request.getRequestDispatcher("/jsp/listManagement.jsp")).thenReturn(rd);
+        when(request.getParameter("opType")).thenReturn("bad");
+        when(request.getParameter("listIndex")).thenReturn("2");
+        when(request.getParameter("recOrRest")).thenReturn("rec");
+        when(request.getParameter("arrNum")).thenReturn("0");
+        
+        userLists[2].add(recipe1);
+        when(session.getAttribute("userLists")).thenReturn(userLists);
+        
+		new ListManagementPageServlet().service(request, response);
+        
+        UserList[] tmpUserLists = new UserList[3];
+		for (int i = 0; i < 3; ++i) {
+			tmpUserLists[i] = new UserList();
+		}
+		
+		tmpUserLists[2].add(recipe1);
+		
+		ArrayList<Recipe> tmp = tmpUserLists[2].getRecipes();
+		
+		assertEquals(0, userLists[0].getRecipes().size());
+		assertEquals(0, userLists[1].getRecipes().size());
+		assertEquals(1, userLists[2].getRecipes().size());
+		assertEquals(tmp.get(0), userLists[2].getRecipes().get(0));
+		verify(rd).forward(request, response);
+		verify(request).setAttribute(ArgumentMatchers.eq("listVal"), ArgumentMatchers.eq(userLists[2]));
+		verify(request).setAttribute(ArgumentMatchers.eq("listIndex"), ArgumentMatchers.eq(2));
+		verify(session).setAttribute(ArgumentMatchers.eq("restaurants"), ArgumentMatchers.eq(userLists[2].getRestaurants()));
+		verify(session).setAttribute(ArgumentMatchers.eq("recipes"), ArgumentMatchers.eq(userLists[2].getRecipes()));
+	}
+	
+	@Test
+	public void testNoOperation() throws Exception {
+		
+        when(request.getRequestDispatcher("/jsp/listManagement.jsp")).thenReturn(rd);
+        when(request.getParameter("opType")).thenReturn(null);
+        when(request.getParameter("listIndex")).thenReturn("2");
+        when(request.getParameter("recOrRest")).thenReturn("rec");
+        when(request.getParameter("arrNum")).thenReturn("0");
+        
+        userLists[2].add(recipe1);
+        when(session.getAttribute("userLists")).thenReturn(userLists);
+        
+		new ListManagementPageServlet().service(request, response);
+        
+        UserList[] tmpUserLists = new UserList[3];
+		for (int i = 0; i < 3; ++i) {
+			tmpUserLists[i] = new UserList();
+		}
+		
+		tmpUserLists[2].add(recipe1);
+		
+		ArrayList<Recipe> tmp = tmpUserLists[2].getRecipes();
+		
+		assertEquals(0, userLists[0].getRecipes().size());
+		assertEquals(0, userLists[1].getRecipes().size());
+		assertEquals(1, userLists[2].getRecipes().size());
+		assertEquals(tmp.get(0), userLists[2].getRecipes().get(0));
+		verify(rd).forward(request, response);
+		verify(request).setAttribute(ArgumentMatchers.eq("listVal"), ArgumentMatchers.eq(userLists[2]));
+		verify(request).setAttribute(ArgumentMatchers.eq("listIndex"), ArgumentMatchers.eq(2));
 		verify(session).setAttribute(ArgumentMatchers.eq("restaurants"), ArgumentMatchers.eq(userLists[2].getRestaurants()));
 		verify(session).setAttribute(ArgumentMatchers.eq("recipes"), ArgumentMatchers.eq(userLists[2].getRecipes()));
 	}
@@ -310,8 +371,7 @@ public class ListManagementPageServletTest {
 		
         when(request.getRequestDispatcher("/jsp/listManagement.jsp")).thenReturn(rd);
         when(request.getParameter("opType")).thenReturn("t");
-        when(request.getParameter("fromList")).thenReturn("t");
-        when(request.getParameter("listName")).thenReturn("t");
+        when(request.getParameter("listIndex")).thenReturn("2");
         when(request.getParameter("recOrRest")).thenReturn("rest");
         when(request.getParameter("arrNum")).thenReturn("0");
         
@@ -334,7 +394,7 @@ public class ListManagementPageServletTest {
 		assertEquals(tmp.get(0), userLists[2].getRestaurants().get(0));
 		verify(rd).forward(request, response);
 		verify(request).setAttribute(ArgumentMatchers.eq("listVal"), ArgumentMatchers.eq(userLists[2]));
-		verify(request).setAttribute(ArgumentMatchers.eq("listName"), ArgumentMatchers.eq("To Explore"));
+		verify(request).setAttribute(ArgumentMatchers.eq("listIndex"), ArgumentMatchers.eq(2));
 		verify(session).setAttribute(ArgumentMatchers.eq("restaurants"), ArgumentMatchers.eq(userLists[2].getRestaurants()));
 		verify(session).setAttribute(ArgumentMatchers.eq("recipes"), ArgumentMatchers.eq(userLists[2].getRecipes()));
 	}
