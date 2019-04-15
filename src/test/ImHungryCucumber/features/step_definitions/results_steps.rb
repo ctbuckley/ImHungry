@@ -1,5 +1,5 @@
 Given(/^I am on the ImHungry Results Page$/) do
-  visit "http://localhost:8080/FeedMe/results?q=burger&n=5&radiusInput=3&feedMeButton=Feed+Me"
+  visit "http://localhost:8080/FeedMe/results?q=burger&n=5&radiusInput=3&feedMeButton=Feed+Me&fromSearch=true"
 end
 
 Then(/^there is a dropdown button$/) do

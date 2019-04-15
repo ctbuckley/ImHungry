@@ -51,6 +51,7 @@
         recipeArr = lists.getRecipes();
     }
     
+    String username = (String) request.getSession().getAttribute("username");
   %>
 
     <!-- Title -->
@@ -332,7 +333,8 @@
 	        $(this).removeAttr('data-previndex');
 	        
 	        var listName = "<%= listName %>";
-
+	        var username = "<%= username %>";
+	        
 	        $.ajax({
 	        	type: "POST",
 	        	url: "/FeedMe/ListReorder",

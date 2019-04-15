@@ -452,6 +452,16 @@ public class ListManagementPageServletTest {
 		verify(session).setAttribute(ArgumentMatchers.eq("recipes"), ArgumentMatchers.eq(userLists[2].getRecipes()));
 	}
 	
+	@After
+	public void tearDown() throws SQLException {
+		db.dropTable("Lists");
+		if (itemID != -1) {
+			db.deleteItemfromItem(itemID);
+		}
+		db.dropTable("Users");
+	}
+	 
+
 	@Test
     public void testThrowClassExceptions() throws Exception {
        String tempClassName = Config.className;
@@ -467,17 +477,6 @@ public class ListManagementPageServletTest {
        new ListManagementPageServlet().service(request, response);
        Config.databasePW = tempDBPW;
     }
-	
-	
-	
-	@After
-	public void tearDown() throws SQLException {
-		db.dropTable("Lists");
-		if (itemID != -1) {
-			db.deleteItemfromItem(itemID);
-		}
-		db.dropTable("Users");
-	}
 	
 
 }
