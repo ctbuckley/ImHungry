@@ -158,8 +158,10 @@ public class ResultsPageServletTest {
 	public void testFavorites() throws Exception{
 		
 		// Add to Favorites
-		userLists[0].add(recipe1);
-		userLists[0].add(restaurant1);				
+		int itemID = db.insertRestaurant(restaurant1);
+        db.insertItemintoList(userID, itemID, "Favorites");
+        itemID = db.insertRecipe(recipe1);
+        db.insertItemintoList(userID, itemID, "Favorites");			
 		when(request.getParameter("fromSearch")).thenReturn("true");
 		when(session.getAttribute("userLists")).thenReturn(userLists);
 		when(request.getParameter("q")).thenReturn("Chicken");
@@ -185,8 +187,10 @@ public class ResultsPageServletTest {
 		
 		// Add to Do Not Show
 		Config c = new Config();
-		userLists[1].add(recipe1);
-		userLists[1].add(restaurant1);		
+		int itemID = db.insertRestaurant(restaurant1);
+        db.insertItemintoList(userID, itemID, "Do Not Show");
+        itemID = db.insertRecipe(recipe2);
+        db.insertItemintoList(userID, itemID, "Do Not Show");			
 		when(request.getParameter("fromSearch")).thenReturn("true");
 		when(session.getAttribute("userLists")).thenReturn(userLists);
 		when(request.getParameter("q")).thenReturn("Chicken");

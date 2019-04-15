@@ -221,7 +221,7 @@ public class ResultsPageServlet extends HttpServlet {
 		Vector<T> returnValue = new Vector<T>();
 		Collections.sort(original);
 		
-		Object currObject;
+		T currObject;
 		// Check for objects in Favorite list, and put them on top
 		for (int i = 0; i < original.size(); ++i) {
 			

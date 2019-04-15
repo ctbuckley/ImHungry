@@ -431,7 +431,7 @@ public class Database {
 		
 		if (listIndex == 0) {
 			listName = "Favorites";
-		} else if (listIndex == 2) {
+		} else if (listIndex == 1) {
 			listName = "Do Not Show";
 		} else {
 			listName = "To Explore";
