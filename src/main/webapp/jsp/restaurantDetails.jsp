@@ -32,7 +32,7 @@
 		// Put restaurant item into local variable
 		restaurantVal = rest.get(arrNum);
 	}
-    
+	
 	request.getSession().setAttribute("itemID", itemID);
     %>
     
