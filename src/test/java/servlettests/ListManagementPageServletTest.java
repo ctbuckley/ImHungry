@@ -460,7 +460,7 @@ public class ListManagementPageServletTest {
 		}
 		db.dropTable("Users");
 	}
-	
+	 
 
 	@Test
     public void testThrowClassExceptions() throws Exception {
