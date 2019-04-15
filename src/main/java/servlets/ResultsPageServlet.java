@@ -194,11 +194,7 @@ public class ResultsPageServlet extends HttpServlet {
 		imageUrlVec.toArray(imageUrlArr);
 		
 		// Pass variables needed for generating front-end
-		request.setAttribute("imageUrlVec", imageUrlArr);
-		request.setAttribute("restaurantArr", restaurantArr);
-		request.setAttribute("recipeArr", recipeArr);
-		request.setAttribute("searchTerm", searchTerm);
-		request.setAttribute("resultCount", resultCount);
+		session.setAttribute("imageUrlVec", imageUrlArr);
 		// store result arrays in session -> used for details page
 		session.setAttribute("restaurantResults", restaurantArr);
 		session.setAttribute("recipeResults", recipeArr);

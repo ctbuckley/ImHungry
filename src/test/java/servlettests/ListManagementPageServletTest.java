@@ -149,8 +149,8 @@ public class ListManagementPageServletTest {
 		assertEquals(0, userLists[1].getRestaurants().size());
 		assertEquals(0, userLists[2].getRestaurants().size());
 		verify(rd).forward(request, response);
-		verify(request).setAttribute(ArgumentMatchers.eq("listVal"), ArgumentMatchers.eq(userLists[1]));
-		verify(request).setAttribute(ArgumentMatchers.eq("listIndex"), ArgumentMatchers.eq(1));
+		verify(session).setAttribute(ArgumentMatchers.eq("listVal"), ArgumentMatchers.eq(userLists[1]));
+		verify(session).setAttribute(ArgumentMatchers.eq("listIndex"), ArgumentMatchers.eq(1));
 		verify(session).setAttribute(ArgumentMatchers.eq("restaurants"), ArgumentMatchers.eq(userLists[1].getRestaurants()));
 		verify(session).setAttribute(ArgumentMatchers.eq("recipes"), ArgumentMatchers.eq(userLists[1].getRecipes()));
 		
@@ -179,8 +179,8 @@ public class ListManagementPageServletTest {
 		assertEquals(0, userLists[1].getRecipes().size());
 		assertEquals(0, userLists[2].getRecipes().size());
 		verify(rd).forward(request, response);
-		verify(request).setAttribute(ArgumentMatchers.eq("listVal"), ArgumentMatchers.eq(userLists[2]));
-		verify(request).setAttribute(ArgumentMatchers.eq("listIndex"), ArgumentMatchers.eq(2));
+		verify(session).setAttribute(ArgumentMatchers.eq("listVal"), ArgumentMatchers.eq(userLists[2]));
+		verify(session).setAttribute(ArgumentMatchers.eq("listIndex"), ArgumentMatchers.eq(2));
 		verify(session).setAttribute(ArgumentMatchers.eq("restaurants"), ArgumentMatchers.eq(userLists[2].getRestaurants()));
 		verify(session).setAttribute(ArgumentMatchers.eq("recipes"), ArgumentMatchers.eq(userLists[2].getRecipes()));
 	}
@@ -216,8 +216,8 @@ public class ListManagementPageServletTest {
 		assertEquals(0, userLists[2].getRestaurants().size());
 		assertEquals(tmp.get(0), userLists[1].getRestaurants().get(0));
 		verify(rd).forward(request, response);
-		verify(request).setAttribute(ArgumentMatchers.eq("listVal"), ArgumentMatchers.eq(userLists[0]));
-		verify(request).setAttribute(ArgumentMatchers.eq("listIndex"), ArgumentMatchers.eq(0));
+		verify(session).setAttribute(ArgumentMatchers.eq("listVal"), ArgumentMatchers.eq(userLists[0]));
+		verify(session).setAttribute(ArgumentMatchers.eq("listIndex"), ArgumentMatchers.eq(0));
 		verify(session).setAttribute(ArgumentMatchers.eq("restaurants"), ArgumentMatchers.eq(userLists[0].getRestaurants()));
 		verify(session).setAttribute(ArgumentMatchers.eq("recipes"), ArgumentMatchers.eq(userLists[0].getRecipes()));
 	}
@@ -253,8 +253,8 @@ public class ListManagementPageServletTest {
 		assertEquals(0, userLists[2].getRecipes().size());
 		assertEquals(tmp.get(0), userLists[0].getRecipes().get(0));
 		verify(rd).forward(request, response);
-		verify(request).setAttribute(ArgumentMatchers.eq("listVal"), ArgumentMatchers.eq(userLists[2]));
-		verify(request).setAttribute(ArgumentMatchers.eq("listIndex"), ArgumentMatchers.eq(2));
+		verify(session).setAttribute(ArgumentMatchers.eq("listVal"), ArgumentMatchers.eq(userLists[2]));
+		verify(session).setAttribute(ArgumentMatchers.eq("listIndex"), ArgumentMatchers.eq(2));
 		verify(session).setAttribute(ArgumentMatchers.eq("restaurants"), ArgumentMatchers.eq(userLists[2].getRestaurants()));
 		verify(session).setAttribute(ArgumentMatchers.eq("recipes"), ArgumentMatchers.eq(userLists[2].getRecipes()));
 	}
@@ -289,8 +289,8 @@ public class ListManagementPageServletTest {
 		assertEquals(1, userLists[2].getRecipes().size());
 		assertEquals(tmp.get(0), userLists[2].getRecipes().get(0));
 		verify(rd).forward(request, response);
-		verify(request).setAttribute(ArgumentMatchers.eq("listVal"), ArgumentMatchers.eq(userLists[2]));
-		verify(request).setAttribute(ArgumentMatchers.eq("listIndex"), ArgumentMatchers.eq(2));
+		verify(session).setAttribute(ArgumentMatchers.eq("listVal"), ArgumentMatchers.eq(userLists[2]));
+		verify(session).setAttribute(ArgumentMatchers.eq("listIndex"), ArgumentMatchers.eq(2));
 		verify(session).setAttribute(ArgumentMatchers.eq("restaurants"), ArgumentMatchers.eq(userLists[2].getRestaurants()));
 		verify(session).setAttribute(ArgumentMatchers.eq("recipes"), ArgumentMatchers.eq(userLists[2].getRecipes()));
 	}
@@ -323,8 +323,8 @@ public class ListManagementPageServletTest {
 		assertEquals(1, userLists[2].getRecipes().size());
 		assertEquals(tmp.get(0), userLists[2].getRecipes().get(0));
 		verify(rd).forward(request, response);
-		verify(request).setAttribute(ArgumentMatchers.eq("listVal"), ArgumentMatchers.eq(userLists[2]));
-		verify(request).setAttribute(ArgumentMatchers.eq("listIndex"), ArgumentMatchers.eq(2));
+		verify(session).setAttribute(ArgumentMatchers.eq("listVal"), ArgumentMatchers.eq(userLists[2]));
+		verify(session).setAttribute(ArgumentMatchers.eq("listIndex"), ArgumentMatchers.eq(2));
 		verify(session).setAttribute(ArgumentMatchers.eq("restaurants"), ArgumentMatchers.eq(userLists[2].getRestaurants()));
 		verify(session).setAttribute(ArgumentMatchers.eq("recipes"), ArgumentMatchers.eq(userLists[2].getRecipes()));
 	}
@@ -357,8 +357,8 @@ public class ListManagementPageServletTest {
 		assertEquals(1, userLists[2].getRecipes().size());
 		assertEquals(tmp.get(0), userLists[2].getRecipes().get(0));
 		verify(rd).forward(request, response);
-		verify(request).setAttribute(ArgumentMatchers.eq("listVal"), ArgumentMatchers.eq(userLists[2]));
-		verify(request).setAttribute(ArgumentMatchers.eq("listIndex"), ArgumentMatchers.eq(2));
+		verify(session).setAttribute(ArgumentMatchers.eq("listVal"), ArgumentMatchers.eq(userLists[2]));
+		verify(session).setAttribute(ArgumentMatchers.eq("listIndex"), ArgumentMatchers.eq(2));
 		verify(session).setAttribute(ArgumentMatchers.eq("restaurants"), ArgumentMatchers.eq(userLists[2].getRestaurants()));
 		verify(session).setAttribute(ArgumentMatchers.eq("recipes"), ArgumentMatchers.eq(userLists[2].getRecipes()));
 	}
@@ -393,8 +393,8 @@ public class ListManagementPageServletTest {
 		assertEquals(1, userLists[2].getRestaurants().size());
 		assertEquals(tmp.get(0), userLists[2].getRestaurants().get(0));
 		verify(rd).forward(request, response);
-		verify(request).setAttribute(ArgumentMatchers.eq("listVal"), ArgumentMatchers.eq(userLists[2]));
-		verify(request).setAttribute(ArgumentMatchers.eq("listIndex"), ArgumentMatchers.eq(2));
+		verify(session).setAttribute(ArgumentMatchers.eq("listVal"), ArgumentMatchers.eq(userLists[2]));
+		verify(session).setAttribute(ArgumentMatchers.eq("listIndex"), ArgumentMatchers.eq(2));
 		verify(session).setAttribute(ArgumentMatchers.eq("restaurants"), ArgumentMatchers.eq(userLists[2].getRestaurants()));
 		verify(session).setAttribute(ArgumentMatchers.eq("recipes"), ArgumentMatchers.eq(userLists[2].getRecipes()));
 	}

@@ -30,7 +30,7 @@
   	// Name of the list
     String listName = "";
   	// List name value pull from servlet
-    Integer listIndex = (Integer) request.getAttribute("listIndex");
+    Integer listIndex = (Integer) request.getSession().getAttribute("listIndex");
     // If value doesn't exist, we shouldn't be here on this page
     if(listIndex == null){
     	listName = "Error";
@@ -42,7 +42,7 @@
     	listName = "To Explore";
     }
 	// Get the List that is needed from servlet
-    UserList lists = (UserList) request.getAttribute("listVal");
+    UserList lists = (UserList) request.getSession().getAttribute("listVal");
     ArrayList<Restaurant> restaurantArr = null;
     ArrayList<Recipe> recipeArr = null;
     // Check if the list exists
