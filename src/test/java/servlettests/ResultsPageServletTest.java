@@ -30,6 +30,7 @@ import data.Database;
 import data.Recipe;
 import data.Restaurant;
 import data.UserList;
+import servlets.RestaurantDetailsPageServlet;
 import servlets.ResultsPageServlet;
 
 /*
@@ -439,6 +440,28 @@ public class ResultsPageServletTest {
 		new ResultsPageServlet().service(request, response);
 		
 	}
+	
+	@Test
+    public void testThrowClassExceptions() throws Exception {
+       String tempClassName = Config.className;
+       Config.className = "garbage";
+       
+       when(request.getRequestDispatcher("/jsp/restaurantDetails.jsp")).thenReturn(rd);
+       
+       new ResultsPageServlet().service(request, response);
+       Config.className =  tempClassName;
+    }
+    
+    @Test
+    public void testThrowSqlExceptions() throws Exception {
+       String tempDBPW = Config.databasePW;
+       Config.databasePW = "notmypass";
+       
+       when(request.getRequestDispatcher("/jsp/restaurantDetails.jsp")).thenReturn(rd);
+       
+       new ResultsPageServlet().service(request, response);
+       Config.databasePW = tempDBPW;
+    }
 	
 	@After
 	public void teardown() throws SQLException {
