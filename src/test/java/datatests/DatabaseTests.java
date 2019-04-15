@@ -277,8 +277,8 @@ public class DatabaseTests {
 	@Test
 	public void databaseSearchQueryImageTest() throws Exception {
 		
-		String searchQuery = "chicken";
-		String searchQuery2 = "pizza";
+		String searchQuery = "testQuery1";
+		String searchQuery2 = "testQuery2";
 		
 		String imgURL1 = "testURL1";
 		String imgURL2 = "testURL2";

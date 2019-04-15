@@ -57,12 +57,12 @@ public class Database {
 	public ArrayList<SearchItem> getSearchItemfromSearch(int userID) throws SQLException {
 		ps = conn.prepareStatement("SELECT * FROM SearchHistory WHERE userID=?");
 		ps.setInt(1, userID);
-		rs = ps.executeQuery();
+		ResultSet rs = ps.executeQuery();
 		/* returns all searchQuery's related to user */
 		ArrayList<SearchItem> result = new ArrayList<SearchItem>();
 		while (rs.next()) {
 			SearchItem temp = new SearchItem(rs.getInt("searchID"), rs.getInt("userID"), rs.getInt("numResults"), 
-					rs.getInt("radius"), rs.getString("searchQuery"));
+					rs.getInt("radius"), rs.getString("searchQuery"), this.getLinksfromImages(rs.getString("searchQuery")));
 		    result.add(temp);
 		}
 		return result;
@@ -465,7 +465,11 @@ public class Database {
 		ps.executeUpdate();	
 	}
 	
-	/* image links */
+	/* 
+	 * *******************************************************************************
+	 * IMAGE LINKS
+	 * *******************************************************************************
+	 */
 	
 	public int insertLinkintoImages(String searchQuery, String imgURL) throws SQLException {
 		ps = conn.prepareStatement("INSERT INTO Images (searchQuery, imgURL) "
@@ -501,4 +505,14 @@ public class Database {
 		ps.executeUpdate();
 	}
 	
+	public boolean queryImagesExist(String query) throws SQLException {
+        ps = conn.prepareStatement("SELECT * from Images WHERE searchQuery=?");
+        ps.setString(1, query);
+        rs = ps.executeQuery(); 
+     
+        if(rs.next()) {
+            return true;    
+        }
+        return false;
+	}
 }
