@@ -6,6 +6,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -23,6 +26,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import data.Config;
+import data.Database;
 import data.Recipe;
 import data.Restaurant;
 import data.UserList;
@@ -50,9 +54,13 @@ public class ResultsPageServletTest {
 	private Restaurant restaurant1;
 	private Restaurant restaurant2;
 	private UserList[] userLists;
+	Database db;
+	int userID;
+	String databasePW;
+	String className;
 
 	@Before
-	public void setUp() {
+	public void setUp() throws ClassNotFoundException, SQLException {
 		MockitoAnnotations.initMocks(this);
 		
 		request = mock(HttpServletRequest.class);
@@ -60,6 +68,15 @@ public class ResultsPageServletTest {
 		session = mock(HttpSession.class);
 		rd = mock(RequestDispatcher.class);
 		
+		db = new Database();
+  		db.insertUserintoUsers("testUser", "password");
+  		ResultSet rs =  db.getUserfromUsers("testUser");
+  		rs.next();
+  		userID = rs.getInt("userID");
+  		
+  		databasePW = Config.databasePW;
+	    className = Config.className;
+  		
 		when(request.getParameter("radiusInput")).thenReturn("2");
 		when(request.getParameter("pageNumber")).thenReturn("1");
 		when(request.getSession()).thenReturn(session);
@@ -87,7 +104,7 @@ public class ResultsPageServletTest {
 			userLists[i] = new UserList();
 		}		
 		
-		
+        when(session.getAttribute("username")).thenReturn("testUser");
 	}
 
 	/*
@@ -437,7 +454,14 @@ public class ResultsPageServletTest {
 		
 	}
 	
-	
+	@After
+	public void teardown() throws SQLException {
+		
+		Config.databasePW = databasePW;
+		Config.className = className;
+		
+		db.deleteUserfromUsers(userID);
+	}
 	
 	
 	
