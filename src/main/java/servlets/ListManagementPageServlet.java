@@ -59,14 +59,7 @@ public class ListManagementPageServlet extends HttpServlet {
 						ResultSet rs = db.getUserfromUsers(username);
 						rs.next();
 						
-						String listName = "";
-						if (listIndex == 0) {
-							listName = "Favorites";
-						}else if(listIndex==2) {
-							listName = "Do Not Show";
-						}else {
-							listName = "To Explore";
-						}
+						String listName = intToList(listIndex);
 						
 						int itemID = db.getItemId(fromList.getRecipes().get(arrNum));
 						int userID = rs.getInt("userID");
@@ -80,14 +73,7 @@ public class ListManagementPageServlet extends HttpServlet {
 						ResultSet rs = db.getUserfromUsers(username);
 						rs.next();
 						
-						String listName = "";
-						if (listIndex == 0) {
-							listName = "Favorites";
-						}else if(listIndex==2) {
-							listName = "Do Not Show";
-						}else {
-							listName = "To Explore";
-						}
+						String listName = intToList(listIndex);
 						int itemID = db.getItemId(fromList.getRestaurants().get(arrNum));
 						db.deleteItemfromList(rs.getInt("userID"), itemID, listName);
 						
@@ -115,23 +101,9 @@ public class ListManagementPageServlet extends HttpServlet {
 							ResultSet rs = db.getUserfromUsers(username);
 							rs.next();
 							
-							String listName = "";
-							if (listIndex == 0) {
-								listName = "Favorites";
-							}else if(listIndex==2) {
-								listName = "Do Not Show";
-							}else {
-								listName = "To Explore";
-							}
+							String listName = intToList(listIndex);
+							String listName2 = intToList(toListNum);
 							
-							String listName2 = "";
-							if (toListNum == 0) {
-								listName2 = "Favorites";
-							}else if(toListNum ==2) {
-								listName2 = "Do Not Show";
-							}else {
-								listName2 = "To Explore";
-							}
 							
 							int itemID = db.getItemId(fromList.getRecipes().get(arrNum));
 							
@@ -146,23 +118,8 @@ public class ListManagementPageServlet extends HttpServlet {
 							ResultSet rs = db.getUserfromUsers(username);
 							rs.next();
 							
-							String listName = "";
-							if (listIndex == 0) {
-								listName = "Favorites";
-							}else if(listIndex==2) {
-								listName = "Do Not Show";
-							}else {
-								listName = "To Explore";
-							}
-							
-							String listName2 = "";
-							if (toListNum == 0) {
-								listName2 = "Favorites";
-							}else if(toListNum ==2) {
-								listName2 = "Do Not Show";
-							}else {
-								listName2 = "To Explore";
-							}
+							String listName = intToList(listIndex);
+							String listName2 = intToList(toListNum);
 							
 							int itemID = db.getItemId(fromList.getRestaurants().get(arrNum));
 							
@@ -200,6 +157,18 @@ public class ListManagementPageServlet extends HttpServlet {
 			toList.add(item);  // Add the item to the new list
 			fromList.remove(item);  // Remove the item from the old list
 		}
+	}
+	
+	String intToList(int listIndex) {
+		String listName = "";
+		if (listIndex == 0) {
+			listName = "Favorites";
+		}else if(listIndex==2) {
+			listName = "Do Not Show";
+		}else {
+			listName = "To Explore";
+		}
+		return listName;
 	}
 	
 }
