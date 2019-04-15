@@ -23,7 +23,7 @@
 	Database db = new Database();
 	int itemID = db.insertRestaurant(restaurantVal);
 	
-	int arrNum = (int)request.getSession().getAttribute("arrNum");
+	int arrNum = (Integer)request.getSession().getAttribute("arrNum");
     // Check to see what the previous page was
 	if(resultsOrList.equals("list")){
 		// Get data from session
@@ -32,9 +32,7 @@
 		// Put restaurant item into local variable
 		restaurantVal = rest.get(arrNum);
 	}
-    
-	Database db = new Database();
-	int itemID = db.insertRestaurant(restaurantVal);
+
 	request.getSession().setAttribute("itemID", itemID);
     %>
     
