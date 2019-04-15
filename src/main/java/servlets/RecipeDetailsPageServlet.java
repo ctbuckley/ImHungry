@@ -58,14 +58,14 @@ public class RecipeDetailsPageServlet extends HttpServlet {
 					// Adding to favorite list
 					if (!userLists[1].contains(r) && !userLists[2].contains(r)) {
 						userLists[0].add(r);
-						db.insertItemintoList(userID, itemID, "To Be Explored");					
+						db.insertItemintoList(userID, itemID, "Favorites");					
 					}
 					break;
 				case 'd':
 					// Adding to do not show list
 					if (!userLists[0].contains(r) && !userLists[2].contains(r)) {
 						userLists[1].add(r);
-						db.insertItemintoList(userID, itemID, "To Be Explored");
+						db.insertItemintoList(userID, itemID, "Do Not Show");
 					}
 					break;
 				case 't':

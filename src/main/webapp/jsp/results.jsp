@@ -79,9 +79,9 @@
 		          		Manage Lists
 		        	</a>
 		        	<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-			      		<a class="dropdown-item" id="fOptionButton" href="/FeedMe/listManagement?listIndex=0">Favorites</a>
-			      		<a class="dropdown-item" id="tOptionButton" href="/FeedMe/listManagement?listIndex=2">To Explore</a>
-			      		<a class="dropdown-item" id="dOptionButton" href="/FeedMe/listManagement?listIndex=1">Do Not Show</a>     
+			      		<a class="dropdown-item" id="fOptionButton" data-index="0" href="/FeedMe/listManagement?listIndex=0">Favorites</a>
+			      		<a class="dropdown-item" id="tOptionButton" data-index="2" href="/FeedMe/listManagement?listIndex=2">To Explore</a>
+			      		<a class="dropdown-item" id="dOptionButton" data-index="1" href="/FeedMe/listManagement?listIndex=1">Do Not Show</a>     
 		        	</div>
 		    	</li>
 	     		<li class="nav-item active ml-auto">
@@ -313,6 +313,8 @@
 		// manageList(form) function check the selection and make sure the redirection is correct
 		function manageList(form) {
 			var userInput = document.getElementById('listName').value;
+			var listIndex = document.getElementById('listName').getAttribute('data-index');
+			var formURL = "/FeedMe/listManagement?listIndex=" + listIndex;
 			console.log(userInput);
 			// if the user didn't choose any selection, stays on the page
 			if (userInput == null) {
@@ -320,7 +322,7 @@
 			}
 			// if the user choose one of the predefined lists, go to list management page
 			else {
-				form.action = "/FeedMe/listManagement";
+				form.action = formURL;
 				return true;
 			}
 		}

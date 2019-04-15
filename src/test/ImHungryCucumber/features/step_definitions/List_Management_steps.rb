@@ -6,30 +6,40 @@ Given(/^I am on the Search Page$/) do
   page.find_by_id("feedMeButton").click()
  end
  When(/^I add a restaurant to Favorite list$/) do
+  sleep(3)
   page.find_by_id("Restaurant0").click()
   page.select 'Favorites', from: "dropDownBar"
   page.find_by_id("addToList").click()
+  sleep(5)
   page.find_by_id("backToResults").click()
  end
 
  When(/^I add a recipe to Favorite list$/) do
+  sleep(3)
   page.find_by_id("Recipe0").click()
   page.select 'Favorites', from: "dropDownBar"
   page.find_by_id("addToList").click()
+  sleep(5)
   page.find_by_id("backToResults").click()
  end
 
  When(/^I add the second restaurant to Favorite list$/) do
+  sleep(5)
   page.find_by_id("Restaurant1").click()
   page.select 'Favorites', from: "dropDownBar"
+  sleep(5)
   page.find_by_id("addToList").click()
+  sleep(5)
   page.find_by_id("backToResults").click()
  end
 
  When(/^I add the second recipe to Favorite list$/) do
+  sleep(5)
   page.find_by_id("Recipe1").click()
   page.select 'Favorites', from: "dropDownBar"
+  sleep(5)
   page.find_by_id("addToList").click()
+  sleep(5)
   page.find_by_id("backToResults").click()
  end
 
@@ -37,13 +47,17 @@ Given(/^I am on the Search Page$/) do
   page.find_by_id("Recipe0").click()
   page.select 'Do Not Show', from: "dropDownBar"
   page.find_by_id("addToList").click()
+  sleep(5)
   page.find_by_id("backToResults").click()
  end
+
  When(/^I go to Favorite list management page$/) do
   page.find_by_id("navToggler").click();
   page.find_by_id("navbarDropdownMenuLink").click();
   page.find_by_id("fOptionButton").click();
+  sleep(5)
  end
+
  Then(/^there is restaurant stars$/) do
   expect(page.find_by_id("innerRestaurantRating0"))
  end
@@ -86,6 +100,7 @@ Given(/^I am on the Search Page$/) do
  When(/^I trash the recipe$/) do
   page.select 'Trash', from: "moveDropDown"
   page.find_by_id("moveButton").click()
+  sleep(5)
  end
  Then (/^there is a recipe name in the card$/) do
   page.find_by_id("recipeName0")
@@ -97,6 +112,7 @@ Given(/^I am on the Search Page$/) do
   expect(page).to have_no_content("Stars");
  end
  Then(/^there is no cook time$/) do
+  sleep(5)
   expect(page).to have_no_content("Cook Time");
  end
  Then(/^there is no prep time$/) do
@@ -105,6 +121,7 @@ Given(/^I am on the Search Page$/) do
  When(/^I go to To Explore list management page$/) do
   page.find_by_id("navToggler").click();
   page.find_by_id("navbarDropdownMenuLink").click();
+  sleep(5)
   page.find_by_id("tOptionButton").click();
  end 
  When(/^I click on the restaurant in list management page$/) do

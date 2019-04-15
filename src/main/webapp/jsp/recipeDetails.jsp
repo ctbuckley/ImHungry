@@ -163,6 +163,7 @@
 	    function addToList(form){
 	    	var userInput = document.getElementById('listType').value;
 	    	console.log(userInput);
+	    	await sleep(5000);
 	    	if (userInput == null || userInput.length == 0){
 	    		return false;	
 	    	}

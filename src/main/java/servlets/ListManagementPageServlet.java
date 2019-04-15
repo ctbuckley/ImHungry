@@ -27,6 +27,10 @@ public class ListManagementPageServlet extends HttpServlet {
 			int listIndex = -1;
 			
 			try {
+				String requestURL = request.getRequestURI();
+				System.out.println("Request URL: " + requestURL);
+				System.out.println("listIndex parameter: " + request.getParameter("listIndex"));
+				System.out.println("opType: " + request.getParameter("opType"));
 				listIndex = Integer.parseInt(request.getParameter("listIndex"));
 			} catch (NumberFormatException e){
 				e.printStackTrace();
@@ -104,9 +108,10 @@ public class ListManagementPageServlet extends HttpServlet {
 							String listName = intToList(listIndex);
 							String listName2 = intToList(toListNum);
 							
-							
+							System.out.println("listName: " + listName);
+							System.out.println("listName2: " + listName2);
 							int itemID = db.getItemId(fromList.getRecipes().get(arrNum));
-							
+							System.out.println("itemID: " + itemID);
 							db.deleteItemfromList(rs.getInt("userID"), itemID, listName); 
 							db.insertItemintoList(rs.getInt("userID"), itemID, listName2); 
 							
@@ -163,7 +168,7 @@ public class ListManagementPageServlet extends HttpServlet {
 		String listName = "";
 		if (listIndex == 0) {
 			listName = "Favorites";
-		}else if(listIndex==2) {
+		}else if(listIndex==1) {
 			listName = "Do Not Show";
 		}else {
 			listName = "To Explore";
