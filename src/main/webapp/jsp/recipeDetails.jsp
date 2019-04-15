@@ -26,7 +26,7 @@
 	Database db = new Database();
 	int itemID = db.insertRecipe(recipeVal);
 	
-    int arrNum = Integer.parseInt((String) request.getSession().getAttribute("arrNum"));
+    int arrNum = (int)request.getSession().getAttribute("arrNum");
 	if(resultsOrList.equals("list")){
 		ArrayList<Recipe> rest = (ArrayList<Recipe>) request.getSession().getAttribute("recipes");
 		recipeVal = rest.get(arrNum);
