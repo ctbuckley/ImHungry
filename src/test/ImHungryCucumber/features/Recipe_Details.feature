@@ -1,6 +1,6 @@
 Feature: Recipe Details Page
 Background:
-
+	Given I am logged in
 	Given I am on the Recipe Details Page
 
 Scenario: User reads recipe information, and clicks printable version

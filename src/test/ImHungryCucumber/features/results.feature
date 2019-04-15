@@ -1,7 +1,7 @@
 Feature: Checking the I am hungry Results page
 
 Background:
-
+	Given I am logged in
 	Given I am on the ImHungry Results Page
 
 Scenario: Requirements for select button/manage lists button/

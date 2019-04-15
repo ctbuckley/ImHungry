@@ -1,6 +1,6 @@
 Feature: Restaurant Details Page
 Background:
-
+	Given I am logged in
 	Given I am on the Restaurant Details Page
 
 Scenario: User reads restaurant information, clicks printable version, and goes back to Results Page

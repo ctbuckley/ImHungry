@@ -1,7 +1,8 @@
 Feature: List Management Page
 
 Background:
-
+    
+    Given I am logged in
 	Given I am on the Search Page
 
 Scenario: User adds a restaurant to Favorite list and a recipe to do not show list

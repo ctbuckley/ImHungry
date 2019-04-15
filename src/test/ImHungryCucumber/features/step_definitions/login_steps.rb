@@ -1,3 +1,19 @@
+
+Given(/^I am logged in$/) do
+  visit "http://localhost:8080/FeedMe/jsp/login.jsp"
+  if defined?(bacon) == nil
+  	@current_user = 0
+  else
+  	@current_user += 1
+  end
+  username = "user" + @current_user.to_s
+  puts username
+  fill_in('usernameInput', with: username)
+  fill_in('passwordInput', with: "password")	
+  find('#signUpButton').click
+
+end
+
 Given(/^I am on the ImHungry Login Page$/) do
   visit "http://localhost:8080/FeedMe/jsp/login.jsp"
 end

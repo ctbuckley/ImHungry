@@ -1,6 +1,7 @@
 Feature: Checking that I am on the grocery list Page
 
 Background:
+    Given I am logged in
 	Given I am on the ImHungry Search Page
 
 Scenario: Check the features of the grocery List

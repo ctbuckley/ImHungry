@@ -1,7 +1,8 @@
 Feature: Checking the I am hungry search page
 
 Background:
-
+	
+	Given I am logged in
 	Given I am on the ImHungry Search Page
 
 Scenario: Requirements for search Term field
