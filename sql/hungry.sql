@@ -2,6 +2,8 @@ DROP DATABASE IF EXISTS hungrydatabase;
 CREATE DATABASE hungrydatabase;
 
 USE hungrydatabase;
+SET SQL_SAFE_UPDATES = 0;
+
 
 CREATE TABLE Users(
 	userID INT(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -72,4 +74,10 @@ CREATE TABLE Grocery(
     userID INT(11) NOT NULL,
     ingredientName VARCHAR(500) NOT NULL,
     FOREIGN KEY fk6(userID) REFERENCES Users(userID)
+);
+
+CREATE TABLE Images(
+	imageID INT(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    searchQuery VARCHAR(50) NOT NULL,
+    imgURL VARCHAR(500) NOT NULL
 );

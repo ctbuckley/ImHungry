@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Vector;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import api.AccessYelpAPI;
 import api.GoogleImageSearch;
 import api.Scrapper;
+import data.Database;
 import data.Recipe;
 import data.Restaurant;
 import data.UserList;
@@ -161,7 +163,33 @@ public class ResultsPageServlet extends HttpServlet {
 
 		// Google Image Search to make collage of images
 		// array of image URLs passed to jsp as "imageUrlVec"
-		Vector<String> imageUrlVec = GoogleImageSearch.GetImagesFromGoogle(searchTerm);
+		Database db;
+		Vector<String> imageUrlVec = new Vector<String>();
+		
+		try {
+			db = new Database();
+			boolean queryImagesExist = db.queryImagesExist(searchTerm);
+			
+	        if (queryImagesExist) {
+	        	ArrayList<String> imgURLs = new ArrayList<String>();
+	            imgURLs = db.getLinksfromImages(searchTerm);
+	            for (String i : imgURLs) {
+	            	imageUrlVec.add(i);
+	            }
+	        } else {
+	        	imageUrlVec = GoogleImageSearch.GetImagesFromGoogle(searchTerm);
+	            for(String i : imageUrlVec) {
+	                db.insertLinkintoImages(searchTerm, i);
+	            }
+	        }
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		String[] imageUrlArr = new String[imageUrlVec.size()];
 		imageUrlVec.toArray(imageUrlArr);
 		

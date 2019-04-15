@@ -6,6 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+
 
 public class Database {
 
@@ -54,12 +57,12 @@ public class Database {
 	public ArrayList<SearchItem> getSearchItemfromSearch(int userID) throws SQLException {
 		ps = conn.prepareStatement("SELECT * FROM SearchHistory WHERE userID=?");
 		ps.setInt(1, userID);
-		rs = ps.executeQuery();
+		ResultSet rs = ps.executeQuery();
 		/* returns all searchQuery's related to user */
 		ArrayList<SearchItem> result = new ArrayList<SearchItem>();
 		while (rs.next()) {
 			SearchItem temp = new SearchItem(rs.getInt("searchID"), rs.getInt("userID"), rs.getInt("numResults"), 
-					rs.getInt("radius"), rs.getString("searchQuery"));
+					rs.getInt("radius"), rs.getString("searchQuery"), this.getLinksfromImages(rs.getString("searchQuery")));
 		    result.add(temp);
 		}
 		return result;
@@ -161,7 +164,7 @@ public class Database {
 	public void insertItemintoList(int userID, int itemID, String listName) throws SQLException {
 		
 		int listID = getList(listName);
-		int itemIndex = getIndex(userID, listID);
+		int itemIndex = getIndex(userID, listID) + 1;
 		
 		ps = conn.prepareStatement("INSERT INTO Lists "
 				+ "(userID, itemID, listID, itemIndex) VALUES "
@@ -258,6 +261,111 @@ public class Database {
 				rs.getString("address"), rs.getString("phone"), r, rs.getInt("driveTime"));
 	}
 	
+	public void swapItemIndex(int oldIndex, int newIndex, String username, String listName) throws SQLException {
+		
+		//username
+		ResultSet rs = this.getUserfromUsers(username);
+		int userID = -1;
+		rs.next();
+		userID = rs.getInt("userID");
+		
+		//listID
+		int listID = this.getList(listName);
+		
+		
+		//how do we get itemID?
+		ps = conn.prepareStatement("SELECT * from Lists WHERE userID=? AND listID=? AND itemIndex=?");
+		ps.setInt(1, userID);
+		ps.setInt(2, listID);
+		ps.setInt(3, oldIndex);
+		
+		ResultSet rs1 = ps.executeQuery();
+		
+		System.out.println("UserID: " + userID);
+		System.out.println("listID: " + listID);
+		System.out.println("ItemIndex: " + oldIndex);
+		
+		rs1.next();
+		int itemID = rs1.getInt("itemID");
+		
+		boolean moveDown = true;
+		int loopNum = 0;
+		
+		if (oldIndex < newIndex) {
+			moveDown = true;
+			loopNum = newIndex - oldIndex;
+		} else {
+			moveDown = false;
+			loopNum = oldIndex - newIndex;
+		}
+		
+		for (int i = 0; i < loopNum; i++) {
+			swapHelper(userID, listID, itemID, moveDown);
+		}
+	
+	}
+	
+	public void swapHelper(int userID, int listID, int itemID, boolean moveDown) throws SQLException{ 
+		
+		ps = conn.prepareStatement("SELECT * from Lists WHERE userID=? AND listID=? AND itemID=?");
+		ps.setInt(1, userID);
+		ps.setInt(2, listID);
+		ps.setInt(3, itemID);
+		
+		rs = ps.executeQuery();
+		
+		rs.next();
+		int index = rs.getInt("itemIndex"); //this is the CURRENT itemIndex
+		int newIndex = 0;
+		
+		if (moveDown) {
+			
+			/* itemID is the item being moved DOWN 
+			 * i.e. A -- B -- C
+			 * if itemID = A, then it becomes
+			 * B -- A -- C
+			 * then, if itemID = A again, it becomes
+			 * B -- C -- A
+			 */
+			newIndex = index+1;
+			
+		}else {
+			/* itemID is the item being moved UP 
+			 * i.e. A -- B -- C
+			 * if itemID = C, then it becomes
+			 * A -- C -- B
+			 * then, if itemID = C again, it becomes
+			 * C -- A -- B
+			 */
+			newIndex = index-1;
+		}
+		
+		ps = conn.prepareStatement("UPDATE Lists " + 
+				"SET itemIndex = ? " + 
+				"WHERE userID=? AND listID=? AND itemID=?");
+		ps.setInt(1, -1);
+		ps.setInt(2, userID);
+		ps.setInt(3, listID);
+		ps.setInt(4, itemID);
+		ps.executeUpdate(); 
+		
+		ps = conn.prepareStatement("UPDATE Lists " + 
+				"SET itemIndex = ? " + 
+				"WHERE userID=? AND listID=? AND itemIndex=?");
+		ps.setInt(1, index);
+		ps.setInt(2, userID);
+		ps.setInt(3, listID);
+		ps.setInt(4, newIndex);
+		ps.executeUpdate();
+		
+		ps = conn.prepareStatement("UPDATE Lists " + 
+				"SET itemIndex = ? " + 
+				"WHERE itemIndex=?");
+		ps.setInt(1, newIndex);
+		ps.setInt(2, -1);
+		ps.executeUpdate();
+		  
+	}	
 	public ArrayList<Integer> getItemsfromList(int userID, String listName) throws SQLException {
 		
 		int listID = getList(listName);
@@ -271,8 +379,19 @@ public class Database {
 		
 		ArrayList<Integer> items = new ArrayList<Integer>();
 		
+		ArrayList<Integer> itemIndexes = new ArrayList<Integer>();
+		
+		HashMap<Integer, Integer> indexToItemID = new HashMap<Integer, Integer>();
+		
 		while(rs.next()) {		
-			items.add(rs.getInt("itemID"));		
+			itemIndexes.add(rs.getInt("itemIndex"));
+			indexToItemID.put(rs.getInt("itemindex"), rs.getInt("itemID"));
+		}
+		
+		Collections.sort(itemIndexes);
+		
+		for (int i : itemIndexes) {
+			items.add(indexToItemID.get(i));
 		}
 		
 		return items;
@@ -390,4 +509,54 @@ public class Database {
 		ps.executeUpdate();	
 	}
 	
+	/* 
+	 * *******************************************************************************
+	 * IMAGE LINKS
+	 * *******************************************************************************
+	 */
+	
+	public int insertLinkintoImages(String searchQuery, String imgURL) throws SQLException {
+		ps = conn.prepareStatement("INSERT INTO Images (searchQuery, imgURL) "
+				+ "VALUES (?, ?);");
+		ps.setString(1, searchQuery);
+		ps.setString(2, imgURL);
+		ps.executeUpdate();
+		
+		ps = conn.prepareStatement("SELECT MAX(imageID) FROM Images");
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		return rs.getInt("MAX(imageID)");
+	
+	}
+	
+	public ArrayList<String> getLinksfromImages(String searchQuery) throws SQLException {
+		
+		ps = conn.prepareStatement("SELECT * FROM Images WHERE searchQuery=?");
+		ps.setString(1, searchQuery);
+		rs = ps.executeQuery();
+		ArrayList<String> result = new ArrayList<String>();
+		
+		while(rs.next()) {
+			result.add(rs.getString("imgURL"));
+		}
+		return result;
+		
+	}
+	
+	public void deleteLinkfromImages(String imgURL) throws SQLException {
+		ps = conn.prepareStatement("DELETE FROM Images WHERE imgURL=?");
+		ps.setString(1, imgURL);
+		ps.executeUpdate();
+	}
+	
+	public boolean queryImagesExist(String query) throws SQLException {
+        ps = conn.prepareStatement("SELECT * from Images WHERE searchQuery=?");
+        ps.setString(1, query);
+        rs = ps.executeQuery(); 
+     
+        if(rs.next()) {
+            return true;    
+        }
+        return false;
+	}
 }

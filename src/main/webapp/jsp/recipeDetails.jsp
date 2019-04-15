@@ -22,6 +22,10 @@
     <% 
     String resultsOrList = (String) request.getSession().getAttribute("resultsOrList");
 	Recipe recipeVal = (Recipe) request.getAttribute("recipeVal");
+	
+	Database db = new Database();
+	int itemID = db.insertRecipe(recipeVal);
+	
     int arrNum = Integer.parseInt((String) request.getParameter("arrNum"));
 	if(resultsOrList.equals("list")){
 		ArrayList<Recipe> rest = (ArrayList<Recipe>) request.getSession().getAttribute("recipes");

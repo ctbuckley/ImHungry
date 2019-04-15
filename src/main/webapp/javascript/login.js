@@ -61,7 +61,6 @@ function addUser() {
 function onLogIn(username) {
 	//set up any javascript we need for loading the new user
 	
-	
 	sessionStorage.setItem("loggedIn", true);
 	sessionStorage.setItem("username", username);
 	
@@ -129,6 +128,7 @@ function loadSearchHistory() {
 	    				sessionStorage.setItem("searchQuery" + i, result[i].searchQuery);
 	    				sessionStorage.setItem("radius" + i, result[i].radius);
 	    				sessionStorage.setItem("numResults" + i, result[i].numResults);
+	    				sessionStorage.setItem("imgLinks" + i, result[i].imgURLs);
 	    			}
 	   
 	    		}
@@ -139,7 +139,7 @@ function loadSearchHistory() {
 	    		
 	    		document.getElementById("dropdown-menu-populate").innerHTML = "";
 	    		
-	    		var imgLinks = [
+	    		var imgLinks2 = [
 	    			"https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
 	    			"https://images.unsplash.com/photo-1535498730771-e735b998cd64?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
 	    			"https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
@@ -151,12 +151,24 @@ function loadSearchHistory() {
 	    			"https://www.w3schools.com/w3css/img_lights.jpg",
 	    			"https://media.wired.com/photos/5c1ae77ae91b067f6d57dec0/master/pass/Comparison-City-MAIN-ART.jpg",	    			
 	    		]
+	    	
+	    		var imgLinks = []
 	    		
 	    		for (var i = 0; i < numItemsToLoad; i++) {
 	    			
 	    			var radius = sessionStorage.getItem("radius" + i);
 	    			var query = sessionStorage.getItem("searchQuery" + i);
 	    			var numResults = sessionStorage.getItem("numResults" + i);
+	    			imgLinks2 = sessionStorage.getItem("imgLinks" + i);
+	    			
+	    			imgLinks = imgLinks2.split(",http");
+	    			
+	    			for (var u = 1; u < 10; u++) {
+	    				var temp = imgLinks[u];
+	    				var newLink = "http" + temp;
+	    				imgLinks[u] = newLink;
+	    				
+	    			}
 	    			
 	    			var link = "http://localhost:8080/FeedMe/results?q=" + query + "&n=" + numResults + "&radiusInput=" + radius + "&pageNumber=1";
 	    					

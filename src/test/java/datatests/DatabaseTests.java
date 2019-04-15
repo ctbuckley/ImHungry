@@ -121,6 +121,8 @@ public class DatabaseTests {
 		Recipe recipe1 = new Recipe("testRecipe1", "picURL", 1.0, 2.0, ingredients, instructions, 4.0);
 		Recipe recipe2 = new Recipe("testRecipe2", "picURL", 2.0, 3.0, ingredients, instructions, 3.0);
 		Recipe recipe3 = new Recipe("testRecipe3", "picURL", 3.0, 4.0, ingredients, instructions, 2.0);
+		Recipe recipe4 = new Recipe("testRecipe4", "picURL", 3.0, 4.0, ingredients, instructions, 2.0);
+		Recipe recipe5 = new Recipe("testRecipe5", "picURL", 3.0, 4.0, ingredients, instructions, 2.0);
 		
 		Restaurant restaurant1 = new Restaurant("testRestaurant1", "webURL", 20, "sampleAddress", "phoneNumber", 4.0, 30);
 		Restaurant restaurant2 = new Restaurant("testRestaurant2", "webURL", 20, "sampleAddress", "phoneNumber", 4.0, 30);
@@ -134,6 +136,9 @@ public class DatabaseTests {
 		int itemID5 = db.insertRestaurant(restaurant2);
 		int itemID6 = db.insertRestaurant(restaurant3);
 		
+		int itemID7 = db.insertRecipe(recipe4);
+		int itemID8 = db.insertRecipe(recipe5);
+		
 		//insert with userID, itemID, listName
 		//insertItemintoList(userID, itemID, listName);
 		
@@ -143,6 +148,9 @@ public class DatabaseTests {
 		db.insertItemintoList(userID, itemID4, "Favorites");
 		db.insertItemintoList(userID, itemID5, "To Explore");
 		db.insertItemintoList(userID, itemID6, "Do Not Show");
+		
+		db.insertItemintoList(userID, itemID7, "Favorites");
+		db.insertItemintoList(userID, itemID8, "Favorites");
 		
 		//load data from database for verification
 		
@@ -184,16 +192,39 @@ public class DatabaseTests {
 			}
 		}
 		
-		assertEquals(favIDs.size(), 2);
+		assertEquals(favIDs.size(), 4);
 		assertEquals(exploreIDs.size(), 2);
 		assertEquals(donotshowIDs.size(), 2);
 		
-		assertEquals(favRecipes.size(), 1);
+		assertEquals(favRecipes.size(), 3);
 		assertEquals(exploreRecipes.size(), 1);
 		assertEquals(dnsRecipes.size(), 1);
 		assertEquals(favRestaurant.size(), 1);
 		assertEquals(exploreRestaurant.size(), 1);
 		assertEquals(dnsRestaurant.size(), 1);
+		
+		//test swapping and ordering
+		
+		//we want to test moving items in favIDs
+		//order is itemID1, itemID4, itemID7, itemID8
+		assertEquals((Integer)favIDs.get(0), (Integer)itemID1);
+		assertEquals((Integer)favIDs.get(1), (Integer)itemID4);
+		assertEquals((Integer)favIDs.get(2), (Integer)itemID7);
+		assertEquals((Integer)favIDs.get(3), (Integer)itemID8);
+		 
+		db.swapItemIndex(1, 3, "testUser", "Favorites"); 
+		favIDs = db.getItemsfromList(userID, "Favorites");
+		assertEquals((Integer)favIDs.get(0), (Integer)itemID4);
+		assertEquals((Integer)favIDs.get(1), (Integer)itemID7);
+		assertEquals((Integer)favIDs.get(2), (Integer)itemID1);
+		assertEquals((Integer)favIDs.get(3), (Integer)itemID8);
+		
+		db.swapItemIndex(3, 1, "testUser", "Favorites"); 
+		favIDs = db.getItemsfromList(userID, "Favorites");
+		assertEquals((Integer)favIDs.get(0), (Integer)itemID1); 
+		assertEquals((Integer)favIDs.get(1), (Integer)itemID4);
+		assertEquals((Integer)favIDs.get(2), (Integer)itemID7);
+		assertEquals((Integer)favIDs.get(3), (Integer)itemID8);
 		
 		//cleanup database
 		
@@ -203,6 +234,8 @@ public class DatabaseTests {
 		db.deleteItemfromList(userID, itemID4, "Favorites");
 		db.deleteItemfromList(userID, itemID5, "To Explore");
 		db.deleteItemfromList(userID, itemID6, "Do Not Show");
+		db.deleteItemfromList(userID, itemID7, "Favorites");
+		db.deleteItemfromList(userID, itemID8, "Favorites");
 		
 		db.deleteItemfromItem(itemID1);
 		db.deleteItemfromItem(itemID2);
@@ -210,7 +243,8 @@ public class DatabaseTests {
 		db.deleteItemfromItem(itemID4);
 		db.deleteItemfromItem(itemID5);
 		db.deleteItemfromItem(itemID6);
-		
+		db.deleteItemfromItem(itemID7);
+		db.deleteItemfromItem(itemID8);
 	}
 	
 	@Test
@@ -239,6 +273,56 @@ public class DatabaseTests {
 		assertEquals(0, results.size());
 		
 	}	
+	
+	@Test
+	public void databaseSearchQueryImageTest() throws Exception {
+		
+		assertEquals(db.queryImagesExist("testQuery1"), false);
+		
+		String searchQuery = "testQuery1";
+		String searchQuery2 = "testQuery2";
+		
+		String imgURL1 = "testURL1";
+		String imgURL2 = "testURL2";
+		String imgURL3 = "testURL3";
+		String imgURL4 = "testURL4";
+		String imgURL5 = "testURL5";
+		String imgURL6 = "testURL6";
+		String imgURL7 = "testURL7";
+		
+		db.insertLinkintoImages(searchQuery, imgURL1);
+		db.insertLinkintoImages(searchQuery, imgURL2);
+		db.insertLinkintoImages(searchQuery, imgURL3);
+		db.insertLinkintoImages(searchQuery, imgURL4);
+		db.insertLinkintoImages(searchQuery, imgURL5);
+		db.insertLinkintoImages(searchQuery2, imgURL6);
+		db.insertLinkintoImages(searchQuery2, imgURL7);
+		
+		ArrayList<String> resultsOne = db.getLinksfromImages(searchQuery);
+		ArrayList<String> resultsTwo = db.getLinksfromImages(searchQuery2);
+		
+		assertEquals(5, resultsOne.size());
+		assertEquals(2, resultsTwo.size());
+		assertEquals("testURL3", resultsOne.get(2));
+		assertEquals("testURL7", resultsTwo.get(1));
+		
+		assertEquals(db.queryImagesExist("testQuery1"), true);
+		
+		db.deleteLinkfromImages(imgURL1);
+		db.deleteLinkfromImages(imgURL2);
+		db.deleteLinkfromImages(imgURL3);
+		db.deleteLinkfromImages(imgURL4);
+		db.deleteLinkfromImages(imgURL5);
+		db.deleteLinkfromImages(imgURL6);
+		db.deleteLinkfromImages(imgURL7);
+		
+		resultsOne = db.getLinksfromImages(searchQuery);
+		resultsTwo = db.getLinksfromImages(searchQuery2);
+		
+		assertEquals(0, resultsOne.size());
+		assertEquals(0, resultsTwo.size());
+	}
+	
 	
 	
 	
