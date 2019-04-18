@@ -5,13 +5,16 @@ Background:
     Given I am logged in
 	Given I am on the Search Page
 
+Scenario: Restaurant and Recipe Titles do not appear if list is empty
+    When I go to Favorite list management page
+    Then the Recipe and Restaurant titles should not be visible
+
 Scenario: User can reorder a restaurant in a list
     When I add a restaurant to Favorite list
     And I add the second restaurant to Favorite list
     And I go to Favorite list management page
     And I move the first restaurant to the second position
     Then the second restaurant should be first in the list
-
 
 Scenario: User can reorder a recipe in a list
     When I add a recipe to Favorite list
