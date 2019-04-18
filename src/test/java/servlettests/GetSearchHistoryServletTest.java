@@ -17,6 +17,8 @@ import javax.servlet.http.HttpSession;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -36,6 +38,9 @@ public class GetSearchHistoryServletTest {
 
 	@Mock
 	RequestDispatcher rd;
+	
+	@Captor
+	ArgumentCaptor argCaptor;
 	
 	Database db;
 	
@@ -61,9 +66,6 @@ public class GetSearchHistoryServletTest {
 		
 	}
 
-	/*
-	 *  Test to make sure a valid new user returns correctly.
-	 */
 	@Test
 	public void testGetSearchHistory() throws Exception {
 
@@ -87,6 +89,27 @@ public class GetSearchHistoryServletTest {
 		//delete them so this test passes again next time
 		db.deleteQueryfromSearchHistory(searchID1);
 		db.deleteQueryfromSearchHistory(searchID2);
+		
+		//Remove the user so that this test works next time
+		db.deleteUserfromUsers(userID);
+	}
+	
+
+	@Test
+	public void testNoSearchHistory() throws Exception {
+
+		when(request.getParameter("username")).thenReturn("testUser");
+		StringWriter out = new StringWriter();
+		when(response.getWriter()).thenReturn(new PrintWriter(out));
+		
+		new GetSearchHistoryServlet().service(request, response);
+		
+		String r = out.toString();
+		
+		//verify response
+		
+		assertEquals(true, true);
+		System.out.println(r);
 		
 		//Remove the user so that this test works next time
 		db.deleteUserfromUsers(userID);
