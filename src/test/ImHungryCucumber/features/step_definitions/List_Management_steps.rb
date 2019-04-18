@@ -157,4 +157,9 @@ Then(/^the second recipe should be first in the list$/) do
   expect(first('.recipe_cont')[:id]).to eq "Recipe1"
 end
 
+Then(/^the Recipe and Restaurant titles should not be visible$/) do
+  expect(page).to have_no_content("Restaurants");
+  expect(page).to have_no_content("Recipes");
+end
+
 
