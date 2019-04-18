@@ -83,7 +83,6 @@ Scenario: Check that search persist when the user logs out
 	And I enter "2" in the radius input field
 	And press search
 	And I should see results for "ramen"
-    And I should see 1 history result
     And I click on the log out button
     And I enter in "testUsername12" in the username field
     And I enter in "testPassword12" in the password field
@@ -92,7 +91,7 @@ Scenario: Check that search persist when the user logs out
 	And I enter "1" in the search number box
 	And I enter "2" in the radius input field
 	And press search
-    And I should see 2 history results
+    And I should see 1 history result
 
 Scenario: Check that the user lists persist when the user logs out
     When I enter in "testUsername13" in the username field
