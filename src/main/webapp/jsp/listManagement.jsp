@@ -94,7 +94,7 @@
     	<div class=" resultList">
       	<!-- Restaurants and Recipes lists  -->
       		<h1 class="pageTitle col-12"><%=listName %> List</h1>
-      		<h3>Restaurants</h3>
+      		<h3 style="display:<%= restaurantArr.size() == 0 ? "none" : ""%>">Restaurants</h3>
       		<ul class="sortable" data-type="restaurant">
 	      		<% // Used to alternate colors
 	   			int j = 0;
@@ -169,7 +169,7 @@
 	         	<% j++;} %>
 			</ul>
     		<!-- Recipes -->
-    		<h3>Recipes</h3>
+    		<h3 style="display:<%= recipeArr.size() == 0 ? "none" : "block"%>">Recipes</h3>
     		<ul class="sortable" data-type="recipe">
 	    		<%
 	    		// Use the number of items in the restauarant array to coordinate the background color for the recipes
