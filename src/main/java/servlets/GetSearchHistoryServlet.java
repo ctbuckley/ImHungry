@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,6 +33,13 @@ public class GetSearchHistoryServlet extends HttpServlet {
 			rs.next();
 			int userID = rs.getInt("userID");
 			ArrayList<SearchItem> searchItems = db.getSearchItemfromSearch(userID);
+			
+			Collections.reverse(searchItems);
+			
+			if(searchItems.size() > 0) {
+				searchItems.remove(0);
+			}
+			
 			String json = new Gson().toJson(searchItems);
 			out.print(json);
 			rs.close();
