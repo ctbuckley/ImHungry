@@ -83,6 +83,11 @@ Scenario: Check that the past searches dropdown has one result
 	And I enter "1" in the search number box
 	And I enter "2" in the radius input field
 	And press search
+	And I should visit the search page
+	And I enter "ramen" in the search box
+	And I enter "1" in the search number box
+	And I enter "2" in the radius input field
+	And press search
 	Then I should see 1 history result
 
 Scenario: Check that the past searches dropdown has two result
@@ -100,9 +105,14 @@ Scenario: Check that the past searches dropdown has two result
 	And I enter "1" in the search number box
 	And I enter "2" in the radius input field
 	And press search
+	And I should visit the search page
+	And I enter "chicken" in the search box
+	And I enter "1" in the search number box
+	And I enter "2" in the radius input field
+	And press search
 	And I should see 2 history results
 	And I click on the first item in the quick access list
-	Then I should see results for "burger"
+	Then I should see results for "ramen"
 
 Scenario: Check that an error message appears when no restaurants found
 	When I enter "halfond" in the search box
