@@ -64,9 +64,7 @@ public class ValidateLoginServletTest {
 		
 		Database db = new Database();
 		db.insertUserintoUsers("testUser", "4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2");
-		ResultSet rs = db.getUserfromUsers("testUser");
-		rs.next();
-		int uID = rs.getInt("userID");
+		int uID = db.getUserfromUsers("testUser");
 
 		when(request.getParameter("username")).thenReturn("testUser");
 		when(request.getParameter("pass")).thenReturn("root");
@@ -97,9 +95,7 @@ public class ValidateLoginServletTest {
 		
 		Database db = new Database();
 		db.insertUserintoUsers("master", "pass");
-		ResultSet rs = db.getUserfromUsers("master");
-		rs.next();
-		int uID = rs.getInt("userID");
+		int uID = db.getUserfromUsers("master");
 
 
 		when(request.getParameter("username")).thenReturn("master");
@@ -216,9 +212,7 @@ public class ValidateLoginServletTest {
     	
 		Database db = new Database();
 		db.insertUserintoUsers("testUser", "4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2");
-		ResultSet rs = db.getUserfromUsers("testUser");
-		rs.next();
-		int uID = rs.getInt("userID");
+		int uID = db.getUserfromUsers("testUser");
 		
 		when(request.getParameter("username")).thenReturn("testUser");
 		when(request.getParameter("pass")).thenReturn("root");
@@ -247,9 +241,7 @@ public class ValidateLoginServletTest {
     	
     	Database db = new Database();
 		db.insertUserintoUsers("testUser", "4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2");
-		ResultSet rs = db.getUserfromUsers("testUser");
-		rs.next();
-		int uID = rs.getInt("userID");
+		int uID = db.getUserfromUsers("testUser");
 		
 		when(request.getParameter("username")).thenReturn("testUser");
 		when(request.getParameter("pass")).thenReturn("root");
@@ -278,9 +270,7 @@ public class ValidateLoginServletTest {
     	
     	Database db = new Database();
 		db.insertUserintoUsers("testUser", "4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2");
-		ResultSet rs = db.getUserfromUsers("testUser");
-		rs.next();
-		int uID = rs.getInt("userID");
+		int uID = db.getUserfromUsers("testUser");
 		
 		when(request.getParameter("username")).thenReturn("testUser");
 		when(request.getParameter("pass")).thenReturn("root");

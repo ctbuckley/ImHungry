@@ -61,9 +61,7 @@ public class ListManagementPageServletTest {
 		db = new Database();
 
 		db.insertUserintoUsers("testUser", "pass");
-		ResultSet rs = db.getUserfromUsers("testUser");
-		rs.next();
-		userID = rs.getInt("userID");
+		userID = db.getUserfromUsers("testUser");
 		
 		request = mock(HttpServletRequest.class);
 		response = mock(HttpServletResponse.class);

@@ -27,9 +27,7 @@ public class DatabaseTests {
 	public void setUp() throws ClassNotFoundException, SQLException {
 		db = new Database();
 		db.insertUserintoUsers("testUser", "password");
-		ResultSet rs =  db.getUserfromUsers("testUser");
-		rs.next();
-		userID = rs.getInt("userID");
+		userID = db.getUserfromUsers("testUser");
 	}
 	
 	@Test
@@ -37,23 +35,14 @@ public class DatabaseTests {
 		
 		//insert new user
 		db.insertUserintoUsers("testValidNewUser", "hashedPass");	
+		int uID = -1;
+		uID = db.getUserfromUsers("testValidNewUser");
 		
-		//get the new user by their username
-		ResultSet rs = db.getUserfromUsers("testValidNewUser");
-		
-		assertEquals(true, rs.next());
-	    
-	    //Remove the user so that this test works next time
-  		rs = null;
-  		rs = db.getUserfromUsers("testValidNewUser");
-  		rs.next();
-		int uID = rs.getInt("userID");
+		assertNotEquals(uID, -1);
+
 		db.deleteUserfromUsers(uID);
-		
-		//verify that this is empty now
-		rs = db.getUserfromUsers("testValidNewUser");
-		assertEquals(false, rs.next());
-		
+		uID = db.getUserfromUsers("testValidNewUser");
+		assertEquals(-1, uID);
 	}	
 	
 	@Test
@@ -66,10 +55,7 @@ public class DatabaseTests {
 		
 		//insert a different user
 		db.insertUserintoUsers("testValidNewUser", "hashedPass");	
-		//get the new user by their username
-		ResultSet rs = db.getUserfromUsers("testValidNewUser");
-		rs.next();
-		int uID = rs.getInt("userID");
+		int uID = db.getUserfromUsers("testValidNewUser");
 		//insert a random query for a different user
 		int searchID3 = db.insertQueryintoSearchHistory(uID, "other", 1, 100);
 		
