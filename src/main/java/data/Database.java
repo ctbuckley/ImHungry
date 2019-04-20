@@ -26,6 +26,9 @@ public class Database {
 	/* get user */
 	
 	public ResultSet getUserfromUsers(String username) throws SQLException {
+		
+		//TO BE REFACTORED
+		
 		ps = conn.prepareStatement("SELECT * FROM Users WHERE username=?");
 		ps.setString(1, username);
 		rs = ps.executeQuery();
