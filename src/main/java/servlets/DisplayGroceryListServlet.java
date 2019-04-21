@@ -28,10 +28,7 @@ public class DisplayGroceryListServlet extends HttpServlet {
 
 		try {
 			Database db = new Database();
-			ResultSet rs = db.getUserfromUsers(username);
-			rs.next();
-			int userID = rs.getInt("userID");
-			rs.close();
+			int userID = db.getUserfromUsers(username);
 			ArrayList<String> currentGroceryItems = db.getGroceryListforUser(userID);
 			
 			groceryList = new String[currentGroceryItems.size()];

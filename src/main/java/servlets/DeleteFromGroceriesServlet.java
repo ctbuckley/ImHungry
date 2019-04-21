@@ -29,10 +29,7 @@ public class DeleteFromGroceriesServlet extends HttpServlet {
 		String item = request.getParameter("item");
 		try {
 			Database db = new Database();
-			ResultSet rs = db.getUserfromUsers(username);
-			rs.next();
-			int userID = rs.getInt("userID");
-			rs.close();
+			int userID = db.getUserfromUsers(username);
 			ArrayList<String> currentGroceryItems = db.getGroceryListforUser(userID);
 			if (currentGroceryItems.contains(item)) {
 				db.deleteIngredientfromGrocery(userID, item);

@@ -17,6 +17,8 @@ import data.UserList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 public class DatabaseTests {
 
@@ -39,10 +41,13 @@ public class DatabaseTests {
 		uID = db.getUserfromUsers("testValidNewUser");
 		
 		assertNotEquals(uID, -1);
+		
+		assertNotNull(db.getUserPassword(uID));
 
 		db.deleteUserfromUsers(uID);
 		uID = db.getUserfromUsers("testValidNewUser");
 		assertEquals(-1, uID);
+		assertNull(db.getUserPassword(uID));
 	}	
 	
 	@Test

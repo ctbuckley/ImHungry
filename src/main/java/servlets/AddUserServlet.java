@@ -72,9 +72,9 @@ public class AddUserServlet extends HttpServlet {
 				
 				db = new Database();
 				
-				rs = db.getUserfromUsers(username);
+				int userID = db.getUserfromUsers(username);
 				
-				if (rs.next()) {
+				if (userID != -1) {
 					//If a user with that username exists
 					success = false;
 					errorMsg = "A user with that username already exists!";

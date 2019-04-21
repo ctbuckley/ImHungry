@@ -64,8 +64,6 @@ public class ValidateLoginServlet extends HttpServlet {
 		
 		System.out.println(hashPass);
 		
-		ResultSet rs = null;
-		
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
 		
@@ -73,13 +71,13 @@ public class ValidateLoginServlet extends HttpServlet {
 			try {
 				success = false;
 				db = new Database();
-				rs = db.getUserfromUsers(username);
+				int userID = db.getUserfromUsers(username);
 				
-				if (rs.next()) {
+				if (userID != -1) {
 					//If a user with that email exists, check the password
-					if (Objects.equals(hashPass, rs.getString("pass"))) {
+					if (Objects.equals(hashPass, db.getUserPassword(userID))) {
 						success = true;
-						dbUsername = rs.getString("username");
+						dbUsername = username;
 					}
 					else {
 						success = false;

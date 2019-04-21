@@ -60,13 +60,10 @@ public class ListManagementPageServlet extends HttpServlet {
 					if(recOrRest.equals("rec")) {
 						//given recipe item, remove from database list
 						String username = (String)session.getAttribute("username");
-						ResultSet rs = db.getUserfromUsers(username);
-						rs.next();
-						
 						String listName = intToList(listIndex);
 						
 						int itemID = db.getItemId(fromList.getRecipes().get(arrNum));
-						int userID = rs.getInt("userID");
+						int userID = db.getUserfromUsers(username);
 						db.deleteItemfromList(userID, itemID, listName);
 						
 						fromList.remove(fromList.getRecipes().get(arrNum));
@@ -74,12 +71,9 @@ public class ListManagementPageServlet extends HttpServlet {
 					else {
 						//given recipe item, remove from database list
 						String username = (String)session.getAttribute("username");
-						ResultSet rs = db.getUserfromUsers(username);
-						rs.next();
-						
 						String listName = intToList(listIndex);
 						int itemID = db.getItemId(fromList.getRestaurants().get(arrNum));
-						db.deleteItemfromList(rs.getInt("userID"), itemID, listName);
+						db.deleteItemfromList(db.getUserfromUsers(username), itemID, listName);
 						
 						fromList.remove(fromList.getRestaurants().get(arrNum));
 					}
@@ -102,9 +96,6 @@ public class ListManagementPageServlet extends HttpServlet {
 						if(recOrRest.equals("rec")) {
 							
 							String username = (String)session.getAttribute("username");
-							ResultSet rs = db.getUserfromUsers(username);
-							rs.next();
-							
 							String listName = intToList(listIndex);
 							String listName2 = intToList(toListNum);
 							
@@ -112,24 +103,21 @@ public class ListManagementPageServlet extends HttpServlet {
 							System.out.println("listName2: " + listName2);
 							int itemID = db.getItemId(fromList.getRecipes().get(arrNum));
 							System.out.println("itemID: " + itemID);
-							db.deleteItemfromList(rs.getInt("userID"), itemID, listName); 
-							db.insertItemintoList(rs.getInt("userID"), itemID, listName2); 
+							db.deleteItemfromList(db.getUserfromUsers(username), itemID, listName); 
+							db.insertItemintoList(db.getUserfromUsers(username), itemID, listName2); 
 							
 							moveItem(fromList.getRecipes().get(arrNum), fromList, toList);
 							
 						} else {
 							
 							String username = (String)session.getAttribute("username");
-							ResultSet rs = db.getUserfromUsers(username);
-							rs.next();
-							
 							String listName = intToList(listIndex);
 							String listName2 = intToList(toListNum);
 							
 							int itemID = db.getItemId(fromList.getRestaurants().get(arrNum));
 							
-							db.deleteItemfromList(rs.getInt("userID"), itemID, listName); 
-							db.insertItemintoList(rs.getInt("userID"), itemID, listName2);
+							db.deleteItemfromList(db.getUserfromUsers(username), itemID, listName); 
+							db.insertItemintoList(db.getUserfromUsers(username), itemID, listName2);
 							
 							moveItem(fromList.getRestaurants().get(arrNum), fromList, toList);
 							

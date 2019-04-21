@@ -24,11 +24,8 @@ public class ListReorderServlet extends HttpServlet {
 	
 		try {
 			Database db = new Database();
-			ResultSet rs = db.getUserfromUsers(username);
-			rs.next();
-			int userID = rs.getInt("userID");
+			int userID = db.getUserfromUsers(username);
 			db.swapItemIndex(Integer.parseInt(oldIndexString) + 1, Integer.parseInt(newIndexString) + 1, username, listName);
-			rs.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
