@@ -31,10 +31,7 @@ public class AddToGroceryListServlet extends HttpServlet {
 		ArrayList<String> groceryListItems = gson.fromJson(itemsParameter, new TypeToken<ArrayList<String>>(){}.getType());
 		try {
 			Database db = new Database();
-			ResultSet rs = db.getUserfromUsers(username);
-			rs.next();
-			int userID = rs.getInt("userID");
-			rs.close();
+			int userID = db.getUserfromUsers(username);
 			ArrayList<String> currentGroceryItems = db.getGroceryListforUser(userID);
 			for(int i = 0; i < groceryListItems.size(); i++) {
 					if (!currentGroceryItems.contains(groceryListItems.get(i))) {

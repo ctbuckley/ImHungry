@@ -24,11 +24,8 @@ public class AddSearchHistoryServlet extends HttpServlet {
 		
 		try {
 			Database db = new Database();
-			ResultSet rs = db.getUserfromUsers(username);
-			rs.next();
-			int userID = rs.getInt("userID");
+			int userID = db.getUserfromUsers(username);
 			db.insertQueryintoSearchHistory(userID, query, Integer.parseInt(numResults), Integer.parseInt(radius));
-			rs.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

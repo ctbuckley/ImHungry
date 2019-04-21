@@ -29,9 +29,7 @@ public class GetSearchHistoryServlet extends HttpServlet {
 		try {
 			Database db = new Database();
 			PrintWriter out = response.getWriter();
-			ResultSet rs = db.getUserfromUsers(username);
-			rs.next();
-			int userID = rs.getInt("userID");
+			int userID = db.getUserfromUsers(username);
 			ArrayList<SearchItem> searchItems = db.getSearchItemfromSearch(userID);
 			
 			Collections.reverse(searchItems);
@@ -42,7 +40,6 @@ public class GetSearchHistoryServlet extends HttpServlet {
 			
 			String json = new Gson().toJson(searchItems);
 			out.print(json);
-			rs.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

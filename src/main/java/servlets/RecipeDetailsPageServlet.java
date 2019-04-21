@@ -28,9 +28,7 @@ public class RecipeDetailsPageServlet extends HttpServlet {
 			Database db = new Database();
 
 			String username = (String)session.getAttribute("username");
-			ResultSet rs = db.getUserfromUsers(username);
-			rs.next();
-			int userID = rs.getInt("userID");
+			int userID = db.getUserfromUsers(username);
 			
 			// if Recipe results are not stored in session (meaning session has expired), 
 			//  send the user back to the search page

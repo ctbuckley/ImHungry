@@ -83,11 +83,8 @@ public class AddUserServletTest {
 	    
 	    assertEquals("true", result);
 	    
-	    //Remove the user so that this test works next time
-  		ResultSet rs = null;
-  		rs = db.getUserfromUsers("testValidNewUser");
-  		rs.next();
-		int uID = rs.getInt("userID");
+
+		int uID = db.getUserfromUsers("testValidNewUser");
 		db.deleteUserfromUsers(uID);
 	}	
 	
@@ -184,11 +181,7 @@ public class AddUserServletTest {
 	    
 	    assertEquals("A user with that username already exists!", result);
 	    
-	    //Remove the user so that this test works next time
-	    ResultSet rs = null;
-  		rs = db.getUserfromUsers("testValidNewUser");
-  		rs.next();
-		int uID = rs.getInt("userID");
+		int uID = db.getUserfromUsers("testValidNewUser");
 		db.deleteUserfromUsers(uID);
 	}
 	

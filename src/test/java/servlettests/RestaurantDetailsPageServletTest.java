@@ -64,9 +64,7 @@ public class RestaurantDetailsPageServletTest {
 	    
 	    db = new Database();
   		db.insertUserintoUsers("testUser", "password");
-  		ResultSet rs =  db.getUserfromUsers("testUser");
-  		rs.next();
-  		userID = rs.getInt("userID");
+  		userID = db.getUserfromUsers("testUser");
 	  		
 		when(request.getSession()).thenReturn(session);
 		

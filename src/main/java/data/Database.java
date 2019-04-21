@@ -25,12 +25,30 @@ public class Database {
 	
 	/* get user */
 	
-	public ResultSet getUserfromUsers(String username) throws SQLException {
+	public int getUserfromUsers(String username) throws SQLException {
 		ps = conn.prepareStatement("SELECT * FROM Users WHERE username=?");
 		ps.setString(1, username);
 		rs = ps.executeQuery();
-		/* returns (int)userID, (String)username, and (String)hashed password */
-		return rs;
+		
+		if (rs.next()) {
+			return rs.getInt("userID");
+		}
+		
+		return -1;
+	}
+	
+	public String getUserPassword(int userID) throws SQLException {
+		
+		ResultSet rs;
+		ps = conn.prepareStatement("SELECT * FROM hungrydatabase.Users WHERE userID=?");
+		ps.setString(1, Integer.toString(userID));
+		
+		rs = ps.executeQuery();
+		if (rs.next()) {
+			return rs.getString("pass");
+		}
+		
+		return null;
 	}
 	
 	public void deleteUserfromUsers(int userID) throws SQLException {
@@ -287,11 +305,7 @@ public class Database {
 	
 	public void swapItemIndex(int oldIndex, int newIndex, String username, String listName) throws SQLException {
 		
-		//username
-		ResultSet rs = this.getUserfromUsers(username);
-		int userID = -1;
-		rs.next();
-		userID = rs.getInt("userID");
+		int userID = this.getUserfromUsers(username);
 		
 		//listID
 		int listID = this.getList(listName);
@@ -423,9 +437,7 @@ public class Database {
 	
 	public UserList getUserList(String username, int listIndex) throws SQLException {
 		
-		ResultSet rs = this.getUserfromUsers(username);
-		rs.next();
-		int userID = rs.getInt("userID");
+		int userID = this.getUserfromUsers(username);
 		
 		String listName = "";
 		
