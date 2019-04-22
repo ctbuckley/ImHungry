@@ -557,11 +557,42 @@ public class Database {
 		
 	}
 	
+	public int getCheckonGroceryItem(int userID, String ingredient) throws SQLException{
+		ps = conn.prepareStatement("SELECT * FROM Grocery WHERE userID=? AND ingredientName=?");
+		ps.setInt(1, userID);
+		ps.setString(2, ingredient);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		
+		return rs.getInt("checked");
+	}
+	
+	public void changeCheckonGroceryItem(int userID, String ingredient) throws SQLException{	
+		
+		int check = this.getCheckonGroceryItem(userID, ingredient);	
+		
+		if(check==0) {
+			check = 1;
+		}else {
+			check = 0;
+		}
+		
+		ps = conn.prepareStatement("UPDATE Grocery " + 
+				"SET checked=? " + 
+				"WHERE userID=? AND ingredientName=?");
+		ps.setInt(1, check);
+		ps.setInt(2, userID);
+		ps.setString(3, ingredient);
+		ps.executeUpdate(); 
+		
+	}
+	
 	public int insertIngredientintoGrocery(int userID, String ingredient) throws SQLException{
-		ps = conn.prepareStatement("INSERT INTO Grocery (userID, ingredientName) "
-				+ "VALUES (?, ?);");
+		ps = conn.prepareStatement("INSERT INTO Grocery (userID, ingredientName, checked) "
+				+ "VALUES (?, ?, ?);");
 		ps.setInt(1, userID);
 		ps.setString(2,  ingredient);
+		ps.setInt(3,  0);
 		ps.executeUpdate();
 		
 		ps = conn.prepareStatement("SELECT MAX(groceryID) FROM Grocery");
