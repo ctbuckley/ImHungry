@@ -21,7 +21,7 @@ Scenario: Check that a registered user can log in
     When I enter in "testUsername1" in the username field
     And I enter in "testPassword1" in the password field
     And I click on the sign up button
-    And I return to the Log In Page
+    When I return to the Log In Page
     And I enter in "testUsername1" in the username field
     And I enter in "testPassword1" in the password field
     And I click on the log in button
@@ -46,7 +46,7 @@ Scenario: Check that a registered user can't sign up
     When I enter in "testUsername4" in the username field
     And I enter in "testPassword4" in the password field
     And I click on the sign up button
-    And I return to the Log In Page
+    When I return to the Log In Page
     And I enter in "testUsername4" in the username field
     And I enter in "testPassword4" in the password field
     And I click on the sign up button
@@ -75,69 +75,31 @@ Scenario: Check that the password field needs to be populated for a user to logi
     Then I should be on the Login Page and I should see an error message
 
 Scenario: Check that search persist when the user logs out
-    When I enter in "testUsername12" in the username field
-    And I enter in "testPassword12" in the password field
-    And I click on the sign up button
-    And I enter "ramen" in the search box
-	And I enter "1" in the search number box
-	And I enter "2" in the radius input field
-	And press search
-	And I should see results for "ramen"
-    And I click on the log out button
-    And I enter in "testUsername12" in the username field
-    And I enter in "testPassword12" in the password field
-    And I click on the log in button
-    And I enter "chicken" in the search box
-	And I enter "1" in the search number box
-	And I enter "2" in the radius input field
-	And press search
-    And I should see 1 history result
+    Given I am logged in
+    When I search for "ramen" with "1" results and a radius of "2" miles
+    And I log out and log back in as the same user
+    When I search for "chicken" with "1" results and a radius of "2" miles
+    Then I should see 1 history result
 
 Scenario: Check that the user lists persist when the user logs out
-    When I enter in "testUsername13" in the username field
-    And I enter in "testPassword13" in the password field
-    And I click on the sign up button
-    And I enter "ramen" in the search box
-	And I enter "1" in the search number box
-	And I enter "2" in the radius input field
-	And press search
-	And I should see results for "ramen"
+    Given I am logged in
+    When I search for "ramen" with "1" results and a radius of "2" miles
     And I add a recipe to Favorite list
-    And I click on the log out button
-    And I enter in "testUsername13" in the username field
-    And I enter in "testPassword13" in the password field
-    And I click on the log in button
-    And I enter "chicken" in the search box
-	And I enter "1" in the search number box
-	And I enter "2" in the radius input field
-	And press search
+    When I log out and log back in as the same user
+    And I search for "chicken" with "1" results and a radius of "2" miles
     And I go to Favorite list management page
-    And there is a recipe name in the card
-    And there is recipe stars
-    And there is cook time
+    Then there is a recipe name in the card
+    Then there is recipe stars
+    Then there is cook time
     Then there is prep time
 
 Scenario: Check that the grocery list persist when the user logs out
-    When I enter in "testUsername14" in the username field
-    And I enter in "testPassword14" in the password field
-    And I click on the sign up button
-    And I enter "ramen" in the search box
-	And I enter "1" in the search number box
-	And I enter "2" in the radius input field
-	And press search
-	And I should see results for "ramen"
-    And I view the first recipe
-	And I click on the first ingredient
-	And I add selected ingredients to the grocery list
-	And I click on the grocery link
-	And I should see the first ingredient in the grocery list
-    And I click on the log out button
-    And I enter in "testUsername14" in the username field
-    And I enter in "testPassword14" in the password field
-    And I click on the log in button
-    And I enter "chicken" in the search box
-	And I enter "1" in the search number box
-	And I enter "2" in the radius input field
-	And press search
+    Given I am logged in
+    When I search for "ramen" with "1" results and a radius of "2" miles
+    And I add the first ingredient of the first recipe to the grocery list
+    And I click on the grocery link
+    Then I should see the first ingredient in the grocery list
+    When I log out and log back in as the same user
+    And I search for "chicken" with "1" results and a radius of "2" miles
     And I click on the grocery link
     Then I should see the first ingredient in the grocery list

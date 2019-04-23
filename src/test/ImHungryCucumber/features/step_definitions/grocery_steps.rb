@@ -65,6 +65,12 @@ Then(/^I should not see the first ingredient in the grocery list$/) do
     expect(page).not_to have_content($firstIngredient)
 end
 
+When(/^I add the first ingredient of the first recipe to the grocery list$/) do
+    page.find_by_id("Recipe0").click()
+    $firstIngredient = page.find_by_id("ingredient0").native.text
+    page.find_by_id("customCheck0").click();
+    page.find_by_id("confirmAddBtn").click();
+end
 
 
 
