@@ -5,11 +5,7 @@ Background:
 	Given I am on the ImHungry Search Page
 
 Scenario: Check the features of the grocery List
-    When I return to the Log In Page
-    And I enter in "testUsername10" in the username field
-    And I enter in "testPassword10" in the password field
-    And I click on the sign up button
-    And I enter "burger" in the search box
+    When I enter "burger" in the search box
 	And I enter "2" in the search number box
 	And I enter "2" in the radius input field
 	And press search
@@ -60,10 +56,6 @@ Scenario: Check the grocery link works on the list management page
     Then I should see the grocery list title
 
 Scenario: Check that an item can be added to and removed from the grocery list
-	When I return to the Log In Page
-    And I enter in "testUsername11" in the username field
-    And I enter in "testPassword11" in the password field
-    And I click on the sign up button
 	When I enter "burger" in the search box
 	And I enter "2" in the search number box
 	And I enter "2" in the radius input field
