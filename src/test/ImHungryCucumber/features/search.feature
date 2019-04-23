@@ -47,7 +47,7 @@ Scenario: Requirements for Logout Button
 	Then there is a logout button
 
 Scenario: Requirements for Grocery List Button
-    Then there is a grocery list button
+	Then there is a grocery list button
 
 Scenario: Requirements for radius input field
 	Then there is a radius input field
@@ -86,7 +86,7 @@ Scenario: Check that the past searches dropdown has one result
 	Then I should see 1 history result
 
 Scenario: Check that the past searches dropdown has two result
-	And I enter "burger" in the search box
+	When I enter "burger" in the search box
 	And I enter "1" in the search number box
 	And I enter "2" in the radius input field
 	And press search
@@ -100,8 +100,8 @@ Scenario: Check that the past searches dropdown has two result
 	And I enter "1" in the search number box
 	And I enter "2" in the radius input field
 	And press search
-	And I should see 2 history results
-	And I click on the first item in the quick access list
+	Then I should see 2 history results
+	When I click on the first item in the quick access list
 	Then I should see results for "ramen"
 
 Scenario: Check that an error message appears when no restaurants found
@@ -109,5 +109,5 @@ Scenario: Check that an error message appears when no restaurants found
 	And I enter "1" in the search number box
 	And I enter "2" in the radius input field
 	And press search
-	And I should see a recipe error message
-	Then I should see a restaurant error message
+	Then I should see a recipe error message
+	And I should see a restaurant error message
