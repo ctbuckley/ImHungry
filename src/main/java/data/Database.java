@@ -531,9 +531,9 @@ public class Database {
 		ps.setInt(3, listID);
 
 		rs = ps.executeQuery();
-		rs.next();
-		
-		deleteItem(rs.getInt("LID"));
+		if(rs.next()) {
+			deleteItem(rs.getInt("LID"));
+		}
 		
 	}
 	
