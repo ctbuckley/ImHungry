@@ -111,3 +111,25 @@ Scenario: Check that an error message appears when no restaurants found
 	And press search
 	Then I should see a recipe error message
 	And I should see a restaurant error message
+
+Scenario: Check that there is a horizontal scroll bar for the past searches
+	When I enter "burger" in the search box
+	And I enter "1" in the search number box
+	And I enter "2" in the radius input field
+	And press search
+	And I should visit the search page
+	And I enter "ramen" in the search box
+	And I enter "1" in the search number box
+	And I enter "2" in the radius input field
+	And press search
+	And I should visit the search page
+	And I enter "chicken" in the search box
+	And I enter "1" in the search number box
+	And I enter "2" in the radius input field
+	And press search
+	And I should visit the search page
+	And I enter "cookie" in the search box
+	And I enter "1" in the search number box
+	And I enter "2" in the radius input field
+	And press search
+	Then I need to scroll to see the third search history item

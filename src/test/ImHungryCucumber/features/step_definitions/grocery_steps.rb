@@ -49,6 +49,10 @@ Then(/^I click on the first ingredient$/) do
     page.find_by_id("customCheck0").click();
 end
 
+Then(/^I click on the second ingredient$/) do
+    page.find_by_id("customCheck1").click();
+end
+
 Then(/^I add selected ingredients to the grocery list$/) do
     page.find_by_id("confirmAddBtn").click();
 end
@@ -72,6 +76,7 @@ When(/^I add the first ingredient of the first recipe to the grocery list$/) do
     page.find_by_id("confirmAddBtn").click();
 end
 
-
-
-
+Then(/^I expect the second ingredient to be checked$/) do
+    expect(page.find("input#customCheck1")).to be_checked
+    expect(page.find("input#customCheck0")).not_to be_checked
+end

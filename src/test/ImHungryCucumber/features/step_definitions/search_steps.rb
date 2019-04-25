@@ -81,7 +81,7 @@ Then(/^there is a quick access list$/) do
 end
 
 Then(/^there is not a quick access list$/) do
-  expect(page).not_to have_selector("#dropdown-menu-populate")
+  expect(page).not_to have_selector("#quickAccessResult0")
 end
 
 Then (/^I should visit the search page$/) do
@@ -109,4 +109,9 @@ end
 
 Then(/^I should see a restaurant error message$/) do
   expect(page.find("#errorMessageRestaurant").native.css_value('display')).not_to eq('none')
+end
+
+Then(/^I need to scroll to see the third search history item$/) do
+  page.execute_script("arguments[0].scrollIntoView()", page.find_by_id("quickAccessResult2"), visible: false)
+  expect(page.find_by_id("quickAccessResult0"))
 end
