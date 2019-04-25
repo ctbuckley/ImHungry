@@ -80,6 +80,10 @@ Then(/^there is a quick access list$/) do
   expect(page.find_by_id("dropdown-menu-populate"))
 end
 
+Then(/^there is not a quick access list$/) do
+  expect(page).not_to have_selector("#dropdown-menu-populate")
+end
+
 Then (/^I should visit the search page$/) do
   visit "http://localhost:8080/FeedMe/jsp/search.jsp"
 end

@@ -11,7 +11,7 @@ Scenario: Requirements for select button/manage lists button/
 	And there is a do not show option
 	And there is a Manage Lists button
 	And there is a Return to Search button
-    And there is a grocery list button
+	And there is a grocery list button
 
 Scenario: Check the Transition to the search page
 
@@ -49,11 +49,11 @@ Scenario: Check that current link is active and results are different on differe
 	And I enter "11" in the search number box
 	And I enter "10" in the radius input field
 	And press search
-	And there is a pagination div
+	Then there is a pagination div
 	And there are "2" pagination links
 	And the first pagination link is active
 	And the first restaurant on the first results page is different from the first restaurant on second results page
-	Then the second pagination link is active
+	And the second pagination link is active
 
 Scenario: Check that the number of pagination links per page is limited
 	When I am on the ImHungry Search Page
@@ -61,16 +61,16 @@ Scenario: Check that the number of pagination links per page is limited
 	And I enter "61" in the search number box
 	And I enter "100" in the radius input field
 	And press search
-	And I should see pagination links "1", "2", "3", "4", and "5"
-	And I click on pagination link "3"
-	And I should see pagination links "1", "2", "3", "4", and "5"
-	And I click on pagination link "4"
-	And I should see pagination links "2", "3", "4", "5", and "6"
-	And I click on pagination link "5"
-	And I should see pagination links "3", "4", "5", "6", and "7"
-	And I click on pagination link "6"
-	And I should see pagination links "3", "4", "5", "6", and "7"
-	And I click on pagination link "7"
-	And I should see pagination links "3", "4", "5", "6", and "7"
+	Then I should see pagination links "1", "2", "3", "4", and "5"
+	When I click on pagination link "3"
+	Then I should see pagination links "1", "2", "3", "4", and "5"
+	When I click on pagination link "4"
+	Then I should see pagination links "2", "3", "4", "5", and "6"
+	When I click on pagination link "5"
+	Then I should see pagination links "3", "4", "5", "6", and "7"
+	When I click on pagination link "6"
+	Then I should see pagination links "3", "4", "5", "6", and "7"
+	When I click on pagination link "7"
+	Then I should see pagination links "3", "4", "5", "6", and "7"
 
 

@@ -47,7 +47,7 @@ Scenario: Requirements for Logout Button
 	Then there is a logout button
 
 Scenario: Requirements for Grocery List Button
-    Then there is a grocery list button
+	Then there is a grocery list button
 
 Scenario: Requirements for radius input field
 	Then there is a radius input field
@@ -66,19 +66,14 @@ Scenario: Check the transition with bad radius input
 	And press search
 	Then I should be on the Search Page
 
-Scenario: Requirements for Quick Access List for Past Searches
+Scenario: Check that the past searches dropdown has no results
 	When I enter "burger" in the search box
 	And I enter "1" in the search number box
 	And I enter "2" in the radius input field
 	And press search
-	Then there is a quick access list
+	Then there is not a quick access list
 
 Scenario: Check that the past searches dropdown has one result
-	When I return to the Log In Page
-	And I should be on the login page
-	And I enter in "testUsername6" in the username field
-	And I enter in "testPassword6" in the password field
-	And I click on the sign up button
 	When I enter "burger" in the search box
 	And I enter "1" in the search number box
 	And I enter "2" in the radius input field
@@ -90,13 +85,8 @@ Scenario: Check that the past searches dropdown has one result
 	And press search
 	Then I should see 1 history result
 
-Scenario: Check that the past searches dropdown has two result
-	When I return to the Log In Page
-	And I should be on the login page
-	And I enter in "testUsername7" in the username field
-	And I enter in "testPassword7" in the password field
-	And I click on the sign up button
-	And I enter "burger" in the search box
+Scenario: Check that the past searches dropdown has two results
+	When I enter "burger" in the search box
 	And I enter "1" in the search number box
 	And I enter "2" in the radius input field
 	And press search
@@ -110,8 +100,8 @@ Scenario: Check that the past searches dropdown has two result
 	And I enter "1" in the search number box
 	And I enter "2" in the radius input field
 	And press search
-	And I should see 2 history results
-	And I click on the first item in the quick access list
+	Then I should see 2 history results
+	When I click on the first item in the quick access list
 	Then I should see results for "ramen"
 
 Scenario: Check that an error message appears when no restaurants found
@@ -119,5 +109,5 @@ Scenario: Check that an error message appears when no restaurants found
 	And I enter "1" in the search number box
 	And I enter "2" in the radius input field
 	And press search
-	And I should see a recipe error message
-	Then I should see a restaurant error message
+	Then I should see a recipe error message
+	And I should see a restaurant error message

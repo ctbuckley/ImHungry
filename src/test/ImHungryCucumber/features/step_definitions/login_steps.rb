@@ -1,17 +1,35 @@
 
 Given(/^I am logged in$/) do
   visit "http://localhost:8080/FeedMe/jsp/login.jsp"
-  if defined?(bacon) == nil
-  	@current_user = 0
+  if defined?($current_user) == nil
+  	$current_user = 0
+  	puts "First user"
   else
-  	@current_user += 1
+  	$current_user += 1
   end
-  username = "user" + @current_user.to_s
+  username = "user" + $current_user.to_s
   puts username
   fill_in('usernameInput', with: username)
   fill_in('passwordInput', with: "password")	
   find('#signUpButton').click
+  sleep(2)
+end
 
+When(/^I log out and log back in as the same user$/) do
+	page.find_by_id("navToggler").click();
+    page.find_by_id('userButton').click();
+	username = "user" + $current_user.to_s
+	fill_in('usernameInput', with: username)
+  	fill_in('passwordInput', with: "password")
+	find('#userLogInButton').click
+end
+
+When(/^I search for "([^"]*)" with "([^"]*)" results and a radius of "([^"]*)" miles$/) do |searchArg, numResultsArg, radiusArg|
+	fill_in('queryInput', :with => searchArg)
+	fill_in('numResultsInput', :with => numResultsArg)
+	fill_in('radiusInput', :with => radiusArg)
+	page.find_by_id("feedMeButton").click()
+	expect(page.find_by_id("resultsForText").native.text).to eq "Results For " + searchArg
 end
 
 Given(/^I am on the ImHungry Login Page$/) do
@@ -59,6 +77,7 @@ end
 
 When(/^I click on the log in button$/) do
 	find('#userLogInButton').click
+	sleep(0.5)
 end
 
 Then(/^I should be on the Login Page and I should see an error message$/) do
