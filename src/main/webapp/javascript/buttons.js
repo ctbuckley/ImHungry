@@ -22,4 +22,5 @@ function hideButtons(){
 	document.getElementById('navbarNavDropdown').style.display = "none";	
 	document.getElementById('addToList').style.display = "none";	
 	document.getElementById('navBar').style.display = "none";	
+	document.getElementById('buttonsCont').style.visibility = "hidden";
 }

@@ -153,55 +153,56 @@ function loadSearchHistory() {
 	    		]
 	    	
 	    		var imgLinks = []
-	    		
-	    		for (var i = 0; i < numItemsToLoad; i++) {
-	    			
-	    			var radius = sessionStorage.getItem("radius" + i);
-	    			var query = sessionStorage.getItem("searchQuery" + i);
-	    			var numResults = sessionStorage.getItem("numResults" + i);
-	    			imgLinks2 = sessionStorage.getItem("imgLinks" + i);
-	    			
-	    			imgLinks = imgLinks2.split(",http");
-	    			
-	    			for (var u = 1; u < 10; u++) {
-	    				var temp = imgLinks[u];
-	    				var newLink = "http" + temp;
-	    				imgLinks[u] = newLink;
-	    				
-	    			}
-	    			
-	    			var link = "http://localhost:8080/FeedMe/results?q=" + query + "&n=" + numResults + "&radiusInput=" + radius + "&pageNumber=1";
-	    					
-	    			var newHTML = "<div class=\"search_cont\" id=\"quickAccessResult" + i + "\" + onclick=\"window.location.href=\'" + link + "\'\"> " +
-										"<div class=\"pastSearchGallery\">";
-	    			for(var j = 0; j <imgLinks.length; j++ ) {
-	    				newHTML = newHTML + "<figure class=\"gallery_item gallery_item_" + j + "\">" +
-										"<img src=\"" + imgLinks[j] + "\" class=\"gallery_img\" alt=\"\"/>" +
-								  "</figure>";
-	    			}
-						
-	    			newHTML = newHTML + "</div>" + 
-								"<div class=\"search_params_cont\">" + 
-									"<div class=\"search_term\">" +
-										"<p class=\"subtitle\">Search Term: </p>" +
-										"<p>" + query + "</p>" + 
-									"</div>" + 
-									"<div class=\"search_others\">" +
-										"<div class=\"search_info\">" +
-											"<p class=\"subtitle\">Number of Results: </p>" +
-											"<p>" + numResults + "</p>" +
+	    		if(numItemsToLoad > 0) {
+	    			document.getElementById("pastSearchesTitle").style.display = "inherit";
+		    		for (var i = 0; i < numItemsToLoad; i++) {
+		    			
+		    			var radius = sessionStorage.getItem("radius" + i);
+		    			var query = sessionStorage.getItem("searchQuery" + i);
+		    			var numResults = sessionStorage.getItem("numResults" + i);
+		    			imgLinks2 = sessionStorage.getItem("imgLinks" + i);
+		    			
+		    			imgLinks = imgLinks2.split(",http");
+		    			
+		    			for (var u = 1; u < 10; u++) {
+		    				var temp = imgLinks[u];
+		    				var newLink = "http" + temp;
+		    				imgLinks[u] = newLink;
+		    				
+		    			}
+		    			
+		    			var link = "http://localhost:8080/FeedMe/results?q=" + query + "&n=" + numResults + "&radiusInput=" + radius + "&pageNumber=1";
+		    					
+		    			var newHTML = "<div class=\"search_cont\" id=\"quickAccessResult" + i + "\" + onclick=\"window.location.href=\'" + link + "\'\"> " +
+											"<div class=\"pastSearchGallery\">";
+		    			for(var j = 0; j <imgLinks.length; j++ ) {
+		    				newHTML = newHTML + "<figure class=\"gallery_item gallery_item_" + j + "\">" +
+											"<img src=\"" + imgLinks[j] + "\" class=\"gallery_img\" alt=\"\"/>" +
+									  "</figure>";
+		    			}
+							
+		    			newHTML = newHTML + "</div>" + 
+									"<div class=\"search_params_cont\">" + 
+										"<div class=\"search_term\">" +
+											"<p class=\"subtitle\">Search Term: </p>" +
+											"<p>" + query + "</p>" + 
 										"</div>" + 
-										"<div class=\"search_info\">" + 
-											"<p class=\"subtitle\">Radius: </p>" + 
-											"<p>" + radius + "</p>" +
-										"</div>" +
-									"</div>" + 
-								"</div>" +
-							"</div>";
-	    				    			
-	    			document.getElementById("dropdown-menu-populate").innerHTML = document.getElementById("dropdown-menu-populate").innerHTML + newHTML;
+										"<div class=\"search_others\">" +
+											"<div class=\"search_info\">" +
+												"<p class=\"subtitle\">Number of Results: </p>" +
+												"<p>" + numResults + "</p>" +
+											"</div>" + 
+											"<div class=\"search_info\">" + 
+												"<p class=\"subtitle\">Radius: </p>" + 
+												"<p>" + radius + "</p>" +
+											"</div>" +
+										"</div>" + 
+									"</div>" +
+								"</div>";
+		    				    			
+		    			document.getElementById("dropdown-menu-populate").innerHTML = document.getElementById("dropdown-menu-populate").innerHTML + newHTML;
+		    		}
 	    		}
-	    		
 	    		
 	    	}
 	    })

@@ -246,7 +246,7 @@
 		</div>
 		<!-- PAST SEARCHES -->
 		<div class="pastSearches_outer_cont">
-			<h3>Past Searches</h3>
+			<h3 id="pastSearchesTitle">Past Searches</h3>
 			<div class="pastSearchesCont" id="dropdown-menu-populate">
 			</div>
 		</div>

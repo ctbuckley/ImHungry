@@ -135,7 +135,7 @@
 		      </div>
 	    </div>
 	    <!-- Holds all the buttons -->
-	    <div class="buttons col-sm">
+	    <div class="buttons col-sm" id="buttonsCont">
 	      <!-- Brings user to a printable version of the page -->
 	      	<button id="printButton" class="btn btn-outline-primary" onclick="hideButtons()">Printable Version</button>
 	      

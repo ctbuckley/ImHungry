@@ -13,8 +13,11 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 		<meta charset="ISO-8859-1">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 		<link rel="stylesheet" href="/FeedMe/css/groceryList.css">
 		<link rel="stylesheet" href="/FeedMe/css/navbar.css">
+		
+		<script src="/FeedMe/javascript/grocery.js"></script>
 		<title>Insert title here</title>
 	</head>
 	<body>
@@ -58,9 +61,10 @@
 						for(int i = 0; i < groceryList.length; i++) {
 					%>
 							<div class="grocery_item_cont" id="groceryItemContainer<%=i%>">
-								<div class="grocery_item" id="groceryItem<%=i%>">
-									<p><%=groceryList[i]%></p>
-								</div>
+								 <label class="grocery_item" for="customCheck<%= i %>" id="groceryItem<%=i%>">
+									<input type="checkbox"  id="customCheck<%= i %>" name="check">
+									<span id="ingredient<%=i%>"><%=groceryList[i] %></span>
+								</label>
 								<div id="removeBtn<%=i%>"onclick="removeIngredientFromGroceryList('<%=groceryList[i]%>', '<%=i%>');">
 									<object class="x-icon" data="/FeedMe/img/x-icon.svg" type="image/svg+xml" style="pointer-events:none"></object>
 								</div>
@@ -79,6 +83,8 @@
 				console.log("In removeIngredientFromGroceryList with " + ingredientToRemove);
 		    	var xhttp = new XMLHttpRequest();
 		    	xhttp.onreadystatechange = function() {
+		    		let toRemove = document.getElementById("removeBtn" + indexOfIngredientToRemove);
+		    		toRemove.parentNode.removeChild(toRemove);
 		    		console.log("In removeIngredientFromGroceryList callback function.");
 		    	}
 		    	xhttp.open("POST", "/FeedMe/DeleteFromGroceries?item=" + ingredientToRemove);
