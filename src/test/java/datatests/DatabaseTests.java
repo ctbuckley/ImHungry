@@ -269,6 +269,18 @@ public class DatabaseTests {
 		
 		assertEquals(4, results.size());
 		assertEquals("2 eggs", results.get(2));
+		assertEquals(0, db.getCheckonGroceryItem(userID, "2 eggs"));
+		
+		db.changeCheckonGroceryItem(userID, "2 eggs");
+		db.changeCheckonGroceryItem(userID, "1/2 cup of soymilk");
+		
+		assertEquals(1, db.getCheckonGroceryItem(userID, "2 eggs"));
+		assertEquals(1, db.getCheckonGroceryItem(userID, "1/2 cup of soymilk"));
+		
+		db.changeCheckonGroceryItem(userID, "2 eggs");
+		
+		assertEquals(0, db.getCheckonGroceryItem(userID, "2 eggs"));
+		assertEquals(1, db.getCheckonGroceryItem(userID, "1/2 cup of soymilk"));
 		
 		db.deleteIngredientfromGrocery(userID, "1/2 cup of soymilk");
 		
