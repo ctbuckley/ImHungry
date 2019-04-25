@@ -66,12 +66,12 @@ Scenario: Check the transition with bad radius input
 	And press search
 	Then I should be on the Search Page
 
-Scenario: Requirements for Quick Access List for Past Searches
+Scenario: Check that the past searches dropdown has no results
 	When I enter "burger" in the search box
 	And I enter "1" in the search number box
 	And I enter "2" in the radius input field
 	And press search
-	Then there is a quick access list
+	Then there is not a quick access list
 
 Scenario: Check that the past searches dropdown has one result
 	When I enter "burger" in the search box
@@ -85,7 +85,7 @@ Scenario: Check that the past searches dropdown has one result
 	And press search
 	Then I should see 1 history result
 
-Scenario: Check that the past searches dropdown has two result
+Scenario: Check that the past searches dropdown has two results
 	When I enter "burger" in the search box
 	And I enter "1" in the search number box
 	And I enter "2" in the radius input field

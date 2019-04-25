@@ -12,7 +12,7 @@ Given(/^I am logged in$/) do
   fill_in('usernameInput', with: username)
   fill_in('passwordInput', with: "password")	
   find('#signUpButton').click
-
+  sleep(2)
 end
 
 When(/^I log out and log back in as the same user$/) do
