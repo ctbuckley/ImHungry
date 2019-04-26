@@ -25,19 +25,20 @@ public class DisplayGroceryListServlet extends HttpServlet {
 		String username = (String)session.getAttribute("username");
 		
 		String[] groceryList = new String[0];
+		String[] check = new String[0];
 
 		try {
 			Database db = new Database();
 			int userID = db.getUserfromUsers(username);
 			ArrayList<String> currentGroceryItems = db.getGroceryListforUser(userID); // "1 cup of x"
 			ArrayList<Integer> quantity = new ArrayList<Integer>(); //"2"
-			ArrayList<Integer> check = new ArrayList<Integer>(); //"0" or "1"
+			ArrayList<Integer> checked = new ArrayList<Integer>(); //"0" or "1"
 			
 			for(int i=0; i<currentGroceryItems.size(); i++) {
 				String item = currentGroceryItems.get(i);
 				int quant = db.getGroceryItemQuantity(userID, item);
 				quantity.add(quant);
-				check.add(db.getCheckonGroceryItem(userID, item));
+				checked.add(db.getCheckonGroceryItem(userID, item));
 				 
 				if (quant > 1) {
 					item = mergeItems(item, quant);
@@ -47,7 +48,9 @@ public class DisplayGroceryListServlet extends HttpServlet {
 			}
 			
 			groceryList = new String[currentGroceryItems.size()];
+			check = new String[checked.size()];
 			currentGroceryItems.toArray(groceryList);
+			checked.toArray(check);
 	
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -56,6 +59,7 @@ public class DisplayGroceryListServlet extends HttpServlet {
 		}
 		
 		session.setAttribute("groceryList", groceryList);
+		session.setAttribute("checked", check);
 		
 		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/groceryList.jsp");
 		dispatch.forward(request,  response);	
