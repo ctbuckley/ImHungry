@@ -115,6 +115,23 @@ When(/^I click on pagination link "([^"]*)"$/) do |link|
   page.find_by_id("paginationLink" + link).click()
 end
 
+When(/^I click on the pagination next button$/) do
+  page.find_by_id("paginationNext").click()
+end
+
+When(/^I click on the pagination previous button$/) do
+  page.find_by_id("paginationPrevious").click()
+end
+
+Then(/^the previous pagination link is disabled$/) do
+  expect(page.find_by_id("paginationPrevious").find(:xpath, '..')['class']).to have_content 'disabled'
+end
+
+Then(/^the next pagination link is disabled$/) do
+  expect(page.find_by_id("paginationNext").find(:xpath, '..')['class']).to have_content 'disabled'
+end
+
+
 
 
 

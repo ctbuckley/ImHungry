@@ -15,11 +15,6 @@ Scenario: Check the features of the grocery List
     And I should see the log out link
     Then I should see the return to search link
 
-Scenario: Check the grocery link works on the search page
-    When I visit the search page
-    And I click on the grocery link
-    Then I should see the grocery list title
-
 Scenario: Check the grocery link works on the results page
     When I enter "burger" in the search box
 	And I enter "1" in the search number box

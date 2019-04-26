@@ -43,6 +43,22 @@ Scenario: Check the Recipe list elements
 Scenario: Check the Pagination elements
 	Then there is a pagination div
 
+Scenario: Check that the previous and next buttons work and the current page is highlighted
+	When I am on the ImHungry Search Page
+	And I enter "chicken" in the search box
+	And I enter "11" in the search number box
+	And I enter "100" in the radius input field
+	And press search
+	Then there is a pagination div
+	Then the first pagination link is active
+	And the previous pagination link is disabled
+	When I click on the pagination next button
+	Then the second pagination link is active
+	Then the next pagination link is disabled
+	When I click on the pagination previous button
+	Then the first pagination link is active
+	Then the previous pagination link is disabled
+
 Scenario: Check that current link is active and results are different on different result pages
 	When I am on the ImHungry Search Page
 	And I enter "burger" in the search box
@@ -72,5 +88,4 @@ Scenario: Check that the number of pagination links per page is limited
 	Then I should see pagination links "3", "4", "5", "6", and "7"
 	When I click on pagination link "7"
 	Then I should see pagination links "3", "4", "5", "6", and "7"
-
 
