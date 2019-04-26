@@ -42,7 +42,7 @@ Then(/^I should see the return to search link$/) do
 end
 
 Then(/^I visit the search page$/) do
-    visit "http://localhost:8080/FeedMe/jsp/search.jsp"
+    visit "https://localhost:8443/FeedMe/jsp/search.jsp"
 end
 
 Then(/^I click on the first ingredient$/) do
