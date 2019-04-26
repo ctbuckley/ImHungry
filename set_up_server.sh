@@ -37,3 +37,6 @@ sudo systemctl status tomcat
 
 sudo ufw allow 8080
 sudo ufw allow 8443
+
+sudo ls /opt/tomcat/logs
+sudo cat /opt/tomcat/logs/catalina.out
