@@ -12,6 +12,12 @@ function sendCheckBack(element) {
 	xhttp.onreadystatechange = function() {
 		console.log("success");
 	}
-	xhttp.open("POST", "CheckGroceryItem?item=" + element.parentNode.innerText.trim(), true );
+	
+	var ingredientUnmerged = document.getElementById(element.id).getAttribute("data-original");
+	
+	console.log(element.id)
+	console.log(ingredientUnmerged)
+	
+	xhttp.open("POST", "CheckGroceryItem?item=" + ingredientUnmerged, true );
 	xhttp.send();
 };

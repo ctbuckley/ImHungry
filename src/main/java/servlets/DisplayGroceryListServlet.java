@@ -25,6 +25,7 @@ public class DisplayGroceryListServlet extends HttpServlet {
 		String username = (String)session.getAttribute("username");
 		
 		String[] groceryList = new String[0];
+		String[] unmergedGroceries = new String[0];
 		Integer[] check = new Integer[0];
 
 		try {
@@ -33,6 +34,11 @@ public class DisplayGroceryListServlet extends HttpServlet {
 			ArrayList<String> currentGroceryItems = db.getGroceryListforUser(userID); // "1 cup of x"
 			ArrayList<Integer> quantity = new ArrayList<Integer>(); //"2"
 			ArrayList<Integer> checked = new ArrayList<Integer>(); //"0" or "1"
+			ArrayList<String> unmerged = new ArrayList<String>();
+					
+			for (String i : currentGroceryItems) {
+				unmerged.add(i);
+			}
 			
 			for(int i=0; i<currentGroceryItems.size(); i++) {
 				String item = currentGroceryItems.get(i);
@@ -49,6 +55,9 @@ public class DisplayGroceryListServlet extends HttpServlet {
 			
 			groceryList = new String[currentGroceryItems.size()];
 			check = new Integer[checked.size()];
+			unmergedGroceries = new String[unmerged.size()];
+			
+			unmerged.toArray(unmergedGroceries);
 			currentGroceryItems.toArray(groceryList);
 			checked.toArray(check);
 	
@@ -58,6 +67,7 @@ public class DisplayGroceryListServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
+		session.setAttribute("unmergedGroceries", unmergedGroceries);
 		session.setAttribute("groceryList", groceryList);
 		session.setAttribute("checked", check);
 		
