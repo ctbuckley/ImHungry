@@ -103,3 +103,20 @@ Scenario: Check that the grocery list persist when the user logs out
     And I search for "chicken" with "1" results and a radius of "2" miles
     And I click on the grocery link
     Then I should see the first ingredient in the grocery list
+
+Scenario: Check that grocery list items persist
+    Given I am logged in
+	When I enter "burger" in the search box
+	And I enter "1" in the search number box
+	And I enter "2" in the radius input field
+	And press search
+	And I view the first recipe
+	And I click on the first ingredient
+	And I click on the second ingredient
+	And I add selected ingredients to the grocery list
+	And I click on the grocery link
+	And I click on the second ingredient
+	And I expect the second ingredient to be checked
+    When I log out and log back in as the same user
+    And I click on the grocery link
+    Then I expect the second ingredient to be checked
