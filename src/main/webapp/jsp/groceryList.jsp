@@ -5,6 +5,7 @@
 	<head>
 		<%
 			String[] groceryList = (String[]) request.getSession().getAttribute("groceryList");
+			Integer[] groceryListChecks = (Integer[]) request.getSession().getAttribute("checked");
 		%>
 		<!-- Bootstrap CSS file linkage -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -59,10 +60,14 @@
 			<div class="grocery_list_cont">
 					<%
 						for(int i = 0; i < groceryList.length; i++) {
+							String checked = "";
+							if(groceryListChecks[i] == 1) {
+								checked = "checked";
+							}
 					%>
 							<div class="grocery_item_cont" id="groceryItemContainer<%=i%>">
 								 <label class="grocery_item" for="customCheck<%= i %>" id="groceryItem<%=i%>">
-									<input type="checkbox"  id="customCheck<%= i %>" name="check">
+									<input class="" type="checkbox"  id="customCheck<%= i %>" name="check" onclick="sendCheckBack(this)" <%= checked %>>
 									<span id="ingredient<%=i%>"><%=groceryList[i] %></span>
 								</label>
 								<div id="removeBtn<%=i%>"onclick="removeIngredientFromGroceryList('<%=groceryList[i]%>', '<%=i%>');">

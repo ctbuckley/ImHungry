@@ -82,5 +82,3 @@ Scenario: Check that each item can be checked off
 	And I click on the second ingredient
 	And I click on the first ingredient
 	Then I expect the second ingredient to be checked
-
-	

@@ -171,9 +171,9 @@ function loadSearchHistory() {
 		    				
 		    			}
 		    			
-		    			var link = "http://localhost:8080/FeedMe/results?q=" + query + "&n=" + numResults + "&radiusInput=" + radius + "&pageNumber=1";
+		    			var link = "http://localhost:8080/FeedMe/results?q=" + query + "&n=" + numResults + "&radiusInput=" + radius + "&pageNumber=1&fromSearch=true";
 		    					
-		    			var newHTML = "<div class=\"search_cont\" id=\"quickAccessResult" + i + "\" + onclick=\"window.location.href=\'" + link + "\'\"> " +
+		    			var newHTML = "<div class=\"search_cont\" id=\"quickAccessResult" + i + "\" + onclick=\"redirect(\'" + link + "\')\"> " +
 											"<div class=\"pastSearchGallery\">";
 		    			for(var j = 0; j <imgLinks.length; j++ ) {
 		    				newHTML = newHTML + "<figure class=\"gallery_item gallery_item_" + j + "\">" +
@@ -237,7 +237,30 @@ function addToSearchHistory() {
 	    	},
 	    })
 		
-	}
-    
+	}   
+}
+
+function redirect(link) {
+	console.log("in redirect")
+	var oldLink = window.location.href;
+	var url = new URL(oldLink);
+	var searchQuery = url.searchParams.get("q");
+	var numResults = url.searchParams.get("n");
+	var radius = url.searchParams.get("radiusInput");
+	
+	$.ajax({
+    	type: "POST",
+    	url: "/FeedMe/AddSearchHistory",
+    	async: true,
+    	data: {
+			username: sessionStorage.getItem("username"),
+			searchQuery: searchQuery,
+			numResults: numResults,
+			radius: radius
+    	},
+    	success: function(result) {
+    		window.location.href = link;
+    	},
+    })
 }
 
