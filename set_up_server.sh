@@ -27,6 +27,8 @@ keytool -export -keystore /root/.keystore -alias tomcat -file keyCertificate.crt
 sudo cp keyCertificate.crt /usr/local/share/ca-certificates/keyCertificate.crt
 sudo update-ca-certificates
 
+sudo chmod -R a+wrx /root
+sudo chmod a+wrx /root/.keystore
 
 sudo cp server.xml /opt/tomcat/conf/server.xml
 
