@@ -7,6 +7,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
 import java.util.Objects;
 
 import javax.servlet.ServletException;
@@ -26,6 +29,17 @@ public class ValidateLoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		//From previous page, extract parameters
 		Database db;
+		
+		Enumeration<String> attrNames1 = session.getAttributeNames();
+		ArrayList<String> attrNames = new ArrayList<String>();
+		
+		if(attrNames1 !=null) {
+			attrNames = Collections.list(attrNames1); 
+		for (String attr : attrNames) {
+				session.removeAttribute(attr);
+			}
+		}
+		
 		
 		String username = request.getParameter("username");
 		session.setAttribute("username", username);

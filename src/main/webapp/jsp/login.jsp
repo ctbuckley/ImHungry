@@ -18,7 +18,7 @@
 </head>
 
 <!-- Html body -->
-<body style="background-color:#ffffff;">
+<body onload="clearStorage()" style="background-color:#ffffff;">
 	<div class="container">
   		<div class="text-center align-middle hungry_cont">
   			<h1 id="hungryText">ImHungry</h1>

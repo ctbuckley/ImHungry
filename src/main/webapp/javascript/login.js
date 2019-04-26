@@ -6,6 +6,10 @@ function noSignIn() {
 	window.location.href = "http://localhost:8080/FeedMe/search"
 }
 
+function clearStorage() {
+	sessionStorage.clear();
+}
+
 function validate() {
 	
 	var username = document.getElementById("usernameInput").value;

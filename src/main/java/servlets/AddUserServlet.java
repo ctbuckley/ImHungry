@@ -7,6 +7,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,6 +27,17 @@ public class AddUserServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Database db;
+		
+		
+		Enumeration<String> attrNames1 = session.getAttributeNames();
+		ArrayList<String> attrNames = new ArrayList<String>();
+		
+		if(attrNames1 !=null) {
+			attrNames = Collections.list(attrNames1); 
+		for (String attr : attrNames) {
+				session.removeAttribute(attr);
+			}
+		}
 		
 		//From previous page, extract parameters
 		String username = request.getParameter("username");
