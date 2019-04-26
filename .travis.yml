@@ -26,9 +26,9 @@ matrix:
       install:
         - sudo bash set_up_database.sh
         - sudo bash set_up_server.sh
-        - sudo cat /opt/tomcat/logs/catalina.out
         - mvn -Dmaven.test.skip=true package
         - sudo bash deploy_application.sh
+        - sudo cat /opt/tomcat/logs/catalina.out
 
       before_script: 
         - cd /home/travis/build/AlexColello/CS310GroupC/src/test/ImHungryCucumber
