@@ -82,3 +82,20 @@ Scenario: Check that each item can be checked off
 	And I click on the second ingredient
 	And I click on the first ingredient
 	Then I expect the second ingredient to be checked
+
+Scenario: Check that duplicate items in the lists merge
+	When I enter "chicken" in the search box
+	And I enter "1" in the search number box
+	And I enter "2" in the radius input field
+	And press search
+	And I view the first recipe
+	And I click on the first ingredient
+	And I add selected ingredients to the grocery list
+	And I click on the grocery link
+	Then I should see the first ingredient in the grocery list
+	When I go back to the results page
+	And I view the first recipe
+	And I click on the first ingredient
+	And I add selected ingredients to the grocery list
+	And I click on the grocery link
+	Then I should see the first ingredient with twice the amount in the grocery list

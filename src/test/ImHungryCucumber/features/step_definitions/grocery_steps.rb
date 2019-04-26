@@ -80,3 +80,16 @@ Then(/^I expect the second ingredient to be checked$/) do
     expect(page.find("input#customCheck1")).to be_checked
     expect(page.find("input#customCheck0")).not_to be_checked
 end
+
+When(/^I go back to the results page$/) do
+    page.find_by_id("navToggler").click();
+    page.find_by_id("backToResults").click()
+end
+
+Then(/^I should see the first ingredient with twice the amount in the grocery list$/) do
+    expect(page).to have_content(($firstIngredient.scan(/\d/).join('').to_i * 2).to_s)
+end
+
+
+
+
