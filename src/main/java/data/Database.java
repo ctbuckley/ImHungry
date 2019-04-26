@@ -587,18 +587,63 @@ public class Database {
 		
 	}
 	
-	public int insertIngredientintoGrocery(int userID, String ingredient) throws SQLException{
-		ps = conn.prepareStatement("INSERT INTO Grocery (userID, ingredientName, checked) "
-				+ "VALUES (?, ?, ?);");
+	public int getGroceryItemQuantity(int userID, String ingredient) throws SQLException{
+		ps = conn.prepareStatement("SELECT * FROM Grocery WHERE userID=? AND ingredientName=?");
 		ps.setInt(1, userID);
-		ps.setString(2,  ingredient);
-		ps.setInt(3,  0);
-		ps.executeUpdate();
-		
-		ps = conn.prepareStatement("SELECT MAX(groceryID) FROM Grocery");
+		ps.setString(2, ingredient);
 		ResultSet rs = ps.executeQuery();
-		rs.next();
-		return rs.getInt("MAX(groceryID)");
+		int quantity = -1;
+		if(rs.next()) {
+			quantity = rs.getInt("quantity");
+		}
+		return quantity;
+	}
+	
+	public int getGroceryItemID(int userID, String ingredient) throws SQLException{
+		ps = conn.prepareStatement("SELECT * FROM Grocery WHERE userID=? AND ingredientName=?");
+		ps.setInt(1, userID);
+		ps.setString(2, ingredient);
+		ResultSet rs = ps.executeQuery();
+		if(rs.next()) {
+			return rs.getInt("groceryID");
+		}
+		return -1;
+	}
+	
+	public int insertIngredientintoGrocery(int userID, String ingredient) throws SQLException{
+		
+		int quantity = this.getGroceryItemQuantity(userID, ingredient);
+		
+		if(quantity==-1) {
+			//insert a new item
+			ps = conn.prepareStatement("INSERT INTO Grocery (userID, ingredientName, checked, quantity) "
+					+ "VALUES (?, ?, ?, ?);");
+			ps.setInt(1, userID);
+			ps.setString(2,  ingredient);
+			ps.setInt(3,  0);
+			ps.setInt(4, 1);
+			
+			ps.executeUpdate();
+			
+			ps = conn.prepareStatement("SELECT MAX(groceryID) FROM Grocery");
+			ResultSet rs2 = ps.executeQuery();
+			rs2.next();
+			return rs2.getInt("MAX(groceryID)");
+			
+		} else {
+			//update a current item
+			ps = conn.prepareStatement("UPDATE Grocery " + 
+					"SET quantity=? " + 
+					"WHERE userID=? AND ingredientName=? ");
+			ps.setInt(1, ++quantity);
+			ps.setInt(2, userID);
+			ps.setString(3, ingredient);
+			
+			ps.executeUpdate();
+			
+			return this.getGroceryItemID(userID, ingredient);
+		}
+
 	}
 	
 	public void deleteIngredientfromGrocery(int userID, String ingredient) throws SQLException {
