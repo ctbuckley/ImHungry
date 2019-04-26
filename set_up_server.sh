@@ -22,7 +22,7 @@ cd /home/travis/build/AlexColello/CS310GroupC/
 
 /usr/bin/keytool -genkey -alias tomcat -keyalg RSA < key_input.txt
 
-keytool -export -keystore .keystore -alias tomcat -file keyCertificate.crt < key_input.txt
+keytool -export -keystore /home/travis/build/AlexColello/.keystore -alias tomcat -file keyCertificate.crt < key_input.txt
 sudo cp keyCertificate.crt /usr/local/share/ca-certificates/keyCertificate.crt
 sudo update-ca-certificates
 
