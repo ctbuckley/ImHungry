@@ -13,7 +13,7 @@ import com.google.gson.JsonParser;
 
 public class GoogleDirections {
 	
-	private final static String apiKey = "AIzaSyCVTgss5eiM_qBXwsnz_UgVK4d-FWiXZIM";
+	private final static String apiKey = "AIzaSyB1dG3sx6ViBzfuYrTzF_XuCNUVE4dVXdk";
 	
 	// Returns the driving time in seconds from one point to another.
 	public static int getDrivingTime(double startLatitude, double startLongitude, double endLatitude, double endLongitude) throws IOException {
