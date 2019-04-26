@@ -7,8 +7,10 @@ import static org.mockito.Mockito.when;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Vector;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +29,6 @@ import com.google.gson.JsonParser;
 import data.Config;
 import data.Database;
 import servlets.AddUserServlet;
-import servlets.ValidateLoginServlet;
 
 /*
  *  Tests for the AddUserServlet class.
@@ -46,6 +47,8 @@ public class AddUserServletTest {
 	
 	Database db;
 	StringWriter out;
+	
+	static int counter = 0;
 
 	@Before
 	public void setUp() throws ClassNotFoundException, SQLException, IOException {
@@ -55,12 +58,26 @@ public class AddUserServletTest {
 		
 		request = mock(HttpServletRequest.class);
 		response = mock(HttpServletResponse.class);
-		session = mock(HttpSession.class);
+		
 		rd = mock(RequestDispatcher.class);
 		out = new StringWriter();
 		
 		when(response.getWriter()).thenReturn(new PrintWriter(out));
-		when(request.getSession()).thenReturn(session);
+		
+		counter = counter + 1;
+		
+		if (counter == 1) {
+			session = mock(HttpSession.class);
+			when(request.getSession()).thenReturn(session);
+		} else {
+			session = mock(HttpSession.class);
+	    	when(session.getAttribute("test")).thenReturn(0);
+	    	Vector<String> vec = new Vector<String>(1);
+	    	vec.add("item");
+	    	Enumeration<String> value = vec.elements();
+	    	when(session.getAttributeNames()).thenReturn(value);
+			when(request.getSession()).thenReturn(session);
+		}
 		
 	}
 
@@ -229,7 +246,7 @@ public class AddUserServletTest {
     	when(request.getParameter("username")).thenReturn("testUser");
     	when(request.getParameter("pass")).thenReturn("root");
     	
- 
+    	
        String tempAlgo = Config.hashAlgo;
        
        Config.hashAlgo = "garbage";

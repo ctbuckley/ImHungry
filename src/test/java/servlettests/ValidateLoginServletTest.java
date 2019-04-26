@@ -7,6 +7,8 @@ import static org.mockito.Mockito.when;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.ResultSet;
+import java.util.Enumeration;
+import java.util.Vector;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -41,6 +43,8 @@ public class ValidateLoginServletTest {
 
 	@Mock
 	RequestDispatcher rd;
+	
+	static int counter = 0;
 
 	@Before
 	public void setUp() {
@@ -48,11 +52,25 @@ public class ValidateLoginServletTest {
 		
 		request = mock(HttpServletRequest.class);
 		response = mock(HttpServletResponse.class);
-		session = mock(HttpSession.class);
 		rd = mock(RequestDispatcher.class);
 		
+		counter += 1;
 		
-		when(request.getSession()).thenReturn(session);
+		if (counter == 1) {
+			session = mock(HttpSession.class);
+			when(request.getSession()).thenReturn(session);
+		} else {
+			session = mock(HttpSession.class);
+	    	when(session.getAttribute("test")).thenReturn(0);
+	    	Vector<String> vec = new Vector<String>(1);
+	    	vec.add("item");
+	    	Enumeration<String> value = vec.elements();
+	    	when(session.getAttributeNames()).thenReturn(value);
+			when(request.getSession()).thenReturn(session);
+		}
+
+		
+		
 		
 	}
 
