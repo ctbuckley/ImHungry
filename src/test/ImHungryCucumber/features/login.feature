@@ -81,13 +81,37 @@ Scenario: Check that search persist when the user logs out
     When I search for "chicken" with "1" results and a radius of "2" miles
     Then I should see 1 history result
 
-Scenario: Check that the user lists persist when the user logs out
+Scenario: Check that the Favorite lists persist when the user logs out
     Given I am logged in
     When I search for "ramen" with "1" results and a radius of "2" miles
     And I add a recipe to Favorite list
     When I log out and log back in as the same user
     And I search for "chicken" with "1" results and a radius of "2" miles
     And I go to Favorite list management page
+    Then there is a recipe name in the card
+    Then there is recipe stars
+    Then there is cook time
+    Then there is prep time
+
+Scenario: Check that the Do Not Show lists persist when the user logs out
+    Given I am logged in
+    When I search for "ramen" with "1" results and a radius of "2" miles
+    And I add the first recipe to Do Not Show list
+    When I log out and log back in as the same user
+    And I search for "chicken" with "1" results and a radius of "2" miles
+    And I go to Do Not Show list management page
+    Then there is a recipe name in the card
+    Then there is recipe stars
+    Then there is cook time
+    Then there is prep time
+
+Scenario: Check that the To Explore lists persist when the user logs out
+    Given I am logged in
+    When I search for "ramen" with "1" results and a radius of "2" miles
+    And I add a recipe to To Explore list
+    When I log out and log back in as the same user
+    And I search for "chicken" with "1" results and a radius of "2" miles
+    And I go to To Explore list management page
     Then there is a recipe name in the card
     Then there is recipe stars
     Then there is cook time
@@ -118,5 +142,6 @@ Scenario: Check that grocery list items persist
 	And I click on the second ingredient
 	And I expect the second ingredient to be checked
     When I log out and log back in as the same user
+    And I search for "chicken" with "1" results and a radius of "2" miles
     And I click on the grocery link
     Then I expect the second ingredient to be checked

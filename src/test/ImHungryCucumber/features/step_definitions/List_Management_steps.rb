@@ -15,10 +15,45 @@ Given(/^I am on the Search Page$/) do
   page.find_by_id("backToResults").click()
  end
 
+ When(/^I add a restaurant to Do Not Show list$/) do
+  sleep(1)
+  page.find_by_id("Restaurant0").click()
+  page.select 'Do Not Show', from: "dropDownBar"
+  sleep(1)
+  page.find_by_id("addToList").click()
+  sleep(1)
+  page.find_by_id("backToResults").click()
+ end
+
+ When(/^I add a restaurant to To Explore list$/) do
+  sleep(1)
+  page.find_by_id("Restaurant0").click()
+  page.select 'To Explore', from: "dropDownBar"
+  sleep(1)
+  page.find_by_id("addToList").click()
+  sleep(1)
+  page.find_by_id("backToResults").click()
+ end
+
  When(/^I add a recipe to Favorite list$/) do
   sleep(1)
   page.find_by_id("Recipe0").click()
   page.select 'Favorites', from: "dropDownBar"
+  page.find_by_id("addToList").click()
+  page.find_by_id("backToResults").click()
+ end
+
+ When(/^I add the first recipe to Do Not Show list$/) do
+  sleep(1)
+  page.find_by_id("Recipe0").click()
+  page.select 'Do Not Show', from: "dropDownBar"
+  page.find_by_id("addToList").click()
+ end
+
+ When(/^I add a recipe to To Explore list$/) do
+  sleep(1)
+  page.find_by_id("Recipe0").click()
+  page.select 'To Explore', from: "dropDownBar"
   page.find_by_id("addToList").click()
   page.find_by_id("backToResults").click()
  end

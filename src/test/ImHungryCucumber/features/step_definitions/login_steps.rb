@@ -16,6 +16,7 @@ Given(/^I am logged in$/) do
 end
 
 When(/^I log out and log back in as the same user$/) do
+	sleep(5)
 	page.find_by_id("navToggler").click();
     page.find_by_id('userButton').click();
 	username = "user" + $current_user.to_s
