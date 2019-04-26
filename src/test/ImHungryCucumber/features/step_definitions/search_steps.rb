@@ -100,6 +100,7 @@ Then(/^I should see 2 history results$/) do
 end
 
 Then(/^I click on the first item in the quick access list$/) do
+  sleep(1)
   page.find_by_id("quickAccessResult0").click()
 end
 
@@ -114,4 +115,8 @@ end
 Then(/^I need to scroll to see the third search history item$/) do
   page.execute_script("arguments[0].scrollIntoView()", page.find_by_id("quickAccessResult2"), visible: false)
   expect(page.find_by_id("quickAccessResult0"))
+end
+
+Then(/^I click on the third item in the quick access list$/) do
+  page.find_by_id("quickAccessResult2").click()
 end

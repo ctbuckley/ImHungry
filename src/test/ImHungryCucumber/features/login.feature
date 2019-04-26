@@ -145,3 +145,4 @@ Scenario: Check that grocery list items persist
     And I search for "chicken" with "1" results and a radius of "2" miles
     And I click on the grocery link
     Then I expect the second ingredient to be checked
+    

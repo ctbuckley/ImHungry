@@ -129,4 +129,6 @@ Scenario: Check that there is a horizontal scroll bar for the past searches
 	And I enter "1" in the search number box
 	And I enter "2" in the radius input field
 	And press search
-	Then I need to scroll to see the third search history item
+	And I need to scroll to see the third search history item
+	And I click on the third item in the quick access list
+	Then I should see results for "burger"
