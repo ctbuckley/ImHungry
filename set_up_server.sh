@@ -21,8 +21,11 @@ echo -e "<?xml version='1.0' encoding='cp1252'?>\n<tomcat-users xmlns=\"http://t
 cd /home/travis/build/AlexColello/CS310GroupC/
 
 /usr/bin/keytool -genkey -alias tomcat -keyalg RSA < key_input.txt
-pwd ~
-ls -a ~
+
+keytool -export -keystore .keystore -alias tomcat -file keyCertificate.crt < "password\n"
+sudo cp keyCertificate.crt /usr/local/share/ca-certificates/keyCertificate.crt
+sudo update-ca-certificates
+
 
 sudo cp server.xml /opt/tomcat/conf/server.xml
 
