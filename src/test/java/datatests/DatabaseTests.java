@@ -235,7 +235,7 @@ public class DatabaseTests {
 		assertEquals((Integer)favIDs.get(3), (Integer)itemID8);
 		
 		//cleanup database
-		
+		db.deleteItemfromList(userID, -2, "Favorites");
 		db.deleteItemfromList(userID, itemID1, "Favorites");
 		db.deleteItemfromList(userID, itemID2, "To Explore");
 		db.deleteItemfromList(userID, itemID3, "Do Not Show");
@@ -260,7 +260,7 @@ public class DatabaseTests {
 	@Test
 	public void databaseGroceryTest() throws Exception {
 		
-		db.insertIngredientintoGrocery(userID, "2.5 lbs of chicken");
+		db.insertIngredientintoGrocery(userID, "2 1/2 lbs of chicken");
 		db.insertIngredientintoGrocery(userID, "1/2 cup of soymilk"); 
 		db.insertIngredientintoGrocery(userID, "2 eggs");
 		db.insertIngredientintoGrocery(userID, "3 cups of flour");
@@ -270,6 +270,19 @@ public class DatabaseTests {
 		assertEquals(4, results.size());
 		assertEquals("2 eggs", results.get(2));
 		assertEquals(0, db.getCheckonGroceryItem(userID, "2 eggs"));
+		
+		int grocID1 = db.getGroceryItemID(userID, "2 1/2 lbs of chicken");
+		int grocID2 = db.getGroceryItemID(userID, "grocery item that does not exist");
+		assertNotEquals(-1, grocID1);
+		assertEquals(-1, grocID2);
+		
+		int quant1 = db.getGroceryItemQuantity(userID, "2 1/2 lbs of chicken");
+		int quant2 = db.getGroceryItemQuantity(userID, "grocery item that does not exist");
+		assertEquals(1, quant1);
+		assertEquals(-1, quant2);
+		db.insertIngredientintoGrocery(userID, "2 1/2 lbs of chicken");
+		quant1 = db.getGroceryItemQuantity(userID, "2 1/2 lbs of chicken");
+		assertEquals(2, quant1);
 		
 		db.changeCheckonGroceryItem(userID, "2 eggs");
 		db.changeCheckonGroceryItem(userID, "1/2 cup of soymilk");
@@ -287,7 +300,7 @@ public class DatabaseTests {
 		results = db.getGroceryListforUser(userID);
 		assertEquals("2 eggs", results.get(1));
 
-		db.deleteIngredientfromGrocery(userID, "2.5 lbs of chicken");
+		db.deleteIngredientfromGrocery(userID, "2 1/2 lbs of chicken");
 		db.deleteIngredientfromGrocery(userID, "2 eggs");
 		db.deleteIngredientfromGrocery(userID, "3 cups of flour");
 		

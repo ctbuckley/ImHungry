@@ -74,6 +74,7 @@ CREATE TABLE Grocery(
     userID INT(11) NOT NULL,
     ingredientName VARCHAR(500) NOT NULL,
     checked INT(11) NOT NULL,
+    quantity INT(11) NOT NULL,
     FOREIGN KEY fk6(userID) REFERENCES Users(userID)
 );
 
