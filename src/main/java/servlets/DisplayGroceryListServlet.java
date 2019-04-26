@@ -25,7 +25,7 @@ public class DisplayGroceryListServlet extends HttpServlet {
 		String username = (String)session.getAttribute("username");
 		
 		String[] groceryList = new String[0];
-		String[] check = new String[0];
+		Integer[] check = new Integer[0];
 
 		try {
 			Database db = new Database();
@@ -48,7 +48,7 @@ public class DisplayGroceryListServlet extends HttpServlet {
 			}
 			
 			groceryList = new String[currentGroceryItems.size()];
-			check = new String[checked.size()];
+			check = new Integer[checked.size()];
 			currentGroceryItems.toArray(groceryList);
 			checked.toArray(check);
 	
