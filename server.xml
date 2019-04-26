@@ -89,7 +89,7 @@
            protocol="org.apache.coyote.http11.Http11NioProtocol"
            port="8443" maxThreads="200"
            scheme="https" secure="true" SSLEnabled="true"
-           keystoreFile="/home/travis/build/AlexColello/.keystore" keystorePass="password"
+           keystoreFile="/root/.keystore" keystorePass="password"
            clientAuth="false" sslProtocol="TLS">
            </Connector>
     <!--
