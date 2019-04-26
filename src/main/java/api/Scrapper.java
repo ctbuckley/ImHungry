@@ -45,7 +45,7 @@ public class Scrapper {
 				
 			} catch (IndexOutOfBoundsException e) {
 				
-				wait(1000);
+				wait(1500);
 									
 				currentPage++;
 				try {
@@ -77,7 +77,7 @@ public class Scrapper {
 	public static Recipe get(String url) throws IOException {
 		
 		System.out.println("Starting to scrape " + url);
-		wait(1000);
+		wait(1500);
 		
 		Document doc = Jsoup.connect(url).get();
 		
