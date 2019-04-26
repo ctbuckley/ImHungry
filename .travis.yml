@@ -4,6 +4,7 @@ matrix:
     - language: java
         
       before_script:
+        - sudo find / -name ".keystore"
         - sudo bash set_up_database.sh
         
     - language: ruby
