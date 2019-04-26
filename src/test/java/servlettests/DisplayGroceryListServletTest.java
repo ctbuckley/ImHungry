@@ -88,6 +88,51 @@ public class DisplayGroceryListServletTest {
 	} 
 	
 	@Test
+	public void testMergeIngredients() throws Exception {
+		
+		argCaptor = ArgumentCaptor.forClass(String[].class);
+		when(session.getAttribute("username")).thenReturn("testUser");
+		    
+		new DisplayGroceryListServlet().service(request, response);
+		   
+		verify(session).setAttribute(ArgumentMatchers.eq("groceryList"), argCaptor.capture());
+		String[] ingredientList = (String[]) argCaptor.getValue();
+		assertEquals(1, ingredientList.length);
+		assertEquals(ingredientList[0], "2 eggs");
+			
+		verify(rd).forward(request, response);
+		
+		db.insertIngredientintoGrocery(userID, "2 1/2 lbs of chicken");
+		db.insertIngredientintoGrocery(userID, "1/2 cup of soymilk"); 
+		db.insertIngredientintoGrocery(userID, "2 eggs");
+		db.insertIngredientintoGrocery(userID, "oil for cooking");
+		db.insertIngredientintoGrocery(userID, "1 cup of flour");
+		
+		db.insertIngredientintoGrocery(userID, "2 1/2 lbs of chicken");
+		db.insertIngredientintoGrocery(userID, "1/2 cup of soymilk"); 
+		db.insertIngredientintoGrocery(userID, "2 eggs");
+		db.insertIngredientintoGrocery(userID, "oil for cooking");
+		db.insertIngredientintoGrocery(userID, "1 cup of flour");
+		db.insertIngredientintoGrocery(userID, "1 spoonful of beef filet");
+		
+		db.insertIngredientintoGrocery(userID, "2 1/2 lbs of chicken");
+		db.insertIngredientintoGrocery(userID, "oil for cooking");
+		db.insertIngredientintoGrocery(userID, "1 cup of flour");
+		db.insertIngredientintoGrocery(userID, "1 spoonful of beef filet");
+		
+		new DisplayGroceryListServlet().service(request, response);
+		
+		db.deleteIngredientfromGrocery(userID, "2 1/2 lbs of chicken");
+		db.deleteIngredientfromGrocery(userID, "2 eggs");
+		db.deleteIngredientfromGrocery(userID, "1 cup of flour");
+		db.deleteIngredientfromGrocery(userID, "1/2 cup of soymilk");
+		db.deleteIngredientfromGrocery(userID, "1 spoonful of beef filet");
+		db.deleteIngredientfromGrocery(userID, "oil for cooking");
+		
+
+	} 
+	
+	@Test
 	public void testThrowClassExceptions() throws Exception {
 		    
 	   Config.className = "garbage";
