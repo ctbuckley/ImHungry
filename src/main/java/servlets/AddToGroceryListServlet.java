@@ -32,11 +32,8 @@ public class AddToGroceryListServlet extends HttpServlet {
 		try {
 			Database db = new Database();
 			int userID = db.getUserfromUsers(username);
-			ArrayList<String> currentGroceryItems = db.getGroceryListforUser(userID);
 			for(int i = 0; i < groceryListItems.size(); i++) {
-					if (!currentGroceryItems.contains(groceryListItems.get(i))) {
-						db.insertIngredientintoGrocery(userID, groceryListItems.get(i));
-					}
+				db.insertIngredientintoGrocery(userID, groceryListItems.get(i));
 			}
 			
 	
