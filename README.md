@@ -1,5 +1,3 @@
-# I'm Hungry
-
 ## I'm Hungry is a Web Application that finds recipes and local restaurants for a food search term!
 ### Users can specify a food item to search for as well as a radius and number of items to search for
 # ![I'm Hungry](https://github.com/ctbuckley/ImHungry/blob/master/310-Documentation/search_page.png)
